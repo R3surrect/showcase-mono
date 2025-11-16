@@ -1,0 +1,15 @@
+@import '@global/styles/variables.css';
+
+.layout-container {
+    display: grid;
+    grid-template-areas:
+        "header header"
+        "sidebar breadcrumbs"
+        "sidebar content";
+    grid-template-columns: [sidebar] 12vw [header] 1fr;
+    grid-template-rows: [header] var(--header-height) 
+                        [breadcrumbs] var(--breadcrumbs-height)
+                        [content] 1fr;
+    position: relative;
+    min-height: 100vh;
+}
