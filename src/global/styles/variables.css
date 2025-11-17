@@ -25,7 +25,7 @@
   --category-social: #48FAF5;
   
   /* Text Hierarchy */
-  --text-primary: #1a2a1e;
+  --text-primary: #ffffff;
   --text-secondary: #2d3d31;
   --text-tertiary: #4a5a4e;
   --text-inverted: #fefefe;
@@ -33,7 +33,7 @@
   
   /* Borders & Dividers */
   --border-primary: #A3B0C2;
-  --border-secondary: rgba(26, 42, 30, 0.08);
+  --border-secondary: #1a2a1e14;
   
   /* Component Specific - layout использует светлый bg-surface */
   --sidebar-bg: var(--bg-surface);
@@ -52,8 +52,9 @@
   --shadow-md: 0 6px 12px rgba(26, 42, 30, 0.12);
 
   /* Shadows */
-  --header-shadow-black: 0px 8px 60px 20px rgba(26, 42, 30, 0.18);
-  --sidebar-shadow-black: 12px 0px 50px -15px rgba(26, 42, 30, 0.15);
+  --header-shadow: 0px 8px 60px 20px rgba(26, 42, 30, 0.2);
+  --sidebar-shadow: 12px 0px 50px -15px rgba(26, 42, 30, 0.15);
+  --content-blocks-shadow: 0px 1px 8px 2px rgba(34, 59, 79, 0.3);
 
   /* Смещение сайдабара на высоту хедера */
   --header-height: 5vh;
@@ -63,7 +64,12 @@
   --breadcrumbs-bg: var(--border-primary);
 
   --sidebar-link-inactive: var(--border-primary);
-  --sudebar-link-active: var(--text-menu);
+  --sidebar-link-active: var(--text-menu);
   
   --global-font-family: 'Helvetica Neue', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+
+  /** Adaptive padding/margin */
+
+  --content-padding: min(1rem, 5%);
+  --surface-padding: min(0.5rem, 2%);
 }

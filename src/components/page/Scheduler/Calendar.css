@@ -1,4 +1,29 @@
-.calendar {
+@import url('@global/styles/variables.css');
+
+.calendar__content {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, clamp(56px, 3vh, 20%));
+}
+
+.calendar__cell {
+    background: var(--bg-surface);
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 24px;
+    min-height: 24px;
+}
+.calendar__cell:nth-child(1) {
+    border-top-left-radius: 10px;
+}
+.calendar__cell:nth-child(7) {
+    border-top-right-radius: 10px;
+}
+.calendar__cell:nth-child(28):last-child {
+    border-bottom-right-radius: 10px;
+}
+.calendar__cell:nth-child(29){
+    border-bottom-left-radius: 10px;
 }

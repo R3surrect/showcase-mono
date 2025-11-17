@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
                                 // семантическая пометка для Вспомогательных технологий
                                 >
                                     <Icon size={20} strokeWidth={3} color={location.pathname === path
-                                        ? 'var(--sudebar-link-active)'
+                                        ? 'var(--sidebar-link-active)'
                                         : 'var(--sidebar-link-inactive)'
                                     }/>
                                     

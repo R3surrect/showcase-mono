@@ -50,7 +50,7 @@
 .sidebar__link--active,
 .sidebar__link:focus {
     outline: none;
-    border-left: 3px solid var(--sudebar-link-active);
+    border-left: 3px solid var(--sidebar-link-active);
 }
 
 .sidebar__link--active>span {
