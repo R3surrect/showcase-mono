@@ -10,9 +10,11 @@ const Calendar: React.FC = () => {
                 Month
             </div>
             <div className="calendar__content">
-                {Array.from({ length: 31 }, (_, i) => (
-                    <div className='calendar__cell' key={i + 1}>{i + 1}</div>
-                ))}
+                {
+                    Array.from({ length: 31 }, (_, i) => (
+                        <div className='calendar__cell' key={i + 1}>{i + 1}</div>
+                    ))
+                }
             </div>
         </Surface>
     );

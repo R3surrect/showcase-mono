@@ -11,8 +11,15 @@ body,
 html {
     height: 100%;
     font-family: var(--global-font-family);
+    scroll-behavior: smooth;
 }
 
 body {
     background: var(--bg-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
 }

@@ -1,8 +1,13 @@
 @import url('@global/styles/variables.css');
+@import url('@global/styles/breakpoints.css');
 
 .surface {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--content-blocks-shadow);
     background: var(--border-secondary);
+    padding: 1rem;
 }
+
+.surface > * { padding: 0.5rem 0 }
+
