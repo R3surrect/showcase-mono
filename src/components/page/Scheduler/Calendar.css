@@ -1,21 +1,40 @@
 @import url('@global/styles/variables.css');
 
+.calendar__header {
+    display: flex;
+    justify-content: space-around;
+}
+
 .calendar__content {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(5, clamp(56px, 3vh, 20%));
+    gap: 5px;
 }
 
 .calendar__cell {
+    cursor: pointer;
     background: var(--bg-surface);
     padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 24px;
+    min-width: 24   px;
     min-height: 24px;
+    transition: .1s;
+    border: 2px solid var(--border-primary);
+    color: var(--border-primary);
+    border-radius: 4px;
 }
-.calendar__cell:nth-child(1) {
+
+.calendar__cell--today {
+    border: 2px solid var(--text-menu);
+    color: var(--text-menu);
+}
+
+/* .calendar__cell:hover {} */
+
+/* .calendar__cell:nth-child(1) {
     border-top-left-radius: 10px;
 }
 .calendar__cell:nth-child(7) {
@@ -26,4 +45,4 @@
 }
 .calendar__cell:nth-child(29){
     border-bottom-left-radius: 10px;
-}
+} */
