@@ -4,7 +4,6 @@
   --bg-primary: #e7f0eb;           /* контентная часть - тёмный зеленоватый */
   --bg-secondary: #b8d0c4;         /* более тёмный secondary для контента */
   --bg-surface: #f8fcf8;           /* layout (header/sidebar) - светлый почти белый */
-  --bg-overlay: #f8fcf8;
   
   /* Interactive Elements - Основной #48FAB9 */
   --interactive-primary: #48FAB9;
@@ -25,22 +24,29 @@
   --category-social: #48FAF5;
   
   /* Text Hierarchy */
-  --text-primary: #ffffff;
-  --text-secondary: #2d3d31;
-  --text-tertiary: #4a5a4e;
-  --text-inverted: #fefefe;
+  --text-primary: #e7e7e7;
+  --text-secondary: #2d3d31;  
   --text-menu: #40ad8b;
+  /* --color-accent: #4CC7A6; */
   
   /* Borders & Dividers */
   --border-primary: #A3B0C2;
-  --border-secondary: #1a2a1e14;
+  --border-secondary: rgba(26, 42, 30, 0.1);
   
   /* Component Specific - layout использует светлый bg-surface */
   --sidebar-bg: var(--bg-surface);
   --sidebar-border: var(--border-primary);
+
   --header-bg: var(--bg-surface);
   --header-border: var(--border-primary);
   
+  --header-height: 5vh;
+  --header-min-height: 40px;
+
+  --breadcrumbs-height: 5vh;
+  --breadcrumbs-min-height: 32px;
+  --breadcrumbs-bg: var(--border-primary);
+
   /* Interactive States */
   --hover-overlay: #F2F2F2;
   --active-overlay: rgba(72, 250, 185, 0.18);
@@ -57,11 +63,6 @@
   --content-blocks-shadow: 0px 1px 8px 2px rgba(34, 59, 79, 0.3);
 
   /* Смещение сайдабара на высоту хедера */
-  --header-height: 5vh;
-  --header-min-height: 40px;
-  --breadcrumbs-height: 5vh;
-  --breadcrumbs-min-height: 32px;
-  --breadcrumbs-bg: var(--border-primary);
 
   --sidebar-link-inactive: var(--border-primary);
   --sidebar-link-active: var(--text-menu);
@@ -72,4 +73,6 @@
 
   --content-padding: min(1rem, 5%);
   --surface-padding: min(0.5rem, 2%);
+
+  --calendar-cell-shadow: 0px 0px 5px 3px rgba(34, 60, 80, 0.2); 
 }

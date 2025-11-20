@@ -5,7 +5,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--content-blocks-shadow);
-    background: var(--border-secondary);
+    background: var(--bg-surface);
     padding: 1rem;
 }
 
