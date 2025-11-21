@@ -7,8 +7,19 @@ const getDaysInMonth = (year: number, month: number): number => new Date(year, m
 const getParameterizedDate = (year: number, month: number, day: number): Date => new Date(year, month, day);
 const getDateToView = (date: Date): string => `${date.getFullYear()} ${date.getMonth()}`;
 
+const getCalendarData = (date: Date): Date => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    
+    const lastDayPrevMonth = new Date(year, month, 0);
+    const lastMonday = new Date(lastDayPrevMonth);
+    
+    lastMonday.setDate(lastDayPrevMonth.getDate() - ((lastDayPrevMonth.getDay() - 1 + 7) % 7));
+    
+    return lastMonday;
+}
+
 const Calendar: React.FC = () => {
-    // TODO useEffect для фетча data с тасками юзера -> при клике вызов availableTasks с отображением в контентном блоке
     const [selectedDate, setSelectedDate] = useState(new Date());
     const today = new Date();
 
