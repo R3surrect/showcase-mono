@@ -1,5 +1,8 @@
 @import url('@global/styles/variables.css');
 
+.calendar__surface {
+    grid-area: calendar;
+}
 .calendar__header {
     display: flex;
     justify-content: space-around;
@@ -11,6 +14,7 @@
     display: flex;
     justify-content: space-evenly;
     font-size: 24px;
+    height: 2rem;
     color: var(--text-menu);
 }
 
@@ -26,7 +30,6 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 24px;
     font-weight: 500;
-    cursor: pointer;
     background: var(--bg-surface);
     padding: 1rem;
     display: flex;
@@ -44,6 +47,7 @@
 .calendar__cell:hover:not(.calendar__week-cell){
     box-shadow: var(--calendar-cell-shadow);
     border-color: var(--text-menu);
+    cursor: pointer;
 }
 
 .calendar__cell--today {
@@ -76,4 +80,5 @@
 .calendar__cell--selected {
     background-color: var(--text-menu);
     color: var(--text-primary);
+    border: none;
 }

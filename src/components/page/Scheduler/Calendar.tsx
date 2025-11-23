@@ -1,68 +1,89 @@
+import { useEffect, useState } from 'react';
 import { ChevronLeftCircle, ChevronRightCircle } from 'lucide-react';
 import Surface from '@/components/ui/Surface/Surface';
 import './Calendar.css';
-import { useState } from 'react';
 
-const getDaysInMonth = (year: number, month: number): number => new Date(year, month + 1, 0).getDate();
-const getParameterizedDate = (year: number, month: number, day: number): Date => new Date(year, month, day);
-const getDateToView = (date: Date): string => `${date.getFullYear()} ${date.getMonth()}`;
+const getDateToView = (date: Date): string => `${date.getFullYear()} ${date.getMonth() + 1}`;
 
-const getCalendarData = (date: Date): Date => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    
-    const lastDayPrevMonth = new Date(year, month, 0);
+//* Функция получения дня начала внесения в календарь
+const getCalendarCells = (date: Date): Date => {
+
+    const lastDayPrevMonth = new Date(date.getFullYear(), date.getMonth(), 0);
     const lastMonday = new Date(lastDayPrevMonth);
-    
+
     lastMonday.setDate(lastDayPrevMonth.getDate() - ((lastDayPrevMonth.getDay() - 1 + 7) % 7));
-    
+
     return lastMonday;
 }
 
+
 const Calendar: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const today = new Date();
+    const [calendarViewDate, setCalendarViewDate] = useState(new Date());
+
+    const firstCalendarDay = getCalendarCells(selectedDate);
+
+    //debug
+    useEffect(() => {
+        console.debug('calendarViewDate: ' + calendarViewDate);
+        console.debug('selectedDate: ' + selectedDate);
+    }, [calendarViewDate, selectedDate]);
+
+    const calendarDays = Array.from({ length: 42 }, (_, i) => {
+        const currentDate = new Date(firstCalendarDay);
+        currentDate.setDate(firstCalendarDay.getDate() + i);
+        return currentDate;
+    });
+
+    const handleLeftSwitchClick = () => {
+        setCalendarViewDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1));
+    }
+
+    const handleRightSwitchClick = () => {
+        setCalendarViewDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() + 1, 1));
+    }
 
     return (
-        <Surface>
+        <Surface className='calendar__surface'>
             <div className="calendar__header">
                 <div role='toolbar' className="calendar__header-nav">
-                    <ChevronLeftCircle color='var(--text-menu)' />
-                    {getDateToView(selectedDate)}
-                    <ChevronRightCircle color='var(--text-menu)' />
+                    <ChevronLeftCircle color='var(--text-menu)' onClick={() => { handleLeftSwitchClick() }} />
+                    <span onClick={() => { }}>{getDateToView(selectedDate)}</span>
+                    <ChevronRightCircle color='var(--text-menu)' onClick={() => { handleRightSwitchClick() }} />
                 </div>
                 <div className="calendar__week">
                     {
                         ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
-                            <div key={day} className={`calendar__cell calendar__week-cell ${day === 'Sat' || day === 'Sun' ? 'calendar__week-cell--free' : ''}`}>{day}</div>
+                            <div key={day} className={
+                                `calendar__cell calendar__week-cell ${day === 'Sat' || day === 'Sun' ? 'calendar__week-cell--free' : ''}`}>{day}</div>
                         ))
                     }
                 </div>
             </div>
             <div className="calendar__content">
-                <div className='calendar__cell'></div>
-                <div className='calendar__cell'></div>
-                <div className='calendar__cell'></div>
-                <div className='calendar__cell'></div>
-                <div className='calendar__cell'></div>
                 {
-                    Array.from({ length: getDaysInMonth(selectedDate.getFullYear(), selectedDate.getMonth()) }, (_, i) => (
-                        <div className={
-                            `calendar__cell 
-                            ${today.getDate() === (i + 1) ? 'calendar__cell--today ' : ''}` +
-                            `${selectedDate.getDate() === (i + 1) ? 'calendar__cell--selected   ' : ''}` +
-                            `${getParameterizedDate(today.getFullYear(), today.getMonth(), i + 1).getDay() === 0 ||
-                                getParameterizedDate(today.getFullYear(), today.getMonth(), i + 1).getDay() === 6 ?
-                                'calendar__cell--free' : ''
-                            }`
-                        } key={i + 1}
-                            onClick={() => {
-                                setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), i + 1));
-                            }}
-                            data-date={new Date(selectedDate.getFullYear(), selectedDate.getMonth(), (i + 1)).toISOString()}>
-                            {i + 1}
-                        </div>
-                    ))
+                    calendarDays.map((date, index) => {
+                        const isCurrentMonth = date.getMonth() === selectedDate.getMonth();
+                        const isToday = date.toDateString() === new Date().toDateString();
+                        const isSelected = date.toDateString() === selectedDate.toDateString();
+                        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+
+                        return (
+                            <div
+                                key={index}
+                                onClick={() => setSelectedDate(date)}
+                                data-date={date.toISOString()}
+                                className={`calendar__cell ` +
+                                    `${isToday ? 'calendar__cell--today ' : ''}` +
+                                    `${isSelected ? 'calendar__cell--selected ' : ''}` +
+                                    `${!isCurrentMonth ? 'calendar__cell--other-month ' : ''}` +
+                                    `${isWeekend ? 'calendar__cell--free ' : ''}`
+                                }
+                            >
+                                {date.getDate()}
+                            </div>
+                        );
+                    })
                 }
             </div>
         </Surface>
