@@ -1,0 +1,7 @@
+@import url('@global/styles/variables.css');
+
+.scheduler {
+    display: grid;
+    grid-template-areas: 'task-list calendar';
+    grid-template-columns: [task-list] 3fr [calendar] 1fr;
+}

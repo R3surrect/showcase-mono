@@ -3,7 +3,7 @@ import './Scheduler.css';
 
 const Scheduler = () => {
     return (
-        <div>
+        <div className='scheduler'>
             <Calendar />
         </div>
     )

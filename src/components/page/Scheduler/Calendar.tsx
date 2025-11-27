@@ -6,7 +6,7 @@ import './Calendar.css';
 const getDateToView = (date: Date): string => `${date.getFullYear()} ${date.getMonth() + 1}`;
 
 //* Функция получения дня начала внесения в календарь
-const getCalendarCells = (date: Date): Date => {
+const getCalendarStartDay = (date: Date): Date => {
 
     const lastDayPrevMonth = new Date(date.getFullYear(), date.getMonth(), 0);
     const lastMonday = new Date(lastDayPrevMonth);
@@ -16,12 +16,13 @@ const getCalendarCells = (date: Date): Date => {
     return lastMonday;
 }
 
+// TODO Реализовать передачу data-стейтов
 
 const Calendar: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [calendarViewDate, setCalendarViewDate] = useState(new Date());
 
-    const firstCalendarDay = getCalendarCells(selectedDate);
+    const firstCalendarDay = getCalendarStartDay(calendarViewDate);
 
     //debug
     useEffect(() => {
@@ -29,7 +30,7 @@ const Calendar: React.FC = () => {
         console.debug('selectedDate: ' + selectedDate);
     }, [calendarViewDate, selectedDate]);
 
-    const calendarDays = Array.from({ length: 42 }, (_, i) => {
+    const calendarDays = Array.from({ length: 35 }, (_, i) => {
         const currentDate = new Date(firstCalendarDay);
         currentDate.setDate(firstCalendarDay.getDate() + i);
         return currentDate;
@@ -47,26 +48,31 @@ const Calendar: React.FC = () => {
         <Surface className='calendar__surface'>
             <div className="calendar__header">
                 <div role='toolbar' className="calendar__header-nav">
-                    <ChevronLeftCircle color='var(--text-menu)' onClick={() => { handleLeftSwitchClick() }} />
-                    <span onClick={() => { }}>{getDateToView(selectedDate)}</span>
-                    <ChevronRightCircle color='var(--text-menu)' onClick={() => { handleRightSwitchClick() }} />
+                    <ChevronLeftCircle color='var(--text-menu)' onClick={handleLeftSwitchClick} />
+                    <span onClick={() => { }}>{getDateToView(calendarViewDate)}</span>
+                    <ChevronRightCircle color='var(--text-menu)' onClick={handleRightSwitchClick} />
                 </div>
                 <div className="calendar__week">
                     {
                         ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
                             <div key={day} className={
-                                `calendar__cell calendar__week-cell ${day === 'Sat' || day === 'Sun' ? 'calendar__week-cell--free' : ''}`}>{day}</div>
+                                `calendar__cell calendar__week-cell ` +
+                                `${day === 'Sat' || day === 'Sun' ? 'calendar__week-cell--free' : ''} `}
+                            >
+                                {day}
+                            </div>
                         ))
                     }
                 </div>
             </div>
-            <div className="calendar__content">
+            <div className="calendar__content" key={calendarViewDate.toISOString()}>
                 {
                     calendarDays.map((date, index) => {
                         const isCurrentMonth = date.getMonth() === selectedDate.getMonth();
                         const isToday = date.toDateString() === new Date().toDateString();
                         const isSelected = date.toDateString() === selectedDate.toDateString();
                         const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                        const isOutsideMonth = date.getMonth() !== calendarViewDate.getMonth();
 
                         return (
                             <div
@@ -77,7 +83,8 @@ const Calendar: React.FC = () => {
                                     `${isToday ? 'calendar__cell--today ' : ''}` +
                                     `${isSelected ? 'calendar__cell--selected ' : ''}` +
                                     `${!isCurrentMonth ? 'calendar__cell--other-month ' : ''}` +
-                                    `${isWeekend ? 'calendar__cell--free ' : ''}`
+                                    `${isWeekend ? 'calendar__cell--free ' : ''}` +
+                                    `${isOutsideMonth ? 'calendar__cell--outside-month' : ''}`
                                 }
                             >
                                 {date.getDate()}
