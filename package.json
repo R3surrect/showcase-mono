@@ -7,14 +7,18 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "autoprefixer": "^10.4.22",
     "lucide-react": "^0.552.0",
+    "nanoid": "^5.1.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.5"
+    "react-router-dom": "^7.9.5",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

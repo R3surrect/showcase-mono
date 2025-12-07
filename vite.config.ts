@@ -18,7 +18,9 @@ export default defineConfig({
       '@components': '/src/components',
       '@pages': '/src/pages',
       '@global': '/src/global',
-      '@types' : '/src/types'
+      '@types': '/src/types',
+      '@interfaces': '/src/interfaces',
+      '@store': '/src/store'
     }
   }
 })

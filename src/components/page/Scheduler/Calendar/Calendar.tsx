@@ -1,34 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ChevronLeftCircle, ChevronRightCircle } from 'lucide-react';
+import { getCalendarStartDay, getDateToView } from './calendar-utils';
 import Surface from '@/components/ui/Surface/Surface';
 import './Calendar.css';
 
-const getDateToView = (date: Date): string => `${date.getFullYear()} ${date.getMonth() + 1}`;
+// import { useTaskStore } from '@store/useTaskStore';
+
 
 //* Функция получения дня начала внесения в календарь
-const getCalendarStartDay = (date: Date): Date => {
 
-    const lastDayPrevMonth = new Date(date.getFullYear(), date.getMonth(), 0);
-    const lastMonday = new Date(lastDayPrevMonth);
-
-    lastMonday.setDate(lastDayPrevMonth.getDate() - ((lastDayPrevMonth.getDay() - 1 + 7) % 7));
-
-    return lastMonday;
-}
 
 // TODO Реализовать передачу data-стейтов
 
 const Calendar: React.FC = () => {
+
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [calendarViewDate, setCalendarViewDate] = useState(new Date());
 
     const firstCalendarDay = getCalendarStartDay(calendarViewDate);
-
-    //debug
-    useEffect(() => {
-        console.debug('calendarViewDate: ' + calendarViewDate);
-        console.debug('selectedDate: ' + selectedDate);
-    }, [calendarViewDate, selectedDate]);
 
     const calendarDays = Array.from({ length: 35 }, (_, i) => {
         const currentDate = new Date(firstCalendarDay);

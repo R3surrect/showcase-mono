@@ -31,7 +31,10 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@global/*": ["./src/global/*"],
-      "@common/*": ["src/common/*"]
+      "@common/*": ["src/common/*"],
+      "@store/*": ["src/store/*"],
+      "@types/*": ["src/types/*"],
+      "@interfaces/*": ["src/interfaces/*"],
     }
   },
   "include": ["src/**/*"]
