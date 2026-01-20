@@ -3,27 +3,17 @@ import type Task from "@/types/Task";
 import type TaskStore from '@/interfaces/TaskStore';
 import { nanoid } from "nanoid";
 
-const useTaskStore = create<TaskStore>((set) => ({
-    tasks: [
-        //* Мок
-        {
-            id: nanoid(),
-            title: "Make Some Noise!",
-            description: "Some Description",
-            deadline: new Date(2026, 1, 1),
-            notifyAt: new Date(2025, 12, 15),
-            status: 'pending',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-        }
-    ],
+const useTaskStore = create<TaskStore>((set, get) => ({
+
+    tasks: [],
 
     isLoading: false,
     isInitialized: false,
+    errorMessage: null,
 
     addTask: (newTask: Task) => set(
         prev => ({
-            tasks: [...prev.tasks, newTask]
+            tasks: [...prev.tasks, { ...newTask, id: nanoid() }]
         })
     ),
 
@@ -39,7 +29,47 @@ const useTaskStore = create<TaskStore>((set) => ({
                 task => task.id === taskId ? updatedTask : task
             )
         })
-    )
+    ),
+
+    loadTasks: async () => {
+        if (get().isLoading) return;
+        set({ isLoading: true });
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/scheduler`,
+                {
+                    method: "POST",
+                    credentials: 'include',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+            if (!response.ok) {
+                console.log('not ok due err')
+                throw new Error(response.status.toString());
+            };
+
+            const tasks = await response.json();
+            console.log('tasks: ', tasks);
+
+            set({
+                tasks,
+                isLoading: false,
+                errorMessage: null,
+            })
+        }
+
+        catch (error: unknown) {
+            const message = (error instanceof Error)
+                ? error.message
+                : 'Unexpected error type';
+
+            set({
+                errorMessage: message,
+                isLoading: false,
+            })
+        }
+    }
+
 }))
 
 export default useTaskStore;

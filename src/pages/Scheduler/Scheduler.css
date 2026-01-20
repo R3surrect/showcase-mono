@@ -5,3 +5,8 @@
     grid-template-areas: 'task-list calendar';
     grid-template-columns: [task-list] 3fr [calendar] 1fr;
 }
+
+.task-list {
+    display: flex;
+    justify-content: space-between;
+}

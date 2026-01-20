@@ -3,6 +3,7 @@
 .calendar__surface {
     grid-area: calendar;
 }
+
 .calendar__header {
     display: flex;
     justify-content: space-around;
@@ -21,6 +22,7 @@
 
 .calendar__content,
 .calendar__week {
+    user-select: none;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(5, clamp(56px, 3vh, 20%));
@@ -28,6 +30,7 @@
 }
 
 .calendar__cell {
+    box-sizing: border-box;
     animation: softFade .1s ease-in-out;
     position: relative;
 

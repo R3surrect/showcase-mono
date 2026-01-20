@@ -2,6 +2,7 @@ import './global/styles/App.css';
 import './global/styles/normalize.css';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import RootLayout from './components/layout/RootLayout/RootLayout.tsx';
 import Analytics from './pages/Analytics/Analytics.tsx';
@@ -11,11 +12,40 @@ import Projects from './pages/Projects/Projects.tsx';
 import Favorites from './pages/Favorites/Favorites.tsx';
 import Templates from './pages/Templates/Templates.tsx';
 import Preferences from './pages/Preferences/Preferences.tsx';
+import Login from './pages/Auth/Login.tsx';
+import Register from './pages/Auth/Register.tsx';
+
+// import useTaskStore from './store/useTaskStore.ts';
+import useAuthStore from './store/useAuthStore.ts';
+import ProtectedRoute from './components/shared/ProtectedRoute.tsx';
+import useTaskStore from './store/useTaskStore.ts';
 
 const App: React.FC = () => {
+
+  const checkAuth = useAuthStore(state => state.checkAuth);
+  const authStatus = useAuthStore(state => state.authStatus);
+  const loadTasks = useTaskStore(state => state.loadTasks);
+
+  useEffect(() => {
+    if (authStatus === 'unknown')
+      checkAuth();
+    if (authStatus === 'authenticated')
+      loadTasks();
+  }, [authStatus, checkAuth, loadTasks])
+
+
+
   return <Router>
+    {/* Public routes */}
     <Routes>
-      <Route path="/" element={<RootLayout />}>
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
+
+      <Route path="/" element={
+        <ProtectedRoute>
+          <RootLayout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Navigate to='/analytics' replace />} />
         <Route path='analytics' element={<Analytics />} />
         <Route path='scheduler' element={<Scheduler />} />
@@ -25,7 +55,6 @@ const App: React.FC = () => {
         <Route path='templates' element={<Templates />} />
         <Route path='preferences' element={<Preferences />} />
       </Route>
-      <Route />
     </Routes>
   </Router>
 }
