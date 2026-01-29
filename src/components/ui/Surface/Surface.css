@@ -4,10 +4,11 @@
 .surface {
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: var(--content-blocks-shadow);
     background: var(--bg-surface);
     padding: 1rem;
+    border: 1px solid var(--border-primary);
 }
 
-.surface > * { padding: 0.5rem 0 }
-
+.surface>* {
+    padding: 0.5rem 0
+}

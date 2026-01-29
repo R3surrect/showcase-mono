@@ -20,7 +20,7 @@ export default defineConfig({
       '@global': '/src/global',
       '@types': '/src/types',
       '@interfaces': '/src/interfaces',
-      '@store': '/src/store'
+      '@store': '/src/store',
     }
   }
 })

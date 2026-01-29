@@ -12,13 +12,14 @@ import Projects from './pages/Projects/Projects.tsx';
 import Favorites from './pages/Favorites/Favorites.tsx';
 import Templates from './pages/Templates/Templates.tsx';
 import Preferences from './pages/Preferences/Preferences.tsx';
-import Login from './pages/Auth/Login.tsx';
-import Register from './pages/Auth/Register.tsx';
 
 // import useTaskStore from './store/useTaskStore.ts';
 import useAuthStore from './store/useAuthStore.ts';
 import ProtectedRoute from './components/shared/ProtectedRoute.tsx';
 import useTaskStore from './store/useTaskStore.ts';
+import AuthLayout from './pages/Auth/AuthLayout.tsx';
+import Login from './pages/Auth/Login.tsx';
+import Register from './pages/Auth/Register.tsx';
 
 const App: React.FC = () => {
 
@@ -38,8 +39,16 @@ const App: React.FC = () => {
   return <Router>
     {/* Public routes */}
     <Routes>
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
+      <Route path="login" element={
+        <AuthLayout>
+          <Login />
+        </AuthLayout>
+      } />
+      <Route path="register" element={
+        <AuthLayout>
+          <Register />
+        </AuthLayout>
+      } />
 
       <Route path="/" element={
         <ProtectedRoute>

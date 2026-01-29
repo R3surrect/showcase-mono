@@ -1,7 +1,7 @@
 const Register = () => {
-    return (
-        <center>register</center>
-    )
+    return <div>
+        register
+    </div>
 }
 
 export default Register;

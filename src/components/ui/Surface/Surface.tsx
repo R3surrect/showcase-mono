@@ -1,7 +1,7 @@
-import type SurfaceProps from '@common/surface';
+import type BaseProps from '@/interfaces/BaseProps';
 import './Surface.css';
 
-const Surface: React.FC<SurfaceProps> = ({ children, className }) => {
+const Surface: React.FC<BaseProps> = ({ children, className }) => {
     return (
         <div className={`surface ${className || ''}`}>
             {children}
