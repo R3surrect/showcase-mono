@@ -1,0 +1,84 @@
+@import url("@global/styles/_variables.css");
+
+.inputWrapper {
+    position: relative;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    height: fit-content;
+}
+
+.input {
+    caret-color: var(--neutral-400);
+    transition: .3s ease;
+    padding: 0 20px 0 20px;
+    line-height: 4px;
+    outline: none;
+    background-color: var(--glass-surface-light-80);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-4);
+    width: 100%;
+    height: 48px;
+    color: var(--neutral-750);
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+}
+
+.input:focus {
+    transition: .1s ease-in;
+    background-color: var(--glass-surface-light-30);
+    border: 1px solid var(--neutral-300);
+}
+
+.input::placeholder {
+    color: transparent;
+}
+
+.label {
+    color: var(--neutral-500);
+    position: absolute;
+    left: 1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: 0.2s ease-out;
+    font-weight: bold;
+    text-shadow: var(--shadow-text-highlight);
+}
+
+.inputWrapper[data-status="valid"] .label,
+.inputWrapper[data-status="valid"] .input {
+    color: var(--neutral-500);
+    border-color: var(--neutral-500);
+}
+
+.inputWrapper[data-status="invalid"] .label,
+.inputWrapper[data-status="invalid"] .input {
+    will-change: transform;
+    animation: shake 0.2s ease-in-out 0s 2;
+    color: var(--status-error);
+    border-color: var(--status-error);
+}
+
+.inputWrapper input:focus~label,
+.inputWrapper input:not(:placeholder-shown)~label {
+    top: -2rem;
+    left: 1.3rem;
+    font-size: 1.15rem;
+    transform: translateY(0);
+    opacity: .8;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    50% {
+        transform: translateX(4px);
+    }
+}

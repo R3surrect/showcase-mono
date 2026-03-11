@@ -1,4 +1,4 @@
-@import '@global/styles/variables.css';
+@import '@global/styles/_variables.css';
 
 .layout-container {
     display: grid;

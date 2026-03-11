@@ -1,4 +1,4 @@
-@import url('@global/styles/variables.css');
+@import url('@global/styles/_variables.css');
 
 .breadcrumbs-bar {
     display: flex;
@@ -7,8 +7,8 @@
     grid-area: breadcrumbs;
     height: var(--breadcrumbs-height);
     min-height: var(--breadcrumbs-min-height);
-    background: var(--header-bg); /*! Override :root var */
-    color: var(--text-primary);
+    background: var(--ui-bg); /*! Override :root var */
+    color: var(--neutral-950);
 }
 
 .breadcrumbs-bar__list {

@@ -1,4 +1,4 @@
-@import url('@global/styles/variables.css');
+@import url('@global/styles/_variables.css');
 
 .header {
     user-select: none;
@@ -15,7 +15,7 @@
     height: var(--header-height);
     min-height: var(--header-min-height);
     background: var(--header-bg);
-    /* border-bottom: 1px solid var(--border-primary); */
+    /* border-bottom: 1px solid var(--neutral-400); */
 }
 
 .header__logo,

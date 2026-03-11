@@ -1,4 +1,4 @@
-@import url('@global/styles/variables.css');
+@import url('@global/styles/_variables.css');
 
 .scheduler {
     display: grid;

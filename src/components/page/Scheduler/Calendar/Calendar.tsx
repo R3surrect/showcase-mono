@@ -5,15 +5,10 @@ import Surface from '@/components/ui/Surface/Surface';
 import './Calendar.css';
 
 // import { useTaskStore } from '@store/useTaskStore';
-
-
 //* Функция получения дня начала внесения в календарь
-
-
 // TODO Реализовать передачу data-стейтов
 
 const Calendar: React.FC = () => {
-
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [calendarViewDate, setCalendarViewDate] = useState(new Date());
 
@@ -37,9 +32,9 @@ const Calendar: React.FC = () => {
         <Surface className='calendar__surface'>
             <div className="calendar__header">
                 <div role='toolbar' className="calendar__header-nav">
-                    <ChevronLeftCircle color='var(--text-menu)' onClick={handleLeftSwitchClick} />
+                    <ChevronLeftCircle color='var(--neutral-500)' onClick={handleLeftSwitchClick} />
                     <span onClick={() => { }}>{getDateToView(calendarViewDate)}</span>
-                    <ChevronRightCircle color='var(--text-menu)' onClick={handleRightSwitchClick} />
+                    <ChevronRightCircle color='var(--neutral-500)' onClick={handleRightSwitchClick} />
                 </div>
                 <div className="calendar__week">
                     {

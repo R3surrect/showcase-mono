@@ -1,0 +1,9 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_breakpoints.css');
+
+.surface {
+    border-radius: 10px;
+    background: var(--neutral-0);
+    padding: 1rem;
+    border: 1px solid var(--neutral-400);
+}

@@ -1,0 +1,45 @@
+@import url("@global/styles/_variables.css");
+
+.formWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 46px;
+    margin: 24px 0;
+    /* gap: clamp(24px, 4vh, 256px); */
+}
+
+.headingWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.button {
+    transition: .2s ease-in;
+    padding: 8px;
+    box-sizing: border-box;
+    background-color: var(--accent);
+    color: var(--warm-gray-100);
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-4);
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.button:hover {
+    box-shadow: var(--shadow-md);
+}
+
+h1.heading,
+h2.heading {
+    color: var(--neutral-550);
+    font-size: 46px;
+    font-family: 'Times New Roman', Georgia, serif;
+    font-weight: 600;
+    text-shadow: var(--shadow-text-highlight);
+}

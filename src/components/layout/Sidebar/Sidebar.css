@@ -1,14 +1,14 @@
-@import url('@global/styles/variables.css');
-@import url('@global/styles/breakpoints.css');
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_breakpoints.css');
 
 .sidebar {
     display: grid;
     grid-area: sidebar;
     grid-template-areas:
-        "menu"  
+        "menu"
         "actions";
     grid-template-rows: 6fr 1fr;
-    background: var(--sidebar-bg);
+    background: var(--neutral-0);
     justify-content: space-around;
     align-items: center;
     width: 10vw;
@@ -39,23 +39,23 @@
     text-decoration: none;
 }
 
-.sidebar__link:hover { 
-    background: var(--hover-overlay );
+.sidebar__link:hover {
+    background: var(--neutral-50);
 }
 
 .sidebar__link,
-.sidebar__link:visited { 
-    color: var(--sidebar-link-inactive);
+.sidebar__link:visited {
+    color: var(--link-inactive);
 }
 
 .sidebar__link--active,
 .sidebar__link:focus {
     outline: none;
-    border-left: 3px solid var(--sidebar-link-active);
+    border-left: 3px solid var(--link-active);
 }
 
 .sidebar__link--active>span {
-    color: var(--sidebar-link-active);
+    color: var(--link-active);
 }
 
 .sidebar__actions {

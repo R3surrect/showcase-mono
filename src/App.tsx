@@ -18,8 +18,8 @@ import useAuthStore from './store/useAuthStore.ts';
 import ProtectedRoute from './components/shared/ProtectedRoute.tsx';
 import useTaskStore from './store/useTaskStore.ts';
 import AuthLayout from './pages/Auth/AuthLayout.tsx';
-import Login from './pages/Auth/Login.tsx';
-import Register from './pages/Auth/Register.tsx';
+import Login from './pages/Auth/Login/Login.tsx';
+import Register from './pages/Auth/Register/Register.tsx';
 
 const App: React.FC = () => {
 
@@ -34,10 +34,7 @@ const App: React.FC = () => {
       loadTasks();
   }, [authStatus, checkAuth, loadTasks])
 
-
-
   return <Router>
-    {/* Public routes */}
     <Routes>
       <Route path="login" element={
         <AuthLayout>

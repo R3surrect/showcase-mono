@@ -1,0 +1,87 @@
+/** Main Colors */
+:root {
+  --neutral-0:     #FAFAF6;
+  --neutral-50:    #F2F2F2;
+  --neutral-100:   #e7f0eb;
+  --neutral-200:   #e2ddc8;
+  --neutral-250:   #c0bba6;
+  --neutral-300:   #9d9280;
+  --neutral-350:   #9e8e74;
+  --neutral-400:   #a49168;
+  --neutral-500:   #877754;
+  --neutral-550:   #7d6f51;
+  --neutral-600:   #6b5e42;
+  --neutral-750:   #403724;
+  --neutral-850:   #2B2519;   /** Использовать для теней с прозрачностью 15%-20% */
+
+  --warm-gray-100: #eaece6;
+  --warm-gray-300: #9B9380;
+
+  --accent:        var(--neutral-500);
+}
+
+/** Color Semantics */
+:root {
+  --link-inactive: var(--warm-gray-300);
+  --link-active:   var(--neutral-400);
+  --ui-bg:         var(--neutral-100);
+}
+
+/** Corner rounding */
+:root {
+  --border-radius-4:  4px;
+  --border-radius-10: 10px;
+  --border-radius-15: 15px;
+  --border-radius-20: 20px;
+  --border-radius-25: 25px;
+}
+
+/** Glass effects*/
+:root {
+  --glass-base: var(--neutral-0);
+
+  --glass-surface-light-30: color-mix(in srgb, var(--neutral-0), transparent 30%);
+  --glass-surface-light-45: color-mix(in srgb, var(--neutral-0), transparent 45%);
+  --glass-surface-light-50: color-mix(in srgb, var(--neutral-0), transparent 50%);
+  --glass-surface-light-55: color-mix(in srgb, var(--neutral-0), transparent 55%);
+  --glass-surface-light-60: color-mix(in srgb, var(--neutral-0), transparent 60%);
+  --glass-surface-light-80: color-mix(in srgb, var(--neutral-0), transparent 80%);
+}
+
+/** Shadows */
+:root {
+  --shadow-md: 0 6px 12px rgba(26, 42, 30, 0.12);
+}
+
+/** Typography */
+:root {
+  --global-font-family: 'Helvetica Neue', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+
+/** Low bg-contrast shadows */
+:root {
+  --shadow-text-highlight: 0 2px 6px rgba(255, 255, 255, 0.253), 0 4px 12px rgba(161, 140, 101, 0.363);
+}
+:root {
+/** header */
+  --header-height: 5vh;
+  --header-min-height: 40px;
+
+  /** breadcrumbs*/
+  --breadcrumbs-height: 5vh;
+  --breadcrumbs-min-height: 32px;
+
+  /** Separated Shadows */
+  /*! TO OVERRIDE*/
+  --header-shadow: 0px 8px 60px 20px rgba(26, 42, 30, 0.2);
+  --sidebar-shadow: 12px 0px 50px -15px rgba(26, 42, 30, 0.15);
+  --content-blocks-shadow: 0px 1px 8px 2px rgba(34, 59, 79, 0.3);
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --glass-base-color: var(--neutral-950);
+    --accent: #ffd67d;
+  }
+} */

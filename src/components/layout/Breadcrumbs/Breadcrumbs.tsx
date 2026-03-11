@@ -16,9 +16,9 @@ const Breadcrumbs: React.FC = () => {
         <nav aria-label='Breadcrumb' className="breadcrumbs-bar">
             <ol className="breadcrumbs-bar__list">
                 <NavLink to='/analytics'>Аналитика</NavLink>
-                <ChevronRight color='var(--text-menu)' />
+                <ChevronRight color='var(--neutral-500)' />
                 <NavLink to='/analytics/summary'>Сводка</NavLink>
-                <ChevronRight color='var(--text-menu)' />
+                <ChevronRight color='var(--neutral-500)' />
                 <NavLink to='/analytics/summary/:date' end >01.01.2000</NavLink>
             </ol>
         </nav>

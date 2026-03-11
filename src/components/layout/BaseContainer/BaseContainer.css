@@ -1,9 +1,9 @@
-@import url('@global/styles/variables.css');
+@import url('@global/styles/_variables.css');
 
 .base-container {
     padding: 2rem 2rem 0 2rem;
     grid-area: content;
-    background: var(--bg-primary);
+    background: var(--neutral-100);
     border-top-left-radius: 24px;
     
 }

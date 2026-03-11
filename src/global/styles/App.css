@@ -1,4 +1,4 @@
-@import './variables.css';
+@import './_variables.css';
 
 * {
     box-sizing: border-box;
@@ -15,7 +15,7 @@ html {
 }
 
 body {
-    background: var(--bg-surface);
+    background: var(--neutral-0);
 }
 
 @media (prefers-reduced-motion: reduce) {

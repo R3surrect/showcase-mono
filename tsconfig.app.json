@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "target": "ES2022",
+    "target": "esnext",
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
@@ -35,6 +35,7 @@
       "@store/*": ["src/store/*"],
       "@types/*": ["src/types/*"],
       "@interfaces/*": ["src/interfaces/*"],
+      "@validation/*": ["src/validation/*"],
     }
   },
   "include": ["src/**/*"]

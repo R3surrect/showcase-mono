@@ -1,5 +1,5 @@
 import type BaseProps from '@/interfaces/BaseProps';
-import './Surface.css';
+import './Surface.module.css';
 
 const Surface: React.FC<BaseProps> = ({ children, className }) => {
     return (

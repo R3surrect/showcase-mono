@@ -1,19 +1,17 @@
-import type { SVGProps } from "react";
+import type { InputHTMLAttributes, SVGProps } from "react";
 
-export default interface InputProps {
+export default interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
     id?: string;
     className?: string;
     name?: string;
     labelText: string;
     value?: string | number;
     disabled?: boolean;
-    placeholder?: string;
     required?: boolean;
-
-    onChange?: (value: string) => void;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    type: "text" | "password" | "email" | "tel" | "number";
+    error?: string;
 
     validate?: (value: string) => boolean | string;
     icon?: React.FC<SVGProps<SVGSVGElement>>;
+    ref?: React.Ref<HTMLInputElement>;
 }

@@ -1,4 +1,4 @@
-@import url('@global/styles/variables.css');
+@import url('@global/styles/_variables.css');
 
 .calendar__surface {
     grid-area: calendar;
@@ -16,7 +16,7 @@
     justify-content: space-evenly;
     font-size: 24px;
     height: 2rem;
-    color: var(--text-menu);
+    color: var(--neutral-500);
     align-items: center;
 }
 
@@ -37,7 +37,7 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 24px;
     font-weight: 500;
-    background: var(--bg-surface);
+    background: var(--neutral-0);
     padding: 1rem;
     display: flex;
     justify-content: center;
@@ -45,39 +45,39 @@
     min-width: 24px;
     min-height: 24px;
     transition: .1s;
-    border: 2px solid var(--border-primary);
-    color: var(--border-primary);
+    border: 2px solid var(--neutral-400);
+    color: var(--neutral-400);
     border-radius: 4px;
     transition: .5s;
 }
 
-.calendar__cell:hover:not(.calendar__week-cell){
-    box-shadow: var(--calendar-cell-shadow);
-    border-color: var(--text-menu);
+.calendar__cell:hover:not(.calendar__week-cell) {
+    box-shadow: 0px 0px 0px 1px var(--neutral-0);
+    border-color: var(--neutral-500);
     cursor: pointer;
 }
 
 .calendar__cell:not(.calendar__week-cell)::after {
     content: '';
-    border: 2px solid var(--text-menu);
+    border: 2px solid var(--neutral-500);
     border-radius: 8px;
     position: absolute;
     left: 50%;
     bottom: 10%;
     transform: translateX(-50%);
     width: 16px;
-    box-shadow: var(--calendar-cell-shadow);
+    box-shadow: 0px 0px 0px 1px var(--neutral-0);
 }
 
 .calendar__cell--today {
-    border: 3px solid var(--text-menu);
-    color: var(--text-menu);
+    border: 3px solid var(--neutral-500);
+    color: var(--neutral-500);
     font-weight: bold;
 }
 
 .calendar__cell--free {
-    background: var(--border-primary);
-    color: var(--text-primary);
+    background: var(--neutral-400);
+    color: var(--neutral-950);
 }
 
 .calendar__week {
@@ -87,18 +87,18 @@
 }
 
 .calendar__week-cell {
-    color: var(--text-menu);
+    color: var(--neutral-500);
     border-radius: 18px;
     font-size: 1rem;
 }
 
 .calendar__week-cell--free {
-    color: var(--border-primary);
+    color: var(--neutral-400);
 }
 
 .calendar__cell--selected {
-    background-color: var(--text-menu);
-    color: var(--text-primary);
+    background-color: var(--neutral-500);
+    color: var(--neutral-950);
     border: none;
 }
 
@@ -106,34 +106,59 @@
     opacity: .5;
 }
 
-.calendar__cell:nth-child(7n+1) { animation-delay: 0.05s; }
-.calendar__cell:nth-child(7n+2) { animation-delay: 0.1s; }
-.calendar__cell:nth-child(7n+3) { animation-delay: 0.15s; }
-.calendar__cell:nth-child(7n+4) { animation-delay: 0.2s; }
-.calendar__cell:nth-child(7n+5) { animation-delay: 0.25s; }
-.calendar__cell:nth-child(7n+6) { animation-delay: 0.3s; }
-.calendar__cell:nth-child(7n+7) { animation-delay: 0.35s; }
+.calendar__cell:nth-child(7n+1) {
+    animation-delay: 0.05s;
+}
+
+.calendar__cell:nth-child(7n+2) {
+    animation-delay: 0.1s;
+}
+
+.calendar__cell:nth-child(7n+3) {
+    animation-delay: 0.15s;
+}
+
+.calendar__cell:nth-child(7n+4) {
+    animation-delay: 0.2s;
+}
+
+.calendar__cell:nth-child(7n+5) {
+    animation-delay: 0.25s;
+}
+
+.calendar__cell:nth-child(7n+6) {
+    animation-delay: 0.3s;
+}
+
+.calendar__cell:nth-child(7n+7) {
+    animation-delay: 0.35s;
+}
 
 @keyframes softFade {
     0% {
         opacity: 0.5;
-        border: 2px solid var(--text-menu);
+        border: 2px solid var(--neutral-500);
     }
+
     25% {
         opacity: 0.65;
-        border: 1px solid var(--text-menu);
-        
+        border: 1px solid var(--neutral-500);
+
     }
-    50%{
+
+    50% {
         opacity: 0.7;
-        border: 1px solid var(--border-primary);
+        border: 1px solid var(--neutral-400);
+        /** Рефакторить */
     }
-    75%{
+
+    75% {
         opacity: 0.85;
-        border: 2px solid var(--border-primary);
+        border: 2px solid var(--neutral-400);
     }
+
     100% {
         opacity: 1;
-        border: 3px solid var(--border-primary);
+        border: 3px solid var(--neutral-400);
     }
 }
