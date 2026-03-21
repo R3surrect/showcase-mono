@@ -1,9 +1,7 @@
 import './Favorites.css';
 
-const Favorites = () => {
+export const Component = () => {
     return (
         <div>Favorites</div>
     )
 }
-
-export default Favorites;

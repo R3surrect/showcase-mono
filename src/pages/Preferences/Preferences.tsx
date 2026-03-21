@@ -1,9 +1,7 @@
 import './Preferences.css';
 
-const Preferences = () => {
+export const Component = () => {
     return (
         <div>Preferences</div>
     )
 }
-
-export default Preferences;

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type Task from "@/types/Task";
 import type TaskStore from '@/interfaces/TaskStore';
-import { nanoid } from "nanoid";
+import { useId } from 'react';
 
 const useTaskStore = create<TaskStore>((set, get) => ({
 
@@ -13,7 +13,7 @@ const useTaskStore = create<TaskStore>((set, get) => ({
 
     addTask: (newTask: Task) => set(
         prev => ({
-            tasks: [...prev.tasks, { ...newTask, id: nanoid() }]
+            tasks: [...prev.tasks, { ...newTask, id: useId() }]
         })
     ),
 
@@ -40,7 +40,10 @@ const useTaskStore = create<TaskStore>((set, get) => ({
                 {
                     method: "POST",
                     credentials: 'include',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                 });
 
             if (!response.ok) {

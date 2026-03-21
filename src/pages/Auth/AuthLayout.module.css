@@ -11,7 +11,7 @@
 }
 
 .authCard {
-    padding: 5vh 2vw;
+    padding: 2rem;
     background-color: var(--glass-surface-light-60);
     backdrop-filter: blur(3.5rem);
     border-color: rgb(255, 255, 255, 40%);
@@ -21,6 +21,6 @@
     min-height: 256px;
     display: flex;
     flex-direction: column;
-    gap: 36px;
+    gap: 1.5rem;
     box-shadow: var(--shadow-md);
 }

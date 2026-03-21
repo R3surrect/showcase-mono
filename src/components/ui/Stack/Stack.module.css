@@ -1,0 +1,14 @@
+@import url("@global/styles/_variables");
+
+.wrapper {
+
+    --stack-gap-sm: 0.5rem;
+    --stack-gap-md: 1rem;
+    --stack-gap-lg: 2rem;
+
+    display: flex;
+    /** justify-content: Вынести в переменную; */
+    flex-direction: var(--stack-direction, column); /** injected from Stack.tsx */
+    gap: var(--stack-gap, 1rem);
+    align-items: var(--stack-align, stretch); /** injected from Stack.tsx */
+}

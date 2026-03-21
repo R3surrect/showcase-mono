@@ -3,10 +3,10 @@ import { registerSchema, type RegisterInput } from '@/validation/registerSchema'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 
-const Register = () => {
+export const Component = () => {
     const registerUser = useAuthStore(store => store.register);
     const {
-        register,
+        register,   
         handleSubmit,
         formState: { errors, isSubmitting }
     } = useForm<RegisterInput>({
@@ -18,8 +18,9 @@ const Register = () => {
         },
     });
     return <div>
+        {errors.email && <span>{errors.email?.message}</span>}
+        {errors.password && <span>{errors.password?.message}</span>}
+        {errors.confirmPassword && <span>{errors.confirmPassword?.message}</span>}
         register
     </div>
 }
-
-export default Register;

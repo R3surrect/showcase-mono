@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Input from "@/components/ui/Input/Input";
@@ -9,57 +8,72 @@ import Hr from "@/components/ui/Hr/Hr";
 import QrAuth from "@/components/auth/QRAuth/QRAuth";
 import useAuthStore from "@/store/useAuthStore";
 import { loginSchema, type loginInput } from '@/validation/loginSchema';
+import Stack from '@/components/ui/Stack/Stack';
 
-
-const Login = () => {
+export const Component = () => {
     const loginUser = useAuthStore(store => store.login);
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<loginInput>({
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors, isSubmitting }
+    } = useForm<loginInput>({
         resolver: zodResolver(loginSchema),
         mode: 'onBlur',
+        shouldFocusError: true,
     });
 
-    const onSubmit = (data: loginInput) => {
-        loginUser(data);
+    const onSubmit = async (data: { email: string; password: string }) => {
+        const result = await loginUser(data);
+
+        if (!result.success) {
+            const errorMessage = result.status === 401
+                ? "Email or password are incorrect"
+                : (result.message || "Something went wrong, please try again later");
+
+            setError("root", {
+                type: "server",
+                message: errorMessage
+            })
+        }
     }
 
     return <>
 
-        <Heading level={1} className={stylesObj.heading}>Welcome Back</Heading>
-        <Hr variant="accent" thickness="thick" opacity={0.8} shadow={true} />
+        <Heading variant="accent" subtitle='Good to see you again' level={1}>Welcome back</Heading>
+        <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
 
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={stylesObj.formWrapper}>
+            <Stack>
 
                 <Input
                     labelText="EMail"
                     type="email"
-                    required
+                    autoComplete='email'
+                    error={errors.email?.message}
+                    placeholder='name@domain.com'
                     {...register('email')}
                 />
 
-                {errors && <span>{errors.email?.message}</span>}
 
                 <Input
                     labelText="Password"
                     type="password"
-                    required
+                    autoComplete='current-password'
+                    error={errors.password?.message}
+                    placeholder='********'
                     {...register('password')}
                 />
-
-                {errors && <span>{errors.password?.message}</span>}
 
                 <button className={stylesObj.button} type='submit' disabled={isSubmitting}>
                     {isSubmitting ? 'Loading...' : 'Login'}
                 </button>
-
-            </div>
+                {errors.root && <span className={stylesObj.errorMessage}>{errors.root.message}</span>}
+            </Stack>
         </form>
 
-        <Hr variant="accent" thickness="thick" opacity={0.8} shadow={true} />
-        <QrAuth text="Или отсканируйте QR-код из приложения для быстрого входа" />
+        <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
+        <QrAuth text="Or scan the QR code from the app for quick login" />
     </>
-    {/*//ToDO QR-Code */ }
 }
-
-export default Login;

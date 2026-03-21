@@ -4,7 +4,7 @@ import './Scheduler.css';
 import useTaskStore from '@/store/useTaskStore';
 // import { useEffect } from 'react';
 
-const Scheduler = () => {
+export const Component = () => {
     const tasks = useTaskStore(state => state.tasks);
     const isLoading: boolean = useTaskStore(state => state.isLoading);
 
@@ -35,4 +35,3 @@ const Scheduler = () => {
         </div>
     )
 }
-export default Scheduler;

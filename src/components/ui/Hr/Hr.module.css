@@ -1,5 +1,12 @@
 @import url("@/global/styles/_variables");
 
+:root {
+    --thickness-thin: 1px;
+    --thickness-half-medium: 3px;
+    --thickness-medium: 5px;
+    --thickness-thick: 10px;
+}
+
 .hr {
     min-height: var(--hr-thickness, 1px);
     padding: 0;

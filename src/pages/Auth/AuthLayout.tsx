@@ -1,15 +1,16 @@
 import Surface from "@/components/ui/Surface/Surface";
-import type BaseProps from "@/interfaces/BaseProps";
 import styles from './AuthLayout.module.css';
+import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
-const AuthLayout: React.FC<BaseProps> = ({ children }) => {
+export const Component: React.FC = () => {
     return (
-        <div className={styles.authWrapper}>
-            <Surface className={styles.authCard}>
-                {children}
-            </Surface>
-        </div>
+        <Suspense fallback={null}>
+            <div className={styles.authWrapper}>
+                <Surface className={styles.authCard}>
+                    <Outlet />
+                </Surface>
+            </div>
+        </Suspense>
     )
 }
-
-export default AuthLayout;

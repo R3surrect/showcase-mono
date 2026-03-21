@@ -1,9 +1,7 @@
 import './Projects.css';
 
-const Projects = () => {
+export const Component = () => {
     return (
         <div>Projects</div>
     )
 }
-
-export default Projects;

@@ -8,21 +8,71 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         authStatus: 'unknown',
     },
 
-    loginFormData: {
-        email: '',
-        password: '',
-    },
+    error: null,
+    status: null,
+    isLoading: false,
 
-    token: null,
+    login: async (authFields) => {
+        set({isLoading: true});
+        
+        try {
 
-    login: async (data) => {
-        console.log(`valid data: ${data}`)
+            const res = await fetch (`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/login`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json', 
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(authFields),
+            })
+
+        if (res.ok) {
+            set({isLoading: false});
+            
+            const data = await res.json();
+            set(state => ({
+                authData: {
+                    ...state.authData,
+                    authStatus: 'authenticated',
+                    user: data.user
+                }
+            }));
+            
+            return { success: true, status: null, message: null };
+
+        } else {
+
+            set({error: res.statusText, status: res.status, isLoading: false});
+
+            setTimeout(() => set({error: null, status: null}), 5000);
+
+            return {success: false, status: res.status, message: res.statusText}
+        }
+        } catch (e: unknown) {
+            const errorPayload = {
+                isLoading: false,
+                status: null,
+                error: "Network Error"
+            };
+
+            set(errorPayload);
+
+            if (e instanceof Error) console.log(e.message);
+
+            return {
+                success: false,
+                status: errorPayload.status,
+                message: errorPayload.error
+            };
+        }
     },
 
     checkAuth: async () => {
         const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/me`, {
             method: 'POST',
             credentials: 'include',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
 
         if (res.ok) {
@@ -80,7 +130,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
 }), {
     name: "AuthStorage",
     partialize: (state) => ({
-        authStatus: state.authData.authStatus
+        authData: state.authData
     })
 }));
 

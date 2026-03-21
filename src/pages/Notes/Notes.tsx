@@ -1,9 +1,7 @@
 import './Notes.css'
 
-const Notes = () => {
+export const Component = () => {
     return (
         <div>Notes</div>
     )
 }
-
-export default Notes;

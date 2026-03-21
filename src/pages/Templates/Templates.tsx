@@ -1,9 +1,7 @@
 import './Templates.css';
 
-const Templates = () => {
+export const Component = () => {
     return (
         <div>Templates</div>
     )
 }
-
-export default Templates;

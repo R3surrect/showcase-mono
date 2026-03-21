@@ -4,9 +4,16 @@ import type { ComponentPropsWithoutRef } from "react";
 
 type opacityLevel = 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9;
 
+const THICKNESS_TYPES = ['thin', 'half-medium', 'medium', 'thick'] as const;
+const VARIANT_TYPES = ['default', 'strong', 'accent', 'subtle', 'glass'] as const;
+
+type Thickness = typeof THICKNESS_TYPES[number];
+type Variant = typeof VARIANT_TYPES[number];
+
+
 interface HrProps extends ComponentPropsWithoutRef<'hr'> {
-    variant?: 'default' | 'strong' | 'accent' | 'subtle' | 'glass';
-    thickness?: "thin" | "medium" | "thick";
+    variant?: Variant;
+    thickness?: Thickness;
     shadow?: boolean;
     opacity?: opacityLevel;
 }
@@ -14,12 +21,6 @@ interface HrProps extends ComponentPropsWithoutRef<'hr'> {
 interface HRVars extends React.CSSProperties {
     '--hr-thickness'?: string;
     '--hr-opacity'?: number;
-}
-
-const thicknessValues: Record<NonNullable<HrProps['thickness']>, number> = {
-    thin: 1,
-    medium: 5,
-    thick: 10,
 }
 
 const variants = {
@@ -38,16 +39,18 @@ const Hr = ({
     ...props
 }: HrProps) => {
     return <hr
-        {...props}
         style={{
-            '--hr-thickness': `${thicknessValues[thickness]}px`,
+            '--hr-thickness': `var(--thickness-${thickness})`,
             ...((opacity !== undefined) && { '--hr-opacity': opacity })
         } as HRVars}
+
         className={clsx(
             styledObj.hr,
             variants[variant],
             shadow && styledObj.shadow,
         )}
+
+        {...props}
     />
 }
 

@@ -1,6 +1,6 @@
 @import '@global/styles/_variables.css';
 
-.layout-container {
+.layoutContainer {
     display: grid;
     grid-template-areas:
         "header header"

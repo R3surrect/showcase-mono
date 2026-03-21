@@ -1,30 +1,63 @@
 /** Main Colors */
 :root {
-  --neutral-0:     #FAFAF6;
-  --neutral-50:    #F2F2F2;
-  --neutral-100:   #e7f0eb;
-  --neutral-200:   #e2ddc8;
-  --neutral-250:   #c0bba6;
-  --neutral-300:   #9d9280;
-  --neutral-350:   #9e8e74;
-  --neutral-400:   #a49168;
-  --neutral-500:   #877754;
-  --neutral-550:   #7d6f51;
-  --neutral-600:   #6b5e42;
-  --neutral-750:   #403724;
-  --neutral-850:   #2B2519;   /** Использовать для теней с прозрачностью 15%-20% */
+  --neutral-0:     hsl(60, 29%, 97%);
+  --neutral-50:    hsl(0, 0%, 95%);
+  --neutral-100:   hsl(147, 23%, 92%);
+  --neutral-200:   hsl(48, 31%, 84%);
+  --neutral-250:   hsl(48, 17%, 70%);
+  --neutral-300:   hsl(37, 13%, 56%);
+  --neutral-350:   hsl(37, 18%, 54%);
+  --neutral-400:   hsl(41, 25%, 53%);
+  --neutral-500:   hsl(41, 23%, 43%);
+  --neutral-550:   hsl(41, 21%, 40%);
+  --neutral-600:   hsl(41, 24%, 34%);
+  --neutral-750:   hsl(26, 22%, 30%);
+  --neutral-850:   hsl(40, 26%, 13%);   /** Использовать для теней с прозрачностью 15%-20% */
 
-  --warm-gray-100: #eaece6;
-  --warm-gray-300: #9B9380;
+  --warm-gray-100: hsl(80, 14%, 91%);
+  --warm-gray-300: hsl(42, 12%, 55%);
 
-  --accent:        var(--neutral-500);
+  --accent: var(--neutral-500);
+}
+
+:root {
+  --status-success: hsl(67, 26%, 35%);
+  --status-pending: hsl(35, 39%, 53%);
+  --status-error:   hsl(11, 35%, 47%);
+  --status-info:    hsl(207, 10%, 42%);
+}
+
+:root {
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-accent: 'Cormorant Garamond', Georgia, "Times New Roman", serif;
+}
+
+/** Typography Roles (Fluid) */
+:root {
+  /* 1. "Welcome Back" — Главный акцент окна */
+  --auth-title-size:    clamp(1.5rem, 0.9rem + 1.5vw, 3rem);
+
+  /* 2. "Good to see you again" — Тонкий текст под заголовком */
+  --auth-subtitle-size: clamp(0.9rem, 0.6rem + 0.2vw, 1.1rem);
+
+  /* 3. "EMail", "Password" — Подписи к полям (должны быть четкими) */
+  --field-label-size:   clamp(0.85rem, 0.8rem + 0.1vw, 0.95rem);
+
+  /* 4. Текст внутри инпутов и кнопки Login */
+  --ui-main-size:       clamp(0.95rem, 0.7rem + 0.2vw, 1.1rem);
+
+  /* 5. "Required field", "Password length..." — Ошибки и подсказки */
+  --helper-text-size:   clamp(0.75rem, 0.7rem + 0.15vw, 0.85rem);
+
+  /* 6. "Or scan the QR code..." — Текст в футере (чуть крупнее хелпера) */
+  --footer-text-size:   clamp(0.875rem, 0.1rem + 0.25vw, 1.5rem);
 }
 
 /** Color Semantics */
 :root {
   --link-inactive: var(--warm-gray-300);
-  --link-active:   var(--neutral-400);
-  --ui-bg:         var(--neutral-100);
+  --link-active: var(--neutral-400);
+  --ui-bg: var(--neutral-100);
 }
 
 /** Corner rounding */
@@ -53,7 +86,6 @@
   --shadow-md: 0 6px 12px rgba(26, 42, 30, 0.12);
 }
 
-/** Typography */
 :root {
   --global-font-family: 'Helvetica Neue', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
 }

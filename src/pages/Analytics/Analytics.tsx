@@ -1,9 +1,7 @@
 import './Analytics.css'
 
-const Analytics = () => {
+export const Component = () => {
     return (
         <div>Analytics</div>
     )
 }
-
-export default Analytics;
