@@ -9,6 +9,7 @@ import QrAuth from "@/components/auth/QRAuth/QRAuth";
 import useAuthStore from "@/store/useAuthStore";
 import { loginSchema, type loginInput } from '@/validation/loginSchema';
 import Stack from '@/components/ui/Stack/Stack';
+import Button from '@/components/ui/Button/Button';
 
 export const Component = () => {
     const loginUser = useAuthStore(store => store.login);
@@ -65,10 +66,12 @@ export const Component = () => {
                     placeholder='********'
                     {...register('password')}
                 />
-
-                <button className={stylesObj.button} type='submit' disabled={isSubmitting}>
+                <Button type='submit' variant='accent'>
                     {isSubmitting ? 'Loading...' : 'Login'}
-                </button>
+                </Button>
+                <Button type='button' variant='outline'>
+                    Login as Guest (Demo mode)
+                </Button>
                 {errors.root && <span className={stylesObj.errorMessage}>{errors.root.message}</span>}
             </Stack>
         </form>

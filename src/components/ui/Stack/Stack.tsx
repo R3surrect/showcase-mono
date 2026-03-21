@@ -21,7 +21,7 @@ interface StackVars extends React.CSSProperties {
   '--stack-direction': Direction;
 }
 
-const Stack: React.FC<StackProps> = ({ gap = 'md', align = 'stretch', direction = 'column', children }) => {
+const Stack = ({ gap = 'md', align = 'stretch', direction = 'column', children }: StackProps) => {
   return <div
     className={stylesObj.wrapper}
     style={{

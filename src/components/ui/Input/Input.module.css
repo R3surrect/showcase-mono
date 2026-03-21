@@ -26,7 +26,6 @@
     color: var(--neutral-750);
     font-weight: 400;
     font-size: var(--ui-main-size);
-    /* backdrop-filter: blur(5px); */
 }
 
 .input:focus {
@@ -86,7 +85,6 @@
 }
 
 @keyframes shake {
-
     0%,
     100% {
         transform: translateX(0);

@@ -2,16 +2,18 @@ import type InputProps from "@/interfaces/ui/InputProps";
 import stylesObj from "./Input.module.css";
 import { useId } from 'react';
 
-const Input: React.FC<InputProps> = ({
+const Input = ({
     disabled,
     error,
     type,
+    id,
     labelText,
+    ref,
     ...props
-}) => {
-    const controlId = useId();
+}: InputProps) => {
+    const controlId = id || useId();
     return <div className={stylesObj.inputWrapper}>
-        
+
         <label className={stylesObj.label} htmlFor={controlId}>
             {labelText}
         </label>
@@ -21,6 +23,7 @@ const Input: React.FC<InputProps> = ({
             id={controlId}
             disabled={disabled || false}
             type={type}
+            ref={ref}
             {...props}
             data-valid={error ? 'invalid' : 'valid'}
             aria-invalid={!!error}

@@ -11,7 +11,7 @@ type Thickness = typeof THICKNESS_TYPES[number];
 type Variant = typeof VARIANT_TYPES[number];
 
 
-interface HrProps extends ComponentPropsWithoutRef<'hr'> {
+interface HrProps extends Omit<ComponentPropsWithoutRef<'hr'>, 'style' | 'onClick'> {
     variant?: Variant;
     thickness?: Thickness;
     shadow?: boolean;

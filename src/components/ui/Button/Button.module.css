@@ -1,0 +1,31 @@
+@import url('@global/styles/_variables');
+
+.button {
+    transition: .2s ease-in;
+    padding: 0.7em;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: var(--ui-main-size);
+    font-weight: 500;
+    border-radius: var(--border-radius-4);
+    cursor: pointer;
+
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.accent {
+    background-color: var(--neutral-350);
+    color: var(--warm-gray-100);
+    border: 1px solid transparent;
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--neutral-350);
+  color: var(--neutral-350);
+}
+
+.button:hover {
+    box-shadow: var(--shadow-md);
+}

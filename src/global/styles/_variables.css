@@ -12,7 +12,7 @@
   --neutral-550:   hsl(41, 21%, 40%);
   --neutral-600:   hsl(41, 24%, 34%);
   --neutral-750:   hsl(26, 22%, 30%);
-  --neutral-850:   hsl(40, 26%, 13%);   /** Использовать для теней с прозрачностью 15%-20% */
+  --neutral-850:   hsl(40, 26%, 13%);
 
   --warm-gray-100: hsl(80, 14%, 91%);
   --warm-gray-300: hsl(42, 12%, 55%);
@@ -34,30 +34,31 @@
 
 /** Typography Roles (Fluid) */
 :root {
-  /* 1. "Welcome Back" — Главный акцент окна */
+
+  /** A biggest H */
   --auth-title-size:    clamp(1.5rem, 0.9rem + 1.5vw, 3rem);
 
-  /* 2. "Good to see you again" — Тонкий текст под заголовком */
+  /** "Good to see you again"*/
   --auth-subtitle-size: clamp(0.9rem, 0.6rem + 0.2vw, 1.1rem);
 
-  /* 3. "EMail", "Password" — Подписи к полям (должны быть четкими) */
+  /** "EMail", "Password"*/
   --field-label-size:   clamp(0.85rem, 0.8rem + 0.1vw, 0.95rem);
 
-  /* 4. Текст внутри инпутов и кнопки Login */
-  --ui-main-size:       clamp(0.95rem, 0.7rem + 0.2vw, 1.1rem);
+  /** Input and Login components */
+  --ui-main-size:       clamp(0.95rem, 0.5rem + 0.2vw, 1.1rem);
 
-  /* 5. "Required field", "Password length..." — Ошибки и подсказки */
+  /** Errors and hints */
   --helper-text-size:   clamp(0.75rem, 0.7rem + 0.15vw, 0.85rem);
 
-  /* 6. "Or scan the QR code..." — Текст в футере (чуть крупнее хелпера) */
+  /** Footer text */
   --footer-text-size:   clamp(0.875rem, 0.1rem + 0.25vw, 1.5rem);
 }
 
 /** Color Semantics */
 :root {
-  --link-inactive: var(--warm-gray-300);
-  --link-active: var(--neutral-400);
-  --ui-bg: var(--neutral-100);
+  --link-inactive:  var(--warm-gray-300);
+  --link-active:    var(--neutral-400);
+  --ui-bg:          var(--neutral-100);
 }
 
 /** Corner rounding */
@@ -90,13 +91,14 @@
   --global-font-family: 'Helvetica Neue', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-
 /** Low bg-contrast shadows */
 :root {
   --shadow-text-highlight: 0 2px 6px rgba(255, 255, 255, 0.253), 0 4px 12px rgba(161, 140, 101, 0.363);
 }
+
 :root {
-/** header */
+
+  /** header */
   --header-height: 5vh;
   --header-min-height: 40px;
 
