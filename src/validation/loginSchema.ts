@@ -14,4 +14,4 @@ export const loginSchema = zod
               .min(8, 'Password length must be at least 8 characters')
     })
 
-export type loginInput = zod.infer<typeof loginSchema>;
+export type LoginInput = zod.infer<typeof loginSchema>;

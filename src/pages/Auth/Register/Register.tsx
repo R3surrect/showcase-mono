@@ -1,3 +1,6 @@
+import ErrorMessage from '@/components/ui/ErrorMessage/ErrorMessage';
+import Heading from '@/components/ui/Heading/Heading';
+import Hr from '@/components/ui/Hr/Hr';
 import useAuthStore from '@/store/useAuthStore';
 import { registerSchema, type RegisterInput } from '@/validation/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -6,7 +9,7 @@ import { useForm, Controller } from 'react-hook-form';
 export const Component = () => {
     const registerUser = useAuthStore(store => store.register);
     const {
-        register,   
+        register,
         handleSubmit,
         formState: { errors, isSubmitting }
     } = useForm<RegisterInput>({
@@ -17,10 +20,23 @@ export const Component = () => {
             password: '',
         },
     });
+
+    const onSubmit = (data: { email: string; password: string; }) => {
+        const result = await registerUser(data);
+    }
+
     return <div>
-        {errors.email && <span>{errors.email?.message}</span>}
-        {errors.password && <span>{errors.password?.message}</span>}
-        {errors.confirmPassword && <span>{errors.confirmPassword?.message}</span>}
-        register
+
+        <Heading subtitle='Organize your time in a few clicks' variant='accent'>Get started</Heading>
+        <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+
+            <ErrorMessage message={errors.email?.message} />
+            <ErrorMessage message={errors.password?.message} />
+            <ErrorMessage message={errors.confirmPassword?.message} />
+        </form>
+        <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
+
     </div>
 }

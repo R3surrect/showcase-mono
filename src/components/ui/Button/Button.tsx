@@ -12,6 +12,7 @@ type Variant = typeof VARIANT_TYPES[number];
 interface ButtonProps extends BaseProps, Omit<ComponentPropsWithRef<'button'>, keyof BaseProps | 'style'> {
   type?: Type;
   variant?: Variant;
+  isSubmitting?: boolean;
 }
 
 const variants = {
@@ -19,15 +20,22 @@ const variants = {
   outline: stylesObj.outline,
 }
 
-const Button = ({ type = 'button', variant = 'accent', ref, children, ...props }: ButtonProps) => {
+const Button = ({
+  type = 'button',
+  variant = 'accent',
+  ref,
+  isSubmitting,
+  disabled,
+  children,
+  ...props
+}: ButtonProps) => {
   return <button
     ref={ref}
-    className={clsx(stylesObj.button, variants[variant])}
+    className={clsx(stylesObj.button, variants[variant], isSubmitting ? stylesObj.isSubmitting : '')}
+    disabled={disabled || isSubmitting}
     type={type}
     {...props}
-  >
-    {children}
-  </button>
+  >{children}</button>
 }
 
 export default Button;

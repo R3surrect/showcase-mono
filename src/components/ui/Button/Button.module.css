@@ -1,7 +1,7 @@
 @import url('@global/styles/_variables');
 
 .button {
-    transition: .2s ease-in;
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
     padding: 0.7em;
     width: 100%;
     box-sizing: border-box;
@@ -28,4 +28,15 @@
 
 .button:hover {
     box-shadow: var(--shadow-md);
+}
+
+.button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/** Повышаем специфичность */
+.button.isSubmitting:disabled {
+    opacity: .3;
+    cursor: wait;
 }

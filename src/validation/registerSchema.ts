@@ -22,3 +22,5 @@ export const registerSchema = zod
     })
 
 export type RegisterInput = zod.infer<typeof registerSchema>;
+
+export type RegisterPayload = Omit<RegisterInput, 'confirmPassword'>;

@@ -1,5 +1,12 @@
 import type User from "./User";
-import type { loginInput } from '@/validation/loginSchema';
+import type { LoginInput } from '@/validation/loginSchema';
+import type { RegisterInput } from '@/validation/registerSchema';
+
+interface Request {
+    success: boolean;
+    status: number | null;
+    message: string | null
+}
 
 export default interface AuthState {
     authData: {
@@ -11,14 +18,9 @@ export default interface AuthState {
     status: number | null;
     isLoading: true | false;
     
-    login: (data: loginInput) => Promise<
-    {
-        success: boolean;
-        status: number | null;
-        message: string | null
-    }>;
+    login: (data: LoginInput) => Promise<Request>;
     
-    logout: () => void;
-    register: () => void;
+    logout: () => Promise<Request>;
+    register: (data: RegisterInput) => Promise<Request>;
     checkAuth: () => Promise<void>;
 }

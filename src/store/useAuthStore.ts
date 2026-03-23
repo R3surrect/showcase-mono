@@ -100,12 +100,18 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         }
     },
     
-    register: async () => {
-        // set((state) => ({
-        //     registerData: {
-        //         ...state.registerFormData
-        //     }
-        // }))
+    register: async (authFields) => {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}:${import.meta.env.VITE_BACKEND_PORT}/api/v1/register`, {
+            method: 'POST',
+            credentials: 'include',
+
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify(authFields)
+
+        });
+
     },
 
     logout: async () => {
