@@ -1,0 +1,14 @@
+@import url('@global/styles/_variables');
+
+.legalNotice {
+  word-wrap: break-word;
+  color: var(--status-info);
+  font-size: var(--helper-text-size);
+}
+
+.legalNotice a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--status-info);
+}

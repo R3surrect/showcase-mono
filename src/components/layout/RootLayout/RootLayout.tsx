@@ -1,18 +1,22 @@
+import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+
 import stylesObj from './RootLayout.module.css';
 import Header from '@components/layout/Header/Header'
 import Sidebar from '@components/layout/Sidebar/Sidebar';
 import BaseContainer from '@components/layout/BaseContainer/BaseContainer'
 import Breadcrumbs from '@components/layout/Breadcrumbs/Breadcrumbs'
-import { Outlet } from 'react-router-dom';
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
-import { Suspense } from 'react';
 import useTaskStore from '@/store/useTaskStore';
 
-export const loader = async () => {
-    const loadTask = useTaskStore(state => state.loadTasks);
-    const isLoading = useTaskStore(state => state.isLoading);
+//* Don't use hooks outside components!
 
-    if (!isLoading) loadTask();
+export const loader = async () => {
+    const { loadTasks, isLoading } = useTaskStore.getState();
+
+    if (!isLoading) await loadTasks();
+
+    return null;
 }
 
 export const Component = () => {

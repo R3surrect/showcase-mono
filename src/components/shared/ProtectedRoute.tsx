@@ -7,15 +7,14 @@ type Props = {
 }
 
 const ProtectedRoute = ({children}: Props) => {
-    const authStatus = useAuthStore(state => state.authStatus);
+    const authStatus = useAuthStore(state => state.authData.authStatus);
 
     if (authStatus === 'unknown') {
-        //TODO Прикрутить loader
         return <div>Checking auth...</div> 
     }
 
     if (authStatus === 'unauthenticated') {
-        return <Navigate to="/login" replace/>
+        return <Navigate to="/auth/login" replace/>
     }
 
     return children;

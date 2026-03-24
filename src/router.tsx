@@ -1,12 +1,13 @@
+import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    lazy: () => import('@/pages/Auth/AuthLayout.tsx'),
+    path: '/auth',
+    lazy: () => import('@/components/auth/AuthLayout/AuthLayout'),
     children: [
       { path: 'login', lazy: () => import('@/pages/Auth/Login/Login.tsx') },
-      { path: 'register', lazy: () => import('@/pages/Auth/Register/Register.tsx') }
+      { path: 'register', lazy: () => import('@/pages/Auth/Register/Register.tsx') },
     ]
   },
   {
@@ -42,6 +43,7 @@ export const router = createBrowserRouter([
         path: 'Preferences',
         lazy: () => import('@/pages/Preferences/Preferences.tsx')
       },
+      { index: true, element: <Navigate to='/analytics' replace /> },
     ]
   },
   { path: '*', element: <div>404: Page not found</div> }

@@ -37,8 +37,8 @@
 /** Typography Roles (Fluid) */
 :root {
 
-  /** A biggest H */
-  --auth-title-size:    clamp(1.5rem, 0.9rem + 1.5vw, 3rem);
+  /** A biggest H *modified*/
+  --auth-title-size:    clamp(2rem, 0.9rem + 1.5vw, 3rem);
 
   /** "Good to see you again"*/
   --auth-subtitle-size: clamp(0.9rem, 0.6rem + 0.2vw, 1.1rem);

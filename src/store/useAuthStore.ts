@@ -111,6 +111,11 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
             body: JSON.stringify(authFields)
 
         });
+        //! Заглушка
+        console.log(res.body);
+        return new Promise(() => {
+            return {}
+        })
 
     },
 
@@ -132,6 +137,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         catch (e) {
             console.error(`logout request failed, will rely on session expiration. err: ${e}`);
         }
+        return {message: '', status: 0, success: true}
     }
 }), {
     name: "AuthStorage",

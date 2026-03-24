@@ -8,11 +8,11 @@ const THICKNESS_TYPES = ['thin', 'half-medium', 'medium', 'thick'] as const;
 const VARIANT_TYPES = ['default', 'strong', 'accent', 'subtle', 'glass'] as const;
 
 type Thickness = typeof THICKNESS_TYPES[number];
-type Variant = typeof VARIANT_TYPES[number];
+type Variants = typeof VARIANT_TYPES[number];
 
 
 interface HrProps extends Omit<ComponentPropsWithoutRef<'hr'>, 'style' | 'onClick'> {
-    variant?: Variant;
+    variant?: Variants;
     thickness?: Thickness;
     shadow?: boolean;
     opacity?: opacityLevel;
@@ -23,7 +23,7 @@ interface HRVars extends React.CSSProperties {
     '--hr-opacity'?: number;
 }
 
-const variants = {
+const variantsObj = {
     default: styledObj.default,
     strong: styledObj.strong,
     accent: styledObj.accent,
@@ -46,7 +46,7 @@ const Hr = ({
 
         className={clsx(
             styledObj.hr,
-            variants[variant],
+            variantsObj[variant],
             shadow && styledObj.shadow,
         )}
 

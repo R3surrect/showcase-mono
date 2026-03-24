@@ -16,6 +16,15 @@ html {
 
 body {
     background: var(--neutral-0);
+    -webkit-font-smoothing: antialiased;
+}
+
+input, 
+button, 
+textarea, 
+select {
+  font: inherit;
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
