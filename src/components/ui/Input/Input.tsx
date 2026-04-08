@@ -37,7 +37,7 @@ const Input = ({
                 ref={ref}
                 placeholder={
                     isPassword
-                        ? (isPasswordHidden ? '********' : placeholder)
+                        ? (isPasswordHidden ? '*****************' : placeholder)
                         : placeholder
                 }
                 {...props}

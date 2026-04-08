@@ -14,7 +14,9 @@ export const registerSchema = zod
               .regex(/[a-z]/, 'Min 1 lower letter')
               .regex(/[0-9]/, 'Min 1 digit')
               .regex(/[^A-Za-z0-9]/, 'Special symbol required'),
-          confirmPassword: zod.string().min(1, 'Confirm password')
+          confirmPassword: zod
+          .string()
+          .min(1, 'Confirm password')
     })
     .refine(data => data.password === data.confirmPassword, {
         message: "Passwords do not match!",

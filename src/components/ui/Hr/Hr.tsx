@@ -23,7 +23,7 @@ interface HRVars extends React.CSSProperties {
     '--hr-opacity'?: number;
 }
 
-const variantsObj = {
+const variantsObj: Record<Variants, string> = {
     default: styledObj.default,
     strong: styledObj.strong,
     accent: styledObj.accent,

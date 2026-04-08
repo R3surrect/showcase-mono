@@ -1,4 +1,3 @@
-import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -12,7 +11,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    lazy: () => import('@/components/layout/RootLayout/RootLayout.tsx'),
+    lazy: async () => {
+
+      const [loaderModule, componentModule] = await Promise.all([
+        import('@/components/layout/RootLayout/RootLayout.loader'),
+        import('@/components/layout/RootLayout/RootLayout'),
+      ]);
+
+      return {
+        loader: loaderModule.loader,
+        Component: componentModule.Component
+      };
+
+    },
     children: [
       { index: true, element: <Navigate to='/analytics' replace /> },
       {

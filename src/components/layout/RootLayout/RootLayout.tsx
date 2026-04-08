@@ -7,17 +7,6 @@ import Sidebar from '@components/layout/Sidebar/Sidebar';
 import BaseContainer from '@components/layout/BaseContainer/BaseContainer'
 import Breadcrumbs from '@components/layout/Breadcrumbs/Breadcrumbs'
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
-import useTaskStore from '@/store/useTaskStore';
-
-//* Don't use hooks outside components!
-
-export const loader = async () => {
-    const { loadTasks, isLoading } = useTaskStore.getState();
-
-    if (!isLoading) await loadTasks();
-
-    return null;
-}
 
 export const Component = () => {
     return (

@@ -1,7 +1,6 @@
 import './BaseContainer.css';
-import type { BaseContainerProps } from '@/common/components';
 
-const BaseContainer = ({ children }: BaseContainerProps) => {
+const BaseContainer = ({ children }: React.PropsWithChildren) => {
     return (
         <div className='base-container'>
             {children}

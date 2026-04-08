@@ -3,130 +3,159 @@ import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
 const useAuthStore = create<AuthState>()(persist((set) => ({
+
     authData: {
         user: null,
         authStatus: 'unknown',
     },
 
-    error: null,
-    status: null,
+    status: undefined,
     isLoading: false,
 
     login: async (authFields) => {
-        set({isLoading: true});
-        
-        try {
+        set({ isLoading: true });
 
-            const res = await fetch (`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/login`, {
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/login`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json', 
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
                 body: JSON.stringify(authFields),
+
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-By': 'XMLHttpRequest'
+                },
             })
 
-        if (res.ok) {
-            set({isLoading: false});
-            
-            const data = await res.json();
-            set(state => ({
-                authData: {
-                    ...state.authData,
-                    authStatus: 'authenticated',
-                    user: data.user
-                }
-            }));
-            
-            return { success: true, status: null, message: null };
+            if (res.ok) {
+                set({ isLoading: false });
+                const data = await res.json();
 
-        } else {
-
-            set({error: res.statusText, status: res.status, isLoading: false});
-
-            setTimeout(() => set({error: null, status: null}), 5000);
-
-            return {success: false, status: res.status, message: res.statusText}
-        }
+                set({
+                    authData: {
+                        authStatus: 'authenticated',
+                        user: data.user
+                    }
+                });
+                return { success: true };
+            } else {
+                set({ status: res.status, isLoading: false });
+                return { success: false, status: res.status, message: res.statusText };
+            }
         } catch (e: unknown) {
-            const errorPayload = {
-                isLoading: false,
-                status: null,
-                error: "Network Error"
-            };
 
-            set(errorPayload);
+            set({
+                isLoading: false,
+                status: undefined
+            });
 
             if (e instanceof Error) console.log(e.message);
 
             return {
                 success: false,
-                status: errorPayload.status,
-                message: errorPayload.error
+                status: undefined,
+                message: 'Network Error'
             };
         }
     },
 
     checkAuth: async () => {
+
         const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/me`, {
-            method: 'POST',
+            method: 'GET',
             credentials: 'include',
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
+            headers: { 'X-Requested-By': 'XMLHttpRequest' }
+        });
 
         if (res.ok) {
             const data = await res.json();
-            set((state) => ({
+
+            set({
                 authData: {
-                    ...state.authData,
                     authStatus: 'authenticated',
                     user: data.user
                 }
-            }));
+            });
         } else {
             console.warn('checkAuth failed: ', {
                 status: res.status,
                 statusText: res.statusText,
             });
 
-            set((state) => ({
+            set({
                 authData: {
-                    ...state.authData,
                     authStatus: "unauthenticated",
                     user: null
                 }
-            }));
-        }
+            });
+        };
     },
-    
+
     register: async (authFields) => {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}:${import.meta.env.VITE_BACKEND_PORT}/api/v1/register`, {
-            method: 'POST',
-            credentials: 'include',
+        set({ isLoading: true });
+        try {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/register`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-By': 'XMLHttpRequest',
+                },
+                body: JSON.stringify(authFields)
+            });
 
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-            body: JSON.stringify(authFields)
+            if (res.ok) {
+                const data = await res.json();
+                
+                set({
+                    authData: {
+                        authStatus: "authenticated",
+                        user: data.user,
+                    }
+                })
+                console.log(data);
+                return {
+                    success: true
+                }
+            } else {
+                const errorData = await res.json().catch(() => ({}));
 
-        });
-        //! Заглушка
-        console.log(res.body);
-        return new Promise(() => {
-            return {}
-        })
+                console.warn('register failed: ', {
+                    status: res.status,
+                    statusText: res.statusText,
+                });
+                
+                set({
+                    isLoading: false,
+                    status: res.status,
+                });
 
+                return {
+                    success: false,
+                    status: res.status,
+                    message: errorData.message || res.statusText
+                };
+
+            }
+        } catch (e: unknown) {
+            set({ isLoading: false, status: undefined });
+
+            if (e instanceof Error) console.log(e.message);
+
+            return {
+                success: false,
+                message: "Connection error. Please check your internet or try again later"
+            };
+        };
     },
 
     logout: async () => {
-        set((state) => ({
+        set({
             authData: {
-                ...state.authData,
-                authStatus: 'unauthenticated',
                 user: null,
+                authStatus: 'unauthenticated',
             }
-        }));
+        });
 
         try {
             await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/logout`, {
@@ -137,7 +166,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         catch (e) {
             console.error(`logout request failed, will rely on session expiration. err: ${e}`);
         }
-        return {message: '', status: 0, success: true}
+        return { message: '', status: 0, success: true }
     }
 }), {
     name: "AuthStorage",

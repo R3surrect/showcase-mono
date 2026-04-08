@@ -11,8 +11,10 @@ import Input from "@/components/ui/Input/Input";
 import QrAuth from "@/components/auth/QRAuth/QRAuth";
 import Stack from '@/components/ui/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
+import { useNavigate } from 'react-router-dom';
 
 export const Component = () => {
+    const navigate = useNavigate();
     const loginUser = useAuthStore(store => store.login);
 
     const {
@@ -33,7 +35,9 @@ export const Component = () => {
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [loginResult] = await Promise.all([loginUser(data), minWait]);
 
-        if (!loginResult.success) {
+        if (loginResult?.success) {
+            navigate('/analytics', { replace: true });
+        } else if (loginResult?.message) {
             const errorMessage = loginResult.status === 401
                 ? "Email or password are incorrect"
                 : (loginResult.message || "Something went wrong, please try again later");
@@ -77,7 +81,7 @@ export const Component = () => {
                 <Button type='button' variant='outline' disabled={isSubmitting}>
                     Login as Guest (Demo mode)
                 </Button>
-                <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one'/>
+                <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one' />
             </Stack>
         </form>
 

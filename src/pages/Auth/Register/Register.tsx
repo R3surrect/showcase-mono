@@ -11,12 +11,15 @@ import Input from '@/components/ui/Input/Input';
 import Stack from '@/components/ui/Stack/Stack';
 import useAuthStore from '@/store/useAuthStore';
 import LegalNotice from '@/components/auth/LegalNotice/LegalNotice';
+import { useNavigate } from 'react-router-dom';
 
 export const Component = () => {
+    const navigate = useNavigate();
     const registerUser = useAuthStore(store => store.register);
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors, isSubmitting }
     } = useForm<RegisterInput>({
         resolver: zodResolver(registerSchema),
@@ -27,8 +30,20 @@ export const Component = () => {
         },
     });
 
-    const onSubmit = async (data: { email: string; password: string }) => {
-        // const result = await registerUser({...data});
+    const onSubmit = async ({ confirmPassword, ...payload }: RegisterInput) => {
+
+        const minWait = new Promise(resolve => setTimeout(resolve, 300));
+        const [registerResult] = await Promise.all([registerUser(payload), minWait]);
+
+        if (registerResult?.success) {
+            navigate('/analytics', { replace: true });
+        } else if (registerResult?.message) {
+            // Если ошибка — выводим её в форму
+            setError("root", {
+                type: "server",
+                message: registerResult.message,
+            });
+        }
     }
 
     return <>
