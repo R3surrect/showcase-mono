@@ -1,19 +1,17 @@
 import { create } from "zustand";
 import type Task from "@/types/Task";
 import type TaskStore from '@/interfaces/TaskStore';
-import { useId } from 'react';
 
 const useTaskStore = create<TaskStore>((set, get) => ({
 
     tasks: [],
-
     isLoading: false,
     isInitialized: false,
     errorMessage: null,
 
     addTask: (newTask: Task) => set(
         prev => ({
-            tasks: [...prev.tasks, { ...newTask, id: useId() }]
+            tasks: [...prev.tasks, { ...newTask, id: crypto.randomUUID() }]
         })
     ),
 
@@ -38,11 +36,10 @@ const useTaskStore = create<TaskStore>((set, get) => ({
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/scheduler`,
                 {
-                    method: "POST",
+                    method: "GET",
                     credentials: 'include',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
+                        'X-Requested-By': 'XMLHttpRequest'
                     },
                 });
 
@@ -71,8 +68,8 @@ const useTaskStore = create<TaskStore>((set, get) => ({
                 isLoading: false,
             })
         }
-    }
 
+    }
 }))
 
 export default useTaskStore;

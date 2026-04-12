@@ -1,0 +1,15 @@
+@import url('@global/styles/_variables.css');
+
+.header {
+    user-select: none;
+    display: flex;
+    grid-area: header;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+    padding: 1.75rem;
+    height: var(--header-height);
+    min-height: var(--header-min-height);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--neutral-250);
+}

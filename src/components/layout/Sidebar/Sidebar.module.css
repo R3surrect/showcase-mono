@@ -1,0 +1,84 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_breakpoints.css');
+
+.menu {
+    container-type: inline-size;
+    display: flex;
+    grid-area: sidebar;
+    background: var(--neutral-0);
+    justify-content: start;
+    align-items: left;
+    width: var(--sidebar-width);
+    user-select: none;
+    font-weight: 700;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--neutral-250);
+    box-shadow: var(--sidebar-shadow);
+    z-index: 1;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    list-style: none;
+}
+
+.link {
+    font-size: var(--helper-text-size);
+    padding: 0.6rem 0.75rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    border-radius: var(--border-radius-15);
+    width: 100%;
+    font-weight: 700;
+}
+
+.link,
+.link * {
+    transition: .2s;
+}
+
+.link:not(.linkActive):hover * {
+    color: var(--neutral-850);
+    stroke: var(--neutral-850);
+}
+
+.link,
+.link:visited {
+    color: var(--link-inactive);
+}
+
+.linkActive,
+.link:focus {
+    outline: 1px solid color-mix(in srgb, var(--warm-green-500), transparent 50%);
+    border: none;
+    background-color: color-mix(in srgb, var(--warm-green-500), transparent 85%);
+}
+
+.linkActive>span {
+    color: var(--link-active);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    color: var(--neutral-850);
+    font-weight: 400;
+}
+
+@container (width < 200px) {
+    .link span {
+        display: none;
+    }
+    .link a{
+        width: fit-content;
+    }
+}

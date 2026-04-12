@@ -1,8 +1,8 @@
-import './BaseContainer.css';
+import stylesObj from './BaseContainer.module.css';
 
 const BaseContainer = ({ children }: React.PropsWithChildren) => {
     return (
-        <div className='base-container'>
+        <div className={stylesObj.baseContainer}>
             {children}
         </div>
     )

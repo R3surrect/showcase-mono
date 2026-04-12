@@ -36,6 +36,7 @@
       "@types/*": ["src/types/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@validation/*": ["src/validation/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["src/**/*"]

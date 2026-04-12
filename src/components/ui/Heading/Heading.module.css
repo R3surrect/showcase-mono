@@ -6,21 +6,29 @@
     gap: 0.5rem;
 }
 
+h1 { font-size: var(--title-size)}
+h2 { font-size: var(--subtitle-size)}
+h3 { font-size: var(--ui-main-size)}
+h4 { font-size: var(--label-size)}
+h5 { font-size: var(--footer-text-size)}
+h6 { font-size: var(--helper-text-size)}
+
 .heading {
     color: var(--neutral-0);
     margin: 0;
     padding: 0;
 }
 
+.subtitle {
+    font-size: var(--subtitle-size);
+    color: var(--neutral-500);
+    font-weight: 650;
+}
+
+/** Variants */
+
 .accent {
     color: var(--neutral-750);
     font-family: var(--font-accent);
-    font-size: var(--auth-title-size);
-    font-weight: 300;
-}
-
-.subtitle {
-    font-size: var(--auth-subtitle-size);
-    color: var(--neutral-500);
-    font-weight: 650;
+    font-weight: 500;
 }

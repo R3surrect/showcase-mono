@@ -21,7 +21,8 @@ export default defineConfig({
       '@types': '/src/types',
       '@interfaces': '/src/interfaces',
       '@store': '/src/store',
-      "@validation/*": '/src/validation',
+      '@validation/*': '/src/validation',
+      '@assets/*': '/src/assets',
     }
   }
 })

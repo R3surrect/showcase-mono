@@ -1,15 +1,12 @@
-import './Header.css';
+import stylesObj from './Header.module.css';
 
 const Header = () => {
     return (
-        <div className='header'>
-            <div className='header__logo'>
-                LOGO
-            </div>
-            <div className='header__content'>
+        <div className={stylesObj.header}>
+            <div className={stylesObj.content}>
                 CONTENT
             </div>
-            <div className="header__profile">
+            <div className={stylesObj.profile}>
                 PROFILE
             </div>
         </div>

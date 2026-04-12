@@ -1,63 +1,52 @@
-import './Sidebar.css';
-// import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
-import { HelpCircle, LogOut, /* Moon, Bell, */ Settings, BarChart3, Calendar, StickyNote, Star, Heart, Layers } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
+import { BarChart3, Calendar, StickyNote, Star, Heart, Layers } from 'lucide-react';
+import stylesObj from './Sidebar.module.css';
+import logo from '@/assets/svg/logo.svg'
+import Heading from '@/components/ui/Heading/Heading';
 
 const Sidebar: React.FC = () => {
-    const location = useLocation();
-    // const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     const menuItems = [
-        { id: 1, label: 'Аналитика', path: '/analytics', icon: BarChart3 },
-        { id: 2, label: 'Планировщик', path: '/scheduler', icon: Calendar },
-        { id: 3, label: 'Заметки', path: '/notes', icon: StickyNote },
-        { id: 4, label: 'Проекты', path: '/projects', icon: Star },
-        { id: 5, label: 'Избранное', path: '/favorites', icon: Heart },
-        { id: 6, label: 'Шаблоны', path: '/templates', icon: Layers }
-    ];
-
-    const actionItems = [
-        { id: 1, label: 'Помощь', icon: HelpCircle, action: () => { } },
-        { id: 2, label: 'Настройки', icon: Settings, action: () => { } },
-        { id: 3, label: 'Выход', icon: LogOut, action: () => { } }
+        { id: 0, label: 'Аналитика', path: '/analytics', icon: BarChart3 },
+        { id: 1, label: 'Планировщик', path: '/scheduler', icon: Calendar },
+        { id: 2, label: 'Заметки', path: '/notes', icon: StickyNote },
+        { id: 3, label: 'Проекты', path: '/projects', icon: Star },
+        { id: 4, label: 'Избранное', path: '/favorites', icon: Heart },
+        { id: 5, label: 'Шаблоны', path: '/templates', icon: Layers }
     ];
 
     return (
-        <aside className="sidebar">
-            <nav className="sidebar__menu" aria-label='Основная навигация'>
-                <ul className="sidebar__list">
-                    {
-                        menuItems.map(({ id, label, path, icon: Icon }) => (
-                            <li key={id}>
-                                <Link to={path}
-                                    className={`sidebar__link ${location.pathname === path ? 'sidebar__link--active' : ''}`}
-                                    aria-current={location.pathname === path ? 'page' : undefined}
-                                // семантическая пометка для Вспомогательных технологий
-                                >
-                                    <Icon size={20} strokeWidth={3} color={location.pathname === path
-                                        ? 'var(--link-active)'
-                                        : 'var(--link-inactive)'
-                                    }/>
-                                    
-                                    <span className='sidebar__label'>{label}</span>
-                                </Link>
-                            </li>
-                        ))
-                    }
-                </ul>
+        <aside className={stylesObj.menu} aria-label='Navigation'>
+            <div>
+                <div className={stylesObj.logo}>
+                    <img src={logo} alt='Logo' height={36} width={36} />
+                    <Heading variant='accent' level={2}>IPlanify</Heading>
+                </div>
+                <nav>
+                    <ul className={stylesObj.list}>
+                        {
+                            menuItems.map(({ id, label, path, icon: Icon }) => (
+                                <li key={id}>
+                                    <NavLink to={path}
+                                        className={({ isActive }) => clsx(stylesObj.link, isActive ? stylesObj.linkActive : '')}
+                                    >
+                                        {({ isActive }) => (
+                                            <>
+                                                <Icon size={20} strokeWidth={2} color={isActive
+                                                    ? 'var(--link-active)'
+                                                    : 'var(--link-inactive)'
+                                                } />
 
-            </nav>
-            <div className="sidebar__actions">
-                <ul className="sidebar__actions-list">
-                    {
-                        actionItems.map(({ id, label, icon: Icon, action }) => (
-                            <div key={id} title={label} onClick={action} aria-label={label}>
-                                <Icon size={30} strokeWidth={1.5}/>
-                            </div>
-                        ))
-                    }
-                </ul>
+                                                <span className={stylesObj.label}>{label}</span>
+                                            </>
+                                        )}
+                                    </NavLink>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </nav>
             </div>
         </aside>
     )
