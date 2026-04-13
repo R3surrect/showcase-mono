@@ -6,8 +6,6 @@
     --large-desktops: 1536px;
 }
 
-@custom-media --small-tablets (min-width: 640px);
-@custom-media --tablets (min-width: 768px);
-@custom-media --laptops (min-width: 1024px);
-@custom-media --desktops (min-width: 1280px);
-@custom-media --large-desktops (min-width: 1536px);
+@custom-media --mobile (max-width: 767px);
+@custom-media --tablet (768px <= width <= 1023px);
+@custom-media --desktop (min-width: 1024px);

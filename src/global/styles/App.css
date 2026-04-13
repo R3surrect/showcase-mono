@@ -12,6 +12,8 @@ html {
     height: 100%;
     font-family: var(--font-main);
     scroll-behavior: smooth;
+    min-width: 360px;
+    overflow-x: auto;
 }
 
 body {

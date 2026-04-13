@@ -29,7 +29,7 @@ const Calendar: React.FC = () => {
     }
 
     return (
-        <Surface className='calendar__surface'>
+        <Surface className='calendar__surface' variant='glass'>
             <div className="calendar__header">
                 <div role='toolbar' className="calendar__header-nav">
                     <ChevronLeftCircle color='var(--neutral-500)' onClick={handleLeftSwitchClick} />

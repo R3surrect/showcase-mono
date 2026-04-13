@@ -1,8 +1,11 @@
 @import url('@global/styles/_variables.css');
 
 .baseContainer {
-    padding: 2rem 2rem 0 2rem;
     grid-area: content;
-    background: var(--neutral-15);
-    width: calc(100vw - var(--sidebar-width));
+    padding: 2rem 2rem 0 2rem;
+    background: var(--neutral-0);
+
+    height: 100%;
+    overflow-y: auto;
+    min-height: 0;
 }

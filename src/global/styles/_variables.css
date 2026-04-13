@@ -2,10 +2,8 @@
 
 /** Main Colors */
 :root {
-  --neutral-0: hsl(90, 6%, 96%);
-  ;
-  --neutral-15: hsl(90, 6%, 96%);
-  --neutral-50: hsl(0, 0%, 95%);
+  --neutral-0:   hsl(90, 6%, 96%);
+  --neutral-50:  hsl(0, 0%, 95%);
   --neutral-100: hsl(53, 22%, 92%);
   --neutral-200: hsl(48, 31%, 84%);
   --neutral-250: hsl(47, 18%, 70%);
@@ -17,14 +15,16 @@
   --neutral-600: hsl(41, 24%, 34%);
   --neutral-750: hsl(26, 22%, 30%);
   --neutral-850: hsl(40, 26%, 13%);
-  /* --background:  hsl(90,6%,96%); */
 
   --warm-gray-100: hsl(80, 14%, 91%);
   --warm-gray-300: hsl(42, 12%, 55%);
+  --warm-gray-500: hsl(43, 12%, 42%);
 
+  --warm-green-100: hsl(67, 41%, 75%);
+  --warm-green-300: hsl(67, 22%, 50%);
   --warm-green-500: hsl(67, 26%, 35%);
-
-  --accent: var(--neutral-500);
+  --warm-green-600: hsl(67, 27%, 26%);
+  --warm-green-700: hsl(68, 30%, 21%);
 }
 
 :root {
@@ -64,6 +64,7 @@
 
 /** Color Semantics */
 :root {
+  --accent: var(--neutral-500);
   --link-inactive: var(--warm-gray-300);
   --link-active: var(--warm-green-500);
   --ui-bg: var(--glass-surface-light-60);
@@ -95,10 +96,6 @@
   --shadow-md: 0 6px 12px rgba(26, 42, 30, 0.12);
 }
 
-:root {
-  --global-font-family: 'Helvetica Neue', Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
 /** Low bg-contrast shadows */
 :root {
   --shadow-text-highlight: 0 2px 6px rgba(255, 255, 255, 0.253), 0 4px 12px rgba(161, 140, 101, 0.363);
@@ -107,7 +104,6 @@
 :root {
   /** header */
   --header-height: 7vh;
-  --header-min-height: 40px;
   --sidebar-width: 12vw;
 
   /** breadcrumbs*/
@@ -120,10 +116,3 @@
   --sidebar-shadow: 2px 0px 20px rgba(40, 50, 30, 0.1);
   --content-blocks-shadow: 0px 1px 8px 2px rgba(34, 59, 79, 0.3);
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --glass-base-color: var(--neutral-950);
-    --accent: #ffd67d;
-  }
-} */
