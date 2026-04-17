@@ -9,7 +9,6 @@
     overflow: hidden;
 }
 
-
 @media (--mobile) {
     .container {
         grid-template-columns: 1fr;
@@ -34,7 +33,8 @@
 @media (--tablet), (--desktop) {
     .container {
 
-        grid-template-rows: [header] minmax(48px, var(--header-height)) [content] minmax(0, 1fr);
+        grid-template-rows: [header] auto
+                            [content] 1fr;
 
         grid-template-areas:
             "sidebar header"
