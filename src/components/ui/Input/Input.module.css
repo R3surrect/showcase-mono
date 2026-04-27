@@ -1,4 +1,5 @@
 @import url("@global/styles/_variables.css");
+@import url('@global/styles/_semantics.css');
 
 .wrapper {
     --inner-offset-top: 0.7em;
@@ -13,7 +14,6 @@
     justify-content: flex-start;
     text-align: left;
     padding-bottom: 1.3rem;
-    /* background-color: lime; */
 }
 
 .inputWrapper {
@@ -104,7 +104,6 @@
 }
 
 @keyframes shake {
-
     0%,
     100% {
         transform: translateX(0);

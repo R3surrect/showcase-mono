@@ -1,4 +1,5 @@
 @import url('@global/styles/_variables.css');
+@import url('@global/styles/_semantics');
 
 .calendar__surface {
     grid-area: calendar;

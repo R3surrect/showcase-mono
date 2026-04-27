@@ -1,4 +1,6 @@
 @import url('@global/styles/_variables');
+@import url('@global/styles/_semantics');
+
 
 .legalNotice {
   word-wrap: break-word;

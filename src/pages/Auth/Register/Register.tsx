@@ -46,7 +46,7 @@ export const Component = () => {
         }
     }
 
-    return <>
+    return <Stack gap='lg'>
 
         <Heading variant='accent' subtitle='Organize your time in a few clicks' level={1}>Join the community</Heading>
         <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
@@ -93,5 +93,5 @@ export const Component = () => {
                 <AuthSwitcher mainText='Already a member?' linkText='Sign in' to='/auth/login' />
             </Stack>
         </form>
-    </>
+    </Stack>
 }

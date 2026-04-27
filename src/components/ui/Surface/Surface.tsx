@@ -2,22 +2,33 @@ import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion, type HTMLMotionProps } from 'motion/react';
 
-const VARIANT_TYPES = ['glass'] as const;
+const VARIANT_TYPES = ['glass', 'solid'] as const;
+const RADIUS_TYPES = ['sm', 'md', 'lg'] as const
 
+type Radiuses = typeof RADIUS_TYPES[number];
 type Variants = typeof VARIANT_TYPES[number];
 
-interface SurfaceProps extends HTMLMotionProps<'div'> {
-    variant: Variants;
+interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' | 'style'> {
+    variant?: Variants;
+    cornerRadius?: Radiuses;
 }
 
 const variantsObj = {
-    'glass': stylesObj.glass
+    glass: stylesObj.glass,
+    solid: stylesObj.solid,
 }
 
-const Surface = ({ variant = 'glass', ref, children, ...props }: SurfaceProps) => {
+const radiusesObj = {
+    sm: 'var(--border-radius-4)',
+    md: 'var(--border-radius-15)',
+    lg: 'var(--border-radius-25)',
+}
+
+const Surface = ({ variant = 'solid', cornerRadius = 'md', ref, children, ...props }: SurfaceProps) => {
     return (
         <motion.div
             className={clsx(stylesObj.surface, variantsObj[variant])}
+            style={{borderRadius: radiusesObj[cornerRadius]}}
             ref={ref}
             {...props}
         >

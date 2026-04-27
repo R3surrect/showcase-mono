@@ -1,24 +1,46 @@
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
 
-interface HeadingProps {
-    variant: 'accent';
-    level?: 1 | 2 | 3 | 4 | 5 | 6;
+export interface HeadingProps {
+    variant: 'accent' | 'secondary';
+    level: 1 | 2 | 3 | 4 | 5 | 6;
     subtitle?: string;
     children: React.ReactNode;
 }
 
-const variantStyles: Record<HeadingProps['variant'], string> = {
-    accent: stylesObj.accent,
+const variantStyles: Record<HeadingProps['variant'], {
+    headingClass: string, subtitleClass: string
+}> = {
+    accent: {
+        headingClass: stylesObj.accent,
+        subtitleClass: stylesObj.subtitleAccent
+    },
+    secondary: {
+        headingClass: stylesObj.secondary,
+        subtitleClass: stylesObj.subtitleSecondary
+    },
 }
 
-const Heading = ({ variant = 'accent', level = 1, subtitle, children }: HeadingProps) => {
-    const Tag: React.ElementType = `h${level}`;
+const Heading = ({ variant = 'accent', level, subtitle, children }: HeadingProps) => {
+    const { headingClass, subtitleClass } = variantStyles[variant];
 
-    return <div className={stylesObj.wrapper}>    
-        <Tag className={clsx(stylesObj.heading, variantStyles[variant])}>{children}</Tag>
-        {subtitle && <span className={stylesObj.subtitle}>{subtitle}</span>}
+    const Tag: React.ElementType = `h${level}`;
+    const headingElement = <Tag className={clsx(stylesObj.heading, headingClass)}>{children}</Tag>
+
+    if (!subtitle) headingElement;
+
+    return <div className={subtitle ? stylesObj.wrapper : undefined}>
+        {headingElement}
+        {subtitle && <span className={
+            clsx(
+                stylesObj.subtitle,
+                subtitleClass
+            )}
+        >
+            {subtitle}</span>
+        }
     </div>
+
 }
 
 export default Heading;

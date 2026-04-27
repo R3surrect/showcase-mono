@@ -4,7 +4,7 @@ export default interface Task {
     description: string;
     deadline: Date;
     notifyAt: Date;
-    status: "completed" | "pending" | "outdated";
+    status: "completed" | "pending" | "overdue" | "scheduled" | 'in_progress';
     createdAt: Date;
     updatedAt: Date;
 }

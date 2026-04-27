@@ -16,6 +16,9 @@
   --neutral-750: hsl(26, 22%, 30%);
   --neutral-850: hsl(40, 26%, 13%);
 
+  /** Needs design-refactor */
+  --lite-white: rgb(255, 255, 253);
+
   --warm-gray-100: hsl(80, 14%, 91%);
   --warm-gray-300: hsl(42, 12%, 55%);
   --warm-gray-500: hsl(43, 12%, 42%);
@@ -25,13 +28,10 @@
   --warm-green-500: hsl(67, 26%, 35%);
   --warm-green-600: hsl(67, 27%, 26%);
   --warm-green-700: hsl(68, 30%, 21%);
-}
 
-:root {
-  --status-success: var(--warm-green-500);
-  --status-pending: hsl(35, 39%, 53%);
-  --status-error: hsl(11, 35%, 47%);
-  --status-info: hsl(207, 10%, 42%);
+  --warm-orange-400:    hsl(35, 39%, 53%);
+  --warm-red-400:       hsl(11, 35%, 47%);
+  --cold-blue-grey-400: hsl(207, 10%, 42%);
 }
 
 :root {
@@ -40,35 +40,17 @@
 }
 
 /** Typography Roles (Fluid) */
+/*! FIX IT  */
 :root {
-
-  /** A biggest H */
-  --title-size: clamp(2rem, 0.9rem + 1.5vw, 3rem);
-
-  /** "Good to see you again" */
-  --subtitle-size: clamp(1.125rem, 1rem + 0.5vw, 1.4rem);
-
-  /** "EMail", "Password" */
-  --label-size: clamp(0.85rem, 0.7rem + 0.3vw, 1.05rem);
-
-  /** Input and Login components */
-  --ui-main-size: clamp(0.8rem, 0.7rem + 0.2vw, 0.95rem);
-
-  /** Errors and hints */
-  --helper-text-size: clamp(0.75rem, 0.7rem + 0.1vw, 0.85rem);
-
-  /** Footer text */
-  --footer-text-size: clamp(0.7rem, 0.65rem + 0.1vw, 0.8rem);
+  --font-size-level-1: clamp(2rem, 0.9rem + 1.5vw, 3rem);
+  --font-size-level-2: clamp(1rem, 0.65rem + 0.5vw, 1.4rem);
+  --font-size-level-3: clamp(1rem, 0.1rem + 0.5vw, 1.4rem);
+  --font-size-level-4: clamp(0.85rem, 0.7rem + 0.3vw, 1.05rem);
+  --font-size-level-5: clamp(0.8rem, 0.7rem + 0.2vw, 0.95rem);
+  --font-size-level-6: clamp(0.75rem, 0.7rem + 0.1vw, 0.85rem);
+  --font-size-level-7: clamp(0.7rem, 0.755rem + 0.1vw, 1.3rem);
 }
 
-
-/** Color Semantics */
-:root {
-  --accent: var(--neutral-500);
-  --link-inactive: var(--warm-gray-300);
-  --link-active: var(--warm-green-500);
-  --ui-bg: var(--glass-surface-light-60);
-}
 
 /** Corner rounding */
 :root {
@@ -81,8 +63,6 @@
 
 /** Glass effects*/
 :root {
-  --glass-base: var(--neutral-0);
-
   --glass-surface-light-30: color-mix(in srgb, var(--neutral-0), transparent 30%);
   --glass-surface-light-45: color-mix(in srgb, var(--neutral-0), transparent 45%);
   --glass-surface-light-50: color-mix(in srgb, var(--neutral-0), transparent 50%);
@@ -94,6 +74,7 @@
 /** Shadows */
 :root {
   --shadow-md: 0 6px 12px rgba(26, 42, 30, 0.12);
+  --shadow-sm: 0px 0px 8px 0px rgba(26, 42, 30, 0.2);
 }
 
 /** Low bg-contrast shadows */
@@ -111,6 +92,7 @@
   --breadcrumbs-min-height: 32px;
 
   /** Separated Shadows */
+
   /*! TO OVERRIDE*/
   --header-shadow: 0px 8px 60px 20px rgba(26, 42, 30, 0.2);
   --sidebar-shadow: 2px 0px 20px rgba(40, 50, 30, 0.1);

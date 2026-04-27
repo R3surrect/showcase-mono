@@ -1,8 +1,7 @@
 import React from "react";
-import type { BaseContainerProps } from '@common/components';
-import stylesObj from './Modal.module.css';
+// import stylesObj from './Modal.module.css';
 
-const Modal: React.FC<BaseContainerProps> = ({ children }) => {
+const Modal = ({ children } : {children: React.ReactNode}) => {
     return (
         <div className="modal">
             {children}

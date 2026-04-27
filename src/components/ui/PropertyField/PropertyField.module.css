@@ -1,0 +1,10 @@
+.propertyField {
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.propertyField label{
+    width: 100%;
+    cursor: pointer;
+}

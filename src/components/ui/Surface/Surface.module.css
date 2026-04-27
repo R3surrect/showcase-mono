@@ -6,9 +6,10 @@
     background: var(--neutral-0);
     padding: 1rem;
     border: 1px solid var(--neutral-400);
+    will-change: transform;
 }
 
-.glass {
+.glass, .solid {
     padding: 2rem;
     background-color: var(--glass-surface-light-45);
     backdrop-filter: blur(3.5rem);
@@ -17,8 +18,11 @@
     text-align: center;
     width: clamp(512px, 20vw, 1024px);
     min-height: 256px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
     box-shadow: var(--shadow-md);
+}
+
+.solid {
+    width: 100%;
+    background-color: var(--lite-white);
+    text-align: left;
 }

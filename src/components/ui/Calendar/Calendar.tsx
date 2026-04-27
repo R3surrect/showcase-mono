@@ -49,7 +49,7 @@ const Calendar: React.FC = () => {
                     }
                 </div>
             </div>
-            <div className="calendar__content" key={calendarViewDate.toISOString()}>
+            <div className="calendar__content">
                 {
                     calendarDays.map((date, index) => {
                         const isCurrentMonth = date.getMonth() === selectedDate.getMonth();

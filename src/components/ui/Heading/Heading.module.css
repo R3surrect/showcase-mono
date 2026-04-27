@@ -1,4 +1,5 @@
 @import url('@global/styles/_variables.css');
+@import url('@global/styles/_semantics.css');
 
 .wrapper {
     display: flex;
@@ -7,28 +8,38 @@
 }
 
 h1 { font-size: var(--title-size)}
-h2 { font-size: var(--subtitle-size)}
+h2 { font-size: var(--header-size)}
 h3 { font-size: var(--ui-main-size)}
 h4 { font-size: var(--label-size)}
 h5 { font-size: var(--footer-text-size)}
 h6 { font-size: var(--helper-text-size)}
 
 .heading {
-    color: var(--neutral-0);
     margin: 0;
     padding: 0;
 }
 
-.subtitle {
-    font-size: var(--subtitle-size);
+/** Variants */
+
+.accent, .secondary {
+    color: var(--neutral-750);
+    font-family: var(--font-accent);
+    font-weight: 500;
+}
+
+.secondary{
+    font-family: var(--font-main);
+    color: var(--neutral-750);
+    display: inline-block;
+    text-align: start;
+}
+
+.subtitleAccent {
     color: var(--neutral-500);
     font-weight: 650;
 }
 
-/** Variants */
 
-.accent {
-    color: var(--neutral-750);
-    font-family: var(--font-accent);
-    font-weight: 500;
+.subtitleSecondary {
+    font-size: var(--footer-text-size);
 }

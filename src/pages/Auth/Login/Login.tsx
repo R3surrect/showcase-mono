@@ -49,7 +49,7 @@ export const Component = () => {
         }
     }
 
-    return <>
+    return <Stack gap='lg'>
 
         <Heading variant="accent" subtitle='Good to see you again' level={1}>Welcome back</Heading>
         <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
@@ -82,10 +82,11 @@ export const Component = () => {
                     Login as Guest (Demo mode)
                 </Button>
                 <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one' />
+            
             </Stack>
         </form>
 
         <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
         <QrAuth text="Or scan the QR code from the app for quick login" />
-    </>
+    </Stack>
 }

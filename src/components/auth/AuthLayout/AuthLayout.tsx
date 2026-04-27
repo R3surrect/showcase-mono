@@ -5,7 +5,7 @@ import { AnimatePresence, type Variants } from 'motion/react';
 import Surface from "@/components/ui/Surface/Surface";
 import styles from './AuthLayout.module.css';
 
-export const Component: React.FC = () => {
+export const Component = () => {
     const location = useLocation();
     const outlet = useOutlet();
 

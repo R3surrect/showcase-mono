@@ -1,4 +1,5 @@
 @import url('@global/styles/_variables');
+@import url('@global/styles/_semantics');
 
 .button {
     transition: opacity 0.2s ease, box-shadow 0.2s ease;
