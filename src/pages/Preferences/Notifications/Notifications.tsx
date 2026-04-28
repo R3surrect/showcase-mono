@@ -3,6 +3,7 @@ import Surface from '@/components/ui/Surface/Surface';
 import Stack from '@/components/ui/Stack/Stack';
 import Hr from '@/components/ui/Hr/Hr';
 import PropertyField from '@/components/ui/PropertyField/PropertyField';
+import { Fragment } from 'react/jsx-runtime';
 
 const fieldsData = [
     {
@@ -77,11 +78,10 @@ export const Component = () => {
                     <Stack>
                         <Heading {...headingProps}>{item.title}</Heading>
                         {item.body.map(property => (
-                            <>
+                            <Fragment key={property.title}>
                                 <Hr variant='accent' thickness='thin' />
 
                                 <PropertyField
-                                    key={property.title}
                                     title={property.title}
                                     subtitle={property.subtitle}
                                 >
@@ -91,7 +91,7 @@ export const Component = () => {
                                         onChange={() => { console.log('it\'s me, Mario') }}
                                     />}
                                 </PropertyField>
-                            </>
+                            </Fragment>
                         ))}
                     </Stack>
                 </Surface>

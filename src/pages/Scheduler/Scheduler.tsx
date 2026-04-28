@@ -1,4 +1,4 @@
-import Calendar from '@/components/ui/Calendar/Calendar.tsx';
+// import Calendar from '@/components/ui/Calendar/Calendar.tsx';
 import stylesObj from './Scheduler.module.css';
 
 import useTaskStore from '@/store/useTaskStore.ts';
@@ -30,7 +30,7 @@ export const Component = () => {
                     }
                 </div>
             </div>
-            <Calendar />
+            {/* <Calendar /> */}
         </div>
     )
 }

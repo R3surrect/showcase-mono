@@ -1,82 +1,36 @@
-import { FAVORITES_ROUTES } from '@/routes/favorites.routing';
-import { PREFERENCES_ROUTES } from '@/routes/preferences.routing';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { ROOT_ROUTES } from '@/routes/root.routing';
+import { AUTH_ROUTES } from '@/routes/auth.routing.tsx';
+import { NOT_FOUND_ROUTE } from '@/routes/notFound.routing.tsx';
+import { createBrowserRouter, redirect, type RouteObject } from 'react-router-dom';
+import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
 
-export const router = createBrowserRouter([
-  {
-    path: '/auth',
-    lazy: () => import('@/components/auth/AuthLayout/AuthLayout'),
-    children: [
-      { path: 'login', lazy: () => import('@/pages/Auth/Login/Login.tsx') },
-      { path: 'register', lazy: () => import('@/pages/Auth/Register/Register.tsx') },
-    ],
-    HydrateFallback: () => <div>...loading</div>
-  },
-  {
-    path: '/',
-    HydrateFallback: () => <div>...loading</div>,
-    lazy: async () => {
+export type IndexRoute = Omit<RouteObject, 'children' | 'index'> & {
+  index: true;
+  children?: never;
+  HydrateFallback?: () => React.ReactNode;
+};
 
-      const [loaderModule, componentModule] = await Promise.all([
-        import('@/components/layout/RootLayout/RootLayout.loader.ts'),
-        import('@/components/layout/RootLayout/RootLayout.tsx'),
-      ]);
+export type NonIndexRoute = Omit<RouteObject, 'children' | 'index'> & {
+  index?: false;
+  children?: SubRouteConfig[];
+  HydrateFallback?: () => React.ReactNode;
+};
 
-      return {
-        loader: loaderModule.loader,
-        Component: componentModule.Component
-      };
+export const getPillIndexLoader = (parentPath: string, items: PillPickerItem[]) => {
+  return () => {
+    if (!items || items.length === 0) throw new Error(`Items of ${parentPath} are empty`)
 
-    },
-    children: [
-      { index: true, element: <Navigate to='/analytics' replace /> },
-      {
-        path: 'analytics',
-        lazy: () => import('@/pages/Analytics/Analytics.tsx')
-      },
-      {
-        path: 'Scheduler',
-        lazy: () => import('@/pages/Scheduler/Scheduler.tsx')
-      },
-      {
-        path: 'Notes',
-        lazy: () => import('@/pages/Notes/Notes.tsx')
-      },
-      {
-        path: 'Projects',
-        lazy: () => import('@/pages/Projects/Projects.tsx')
-      },
-      {
-        path: 'Favorites',
-        lazy: () => import('@/pages/Favorites/Favorites.tsx'),
-        children: [
-          {index: true, element: <Navigate to={FAVORITES_ROUTES[0].to}/>},
+    const defaultItem = items.find(item => item.isDefault)?.to ?? items[0].to;
+    return redirect(`${parentPath}/${defaultItem}`)
+  }
+};
 
-          ...FAVORITES_ROUTES.map((route) => ({
-            path: route.to,
-            lazy: route.lazy,
-          })),
-          // {path: 'tasks', lazy: () => import('@/components/page/Favorites/Tasks/Tasks.tsx')},
-          // {path: 'notes', lazy: () => import('@/components/page/Favorites/Notes/Notes.tsx')},
-          // {path: 'projects', lazy: () => import('@/components/page/Favorites/Projects/Projects.tsx')},
-        ]
-      },
-      {
-        path: 'Templates',
-        lazy: () => import('@/pages/Templates/Templates.tsx')
-      },
-      {
-        path: 'Preferences',
-        lazy: () => import('@/pages/Preferences/Preferences.tsx'),
-        children: [
-          {index: true, element: <Navigate to={PREFERENCES_ROUTES[0].to} />},
-          ...PREFERENCES_ROUTES.map((route) => ({
-            path: route.to,
-            lazy: route.lazy,
-          })),
-        ]
-      },
-    ]
-  },
-  { path: '*', element: <div>404: Page not found</div> }
-])
+export type SubRouteConfig = IndexRoute | NonIndexRoute;
+
+export const routerData: SubRouteConfig[] = [
+  ROOT_ROUTES,
+  AUTH_ROUTES,
+  NOT_FOUND_ROUTE,
+];
+
+export const router = createBrowserRouter(routerData);

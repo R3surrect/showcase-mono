@@ -26,7 +26,6 @@
 @media (--tablet) {
     .container {
         grid-template-columns: [sidebar] auto [header] 1fr;
-        
     }
 }
 

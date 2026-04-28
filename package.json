@@ -7,7 +7,7 @@
     "dev": "vite --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --host --port 5173",
     "format": "prettier --write .",
     "type-check": "tsc --noEmit"
   },
@@ -21,6 +21,7 @@
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.71.2",
     "react-router-dom": "^7.9.5",
+    "web-haptics": "^0.0.6",
     "zod": "^4.3.6",
     "zustand": "^5.0.8"
   },

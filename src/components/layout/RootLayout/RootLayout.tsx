@@ -8,6 +8,7 @@ import BaseContainer from '@components/layout/BaseContainer/BaseContainer'
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 
 export const Component = () => {
+
     return (
         <ProtectedRoute>
             <Suspense fallback={null}>

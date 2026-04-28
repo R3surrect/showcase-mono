@@ -1,0 +1,13 @@
+import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback';
+
+export const AUTH_ROUTES = {
+    path: '/auth',
+    lazy: () => import('@/components/auth/AuthLayout/AuthLayout'),
+    errorElement: <RouteErrorFaLLback />,
+
+    children: [
+        { path: 'login', lazy: () => import('@/pages/Auth/Login/Login.tsx') },
+        { path: 'register', lazy: () => import('@/pages/Auth/Register/Register.tsx') },
+    ],
+    HydrateFallback: () => <div>...loading</div>
+}

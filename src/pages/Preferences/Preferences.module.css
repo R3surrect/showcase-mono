@@ -8,15 +8,17 @@
 }
 
 .preferencesGrid {
-    column-count: 2;
-    column-gap: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, auto));
+    gap: 1rem;
 }
 
-.preferencesGrid > * {
+.preferencesGrid>* {
     break-inside: avoid;
-    margin-bottom: 1.5rem;
     display: inline-block;
     width: 100%;
+    /* margin-bottom: 1.5rem; */
 }
 
 @media (--mobile) {
