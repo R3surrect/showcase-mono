@@ -25,19 +25,20 @@
     "noUncheckedSideEffectImports": true,
 
     /* Alias */
-    "baseUrl": ".",
     "paths": {
-      "@/*" : ["./src/*"],
+      "./*": ["./*"], 
+      "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@global/*": ["./src/global/*"],
-      "@common/*": ["src/common/*"],
-      "@store/*": ["src/store/*"],
-      "@types/*": ["src/types/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@validation/*": ["src/validation/*"],
-      "@assets/*": ["src/assets/*"]
+      "@common/*": ["./src/common/*"],
+      "@store/*": ["./src/store/*"],
+      "@types/*": ["./src/types/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@validation/*": ["./src/validation/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@routes/*": ["./src/routes/*"],
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "src", "vite.config.ts"]
 }

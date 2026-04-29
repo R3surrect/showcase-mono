@@ -2,27 +2,13 @@ import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
 import { LucideBell, LucideFocus, LucidePalette, LucideShieldCheck } from 'lucide-react';
 
 export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
-    // {
-    //     icon: LucideTag,
-    //     value: 'tags',
-    //     label: 'Tags',
-    //     to: 'tags',
-    //     isDefault: true,
-    //     lazy: async () => {
-    //         const {Component} = await import('@pages/Preferences/Tags/Tags.tsx')
-    //         return {Component}
-    //     }
-    // },
     {
         icon: LucideBell,
         value: 'notifications',
         label: 'Notifications',
         to: 'notifications',
         isDefault: true,
-        lazy: async () => {
-            const {Component} = await import('@pages/Preferences/Notifications/Notifications.tsx')
-            return {Component}
-        }
+        lazy: () => import('@pages/Preferences/Notifications/Notifications.tsx')
     },
     {
         icon: LucidePalette,
@@ -30,10 +16,7 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'View',
         to: 'view',
         isDefault: false,
-        lazy: async () => {
-            const {Component} = await import('@pages/Preferences/View/View.tsx')
-            return {Component}
-        }
+        lazy: () => import('@pages/Preferences/View/View.tsx')
     },
     {
         icon: LucideFocus,
@@ -41,10 +24,7 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Focus',
         to: 'focus',
         isDefault: false,
-        lazy: async () => {
-            const {Component} = await import('@pages/Preferences/Focus/Focus.tsx')
-            return {Component}
-        }
+        lazy: () => import('@pages/Preferences/Focus/Focus.tsx')
     },
     {
         icon: LucideShieldCheck,
@@ -52,9 +32,6 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Data',
         to: 'data',
         isDefault: false,
-        lazy: async () => {
-            const {Component} = await import('@pages/Preferences/Data/Data.tsx')
-            return {Component}
-        }
+        lazy: () => import('@pages/Preferences/Data/Data.tsx')
     },
 ] as const;

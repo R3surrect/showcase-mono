@@ -1,0 +1,31 @@
+@import url('@global/styles/_breakpoints.css');
+
+.wrapper {
+    display: grid;
+}
+
+.content {
+    display: flex;
+    gap: 1rem;
+}
+
+@media (--desktop) {
+    .wrapper {
+        grid-template-columns: 10fr auto;
+    }
+
+    .content {
+        justify-content: end;
+    }
+}
+
+@media (--mobile) {
+    .wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .content {
+        justify-content: start;
+    }
+}

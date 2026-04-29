@@ -1,0 +1,8 @@
+.gridWrapper {
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: 1fr;
+}
+
+
+/** Прикрутить адаптив */

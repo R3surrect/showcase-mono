@@ -1,11 +1,13 @@
 import { redirect } from 'react-router-dom';
 
-import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback';
-import { FAVORITES_ROUTES } from '@/routes/favorites.routing';
-import { PREFERENCES_ROUTES } from '@/routes/preferences.routing';
-import { getPillIndexLoader } from '@/routes/utils/getPillIndexLoader';
+import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback.tsx';
+import { FAVORITES_ROUTES } from '@/routes/favorites.routing.ts';
+import { PREFERENCES_ROUTES } from '@/routes/preferences.routing.ts';
+import { getPillIndexLoader } from '@/routes/utils/getPillIndexLoader.tsx';
 
-import { type SubRouteConfig } from '@/routes';
+import { type SubRouteConfig } from '@/routes/';
+import { TEMPLATES_ROUTES } from './templates.routing';
+import { createPillRoutes } from './utils/createPillRoutes';
 
 export const ROOT_ROUTES: SubRouteConfig = {
   path: '/',
@@ -34,7 +36,8 @@ export const ROOT_ROUTES: SubRouteConfig = {
     },
     {
       path: '/templates',
-      lazy: () => import('@/pages/Templates/Templates.tsx')
+      lazy: () => import('@/pages/Templates/Templates.tsx'),
+      children: createPillRoutes('/templates', TEMPLATES_ROUTES),
     },
     {
       path: '/notes',

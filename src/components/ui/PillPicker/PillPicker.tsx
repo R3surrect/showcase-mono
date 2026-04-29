@@ -3,25 +3,22 @@ import stylesObj from './PillPicker.module.css';
 import { motion } from 'motion/react';
 import { useNavigate, useLocation, type To, type RouteObject } from 'react-router-dom';
 
-export interface PillPickerItem<T extends To = To> {
+export interface PillPickerItem {
   icon: LucideIcon;
   value: string;
   label: string;
-  to: T;
+  to: string;
   isDefault: boolean;
   lazy: RouteObject['lazy'];
 };
 
 interface PillPickerProps {
   items: PillPickerItem[];
-  initialValue: string;
 }
 
-export const PillPicker = ({ items, initialValue }: PillPickerProps) => {
+export const PillPicker = ({ items }: PillPickerProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  if (!initialValue) navigate(items[0].to);
 
   return (
     <div className={stylesObj.container}>
@@ -38,7 +35,6 @@ export const PillPicker = ({ items, initialValue }: PillPickerProps) => {
             {isActive && (
               <motion.div
                 layoutId="underlay"
-                // layoutDependency={selectedItem.value}
                 className={stylesObj.underlay}
                 initial={false}
                 transition={{ type: 'spring', duration: 0.5 }}
