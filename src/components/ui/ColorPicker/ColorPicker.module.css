@@ -1,0 +1,14 @@
+@import url('@global/styles/_variables.css');
+
+.colorsList {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.colorsList>div {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+}
