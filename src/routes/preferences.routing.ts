@@ -8,7 +8,10 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Tags',
         to: 'tags',
         isDefault: true,
-        lazy: () => import('@pages/Preferences/Tags/Tags.tsx')
+        lazy: async () => {
+            const {Component} = await import('@pages/Preferences/Tags/Tags.tsx')
+            return {Component}
+        }
     },
     {
         icon: LucideBell,
@@ -16,7 +19,10 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Notifications',
         to: 'notifications',
         isDefault: true,
-        lazy: () => import('@pages/Preferences/Notifications/Notifications.tsx')
+        lazy: async () => {
+            const {Component} = await import('@pages/Preferences/Notifications/Notifications.tsx')
+            return {Component}
+        }
     },
     {
         icon: LucidePalette,
@@ -24,7 +30,10 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'View',
         to: 'view',
         isDefault: true,
-        lazy: () => import('@pages/Preferences/View/View.tsx')
+        lazy: async () => {
+            const {Component} = await import('@pages/Preferences/View/View.tsx')
+            return {Component}
+        }
     },
     {
         icon: LucideFocus,
@@ -32,7 +41,10 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Focus',
         to: 'focus',
         isDefault: true,
-        lazy: () => import('@pages/Preferences/Focus/Focus.tsx')
+        lazy: async () => {
+            const {Component} = await import('@pages/Preferences/Focus/Focus.tsx')
+            return {Component}
+        }
     },
     {
         icon: LucideShieldCheck,
@@ -40,6 +52,9 @@ export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
         label: 'Data',
         to: 'data',
         isDefault: true,
-        lazy: () => import('@pages/Preferences/Data/Data.tsx')
+        lazy: async () => {
+            const {Component} = await import('@pages/Preferences/Data/Data.tsx')
+            return {Component}
+        }
     },
 ] as const;
