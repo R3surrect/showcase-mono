@@ -1,7 +1,8 @@
+import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+
 import { ROOT_ROUTES } from '@/routes/root.routing';
 import { AUTH_ROUTES } from '@/routes/auth.routing.tsx';
 import { NOT_FOUND_ROUTE } from '@/routes/notFound.routing.tsx';
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 
 export type IndexRoute = Omit<RouteObject, 'children' | 'index'> & {
   index: true;

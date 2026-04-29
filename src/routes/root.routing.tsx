@@ -1,13 +1,15 @@
+import { redirect } from 'react-router-dom';
+
 import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback';
-import { type SubRouteConfig } from '@/routes';
 import { FAVORITES_ROUTES } from '@/routes/favorites.routing';
 import { PREFERENCES_ROUTES } from '@/routes/preferences.routing';
 import { getPillIndexLoader } from '@/routes/utils/getPillIndexLoader';
-import { redirect } from 'react-router-dom';
+
+import { type SubRouteConfig } from '@/routes';
 
 export const ROOT_ROUTES: SubRouteConfig = {
   path: '/',
-  HydrateFallback: () => null,
+  HydrateFallback: () => <div>...loading</div>,
   lazy: async () => {
     const [loaderModule, componentModule] = await Promise.all([
       import('@/components/layout/RootLayout/RootLayout.loader.ts'),
