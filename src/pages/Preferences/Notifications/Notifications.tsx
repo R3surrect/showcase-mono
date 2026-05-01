@@ -3,7 +3,7 @@ import Surface from '@/components/ui/Surface/Surface';
 import Stack from '@/components/ui/Stack/Stack';
 import Hr from '@/components/ui/Hr/Hr';
 import PropertyField from '@/components/ui/PropertyField/PropertyField';
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from 'react';
 
 const fieldsData = [
     {
@@ -100,3 +100,5 @@ export const Component = () => {
 
     </>
 }
+
+// export default Component;

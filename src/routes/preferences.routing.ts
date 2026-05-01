@@ -1,7 +1,7 @@
 import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
 import { LucideBell, LucideFocus, LucidePalette, LucideShieldCheck } from 'lucide-react';
 
-export const PREFERENCES_ROUTES: PillPickerItem<string>[] = [
+export const PREFERENCES_ROUTES: PillPickerItem[] = [
     {
         icon: LucideBell,
         value: 'notifications',

@@ -1,14 +1,31 @@
 @import url('@global/styles/_variables.css');
 
-.colorsList {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 1rem;
-}
-
-.colorsList>div {
+.colorElement,
+.colorPipette {
+    transition: .2s ease-in-out;
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
     cursor: pointer;
+    z-index: 0;
+}
+
+.colorPipette {
+    display: flex;
+    border: 2px solid var(--warm-green-700);
+    align-items: center;
+    justify-content: center;
+    padding: 5px
+}
+
+.colorElement:hover {
+    transform: scale(1.3);
+}
+
+.colorPipette:hover {
+    transform: scale(1.5);
+}
+
+.colorElement:hover, .colorPipette:hover {
+    z-index: 1;
 }

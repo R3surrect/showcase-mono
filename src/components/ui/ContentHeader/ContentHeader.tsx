@@ -1,4 +1,5 @@
 import Heading from '@/components/ui/Heading/Heading.tsx';
+import Stack from '@components/ui/Stack/Stack';
 import stylesObj from './ContentHeader.module.css';
 
 interface ContentHeaderProps {
@@ -8,7 +9,7 @@ interface ContentHeaderProps {
 }
 
 export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps) => {
-    return <div className={stylesObj.wrapper}>
+    return <Stack direction='row' justify='space-between' wrap={true}>
         <Heading
             variant='secondary'
             level={2}
@@ -19,6 +20,6 @@ export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps)
         <div className={stylesObj.content}>
             {children}
         </div>
-    </div>
+    </Stack>
 
 }

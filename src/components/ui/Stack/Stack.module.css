@@ -1,14 +1,23 @@
 @import url("@global/styles/_variables");
+@import url("@global/styles/_breakpoints");
 
-.wrapper {
+.stackWrapper {
 
     --stack-gap-sm: 0.5rem;
     --stack-gap-md: 1rem;
     --stack-gap-lg: 2rem;
 
     display: flex;
-    /** justify-content: Вынести в переменную; */
-    flex-direction: var(--stack-direction, column); /** injected from Stack.tsx */
+    flex-direction: var(--stack-direction, column);
     gap: var(--stack-gap, 1rem);
-    align-items: var(--stack-align, stretch); /** injected from Stack.tsx */
+    align-items: var(--stack-align, stretch);
+    flex-wrap: var(--stack-wrap);
+    justify-content: var(--stack-justify);
+    width: 100%;
 }
+
+/* @media (--mobile) {
+    .stackWrapper {
+        flex-direction: column;
+    }
+} */

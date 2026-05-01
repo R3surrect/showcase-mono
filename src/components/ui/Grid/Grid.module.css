@@ -1,8 +1,19 @@
+@import url('@global/styles/_breakpoints.css');
+
 .gridWrapper {
     display: grid;
     gap: 1rem;
     grid-auto-rows: 1fr;
 }
 
+@media (--desktop) {
+    .gridWrapper {
+        grid-template-columns: repeat(var(--grid-columns), 1fr);
+    }
+}
 
-/** Прикрутить адаптив */
+@media (--mobile), (--tablet) {
+    .gridWrapper {
+        grid-template-columns: 1fr;
+    }
+}

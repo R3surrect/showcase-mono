@@ -1,5 +1,0 @@
-.wrapper {
-    display: grid;
-    grid-template-rows: 1fr 3rem auto;
-    gap: 1.5rem;
-}

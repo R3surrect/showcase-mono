@@ -1,6 +1,6 @@
 @import url('@global/styles/_breakpoints.css');
 
-.wrapper {
+.stackWrapper {
     display: grid;
 }
 
@@ -9,9 +9,10 @@
     gap: 1rem;
 }
 
-@media (--desktop) {
+@media (--desktop), (--tablet) {
     .wrapper {
         grid-template-columns: 10fr auto;
+        gap: 1rem;
     }
 
     .content {
