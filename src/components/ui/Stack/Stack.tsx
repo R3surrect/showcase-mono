@@ -1,4 +1,8 @@
+import type { Ref } from 'react';
 import stylesObj from './Stack.module.css';
+
+// TODO Мапить типы в сторибуке
+// TODO Добавить адаптив
 
 const GAP_TYPES = ['sm', 'md', 'lg'] as const;
 const ALIGN_TYPES = ['start', 'stretch'] as const;
@@ -10,16 +14,17 @@ type Align = typeof ALIGN_TYPES[number];
 type Direction = typeof DIRECTION_TYPES[number]
 type Justify = typeof JUSTIFY_TYPES[number]
 
-interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
+export interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
   children: React.ReactNode;
   gap?: Gap;
   align?: Align;
   direction?: Direction;
   wrap?: boolean;
   justify?: Justify;
+  ref?: Ref<HTMLDivElement>;
 }
 
-interface StackVars extends React.CSSProperties {
+export interface StackVars extends React.CSSProperties {
   '--stack-gap': string,
   '--stack-align': Align;
   '--stack-direction': Direction;
@@ -33,11 +38,13 @@ const Stack = ({
   wrap = false,
   justify = 'start',
   children,
-  ...rest
+  ref,
+  ...props
 }: StackProps) => {
   return <div
-    {...rest}
+    ref={ref}
     className={stylesObj.stackWrapper}
+    {...props}
     style={{
       '--stack-gap': `var(--stack-gap-${gap})`,
       '--stack-align': align,
@@ -47,7 +54,7 @@ const Stack = ({
     } as StackVars
     }>
     {children}
-  </div>
+  </div >
 }
 
 export default Stack;

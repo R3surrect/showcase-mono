@@ -5,7 +5,7 @@ import stylesObj from './ContentHeader.module.css';
 interface ContentHeaderProps {
     title: string;
     subtitle: string;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps) => {

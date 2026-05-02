@@ -12,7 +12,6 @@
 
 .colorPipette {
     display: flex;
-    border: 2px solid var(--warm-green-700);
     align-items: center;
     justify-content: center;
     padding: 5px

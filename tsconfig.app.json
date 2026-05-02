@@ -26,7 +26,6 @@
 
     /* Alias */
     "paths": {
-      "./*": ["./*"], 
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
@@ -40,5 +39,6 @@
       "@routes/*": ["./src/routes/*"],
     }
   },
-  "include": ["src/**/*", "src", "vite.config.ts"]
+  "include": ["src/**/*", "src", "vite.config.ts"],
+  "exclude": ["node_modules"]
 }

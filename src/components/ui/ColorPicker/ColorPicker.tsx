@@ -1,55 +1,133 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Heading from '@components/ui/Heading/Heading.tsx';
 import Stack from '@components/ui/Stack/Stack.tsx';
 import stylesObj from './ColorPicker.module.css';
 import { LucidePipette } from 'lucide-react';
 import Button from '@components/ui/Button/Button';
-import { HexColorPicker } from 'react-colorful'
-const colorsList: {
+import { HslColorPicker } from 'react-colorful'
+import Popover from '@/components/shared/Popover/Popover';
+import { autoUpdate, flip, offset, shift, useClick, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
+
+// TODO Переписать сохранение в persist useColorStore'а + придумать другое название стору
+// TODO Также реализовать проброс объектов пропсов в кнопку в зависимости от location'а
+// TODO Причесать компонент
+
+interface ColorSet {
     id: string;
     color: string;
-}[] = [
-        { id: '1', color: 'rgb(107, 112, 66)' },
-        { id: '3', color: 'rgb(161, 93, 77)' },
-        { id: '4', color: 'rgb(181, 142, 88)' },
-        { id: '5', color: 'rgb(95, 107, 117)' },
-        { id: '6', color: 'rgb(157, 146, 128)' },
-        { id: '7', color: 'rgb(140, 106, 62)' },
-        { id: '8', color: 'rgb(62, 75, 52)' },
-        { id: '9', color: 'rgb(94, 75, 94)' },
-        { id: '0', color: 'rgb(199, 155, 133)' },
-        { id: '11', color: 'rgb(62, 75, 84)' },
-        { id: '13', color: 'rgb(163, 145, 163)' },
-        { id: '14', color: 'rgb(140, 163, 161)' },
-        { id: '15', color: 'rgb(176, 152, 113)' },
-        { id: '16', color: 'rgb(77, 51, 45)' },
-        { id: '17', color: 'rgb(122, 70, 58)' },
-    ]
+};
+
+const INITIAL_COLORS: ColorSet[] = [
+    { id: crypto.randomUUID(), color: 'hsl(66, 26%, 35%)' },
+    { id: crypto.randomUUID(), color: 'hsl(11, 35%, 47%)' },
+    { id: crypto.randomUUID(), color: 'hsl(35, 36%, 53%)' },
+    { id: crypto.randomUUID(), color: 'hsl(207, 10%, 42%)' },
+    { id: crypto.randomUUID(), color: 'hsl(37, 13%, 56%)' },
+    { id: crypto.randomUUID(), color: 'hsl(34, 39%, 40%)' },
+    { id: crypto.randomUUID(), color: 'hsl(94, 18%, 25%)' },
+    { id: crypto.randomUUID(), color: 'hsl(300, 11%, 33%)' },
+    { id: crypto.randomUUID(), color: 'hsl(20, 39%, 65%)' },
+    { id: crypto.randomUUID(), color: 'hsl(205, 15%, 29%)' },
+    { id: crypto.randomUUID(), color: 'hsl(300, 9%, 60%)' },
+    { id: crypto.randomUUID(), color: 'hsl(175, 11%, 59%)' },
+    { id: crypto.randomUUID(), color: 'hsl(37, 29%, 57%)' },
+    { id: crypto.randomUUID(), color: 'hsl(11, 26%, 24%)' },
+    { id: crypto.randomUUID(), color: 'hsl(11, 36%, 35%)' },
+]
+
+const getLocalStorageColors = () => {
+    try {
+        return JSON.parse(localStorage.getItem('colorSet') || '[]');
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
 
 export const ColorPicker = () => {
-    const [selectedColor, setSelectedColor] = useState(colorsList[0]);
-    const [isColorPickerActive, setIsColorPickerActive] = useState(false);
+    const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
 
-    return <div className={stylesObj.wrapper}>
+    const [uiState, setUiState] = useState({
+        selectedColor: INITIAL_COLORS[0],
+        isColorPickerActive: false,
+        colorPickerColor: {
+            h: 0,
+            s: 0,
+            l: 0,
+        },
+    })
+
+    const { refs, context, floatingStyles } = useFloating({
+        open: uiState.isColorPickerActive,
+
+        onOpenChange: (open) => setUiState(prev => ({
+            ...prev,
+            isColorPickerActive: open
+        })),
+
+        placement: 'top',
+        whileElementsMounted: autoUpdate,
+        middleware: [
+            offset(12),
+            flip(),
+            shift(),
+        ]
+    });
+
+    const dismiss = useDismiss(context);
+    const click = useClick(context);
+    const { getFloatingProps, getReferenceProps } = useInteractions([click, dismiss]);
+
+    useEffect(() => {
+        localStorage.setItem('colorSet', JSON.stringify(colorSet));
+    }, [colorSet])
+
+    return <Stack gap='md'>
         <Heading level={6} variant='secondary'>Цвет</Heading>
-        <br />
         <Stack wrap={true} direction='row'>
-            {colorsList.map((item) => (
+            {[...INITIAL_COLORS, ...colorSet].map((item) => (
                 <div
                     key={item.id}
                     className={stylesObj.colorElement}
-                    onClick={() => setSelectedColor(item)}
+                    onClick={() => setUiState((prev) => ({ ...prev, selectedColor: item }))}
                     style={{
                         backgroundColor: `${item.color}`,
-                        boxShadow: item === selectedColor ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${selectedColor.color}` : ''
+                        boxShadow: item.id === uiState.selectedColor.id
+                            ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${uiState.selectedColor.color}`
+                            : ''
                     }}
                 ></div>
             ))}
-            <div className={stylesObj.colorPipette}>
+            <div
+                className={stylesObj.colorPipette}
+                ref={refs.setReference}
+                style={{
+                    border: `2px solid hsl(${Math.round(uiState.colorPickerColor.h)}, ${Math.round(uiState.colorPickerColor.s)}%, ${Math.round(uiState.colorPickerColor.l)}%)`
+                }}
+                {...getReferenceProps()}
+            >
                 <LucidePipette width={24} height={24} stroke='var(--warm-green-700)' strokeWidth={2} />
-                {isColorPickerActive && <HexColorPicker />}
+                <Popover
+                    ref={refs.setFloating}
+                    isOpen={uiState.isColorPickerActive}
+                    style={floatingStyles}
+                    onClick={e => e.stopPropagation()}
+                    {...getFloatingProps()}
+                >
+                    <Stack gap='sm'>
+                        <HslColorPicker onChange={e => setUiState(prev => ({ ...prev, colorPickerColor: e }))} />
+                        <Button variant='accent' onClick={() => setColorSet((prev) => [
+                            ...prev,
+                            {
+                                id: crypto.randomUUID(),
+                                color: `hsl(${Math.round(uiState.colorPickerColor.h)}, ${Math.round(uiState.colorPickerColor.s)}%, ${Math.round(uiState.colorPickerColor.l)}%)`
+                            }
+                        ])}>
+                            Добавить цвет
+                        </Button>
+                    </Stack>
+                </Popover>
             </div>
-            <Button variant='outline'>Добавить цвет</Button>
         </Stack>
-    </div>
+    </Stack >
 }

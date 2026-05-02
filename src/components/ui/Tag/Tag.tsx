@@ -2,7 +2,7 @@ import stylesObj from './Tag.module.css';
 
 interface TagProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
     label: string;
-    emoji: string;
+    emoji: string
     color: string;
 }
 
