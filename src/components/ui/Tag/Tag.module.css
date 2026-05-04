@@ -8,16 +8,19 @@
     align-items: center;
     padding: .5rem .75rem;
     font-size: var(--helper-text-size);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     border-radius: var(--border-radius-20);
     flex-wrap: wrap;
     min-width: 5rem;
-    width: 7rem;
+    width: fit-content;
     color: var(--tag-color);
     background-color: color-mix(in srgb, var(--tag-color), transparent 90%);
     border: 2px solid color-mix(in srgb, var(--tag-color), transparent 35%);
+    text-shadow: var(--shadow-text-highlight);
+    overflow: visible;
+    gap: .5rem
 }
 
-.tag >* {
+.tag>* {
     display: block;
 }

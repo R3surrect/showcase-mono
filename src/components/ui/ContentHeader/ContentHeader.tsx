@@ -1,8 +1,9 @@
 import Heading from '@/components/ui/Heading/Heading.tsx';
 import Stack from '@components/ui/Stack/Stack';
 import stylesObj from './ContentHeader.module.css';
+import type { HTMLAttributes } from 'react';
 
-interface ContentHeaderProps {
+interface ContentHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
     title: string;
     subtitle: string;
     children?: React.ReactNode;

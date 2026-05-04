@@ -3,14 +3,17 @@ import clsx from 'clsx';
 import { motion, type HTMLMotionProps } from 'motion/react';
 
 const VARIANT_TYPES = ['glass', 'solid'] as const;
-const RADIUS_TYPES = ['sm', 'md', 'lg'] as const
+const RADIUS_TYPES = ['sm', 'md', 'lg'] as const;
+const HEIGHT_TYPES = ['fit-content', 'max'] as const;
 
 type Radiuses = typeof RADIUS_TYPES[number];
 type Variants = typeof VARIANT_TYPES[number];
+type Heights = typeof HEIGHT_TYPES[number];
 
 interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' | 'style'> {
     variant?: Variants;
     cornerRadius?: Radiuses;
+    height?: Heights;
 }
 
 const variantsObj = {
@@ -24,12 +27,17 @@ const radiusesObj = {
     lg: 'var(--border-radius-25)',
 }
 
-const Surface = ({ variant = 'solid', cornerRadius = 'md', ref, children, ...props }: SurfaceProps) => {
+const Surface = ({ variant = 'solid', cornerRadius = 'md', height = 'max', ref, children, ...props }: SurfaceProps) => {
+    const isFit = height === 'fit-content';
     return (
         <motion.div
             className={clsx(stylesObj.surface, variantsObj[variant])}
-            style={{borderRadius: radiusesObj[cornerRadius]}}
             ref={ref}
+            style={{
+                borderRadius: radiusesObj[cornerRadius],
+                height: isFit ? 'fit-content' : '100%',
+                alignSelf: isFit ? 'start' : 'stretch'
+            }}
             {...props}
         >
             {children}

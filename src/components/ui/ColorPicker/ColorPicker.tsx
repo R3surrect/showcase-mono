@@ -8,31 +8,27 @@ import { HslColorPicker } from 'react-colorful'
 import Popover from '@/components/shared/Popover/Popover';
 import { autoUpdate, flip, offset, shift, useClick, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 
-// TODO Переписать сохранение в persist useColorStore'а + придумать другое название стору
-// TODO Также реализовать проброс объектов пропсов в кнопку в зависимости от location'а
-// TODO Причесать компонент
-
 interface ColorSet {
     id: string;
     color: string;
 };
 
 const INITIAL_COLORS: ColorSet[] = [
-    { id: crypto.randomUUID(), color: 'hsl(66, 26%, 35%)' },
-    { id: crypto.randomUUID(), color: 'hsl(11, 35%, 47%)' },
-    { id: crypto.randomUUID(), color: 'hsl(35, 36%, 53%)' },
-    { id: crypto.randomUUID(), color: 'hsl(207, 10%, 42%)' },
-    { id: crypto.randomUUID(), color: 'hsl(37, 13%, 56%)' },
-    { id: crypto.randomUUID(), color: 'hsl(34, 39%, 40%)' },
-    { id: crypto.randomUUID(), color: 'hsl(94, 18%, 25%)' },
-    { id: crypto.randomUUID(), color: 'hsl(300, 11%, 33%)' },
-    { id: crypto.randomUUID(), color: 'hsl(20, 39%, 65%)' },
-    { id: crypto.randomUUID(), color: 'hsl(205, 15%, 29%)' },
-    { id: crypto.randomUUID(), color: 'hsl(300, 9%, 60%)' },
-    { id: crypto.randomUUID(), color: 'hsl(175, 11%, 59%)' },
-    { id: crypto.randomUUID(), color: 'hsl(37, 29%, 57%)' },
-    { id: crypto.randomUUID(), color: 'hsl(11, 26%, 24%)' },
-    { id: crypto.randomUUID(), color: 'hsl(11, 36%, 35%)' },
+    { id: 'clr-66a', color: 'hsl(66, 26%, 35%)' },
+    { id: 'clr-11b', color: 'hsl(11, 35%, 47%)' },
+    { id: 'clr-35c', color: 'hsl(35, 36%, 53%)' },
+    { id: 'clr-207d', color: 'hsl(207, 10%, 42%)' },
+    { id: 'clr-37e', color: 'hsl(37, 13%, 56%)' },
+    { id: 'clr-34f', color: 'hsl(34, 39%, 40%)' },
+    { id: 'clr-94g', color: 'hsl(94, 18%, 25%)' },
+    { id: 'clr-300h', color: 'hsl(300, 11%, 33%)' },
+    { id: 'clr-20i', color: 'hsl(20, 39%, 65%)' },
+    { id: 'clr-205j', color: 'hsl(205, 15%, 29%)' },
+    { id: 'clr-300k', color: 'hsl(300, 9%, 60%)' },
+    { id: 'clr-175l', color: 'hsl(175, 11%, 59%)' },
+    { id: 'clr-37m', color: 'hsl(37, 29%, 57%)' },
+    { id: 'clr-11n', color: 'hsl(11, 26%, 24%)' },
+    { id: 'clr-11o', color: 'hsl(11, 36%, 35%)' },
 ]
 
 const getLocalStorageColors = () => {
@@ -119,7 +115,7 @@ export const ColorPicker = () => {
                         <Button variant='accent' onClick={() => setColorSet((prev) => [
                             ...prev,
                             {
-                                id: crypto.randomUUID(),
+                                id: (Date.now() + Math.random()).toString(36),
                                 color: `hsl(${Math.round(uiState.colorPickerColor.h)}, ${Math.round(uiState.colorPickerColor.s)}%, ${Math.round(uiState.colorPickerColor.l)}%)`
                             }
                         ])}>

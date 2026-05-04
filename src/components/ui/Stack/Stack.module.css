@@ -13,6 +13,7 @@
     align-items: var(--stack-align, stretch);
     flex-wrap: var(--stack-wrap);
     justify-content: var(--stack-justify);
+    /* flex-grow: var(--stack-grow); */
     width: 100%;
 }
 

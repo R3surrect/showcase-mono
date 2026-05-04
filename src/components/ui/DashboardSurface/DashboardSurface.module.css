@@ -1,0 +1,12 @@
+.dashboardSurfaceWrapper {
+    transition: .3s;
+    width: 100%;
+    height: fit-content;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.dashboardSurfaceWrapper:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}

@@ -3,8 +3,13 @@
 .gridWrapper {
     display: grid;
     gap: 1rem;
-    grid-auto-rows: 1fr;
+    /* grid-auto-rows: 1fr; */
+    align-items: var(--grid-align-items);
+    height: var(--grid-height);
+    width: 100%;
 }
+
+/* TODO Adaptive */
 
 @media (--desktop) {
     .gridWrapper {

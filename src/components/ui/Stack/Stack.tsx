@@ -5,9 +5,10 @@ import stylesObj from './Stack.module.css';
 // TODO Добавить адаптив
 
 const GAP_TYPES = ['sm', 'md', 'lg'] as const;
-const ALIGN_TYPES = ['start', 'stretch'] as const;
+const ALIGN_TYPES = ['start', 'center', 'stretch'] as const;
 const DIRECTION_TYPES = ['row', 'column'] as const;
 const JUSTIFY_TYPES = ['start', 'center', 'end', 'space-around', 'space-between', 'space-evenly'] as const;
+// const GROW_TYPES = [true, false] as const;
 
 type Gap = typeof GAP_TYPES[number];
 type Align = typeof ALIGN_TYPES[number];
@@ -21,6 +22,7 @@ export interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
   direction?: Direction;
   wrap?: boolean;
   justify?: Justify;
+  // grow?: boolean;
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -39,6 +41,7 @@ const Stack = ({
   justify = 'start',
   children,
   ref,
+  // grow = true,
   ...props
 }: StackProps) => {
   return <div
@@ -50,7 +53,8 @@ const Stack = ({
       '--stack-align': align,
       '--stack-direction': direction,
       '--stack-wrap': wrap ? `wrap` : `nowrap`,
-      '--stack-justify': justify
+      '--stack-justify': justify,
+      // '--stack-grow': grow ? '1' : '0',
     } as StackVars
     }>
     {children}

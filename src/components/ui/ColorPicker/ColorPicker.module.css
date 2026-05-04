@@ -8,6 +8,8 @@
     height: 2rem;
     cursor: pointer;
     z-index: 0;
+    will-change: transform;
+    border: 1px solid var(--neutral-25);
 }
 
 .colorPipette {

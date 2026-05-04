@@ -27,7 +27,7 @@ const Heading = ({ variant = 'accent', level, subtitle, children }: HeadingProps
     const Tag: React.ElementType = `h${level}`;
     const headingElement = <Tag className={clsx(stylesObj.heading, headingClass)}>{children}</Tag>
 
-    if (!subtitle) headingElement;
+    if (!subtitle) return headingElement;
 
     return <div className={subtitle ? stylesObj.wrapper : undefined}>
         {headingElement}

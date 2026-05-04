@@ -9,9 +9,11 @@ const useTaskStore = create<TaskStore>((set, get) => ({
     isInitialized: false,
     errorMessage: null,
 
+    // TODO Отработать Рандомный id
+
     addTask: (newTask: Task) => set(
         prev => ({
-            tasks: [...prev.tasks, { ...newTask, id: crypto.randomUUID() }]
+            tasks: [...prev.tasks, { ...newTask, id: (Date.now() + Math.random()).toString(36) }]
         })
     ),
 
