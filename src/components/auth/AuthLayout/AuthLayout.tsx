@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { AnimatePresence, type Variants } from 'motion/react';
 
 import Surface from "@/components/ui/Surface/Surface";
-import styles from './AuthLayout.module.css';
+import stylesObj from './AuthLayout.module.css';
 
 export const Component = () => {
     const location = useLocation();
@@ -32,7 +32,7 @@ export const Component = () => {
     };
 
     return (
-        <div className={styles.authWrapper}>
+        <div className={stylesObj.authWrapper}>
             <AnimatePresence mode='wait'>
                 <Surface variant='glass'
                     key={location.pathname}
@@ -40,6 +40,8 @@ export const Component = () => {
                     initial='initial'
                     animate='animate'
                     exit='exit'
+                    height='fit-content'
+                    align='center'
                 >
                     <Suspense fallback={null}>
                         {outlet}

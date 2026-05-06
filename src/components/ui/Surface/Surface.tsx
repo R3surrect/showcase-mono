@@ -5,15 +5,18 @@ import { motion, type HTMLMotionProps } from 'motion/react';
 const VARIANT_TYPES = ['glass', 'solid'] as const;
 const RADIUS_TYPES = ['sm', 'md', 'lg'] as const;
 const HEIGHT_TYPES = ['fit-content', 'max'] as const;
+const ALIGN_TYPES = ['start', 'center', 'end'] as const;
 
 type Radiuses = typeof RADIUS_TYPES[number];
 type Variants = typeof VARIANT_TYPES[number];
 type Heights = typeof HEIGHT_TYPES[number];
+type Aligns = typeof ALIGN_TYPES[number];
 
 interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' | 'style'> {
     variant?: Variants;
     cornerRadius?: Radiuses;
     height?: Heights;
+    align?: Aligns;
 }
 
 const variantsObj = {
@@ -27,7 +30,15 @@ const radiusesObj = {
     lg: 'var(--border-radius-25)',
 }
 
-const Surface = ({ variant = 'solid', cornerRadius = 'md', height = 'max', ref, children, ...props }: SurfaceProps) => {
+const Surface = ({
+    variant = 'solid',
+    cornerRadius = 'md',
+    height = 'max',
+    align = 'start',
+    ref,
+    children,
+    ...props
+}: SurfaceProps) => {
     const isFit = height === 'fit-content';
     return (
         <motion.div
@@ -36,7 +47,7 @@ const Surface = ({ variant = 'solid', cornerRadius = 'md', height = 'max', ref, 
             style={{
                 borderRadius: radiusesObj[cornerRadius],
                 height: isFit ? 'fit-content' : '100%',
-                alignSelf: isFit ? 'start' : 'stretch'
+                alignSelf: align
             }}
             {...props}
         >
