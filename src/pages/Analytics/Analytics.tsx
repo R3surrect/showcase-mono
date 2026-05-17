@@ -16,7 +16,7 @@ import {
 import type { DashboardStatBlockProps } from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock.types';
 import Grid from '@/components/ui/Grid/Grid'
 import DashboardStatBlock from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock';
-import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock';
+import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
 import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
 import Stack from '@/components/ui/Stack/Stack';
 import DashboardSurface from '@/components/ui/dashboards/DashboardSurface/DashboardSurface';
