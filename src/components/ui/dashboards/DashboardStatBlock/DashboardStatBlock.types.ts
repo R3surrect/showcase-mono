@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { Justify } from "../_shared/system.types";
+import type { Justify } from "@components/ui/_shared/system.types";
 
 export const VARIANT_TYPES = ['full', 'minimal'] as const;
 export const ALIGN_TYPES = ['left', 'center', 'right'] as const;
