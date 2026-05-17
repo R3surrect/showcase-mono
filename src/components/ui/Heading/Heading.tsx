@@ -29,7 +29,7 @@ const Heading = ({ variant = 'accent', level, subtitle, children }: HeadingProps
 
     if (!subtitle) return headingElement;
 
-    return <div className={subtitle ? stylesObj.wrapper : undefined}>
+    return <div className={subtitle ? stylesObj.headingWrapper : undefined}>
         {headingElement}
         {subtitle && <span className={
             clsx(

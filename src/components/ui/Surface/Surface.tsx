@@ -1,23 +1,7 @@
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
-import { motion, type HTMLMotionProps } from 'motion/react';
-
-const VARIANT_TYPES = ['glass', 'solid'] as const;
-const RADIUS_TYPES = ['sm', 'md', 'lg'] as const;
-const HEIGHT_TYPES = ['fit-content', 'max'] as const;
-const ALIGN_TYPES = ['start', 'center', 'end'] as const;
-
-type Radiuses = typeof RADIUS_TYPES[number];
-type Variants = typeof VARIANT_TYPES[number];
-type Heights = typeof HEIGHT_TYPES[number];
-type Aligns = typeof ALIGN_TYPES[number];
-
-interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' | 'style'> {
-    variant?: Variants;
-    cornerRadius?: Radiuses;
-    height?: Heights;
-    align?: Aligns;
-}
+import { motion } from 'motion/react';
+import type { SurfaceProps } from './Surface.types';
 
 const variantsObj = {
     glass: stylesObj.glass,

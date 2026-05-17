@@ -8,7 +8,8 @@
     border: 1px solid var(--neutral-400);
 }
 
-.glass, .solid {
+.glass,
+.solid {
     padding: 1.25rem;
     background-color: var(--glass-surface-light-45);
     backdrop-filter: blur(3.5rem);
@@ -16,7 +17,6 @@
     border-radius: var(--border-radius-10);
     text-align: center;
     width: clamp(512px, 20vw, 1024px);
-    /* min-height: 256px; */
     box-shadow: var(--shadow-md);
 }
 
@@ -24,4 +24,5 @@
     width: 100%;
     background-color: var(--lite-white);
     text-align: left;
+    border: 1px solid color-mix(in srgb, var(--cold-blue-grey-400), transparent var(--opacity-high));
 }

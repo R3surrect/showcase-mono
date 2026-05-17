@@ -18,7 +18,7 @@
   --neutral-850: hsl(40, 26%, 13%);
 
   /** Needs design-refactor */
-  --lite-white: hsl(0, 0%, 100%);
+  --lite-white: hsl(0, 0%, 95%);
 
   --warm-gray-100: hsl(80, 14%, 91%);
   --warm-gray-300: hsl(42, 12%, 55%);
@@ -33,6 +33,12 @@
   --warm-orange-400:    hsl(35, 39%, 53%);
   --warm-red-400:       hsl(11, 35%, 47%);
   --cold-blue-grey-400: hsl(207, 10%, 42%);
+}
+
+:root {
+  --opacity-low: 20%;
+  --opacity-medium: 50%;
+  --opacity-high: 80%;
 }
 
 :root {

@@ -1,4 +1,4 @@
-import Surface from '../Surface/Surface';
+import Surface from '@components/ui/Surface/Surface';
 import stylesObj from './DashboardSurface.module.css'
 
 type DashboardSurfaceProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'>;

@@ -11,7 +11,7 @@ type Heights = typeof HEIGHT_TYPES[number];
 interface GridProps {
     columns?: Columns;
     alignItems?: AlignItems;
-    height: Heights;
+    height?: Heights;
     children: React.ReactNode;
 }
 

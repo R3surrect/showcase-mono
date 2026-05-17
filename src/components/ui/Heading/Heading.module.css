@@ -1,7 +1,7 @@
 @import url('@global/styles/_variables.css');
 @import url('@global/styles/_semantics.css');
 
-.wrapper {
+.headingWrapper {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

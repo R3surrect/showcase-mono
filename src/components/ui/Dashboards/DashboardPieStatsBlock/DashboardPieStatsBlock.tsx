@@ -1,14 +1,7 @@
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import Heading from "../Heading/Heading";
+import Heading from "@components/ui/Heading/Heading";
 import DashboardSurface from "../DashboardSurface/DashboardSurface";
-
-const tooltipStyle = {
-    background: 'rgba(245,248,244,0.95)',
-    border: '1px solid rgba(130,145,120,0.18)',
-    borderRadius: '10px',
-    fontSize: '12px',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
-};
+import { animationProps, tooltipProps } from "../config";
 
 export interface StatusPieMock {
     name: string;
@@ -38,10 +31,7 @@ const DashboardPieStatsBlock = () => {
                         fill: 'var(--neutral-350)',
                         cursor: 'pointer'
                     }}
-
-                    animationDuration={1500}
-                    animationEasing="ease-in-out"
-                    isAnimationActive={true}
+                    {...animationProps}
                     data={statusMock}
                     cx="40%"
                     cy="45%"
@@ -50,7 +40,7 @@ const DashboardPieStatsBlock = () => {
                     paddingAngle={4}
                     dataKey="value"
                 />
-                <Tooltip contentStyle={tooltipStyle} />
+                <Tooltip {...tooltipProps} />
                 <Legend
                     align="right"
                     layout="vertical"
