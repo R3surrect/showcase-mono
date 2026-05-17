@@ -35,7 +35,7 @@ export const legendProps: Partial<LegendProps> = {
 export const axisProps: Partial<XAxisProps> & Partial<YAxisProps> = {
     tick: {
         fontSize: 11,
-        fill: '#8a8070'
+        fill: 'var(--warm-gray-300)'
     },
     axisLine: false,
     tickLine: false,

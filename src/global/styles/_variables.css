@@ -36,6 +36,19 @@
 }
 
 :root {
+  --monochrome-0:   #ffffff; 
+  --monochrome-100: #f5f5f5;
+  --monochrome-200: #e5e5e5;
+  --monochrome-300: #d4d4d4;
+  --monochrome-400: #a3a3a3;
+  --monochrome-500: #737373;
+  --monochrome-600: #525252;
+  --monochrome-700: #404040;
+  --monochrome-800: #262626;
+  --monochrome-900: #171717;
+}
+
+:root {
   --opacity-low: 20%;
   --opacity-medium: 50%;
   --opacity-high: 80%;

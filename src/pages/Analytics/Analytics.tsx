@@ -1,4 +1,14 @@
+// #region Imports
 import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from 'recharts';
+import type { DashboardStatBlockProps } from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock.types';
+import Grid from '@/components/ui/Grid/Grid'
+import DashboardStatBlock from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock';
+import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
+import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
+import Stack from '@/components/ui/Stack/Stack';
+import DashboardSurface from '@/components/ui/dashboards/DashboardSurface/DashboardSurface';
+import Heading from '@/components/ui/Heading/Heading';
+import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from '@/components/ui/dashboards/config';
 import {
     LucideAlertCircle,
     LucideAward,
@@ -12,17 +22,7 @@ import {
     LucideTrendingUp,
     LucideZap
 } from 'lucide-react'
-
-import type { DashboardStatBlockProps } from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock.types';
-import Grid from '@/components/ui/Grid/Grid'
-import DashboardStatBlock from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock';
-import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
-import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
-import Stack from '@/components/ui/Stack/Stack';
-import DashboardSurface from '@/components/ui/dashboards/DashboardSurface/DashboardSurface';
-import Heading from '@/components/ui/Heading/Heading';
-import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from '@/components/ui/dashboards/config';
-// import { useEffect, useState } from 'react';
+// #endregion
 //#region Mock
 const dashboardStatMock: DashboardStatBlockProps[] = [
     {
@@ -206,7 +206,21 @@ const barStyles = {
     maxHeight: '180px',
     aspectRatio: 1.618,
     marginTop: '1rem',
+    cursor: 'pointer'
 };
+
+const LegendRender = (
+    <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ccc' }} />
+            Всего
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#666' }} />
+            Выполнено
+        </span>
+    </div>
+);
 
 export const Component = () => {
     return (
@@ -240,7 +254,12 @@ export const Component = () => {
                     <YAxis width='auto' {...axisProps} {...yAxisProps} />
                     <XAxis dataKey='name' {...axisProps} {...xAxisProps} />
                     <Tooltip {...tooltipProps} {...animationProps} />
-                    <Legend {...legendProps} iconType='none' />
+                    <Legend
+                        {...legendProps}
+                        content={() => {
+                            return LegendRender;
+                        }}
+                    />
                     <Bar
                         dataKey='Всего'
                         shape={(props) => {
