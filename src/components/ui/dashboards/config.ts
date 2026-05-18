@@ -1,4 +1,12 @@
-import type { BarProps, LegendProps, LineProps, PieProps, TooltipProps, XAxisProps, YAxisProps } from "recharts";
+import type {
+    BarProps,
+    LegendProps,
+    LineProps,
+    PieProps,
+    TooltipProps,
+    XAxisProps,
+    YAxisProps
+} from "recharts";
 
 export type chartsPartial = Partial<TooltipProps>
     & Partial<BarProps>
@@ -9,14 +17,13 @@ export const animationProps: chartsPartial = {
     isAnimationActive: true,
     animationDuration: 2500,
     animationEasing: 'ease-in-out',
+    wrapperStyle: {
+        transition: 'transform .3s ease-out',
+        borderRadius: 'var(--border-radius-10)'
+    },
 }
 
 export const tooltipProps: Partial<TooltipProps> = {
-    position: { y: 20 },
-    wrapperStyle: {
-        transition: 'transform .25s ease-out',
-        borderRadius: 'var(--border-radius-10)'
-    },
     contentStyle: {
         background: 'rgba(245,248,244,0.95)',
         border: '1px solid rgba(130,145,120,0.18)',
@@ -28,21 +35,23 @@ export const tooltipProps: Partial<TooltipProps> = {
 
 export const legendProps: Partial<LegendProps> = {
     iconType: "circle",
-    iconSize: 8,
+    iconSize: 12,
     wrapperStyle: { fontSize: 12 }
 }
 
 export const axisProps: Partial<XAxisProps> & Partial<YAxisProps> = {
     tick: {
-        fontSize: 11,
+        fontSize: 14,
         fill: 'var(--warm-gray-300)'
     },
+    height: 45,
+    dy: 10,
     axisLine: false,
     tickLine: false,
 }
 
 export const xAxisProps: Partial<XAxisProps> = {
-    interval: 1,
+    interval: 0,
 }
 
 export const yAxisProps: Partial<YAxisProps> = {

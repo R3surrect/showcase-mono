@@ -6,7 +6,7 @@ import type { StackProps, StackVars } from './Stack.types';
 
 const Stack = ({
   gap = 'md',
-  align = 'stretch',
+  align = 'left',
   direction = 'column',
   wrap = false,
   justify = 'start',

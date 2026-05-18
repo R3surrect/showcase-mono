@@ -106,6 +106,7 @@ const dashboardStatMock: DashboardStatBlockProps[] = [
         subtitle: 'в среднем'
     }
 ];
+
 const insightsStatsMock: DashboardStatBlockProps[] = [
     {
         id: '40',
@@ -115,7 +116,8 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
         },
         label: 'Последние 7 дней',
         value: '6 задач выполнено',
-        subtitle: 'Лучший день: 2 задач за сутки'
+        subtitle: 'Лучший день: 2 задач за сутки',
+
     },
     {
         id: '49',
@@ -125,7 +127,8 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
         },
         label: 'Задачи с дедлайном',
         value: '25 из 25',
-        subtitle: '100% задач имеют срок выполнения'
+        subtitle: '100% задач имеют срок выполнения',
+
     },
     {
         id: '31',
@@ -135,7 +138,7 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
         },
         label: 'Лидер по задачам',
         value: '📱 Мобильное приложение',
-        subtitle: '9 задач · 44% выполнено'
+        subtitle: '9 задач · 44% выполнено',
     },
     {
         id: '25',
@@ -145,7 +148,7 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
         },
         label: 'Самый продуктивный',
         value: '✨ Ребрендинг',
-        subtitle: '50% задач завершены'
+        subtitle: '50% задач завершены',
     },
 ]
 const insightsStatsBottomMock: { label: string; value: number; subtitle: string }[] = [
@@ -336,7 +339,12 @@ export const Component = () => {
 
                     <Grid columns={2}>
                         {insightsStatsMock.map(item => (
-                            <DashboardStatBlock {...item} />
+                            <DashboardStatBlock
+                                // align='end'
+                                // variant='minimal'
+                                {...item}
+
+                            />
                         ))}
                     </Grid>
                     <Stack direction='row' align='center' gap='lg'>
@@ -346,10 +354,11 @@ export const Component = () => {
                                 <DashboardStatBlock
                                     alignment='center'
                                     variant='minimal'
+                                    justify='center'
+
                                     label={item.label}
                                     value={item.value}
                                     subtitle={item.subtitle}
-                                    justify='center'
                                 />
                             ))}
                     </Stack>

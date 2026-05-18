@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { Justify } from "@components/ui/_shared/system.types";
+import type { Align, Justify } from "@components/ui/_shared/system.types";
 
 export const VARIANT_TYPES = ['full', 'minimal'] as const;
 export const ALIGN_TYPES = ['left', 'center', 'right'] as const;
@@ -13,6 +13,7 @@ interface BaseDashboardStatBlockProps extends Omit<React.HTMLAttributes<HTMLDivE
     subtitle: string;
     alignment?: Alignment;
     justify?: Justify;
+    align?: Exclude<Align, 'stretch'>;
 }
 
 export type DashboardStatBlockProps<T extends Variants = Variants> = BaseDashboardStatBlockProps & {

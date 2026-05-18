@@ -1,3 +1,8 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_semantics.css');
+
 .textWrapper {
     font-weight: var(--text-weight);
+    font-size: var(--text-size);
+    color: var(--text-color);
 }

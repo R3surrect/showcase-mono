@@ -40,7 +40,7 @@ const DashboardPieStatsBlock = () => {
                     paddingAngle={4}
                     dataKey="value"
                 />
-                <Tooltip {...tooltipProps} />
+                <Tooltip {...tooltipProps} {...animationProps}/>
                 <Legend
                     align="right"
                     layout="vertical"

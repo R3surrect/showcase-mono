@@ -1,5 +1,5 @@
 export const GAP_TYPES = ['sm', 'md', 'lg'] as const;
-export const ALIGN_TYPES = ['start', 'center', 'stretch', 'end'] as const;
+export const ALIGN_TYPES = ['left', 'start', 'center', 'stretch', 'justify', 'end'] as const;
 export const DIRECTION_TYPES = ['row', 'column'] as const;
 export const JUSTIFY_TYPES = ['start', 'center', 'end', 'space-around', 'space-between', 'space-evenly'] as const;
 
