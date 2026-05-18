@@ -141,3 +141,7 @@ vite.config.ts.timestamp-*
 # IDE
 .vscode
 .idea
+
+*storybook.log
+storybook-static
+/storybook-static

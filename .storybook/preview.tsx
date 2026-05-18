@@ -1,11 +1,16 @@
+/// <reference types="vite/client" />
 import type { Preview } from '@storybook/react-vite'
+
+import '../src/global/styles/_variables.css';
+import '../src/global/styles/_breakpoints.css';
+import '../src/global/styles/_semantics.css';
 
 const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
 
