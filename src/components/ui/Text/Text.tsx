@@ -1,14 +1,6 @@
 // #region Imports
 import stylesObj from './Text.module.css'
-import {
-    colorsMap,
-    sizeMap,
-    weightsMap,
-    type As,
-    type FontVariables,
-    type TextProps
-} from './Text.types';
-
+import { type As, type TextProps } from './Text.types';
 // #endregion
 
 const Text = ({
@@ -20,19 +12,17 @@ const Text = ({
     ...props
 }: TextProps) => {
     const Tag: As = as;
-    const renderElement = <Tag
-        className={stylesObj.textWrapper}
-        style={{
-            '--text-weight': weightsMap[weight],
-            '--text-size': sizeMap[size],
-            '--text-color': colorsMap[color],
-        } as FontVariables}
-        {...props}
-    >
-        {children}
-    </Tag>
-
-    return renderElement;
+    return (
+        <Tag
+            className={stylesObj.text}
+            data-size={size}
+            data-color={color}
+            data-weight={weight}
+            {...props}
+        >
+            {children}
+        </Tag>
+    )
 }
 
 export default Text;
