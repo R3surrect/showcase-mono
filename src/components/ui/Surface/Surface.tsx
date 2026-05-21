@@ -23,11 +23,15 @@ const Surface = ({
     ref,
     children,
     isAnimated = false,
+    onClick,
     ...props
 }: SurfaceProps) => {
     const isFit = height === 'fit-content';
+    
     return (
         <motion.div
+            onClick={onClick}
+            data-clickable={Boolean(onClick)}
             className={clsx(stylesObj.surface, variantsObj[variant])}
             ref={ref}
             data-animated={isAnimated}

@@ -1,6 +1,8 @@
 @import url('@global/styles/_variables.css');
 @import url('@global/styles/_breakpoints.css');
 
+/*! Отрефакторить адаптив */
+
 .surface {
     transition: .3s;
     border-radius: 10px;
@@ -21,7 +23,7 @@
     width: clamp(512px, 20vw, 1024px);
 }
 
-.solid {
+.solid, .outline {
     width: 100%;
     background-color: var(--lite-white);
     text-align: left;
@@ -31,10 +33,6 @@
 .surface[data-animated="true"]:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
-}
-
-.surface[data-pointer="true"] {
-    cursor: pointer;
 }
 
 .outline {

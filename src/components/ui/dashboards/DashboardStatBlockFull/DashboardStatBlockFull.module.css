@@ -1,7 +1,7 @@
 @import url('@global/styles/_variables.css');
 
 .iconWrapper {
-    padding: .25rem;
+    padding: .5rem;
     background-color: color-mix(in srgb, var(--icon-color), transparent 75%);
     display: flex;
     justify-content: center;

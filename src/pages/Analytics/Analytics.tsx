@@ -22,6 +22,7 @@ import {
     LucideZap
 } from 'lucide-react'
 import Surface from '@/components/ui/Surface/Surface';
+import DashboardStatBlockMinimal, { type DashboardStatBlockMinimalProps } from '@/components/ui/dashboards/DashboardStatBlockMinimal/DashboardStatBlockMinimal';
 // #endregion
 //#region Mock
 const dashboardStatMock: DashboardStatBlockFullProps[] = [
@@ -152,13 +153,15 @@ const insightsStatsMock: DashboardStatBlockFullProps[] = [
         subtitle: '50% задач завершены',
     },
 ]
-const insightsStatsBottomMock: { label: string; value: number; subtitle: string }[] = [
-    { label: 'Без проекта', value: 0, subtitle: '0%' },
-    { label: 'Заметок', value: 6, subtitle: 'Всего создано' },
-    { label: 'Среднее напоминание', value: 56, subtitle: 'минут' },
+const insightsStatsBottomMock: DashboardStatBlockMinimalProps[] = [
+    { id: 'stat-no-project', title: 'Без проекта', value: '0', subtitle: '0%' },
+    { id: 'stat-total-notes', title: 'Заметок', value: '6', subtitle: 'Всего создано' },
+    { id: 'stat-avg-reminder', title: 'Среднее напоминание', value: '56', subtitle: 'минут' },
 ]
+
 const taskPrioritiesBarMock = [
     {
+        id: 'priority-high',
         name: 'Высокий',
         'Всего': 9,
         'Выполнено': 5,
@@ -166,6 +169,7 @@ const taskPrioritiesBarMock = [
         colorDone: 'var(--warm-red-400)'
     },
     {
+        id: 'priority-medium',
         name: 'Средний',
         'Всего': 10,
         'Выполнено': 4,
@@ -173,31 +177,36 @@ const taskPrioritiesBarMock = [
         colorDone: 'var(--warm-orange-400)'
     },
     {
+        id: 'priority-low',
         name: 'Низкий',
         'Всего': 6,
         'Выполнено': 2,
         colorTotal: 'color-mix(in srgb, var(--warm-green-500), transparent var(--opacity-medium))',
         colorDone: 'var(--warm-green-500)'
-
     },
 ]
+
 const taskLoadBarMock = [
     {
+        id: 'load-rebranding',
         name: '✨ Ребрендинг',
         'Всего': 6,
         'Выполнено': 3,
     },
     {
+        id: 'load-mobile',
         name: '📱 Мобильное приложение',
         'Всего': 9,
         'Выполнено': 4,
     },
     {
+        id: 'load-content',
         name: '📅 Контент-план',
         'Всего': 6,
         'Выполнено': 2,
     },
     {
+        id: 'load-portal',
         name: '🏢 Внутренний портал',
         'Всего': 6,
         'Выполнено': 2,
@@ -212,7 +221,6 @@ const barStyles = {
     marginTop: '1rem',
     cursor: 'pointer'
 };
-
 const LegendRender = (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -236,12 +244,10 @@ export const Component = () => {
                     ))
                 }
             </Grid>
-
             <Grid columns={2} alignItems='start' height='fit-content'>
                 <DashboardActivityBlock />
                 <DashboardPieStatsBlock />
             </Grid>
-
             <Surface>
                 <Heading
                     variant="secondary"
@@ -291,7 +297,6 @@ export const Component = () => {
                     />
                 </BarChart>
             </Surface>
-
             <Surface>
                 <Heading
                     variant="secondary"
@@ -342,27 +347,28 @@ export const Component = () => {
                     <Grid columns={2} gap='sm'>
                         {insightsStatsMock.map(item => (
                             <DashboardStatBlockFull
+                                key={item.key}
+                                variant='outline'
                                 isAnimated={true}
                                 {...item}
                             />
                         ))}
                     </Grid>
-                    {/* <Stack direction='row' align='center' gap='sm'> */}
+                    <Stack direction='row' align='center' gap='sm'>
                         {/*//! Выделить в отдельный компонент */}
                         {
-                            // insightsStatsBottomMock.map(item => (
-                            //     <DashboardStatBlockMinimal
-                            //         alignment='center'
-                            //         justify='center'
-                            //         isAnimated={true}
-
-                            //         label={item.label}
-                            //         value={item.value}
-                            //         subtitle={item.subtitle}
-                            //     />
-                            // ))
+                            insightsStatsBottomMock.map(item => (
+                                <DashboardStatBlockMinimal
+                                    key={item.key}
+                                    variant='outline'
+                                    isAnimated={true}
+                                    title={item.title}
+                                    value={item.value.toString()}
+                                    subtitle={item.subtitle}
+                                />
+                            ))
                         }
-                    {/* </Stack> */}
+                    </Stack>
                 </Stack>
             </Surface>
         </Stack>

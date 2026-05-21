@@ -15,12 +15,13 @@ const DashboardStatBlockFull = ({
     value,
     valueLabel,
     subtitle,
+    variant = 'solid',
     alignment = 'left',
     justify = 'space-between',
     ...props
 }: DashboardStatBlockFullProps) => {
     return <Surface
-        variant='solid'
+        variant={variant}
         height="fit-content"
         data-animated={isAnimated}
         isAnimated={isAnimated}
@@ -39,9 +40,9 @@ const DashboardStatBlockFull = ({
                     } as IconColor}
                 >
                     <iconObj.icon
-                        width={24}
-                        strokeWidth={1.25}
-                        height={24}
+                        width={16}
+                        strokeWidth={2.25}
+                        height={16}
                         stroke={iconObj?.color}
                     />
                 </div>

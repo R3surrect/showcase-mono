@@ -1,6 +1,6 @@
 import type { HTMLMotionProps } from "motion/react";
 
-export const VARIANT_TYPES = ['glass', 'solid'] as const;
+export const VARIANT_TYPES = ['glass', 'solid', 'outline'] as const;
 export const RADIUS_TYPES = ['sm', 'md', 'lg'] as const;
 export const HEIGHT_TYPES = ['fit-content', 'max'] as const;
 export const ALIGN_TYPES = ['start', 'center', 'end'] as const;
