@@ -1,4 +1,4 @@
-import DashboardSurface from "@components/ui/dashboards/DashboardSurface/DashboardSurface";
+import Surface from "@components/ui/Surface/Surface";
 import Heading from "@components/ui/Heading/Heading";
 import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, type LineProps, CartesianGrid } from "recharts";
 import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from "@components/ui/dashboards/config";
@@ -27,7 +27,7 @@ const lineProps: Partial<LineProps> = {
 }
 
 const DashboardActivityBlock = () => {
-    return <DashboardSurface>
+    return <Surface>
         <Heading variant="secondary" level={2} subtitle="Количество задач по дате дедлайна">Активность за 2 недели</Heading>
         <div style={{
             width: '100%',
@@ -84,7 +84,7 @@ const DashboardActivityBlock = () => {
                 </LineChart>
             </ResponsiveContainer>
         </div>
-    </DashboardSurface>
+    </Surface>
 }
 
 export default DashboardActivityBlock;

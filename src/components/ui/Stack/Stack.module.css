@@ -1,19 +1,13 @@
 @import url("@global/styles/_variables");
 @import url("@global/styles/_breakpoints");
 
-.stackWrapper {
-
-    --stack-gap-sm: 0.5rem;
-    --stack-gap-md: 1rem;
-    --stack-gap-lg: 2rem;
-
+.stack {
     display: flex;
+    gap: var(--stack-gap, 0);
     flex-direction: var(--stack-direction, column);
-    gap: var(--stack-gap, 1rem);
     align-items: var(--stack-align, stretch);
-    flex-wrap: var(--stack-wrap);
-    justify-content: var(--stack-justify);
-    /* flex-grow: var(--stack-grow); */
+    flex-wrap: var(--stack-wrap, nowrap);
+    justify-content: var(--stack-justify, start);
     width: 100%;
 }
 

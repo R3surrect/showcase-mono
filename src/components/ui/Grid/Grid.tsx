@@ -1,32 +1,35 @@
+import type { Gap } from '../_shared/system.types';
 import stylesObj from './Grid.module.css';
-
-const COLUMN_TYPES = [1, 2, 3, 4, 5, 6] as const;
-const ALIGN_ITEMS_TYPES = ['start', 'center', 'end', 'stretch'] as const;
-const HEIGHT_TYPES = ['fit-content', 'max'] as const;
-
-type Columns = typeof COLUMN_TYPES[number];
-type AlignItems = typeof ALIGN_ITEMS_TYPES[number];
-type Heights = typeof HEIGHT_TYPES[number];
+import type { AlignItems, Columns, Heights } from './Grid.types';
 
 interface GridProps {
     columns?: Columns;
     alignItems?: AlignItems;
     height?: Heights;
     children: React.ReactNode;
+    gap?: Gap;
 }
 
 interface GridVars extends React.CSSProperties {
+    '--grid-gap': string;
     '--grid-columns': number;
     '--grid-align-items': string;
     '--grid-height': string;
 }
 
-const Grid = ({ columns = 3, alignItems = 'stretch', height = 'max', children }: GridProps) => {
+const Grid = ({
+    columns = 3,
+    gap = 'sm',
+    alignItems = 'stretch',
+    height = 'max',
+    children
+}: GridProps) => {
     const isFit = height === 'fit-content';
 
     return <div
         className={stylesObj.gridWrapper}
         style={{
+            '--grid-gap': `var(--indent-${gap})`,
             '--grid-columns': columns,
             '--grid-align-items': alignItems,
             '--grid-height': isFit ? 'fit-content' : '100%'

@@ -1,8 +1,8 @@
 // #region Imports
 import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from 'recharts';
-import type { DashboardStatBlockProps } from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock.types';
+import type { DashboardStatBlockFullProps } from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types';
 import Grid from '@/components/ui/Grid/Grid'
-import DashboardStatBlock from '@/components/ui/dashboards/DashboardStatBlock/DashboardStatBlock';
+import DashboardStatBlockFull from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull';
 import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
 import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
 import Stack from '@/components/ui/Stack/Stack';
@@ -24,7 +24,7 @@ import {
 import Surface from '@/components/ui/Surface/Surface';
 // #endregion
 //#region Mock
-const dashboardStatMock: DashboardStatBlockProps[] = [
+const dashboardStatMock: DashboardStatBlockFullProps[] = [
     {
         id: '1',
         iconObj: {
@@ -106,7 +106,7 @@ const dashboardStatMock: DashboardStatBlockProps[] = [
         subtitle: 'в среднем'
     }
 ];
-const insightsStatsMock: DashboardStatBlockProps[] = [
+const insightsStatsMock: DashboardStatBlockFullProps[] = [
     {
         id: '40',
         iconObj: {
@@ -212,6 +212,7 @@ const barStyles = {
     marginTop: '1rem',
     cursor: 'pointer'
 };
+
 const LegendRender = (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -231,10 +232,11 @@ export const Component = () => {
             <Grid columns={4} alignItems='start' height='fit-content'>
                 {
                     dashboardStatMock.map(item => (
-                        <DashboardStatBlock {...item} isAnimated={true} key={item.id} />
+                        <DashboardStatBlockFull {...item} isAnimated={true} key={item.id} />
                     ))
                 }
             </Grid>
+
             <Grid columns={2} alignItems='start' height='fit-content'>
                 <DashboardActivityBlock />
                 <DashboardPieStatsBlock />
@@ -334,33 +336,33 @@ export const Component = () => {
             </Surface>
 
             <Surface>
-                <Heading variant="secondary" level={2}>Инсайты продуктивности</Heading>
-                <Stack gap='lg'>
+                <Stack direction='column' gap='sm'>
+                    <Heading variant="secondary" level={2}>Инсайты продуктивности</Heading>
 
-                    <Grid columns={2}>
+                    <Grid columns={2} gap='sm'>
                         {insightsStatsMock.map(item => (
-                            <DashboardStatBlock
+                            <DashboardStatBlockFull
                                 isAnimated={true}
                                 {...item}
                             />
                         ))}
                     </Grid>
-                    <Stack direction='row' align='center' gap='lg'>
+                    {/* <Stack direction='row' align='center' gap='sm'> */}
                         {/*//! Выделить в отдельный компонент */}
                         {
-                            insightsStatsBottomMock.map(item => (
-                                <DashboardStatBlock
-                                    alignment='center'
-                                    variant='minimal'
-                                    justify='center'
-                                    isAnimated={true}
+                            // insightsStatsBottomMock.map(item => (
+                            //     <DashboardStatBlockMinimal
+                            //         alignment='center'
+                            //         justify='center'
+                            //         isAnimated={true}
 
-                                    label={item.label}
-                                    value={item.value}
-                                    subtitle={item.subtitle}
-                                />
-                            ))}
-                    </Stack>
+                            //         label={item.label}
+                            //         value={item.value}
+                            //         subtitle={item.subtitle}
+                            //     />
+                            // ))
+                        }
+                    {/* </Stack> */}
                 </Stack>
             </Surface>
         </Stack>

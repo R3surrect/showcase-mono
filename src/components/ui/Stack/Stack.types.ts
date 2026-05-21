@@ -1,10 +1,10 @@
 import type { Ref } from "react";
-import type { Align, Direction, Gap, Justify } from "../_shared/system.types";
+import type { LogicalAlignment, Direction, Gap, Justify } from "../_shared/system.types";
 
 export interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
     children: React.ReactNode;
     gap?: Gap;
-    align?: Align;
+    align?: LogicalAlignment;
     direction?: Direction;
     wrap?: boolean;
     justify?: Justify;
@@ -13,7 +13,7 @@ export interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
 
 export interface StackVars extends React.CSSProperties {
     '--stack-gap': string,
-    '--stack-align': Align;
+    '--stack-align': LogicalAlignment;
     '--stack-direction': Direction;
     '--stack-justify': Justify;
 }

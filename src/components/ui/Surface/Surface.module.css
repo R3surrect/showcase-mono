@@ -5,20 +5,20 @@
     transition: .3s;
     border-radius: 10px;
     background: var(--neutral-0);
-    padding: 1rem;
+    /* padding: 1rem; */
     border: 1px solid var(--neutral-400);
-}
 
-.glass,
-.solid {
     padding: 1.25rem;
-    background-color: var(--glass-surface-light-45);
     backdrop-filter: blur(3.5rem);
-    border-color: rgb(255, 255, 255, 40%);
     border-radius: var(--border-radius-10);
     text-align: center;
-    width: clamp(512px, 20vw, 1024px);
     box-shadow: var(--shadow-md);
+}
+
+.glass {
+    background-color: var(--glass-surface-light-45);
+    border: 1px solid rgb(255, 255, 255, 40%);
+    width: clamp(512px, 20vw, 1024px);
 }
 
 .solid {
@@ -35,4 +35,9 @@
 
 .surface[data-pointer="true"] {
     cursor: pointer;
+}
+
+.outline {
+    background-color: color-mix(in srgb, var(--surface-color), transparent var(--opacity-medium));
+    border: 1px solid var(--surface-color);
 }
