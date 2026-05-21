@@ -5,25 +5,19 @@ import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxis
 
 const chartsMock = [
     { day: '20 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: ' ', completed: 0, outdated: 0, all: 0 },
-
+    { day: '21 апр.', completed: 0, outdated: 0, all: 0 },
     { day: '22 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: ' ', completed: 0, outdated: 0, all: 0 },
-
+    { day: '23 апр.', completed: 0, outdated: 0, all: 0 },
     { day: '24 апр.', completed: 1, outdated: 0, all: 1 },
-    { day: ' ', completed: 1, outdated: 0, all: 1 },
-
+    { day: '25 апр.', completed: 1, outdated: 0, all: 1 },
     { day: '26 апр.', completed: 1, outdated: 0, all: 1 },
-    { day: ' ', completed: 2, outdated: 0, all: 2 },
-
+    { day: '27 апр.', completed: 2, outdated: 0, all: 2 },
     { day: '28 апр.', completed: 1, outdated: 1, all: 2 },
-    { day: ' ', completed: 1, outdated: 1, all: 2 },
-
+    { day: '29 апр', completed: 1, outdated: 1, all: 2 },
     { day: '30 апр', completed: 1, outdated: 1, all: 2 },
-    { day: ' ', completed: 1, outdated: 1, all: 2 },
-
+    { day: '1 мая', completed: 1, outdated: 1, all: 2 },
     { day: '2 мая', completed: 2, outdated: 0, all: 2 },
-    { day: ' ', completed: 0, outdated: 0, all: 0 },
+    { day: '3 мая', completed: 0, outdated: 0, all: 0 },
 ]
 
 const lineProps: Partial<LineProps> = {
@@ -76,6 +70,7 @@ const DashboardActivityBlock = () => {
                         name="День"
                         {...axisProps}
                         {...xAxisProps}
+                        interval={1}
                     />
                     <Tooltip
                         {...tooltipProps}

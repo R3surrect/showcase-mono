@@ -6,7 +6,6 @@ import DashboardStatBlock from '@/components/ui/dashboards/DashboardStatBlock/Da
 import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
 import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
 import Stack from '@/components/ui/Stack/Stack';
-import DashboardSurface from '@/components/ui/dashboards/DashboardSurface/DashboardSurface';
 import Heading from '@/components/ui/Heading/Heading';
 import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from '@/components/ui/dashboards/config';
 import {
@@ -22,6 +21,7 @@ import {
     LucideTrendingUp,
     LucideZap
 } from 'lucide-react'
+import Surface from '@/components/ui/Surface/Surface';
 // #endregion
 //#region Mock
 const dashboardStatMock: DashboardStatBlockProps[] = [
@@ -106,7 +106,6 @@ const dashboardStatMock: DashboardStatBlockProps[] = [
         subtitle: 'в среднем'
     }
 ];
-
 const insightsStatsMock: DashboardStatBlockProps[] = [
     {
         id: '40',
@@ -115,7 +114,8 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
             color: 'var(--warm-red-400)',
         },
         label: 'Последние 7 дней',
-        value: '6 задач выполнено',
+        value: '6',
+        valueLabel: 'задач выполнено',
         subtitle: 'Лучший день: 2 задач за сутки',
 
     },
@@ -126,7 +126,8 @@ const insightsStatsMock: DashboardStatBlockProps[] = [
             color: 'var(--neutral-400)',
         },
         label: 'Задачи с дедлайном',
-        value: '25 из 25',
+        value: '25',
+        valueLabel: 'из 25',
         subtitle: '100% задач имеют срок выполнения',
 
     },
@@ -211,7 +212,6 @@ const barStyles = {
     marginTop: '1rem',
     cursor: 'pointer'
 };
-
 const LegendRender = (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -231,7 +231,7 @@ export const Component = () => {
             <Grid columns={4} alignItems='start' height='fit-content'>
                 {
                     dashboardStatMock.map(item => (
-                        <DashboardStatBlock {...item} key={item.id} />
+                        <DashboardStatBlock {...item} isAnimated={true} key={item.id} />
                     ))
                 }
             </Grid>
@@ -240,7 +240,7 @@ export const Component = () => {
                 <DashboardPieStatsBlock />
             </Grid>
 
-            <DashboardSurface>
+            <Surface>
                 <Heading
                     variant="secondary"
                     level={2}
@@ -288,9 +288,9 @@ export const Component = () => {
                         {...animationProps}
                     />
                 </BarChart>
-            </DashboardSurface>
+            </Surface>
 
-            <DashboardSurface>
+            <Surface>
                 <Heading
                     variant="secondary"
                     level={2}
@@ -331,19 +331,17 @@ export const Component = () => {
                         {...animationProps}
                     />
                 </BarChart>
-            </DashboardSurface>
+            </Surface>
 
-            <DashboardSurface >
+            <Surface>
                 <Heading variant="secondary" level={2}>Инсайты продуктивности</Heading>
                 <Stack gap='lg'>
 
                     <Grid columns={2}>
                         {insightsStatsMock.map(item => (
                             <DashboardStatBlock
-                                // align='end'
-                                // variant='minimal'
+                                isAnimated={true}
                                 {...item}
-
                             />
                         ))}
                     </Grid>
@@ -355,6 +353,7 @@ export const Component = () => {
                                     alignment='center'
                                     variant='minimal'
                                     justify='center'
+                                    isAnimated={true}
 
                                     label={item.label}
                                     value={item.value}
@@ -363,7 +362,7 @@ export const Component = () => {
                             ))}
                     </Stack>
                 </Stack>
-            </DashboardSurface>
+            </Surface>
         </Stack>
     )
 }

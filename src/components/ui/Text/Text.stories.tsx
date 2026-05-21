@@ -10,7 +10,7 @@ const meta: Meta<typeof Text> = {
         as: { control: { type: 'select' }, options: [...AS_TYPES] },
         size: { control: { type: 'select' }, options: [...SIZE_TYPES] },
         weight: { control: { type: 'select' }, options: [...WEIGHTS_TYPES] },
-        color: { control: { type: 'select' }, options: [...COLOR_TYPES] }
+        color: { control: { type: 'select' }, options: [...COLOR_TYPES] },
     }
 }
 

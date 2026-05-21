@@ -2,6 +2,7 @@
 @import url('@global/styles/_breakpoints.css');
 
 .surface {
+    transition: .3s;
     border-radius: 10px;
     background: var(--neutral-0);
     padding: 1rem;
@@ -25,4 +26,13 @@
     background-color: var(--lite-white);
     text-align: left;
     border: 1px solid color-mix(in srgb, var(--cold-blue-grey-400), transparent var(--opacity-high));
+}
+
+.surface[data-animated="true"]:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.surface[data-pointer="true"] {
+    cursor: pointer;
 }

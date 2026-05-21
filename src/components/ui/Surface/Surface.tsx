@@ -6,6 +6,7 @@ import type { SurfaceProps } from './Surface.types';
 const variantsObj = {
     glass: stylesObj.glass,
     solid: stylesObj.solid,
+    outline: stylesObj.outline,
 }
 
 const radiusesObj = {
@@ -21,6 +22,7 @@ const Surface = ({
     align = 'start',
     ref,
     children,
+    isAnimated = false,
     ...props
 }: SurfaceProps) => {
     const isFit = height === 'fit-content';
@@ -28,6 +30,7 @@ const Surface = ({
         <motion.div
             className={clsx(stylesObj.surface, variantsObj[variant])}
             ref={ref}
+            data-animated={isAnimated}
             style={{
                 borderRadius: radiusesObj[cornerRadius],
                 height: isFit ? 'fit-content' : '100%',

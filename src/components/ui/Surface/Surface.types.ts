@@ -15,4 +15,5 @@ export interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' |
     cornerRadius?: Radiuses;
     height?: Heights;
     align?: Alignment;
+    isAnimated?: boolean;
 }

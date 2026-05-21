@@ -17,7 +17,14 @@
     }
 }
 
-@media (--mobile), (--tablet) {
+@media (--tablet) {
+    .gridWrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+@media (--mobile) {
     .gridWrapper {
         grid-template-columns: 1fr;
     }

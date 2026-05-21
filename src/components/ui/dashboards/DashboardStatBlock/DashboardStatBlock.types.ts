@@ -1,15 +1,17 @@
 import type { LucideIcon } from "lucide-react";
 import type { Align, Justify } from "@components/ui/_shared/system.types";
 
-export const VARIANT_TYPES = ['full', 'minimal'] as const;
+export const VARIANT_TYPES = ['full', 'minimal', 'outline'] as const;
 export const ALIGN_TYPES = ['left', 'center', 'right'] as const;
 
 export type Variants = typeof VARIANT_TYPES[number];
 export type Alignment = typeof ALIGN_TYPES[number];
 
-interface BaseDashboardStatBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className' | 'children'> {
+interface BaseDashboardStatBlockProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
     label: string;
+    isAnimated?: boolean;
     value: string | number;
+    valueLabel?: string;
     subtitle: string;
     alignment?: Alignment;
     justify?: Justify;
