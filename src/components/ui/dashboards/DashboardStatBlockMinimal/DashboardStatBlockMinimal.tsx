@@ -19,7 +19,7 @@ const DashboardStatBlockMinimal = ({ title, value, valueLabel, subtitle, variant
         <Stack gap="md" align="center">
             <Heading level={3} variant="secondary">{title}</Heading>
             <div>
-                <Text as='span' size={2}>{value}</Text> {valueLabel && <Text as='span'> {valueLabel}</Text>}
+                <Text weight="bolder" as='span' size={2}>{value}</Text> {valueLabel && <Text as='span'> {valueLabel}</Text>}
             </div>
             <Text size={3}>{subtitle}</Text>
         </Stack>
