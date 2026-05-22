@@ -44,7 +44,7 @@ const LegendRender = (
     </div>
 );
 
-const DashboardBarStatsBlock = () => {
+const DashboardTaskPriorityBlock = () => {
     return <Surface>
         <Heading
             variant="secondary"
@@ -96,4 +96,4 @@ const DashboardBarStatsBlock = () => {
     </Surface>
 }
 
-export default DashboardBarStatsBlock;
+export default DashboardTaskPriorityBlock;
