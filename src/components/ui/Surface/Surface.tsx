@@ -1,7 +1,7 @@
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
-import type { SurfaceProps } from './Surface.types';
+import type { SurfaceProps, SurfaceVars } from './Surface.types';
 
 const variantsObj = {
     glass: stylesObj.glass,
@@ -9,17 +9,12 @@ const variantsObj = {
     outline: stylesObj.outline,
 }
 
-const radiusesObj = {
-    sm: 'var(--border-radius-4)',
-    md: 'var(--border-radius-15)',
-    lg: 'var(--border-radius-25)',
-}
-
 const Surface = ({
     variant = 'solid',
     cornerRadius = 'md',
     height = 'max',
     align = 'start',
+    color = 'var(--lite-white)',
     ref,
     children,
     isAnimated = false,
@@ -27,7 +22,7 @@ const Surface = ({
     ...props
 }: SurfaceProps) => {
     const isFit = height === 'fit-content';
-    
+
     return (
         <motion.div
             onClick={onClick}
@@ -35,11 +30,12 @@ const Surface = ({
             className={clsx(stylesObj.surface, variantsObj[variant])}
             ref={ref}
             data-animated={isAnimated}
+            data-radius={cornerRadius}
             style={{
-                borderRadius: radiusesObj[cornerRadius],
                 height: isFit ? 'fit-content' : '100%',
-                alignSelf: align
-            }}
+                alignSelf: align,
+                '--surface-color': color
+            } as SurfaceVars}
             {...props}
         >
             {children}

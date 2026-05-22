@@ -347,9 +347,12 @@ export const Component = () => {
                     <Grid columns={2} gap='sm'>
                         {insightsStatsMock.map(item => (
                             <DashboardStatBlockFull
+                                iconHasContainer={false}
                                 key={item.key}
                                 variant='outline'
                                 isAnimated={true}
+                                iconPosition='left'
+                                justify='start'
                                 {...item}
                             />
                         ))}
