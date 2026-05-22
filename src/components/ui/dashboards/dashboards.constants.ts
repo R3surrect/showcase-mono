@@ -1,17 +1,5 @@
-import type {
-    BarProps,
-    LegendProps,
-    LineProps,
-    PieProps,
-    TooltipProps,
-    XAxisProps,
-    YAxisProps
-} from "recharts";
-
-export type chartsPartial = Partial<TooltipProps>
-    & Partial<BarProps>
-    & Partial<LineProps>
-    & Partial<PieProps>
+import type { LegendProps, TooltipProps, XAxisProps, YAxisProps } from "recharts"
+import type { chartsPartial } from "./dashboards.types"
 
 export const animationProps: chartsPartial = {
     isAnimationActive: true,
@@ -57,3 +45,11 @@ export const xAxisProps: Partial<XAxisProps> = {
 export const yAxisProps: Partial<YAxisProps> = {
     width: 24,
 }
+
+export const barStyles = {
+    width: '100%',
+    maxHeight: '180px',
+    aspectRatio: 1.618,
+    marginTop: '1rem',
+    cursor: 'pointer'
+};
