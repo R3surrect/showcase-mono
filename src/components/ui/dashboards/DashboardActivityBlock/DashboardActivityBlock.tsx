@@ -1,7 +1,7 @@
 import Surface from "@components/ui/Surface/Surface";
 import Heading from "@components/ui/Heading/Heading";
 import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, type LineProps, CartesianGrid } from "recharts";
-import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from "@components/ui/dashboards/config";
+import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from "@components/ui/dashboards/dashboards.constants";
 
 const chartsMock = [
     { day: '20 апр.', completed: 0, outdated: 0, all: 0 },

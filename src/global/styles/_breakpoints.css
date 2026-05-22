@@ -1,11 +1,9 @@
 :root {
-    --small-tablets: 640px;
-    --tablets: 768px;
-    --laptops: 1024px;
-    --desktops: 1280px;
-    --large-desktops: 1536px;
+    --mobile-width: 768px;
+    --desktop-width: 1024px;
 }
 
 @custom-media --mobile (max-width: 767px);
 @custom-media --tablet (768px <= width <= 1023px);
 @custom-media --desktop (min-width: 1024px);
+

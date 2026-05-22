@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import postcssCustomMedia from 'postcss-custom-media';
 
 // https://vite.dev/config/
 import { fileURLToPath } from 'node:url';
@@ -43,11 +44,11 @@ export default defineConfig({
     projects: [{
       extends: true,
       plugins: [
-      // The plugin will run tests for the stories defined in your Storybook config
-      // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
-      storybookTest({
-        configDir: path.join(dirname, '.storybook')
-      })],
+        // The plugin will run tests for the stories defined in your Storybook config
+        // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+        storybookTest({
+          configDir: path.join(dirname, '.storybook')
+        })],
       test: {
         name: 'storybook',
         browser: {
@@ -60,5 +61,10 @@ export default defineConfig({
         }
       }
     }]
+  },
+  css: {
+    postcss: {
+      plugins: [postcssCustomMedia()]
+    }
   }
 });
