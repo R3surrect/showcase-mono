@@ -56,8 +56,10 @@
 
 :root {
   --opacity-low: 20%;
-  --opacity-medium: 50%;
-  --opacity-high: 80%;
+  --opacity-medium: 45%;
+  --opacity-high: 70%;
+  --opacity-super: 85%;
+  --opacity-full: 95%;
 }
 
 :root {

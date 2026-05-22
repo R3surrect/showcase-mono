@@ -18,34 +18,49 @@ const DashboardStatBlockFull = ({
     variant = 'solid',
     alignment = 'left',
     justify = 'space-between',
+    iconPosition = 'right',
+    iconHasContainer = true,
     ...props
 }: DashboardStatBlockFullProps) => {
+
+    const renderIcon = iconHasContainer ? <div
+        data-icon-position={iconPosition}
+        className={stylesObj.iconWrapper}
+        data-outline={variant === 'outline'}
+        style={{
+            '--icon-color': iconObj?.color
+        } as IconColor}
+    >
+        <iconObj.icon
+            width={16}
+            strokeWidth={2.25}
+            height={16}
+            stroke={iconObj?.color}
+        />
+    </div>
+        : <iconObj.icon
+            width={16}
+            strokeWidth={2.25}
+            height={16}
+            stroke={iconObj?.color}
+        />
+        ;
+
     return <Surface
         variant={variant}
         height="fit-content"
         data-animated={isAnimated}
         isAnimated={isAnimated}
+        color={iconObj.color}
         {...props}
     >
         <Stack direction="column" gap="sm" align={physicalToLogical[alignment]} justify={justify} >
-            <Stack direction="row" align={physicalToLogical[alignment]} justify={justify} >
-                <Heading level={6} align={physicalToLogical[alignment]} variant="secondary" >
+            <Stack direction={iconPosition === 'left' ? 'row-reverse' : 'row'} align="center" justify={justify} gap="sm">
+                <Heading level={6} align={physicalToLogical[alignment]} variant="secondary">
                     {label.toString().toUpperCase()}
                 </Heading>
 
-                <div
-                    className={stylesObj.iconWrapper}
-                    style={{
-                        '--icon-color': iconObj?.color
-                    } as IconColor}
-                >
-                    <iconObj.icon
-                        width={16}
-                        strokeWidth={2.25}
-                        height={16}
-                        stroke={iconObj?.color}
-                    />
-                </div>
+                {renderIcon}
             </Stack>
             <Text
                 as="span"

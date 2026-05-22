@@ -2,8 +2,10 @@
 
 .iconWrapper {
     padding: .5rem;
-    background-color: color-mix(in srgb, var(--icon-color), transparent 75%);
+    background-color: color-mix(in srgb, var(--icon-color), transparent var(--opacity-super));
     display: flex;
     justify-content: center;
     border-radius: var(--border-radius-10);
 }
+
+.iconWrapper[data-outline='true'] { background-color: transparent }

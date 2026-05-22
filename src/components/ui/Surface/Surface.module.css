@@ -17,6 +17,10 @@
     box-shadow: var(--shadow-md);
 }
 
+.surface[data-radius='sm'] {border-radius: var(--border-radius-4)}
+.surface[data-radius='md'] {border-radius: var(--border-radius-10)}
+.surface[data-radius='lg'] {border-radius: var(--border-radius-15)}
+
 .glass {
     background-color: var(--glass-surface-light-45);
     border: 1px solid rgb(255, 255, 255, 40%);
@@ -36,6 +40,6 @@
 }
 
 .outline {
-    background-color: color-mix(in srgb, var(--surface-color), transparent var(--opacity-medium));
-    border: 1px solid var(--surface-color);
+    background-color: color-mix(in srgb, var(--surface-color), transparent var(--opacity-full));
+    border: 1px solid color-mix(in srgb, var(--surface-color), transparent var(--opacity-super));
 }

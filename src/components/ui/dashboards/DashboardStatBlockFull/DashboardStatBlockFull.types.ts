@@ -13,6 +13,8 @@ export interface DashboardStatBlockFullProps extends Omit<HTMLMotionProps<'div'>
     iconObj: { icon: LucideIcon; color: string }
     justify?: Justify;
     variant?: Variants;
+    iconPosition?: Omit<PhysicalAlignment, 'center'>;
+    iconHasContainer?: boolean;
 }
 
 export interface IconColor extends React.CSSProperties {
