@@ -76,7 +76,7 @@ const DashboardInsightStatsBlock = () => {
                 {insightsStatsMock.map(item => (
                     <DashboardStatBlockFull
                         iconHasContainer={false}
-                        key={item.key}
+                        key={item.id}
                         variant='outline'
                         isAnimated={true}
                         iconPosition='left'
@@ -90,7 +90,7 @@ const DashboardInsightStatsBlock = () => {
                 {
                     insightsStatsBottomMock.map(item => (
                         <DashboardStatBlockMinimal
-                            key={item.key}
+                            key={item.id}
                             variant='outline'
                             isAnimated={true}
                             title={item.title}
