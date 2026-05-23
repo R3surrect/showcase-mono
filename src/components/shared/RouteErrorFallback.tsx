@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
-export const RouteErrorFaLLback = () => {
+export const RouteErrorFallback = () => {
     const error = useRouteError();
     let errorMessage = 'Unknown error. Please check the routes system.';
 

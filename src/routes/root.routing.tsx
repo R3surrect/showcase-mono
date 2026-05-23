@@ -1,6 +1,6 @@
 import { redirect } from 'react-router-dom';
 
-import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback.tsx';
+import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback.tsx';
 import { FAVORITES_ROUTES } from '@/routes/favorites.routing.ts';
 import { PREFERENCES_ROUTES } from '@/routes/preferences.routing.ts';
 import { getPillIndexLoader } from '@/routes/utils/getPillIndexLoader.tsx';
@@ -64,7 +64,7 @@ export const ROOT_ROUTES: SubRouteConfig = {
     {
       path: '/preferences',
       lazy: () => import('@/pages/Preferences/Preferences.tsx'),
-      errorElement: <RouteErrorFaLLback />,
+      errorElement: <RouteErrorFallback />,
       children: [
         { index: true, loader: getPillIndexLoader('/preferences', PREFERENCES_ROUTES) },
 

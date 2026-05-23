@@ -14,12 +14,11 @@ const getCSSVariable = (varName: string): string => {
     const value = window
         .getComputedStyle(document.documentElement)
         .getPropertyValue(varName)
-        .trim()
+        .trim();
 
     if (!value) {
         throw new Error(
-            `[useDevice] CSS Variable Error: The variable "${varName}" is missing or empty in your CSS (:root). ` +
-            `Make sure your :root is loaded and contains this variable.`,
+            `[useDevice] CSS Variable Error: The variable "${varName}" is missing or empty in your CSS (:root).`,
             { cause: 'MISSING_CSS_VARIABLE' }
         );
     }
@@ -32,15 +31,13 @@ export const useDevice = (device: Devices) => {
         (cb) => {
             const mobileWidth = getCSSVariable('--mobile-width');
             const desktopWidth = getCSSVariable('--desktop-width');
-
             const queries: Record<Devices, string> = {
                 mobile: `(width < ${mobileWidth})`,
                 tablet: `(${mobileWidth} <= width < ${desktopWidth})`,
                 desktop: `(width >= ${desktopWidth})`,
-            }
+            };
 
             const media = window.matchMedia(queries[device]);
-
             media.addEventListener('change', cb);
             return () => media.removeEventListener('change', cb);
         },
@@ -48,14 +45,20 @@ export const useDevice = (device: Devices) => {
         () => {
             const mobileWidth = getCSSVariable('--mobile-width');
             const desktopWidth = getCSSVariable('--desktop-width');
-
             const queries: Record<Devices, string> = {
                 mobile: `(width < ${mobileWidth})`,
                 tablet: `(${mobileWidth} <= width < ${desktopWidth})`,
                 desktop: `(width >= ${desktopWidth})`,
             };
-
             return window.matchMedia(queries[device]).matches;
+        },
+
+        () => {
+            throw new Error(
+                `[useDevice] Error: Execution of this responsiveness hook is strictly prohibited on the server side. ` +
+                `Ensure this component renders only on the client.`,
+                { cause: 'SERVER_SIDE_EXECUTION_PROHIBITED' }
+            );
         }
     );
-}
+};
