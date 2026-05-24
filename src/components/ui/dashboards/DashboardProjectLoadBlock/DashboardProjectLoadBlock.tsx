@@ -7,7 +7,6 @@ import {
     barStyles,
     legendProps,
     tooltipProps,
-    xAxisProps,
     yAxisProps
 } from "../dashboards.constants";
 
@@ -54,7 +53,7 @@ const DashboardProjectLoadBlock = () => {
             responsive
         >
             <YAxis width='auto' {...axisProps} {...yAxisProps} />
-            <XAxis dataKey='name' {...axisProps} {...xAxisProps} />
+            <XAxis dataKey='name' {...axisProps} />
             <Tooltip {...tooltipProps} />
             <Legend {...legendProps} />
             <Bar

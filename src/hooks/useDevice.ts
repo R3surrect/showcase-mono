@@ -2,63 +2,35 @@ import { useSyncExternalStore } from "react";
 
 type Devices = 'mobile' | 'tablet' | 'desktop';
 
-const getCSSVariable = (varName: string): string => {
-    if (typeof window === 'undefined') {
-        throw new Error(
-            `[useDevice] Runtime Error: getCSSVariable('${varName}') was called in a non-browser environment. ` +
-            `This hook can only be executed on the client side.`,
-            { cause: 'SSR_OR_NODE_ENVIRONMENT' }
-        );
-    }
+let queries: Record<Devices, string> | null = null;
 
-    const value = window
-        .getComputedStyle(document.documentElement)
-        .getPropertyValue(varName)
-        .trim();
+const getQueries = (): Record<Devices, string> => {
+    if (queries) return queries;
 
-    if (!value) {
-        throw new Error(
-            `[useDevice] CSS Variable Error: The variable "${varName}" is missing or empty in your CSS (:root).`,
-            { cause: 'MISSING_CSS_VARIABLE' }
-        );
-    }
+    const root = window.getComputedStyle(document.documentElement);
+    const mobileWidth = root.getPropertyValue('--mobile-width').trim();
+    const desktopWidth = root.getPropertyValue('--desktop-width').trim();
 
-    return value;
+    if (!mobileWidth || !desktopWidth)
+        throw new Error(`[useDevice] error: CSS variables (--mobile-width or --desktop-width) are missing in :root.`);
+
+    queries = {
+        mobile: `(width < ${mobileWidth})`,
+        tablet: `(${mobileWidth} <= width < ${desktopWidth})`,
+        desktop: `(width >= ${desktopWidth})`,
+    };
+
+    return queries;
 };
 
-export const useDevice = (device: Devices) => {
+export const useDevice = (device: Devices): boolean => {
+    const media = window.matchMedia(getQueries()[device]);
+
     return useSyncExternalStore(
         (cb) => {
-            const mobileWidth = getCSSVariable('--mobile-width');
-            const desktopWidth = getCSSVariable('--desktop-width');
-            const queries: Record<Devices, string> = {
-                mobile: `(width < ${mobileWidth})`,
-                tablet: `(${mobileWidth} <= width < ${desktopWidth})`,
-                desktop: `(width >= ${desktopWidth})`,
-            };
-
-            const media = window.matchMedia(queries[device]);
             media.addEventListener('change', cb);
             return () => media.removeEventListener('change', cb);
         },
-
-        () => {
-            const mobileWidth = getCSSVariable('--mobile-width');
-            const desktopWidth = getCSSVariable('--desktop-width');
-            const queries: Record<Devices, string> = {
-                mobile: `(width < ${mobileWidth})`,
-                tablet: `(${mobileWidth} <= width < ${desktopWidth})`,
-                desktop: `(width >= ${desktopWidth})`,
-            };
-            return window.matchMedia(queries[device]).matches;
-        },
-
-        () => {
-            throw new Error(
-                `[useDevice] Error: Execution of this responsiveness hook is strictly prohibited on the server side. ` +
-                `Ensure this component renders only on the client.`,
-                { cause: 'SERVER_SIDE_EXECUTION_PROHIBITED' }
-            );
-        }
+        () => media.matches
     );
 };

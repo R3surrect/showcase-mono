@@ -2,7 +2,7 @@ import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from "rechart
 import Heading from "../../Heading/Heading";
 import Surface from "../../Surface/Surface";
 import { barStyles } from "../dashboards.constants";
-import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from "../dashboards.constants";
+import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "../dashboards.constants";
 
 const taskPrioritiesBarMock = [
     {
@@ -60,7 +60,7 @@ const DashboardTaskPriorityBlock = () => {
             responsive
         >
             <YAxis width='auto' {...axisProps} {...yAxisProps} />
-            <XAxis dataKey='name' {...axisProps} {...xAxisProps} />
+            <XAxis dataKey='name' {...axisProps} />
             <Tooltip {...tooltipProps} {...animationProps} />
             <Legend
                 {...legendProps}
