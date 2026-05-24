@@ -1,6 +1,6 @@
 import type { Gap } from '../_shared/system.types';
 import stylesObj from './Grid.module.css';
-import type { AlignItems, Columns, Heights } from './Grid.types';
+import type { AlignItems, AutoRows, Columns, Heights } from './Grid.types';
 
 interface GridProps {
     columns?: Columns;
@@ -8,6 +8,7 @@ interface GridProps {
     height?: Heights;
     children: React.ReactNode;
     gap?: Gap;
+    autoRows?: AutoRows;
 }
 
 interface GridVars extends React.CSSProperties {
@@ -22,6 +23,7 @@ const Grid = ({
     gap = 'sm',
     alignItems = 'stretch',
     height = 'max',
+    autoRows = 'min-content',
     children
 }: GridProps) => {
     const isFit = height === 'fit-content';
@@ -32,7 +34,8 @@ const Grid = ({
             '--grid-gap': `var(--indent-${gap})`,
             '--grid-columns': columns,
             '--grid-align-items': alignItems,
-            '--grid-height': isFit ? 'fit-content' : '100%'
+            '--grid-height': isFit ? 'fit-content' : '100%',
+            '--grid-auto-rows': autoRows,
         } as GridVars}
     >
         {children}

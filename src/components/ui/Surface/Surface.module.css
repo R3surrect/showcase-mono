@@ -1,20 +1,19 @@
 @import url('@global/styles/_variables.css');
 @import url('@global/styles/_breakpoints.css');
 
-/*! Отрефакторить адаптив */
+/*! Отрефакторить все */
 
 .surface {
-    transition: .3s;
-    border-radius: 10px;
-    background: var(--neutral-0);
-    /* padding: 1rem; */
-    border: 1px solid var(--neutral-400);
-
+    height: 100%;
+    width: 100%;
     padding: 1.25rem;
-    backdrop-filter: blur(3.5rem);
+    background: var(--neutral-0);
+    border: 1px solid var(--neutral-400);
+    border-radius: 10px;
     border-radius: var(--border-radius-10);
-    text-align: center;
+    backdrop-filter: blur(3.5rem);
     box-shadow: var(--shadow-md);
+    transition: .3s;
 }
 
 .surface[data-radius='sm'] {border-radius: var(--border-radius-4)}
@@ -24,13 +23,11 @@
 .glass {
     background-color: var(--glass-surface-light-45);
     border: 1px solid rgb(255, 255, 255, 40%);
-    width: clamp(512px, 20vw, 1024px);
 }
 
-.solid, .outline {
-    width: 100%;
+.solid,
+.outline {
     background-color: var(--lite-white);
-    text-align: left;
     border: 1px solid color-mix(in srgb, var(--cold-blue-grey-400), transparent var(--opacity-high));
 }
 

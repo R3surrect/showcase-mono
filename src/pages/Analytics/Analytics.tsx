@@ -106,7 +106,12 @@ export const Component = () => {
     return (
         <Stack>
 
-            <Grid columns={4} alignItems='start' height='fit-content'>
+            <Grid
+                columns={4}
+                alignItems='stretch'
+                height='fit-content'
+                autoRows='1fr'
+            >
                 {
                     dashboardStatMock.map(item => (
                         <DashboardStatBlockFull {...item} isAnimated={true} key={item.id} />

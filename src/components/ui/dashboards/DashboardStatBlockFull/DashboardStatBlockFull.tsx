@@ -48,7 +48,7 @@ const DashboardStatBlockFull = ({
 
     return <Surface
         variant={variant}
-        height="fit-content"
+        height="max"
         data-animated={isAnimated}
         isAnimated={isAnimated}
         color={iconObj.color}
