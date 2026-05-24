@@ -1,4 +1,4 @@
-import type { Align } from "../_shared/system.types";
+import type { TextAlign } from "../_shared/system.types";
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
 
@@ -6,7 +6,7 @@ export interface HeadingProps {
     variant: 'accent' | 'secondary';
     level: 1 | 2 | 3 | 4 | 5 | 6;
     subtitle?: string;
-    align?: Exclude<Align, 'stretch'>;
+    align?: TextAlign;
     children: React.ReactNode;
 }
 

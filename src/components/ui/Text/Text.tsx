@@ -9,8 +9,10 @@ const Text = ({
     color = 'darkgray',
     size = 4,
     children,
+    align = 'start',
     ...props
 }: TextProps) => {
+
     const Tag: As = as;
     return (
         <Tag
@@ -18,6 +20,10 @@ const Text = ({
             data-size={size}
             data-color={color}
             data-weight={weight}
+            style={{
+                textAlign: align
+            }}
+
             {...props}
         >
             {children}
