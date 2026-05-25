@@ -1,37 +1,11 @@
 import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from "recharts";
-import Heading from "../../Heading/Heading";
-import Surface from "../../Surface/Surface";
+import Heading from "@components/ui/Heading/Heading";
+import Surface from "@components/ui/Surface/Surface";
+import Text from "@components/ui/Text/Text";
+import Stack from "@components/ui/Stack/Stack";
 import { barStyles } from "../dashboards.constants";
 import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "../dashboards.constants";
-import Text from "../../Text/Text";
-import Stack from "../../Stack/Stack";
-
-const taskPrioritiesBarMock = [
-    {
-        id: 'priority-high',
-        name: 'Высокий',
-        'Всего': 9,
-        'Выполнено': 5,
-        colorTotal: 'color-mix(in srgb, var(--warm-red-400), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-red-400)'
-    },
-    {
-        id: 'priority-medium',
-        name: 'Средний',
-        'Всего': 10,
-        'Выполнено': 4,
-        colorTotal: 'color-mix(in srgb, var(--warm-orange-400), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-orange-400)'
-    },
-    {
-        id: 'priority-low',
-        name: 'Низкий',
-        'Всего': 6,
-        'Выполнено': 2,
-        colorTotal: 'color-mix(in srgb, var(--warm-green-500), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-green-500)'
-    },
-]
+import { taskPrioritiesBarMock } from "./DashboardTaskPriorityBlock.constants";
 
 const LegendRender = (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
@@ -64,9 +38,6 @@ const DashboardTaskPriorityBlock = () => {
             data={taskPrioritiesBarMock}
             responsive
         >
-            <YAxis width='auto' {...axisProps} {...yAxisProps} />
-            <XAxis dataKey='name' {...axisProps} />
-            <Tooltip {...tooltipProps} {...animationProps} />
             <Legend
                 {...legendProps}
                 content={() => {
@@ -97,6 +68,9 @@ const DashboardTaskPriorityBlock = () => {
                 }}
                 {...animationProps}
             />
+            <YAxis width='auto' {...axisProps} {...yAxisProps} />
+            <XAxis dataKey='name' {...axisProps} />
+            <Tooltip {...tooltipProps} {...animationProps} />
         </BarChart>
     </Surface>
 }

@@ -1,18 +1,8 @@
 import Stack from "@components/ui/Stack/Stack"
 import Text from "@components/ui/Text/Text";
 import Surface from "@components/ui/Surface/Surface";
-import type { HTMLMotionProps } from "motion/react";
-import type { Variants } from "../../Surface/Surface.types";
 import Heading from "../../Heading/Heading";
-
-export interface DashboardStatBlockMinimalProps extends Omit<HTMLMotionProps<'div'>, 'style' | 'className'> {
-    title: string;
-    value: string;
-    valueLabel?: string;
-    subtitle: string;
-    isAnimated?: boolean;
-    variant?: Variants;
-}
+import type { DashboardStatBlockMinimalProps } from "./DashboardStatBlockMinimal.types";
 
 const DashboardStatBlockMinimal = ({
     title,

@@ -2,22 +2,10 @@ import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import Heading from "@components/ui/Heading/Heading";
 import { animationProps, tooltipProps } from "../dashboards.constants";
 import Surface from "@components/ui/Surface/Surface";
-import Text from "../../Text/Text";
-import Stack from "../../Stack/Stack";
-
-export interface StatusPieMock {
-    name: string;
-    value: number;
-    fill: string;
-    subValue: string;
-}
-
-const statusMock: StatusPieMock[] = [
-    { name: 'Ожидание', value: 6, fill: 'var(--neutral-400)', subValue: '4 задач · 16%' },
-    { name: 'В работе', value: 4, fill: 'var(--cold-blue-grey-400)', subValue: '6 задач · 24%' },
-    { name: 'Выполнено', value: 11, fill: 'var(--warm-green-600)', subValue: '4 задач · 16%' },
-    { name: 'Просрочено', value: 4, fill: 'var(--warm-red-400)', subValue: '11 задач · 44%' },
-]
+import Text from "@components/ui/Text/Text";
+import Stack from "@components/ui/Stack/Stack";
+import { statusMock } from "./DashboardPieStatsBlock.constants";
+import type { StatusPieMock } from "./DashboardPieStatsBlock.types";
 
 const DashboardPieStatsBlock = () => {
     return <Surface>
@@ -55,6 +43,7 @@ const DashboardPieStatsBlock = () => {
                     wrapperStyle={{ fontSize: '1rem' }}
                     formatter={(value, entry) => {
                         const { subValue } = entry.payload as StatusPieMock;
+
                         return (
                             <div
                                 style={{
@@ -88,8 +77,7 @@ const DashboardPieStatsBlock = () => {
                                 </span>
                             </div>
                         )
-                    }
-                    }
+                    }}
                 />
             </PieChart>
         </ResponsiveContainer>
