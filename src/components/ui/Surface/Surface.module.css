@@ -1,16 +1,13 @@
 @import url('@global/styles/_variables.css');
 @import url('@global/styles/_breakpoints.css');
 
-/*! Отрефакторить все */
-
 .surface {
     height: 100%;
     width: 100%;
     padding: 1.25rem;
-    background: var(--neutral-0);
+    background: var(--lite-white);
     border: 1px solid var(--neutral-400);
-    border-radius: 10px;
-    border-radius: var(--border-radius-10);
+    border-radius: var(--border-radius-25);
     backdrop-filter: blur(3.5rem);
     box-shadow: var(--shadow-md);
     transition: .3s;
@@ -32,11 +29,12 @@
 }
 
 .surface[data-animated="true"]:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
 .outline {
     background-color: color-mix(in srgb, var(--surface-color), transparent var(--opacity-full));
     border: 1px solid color-mix(in srgb, var(--surface-color), transparent var(--opacity-super));
+    box-shadow: none;
 }
