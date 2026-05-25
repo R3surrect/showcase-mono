@@ -14,7 +14,15 @@ export interface DashboardStatBlockMinimalProps extends Omit<HTMLMotionProps<'di
     variant?: Variants;
 }
 
-const DashboardStatBlockMinimal = ({ title, value, valueLabel, subtitle, variant = 'solid', isAnimated = false, ...props }: DashboardStatBlockMinimalProps) => {
+const DashboardStatBlockMinimal = ({
+    title,
+    value,
+    valueLabel,
+    subtitle,
+    variant = 'solid',
+    isAnimated = false,
+    ...props
+}: DashboardStatBlockMinimalProps) => {
     return <Surface data-animated={isAnimated} variant={variant} {...props}>
         <Stack gap="md" align="center">
             <Heading level={3} variant="secondary">{title}</Heading>

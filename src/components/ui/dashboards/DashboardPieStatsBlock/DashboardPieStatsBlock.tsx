@@ -2,6 +2,8 @@ import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import Heading from "@components/ui/Heading/Heading";
 import { animationProps, tooltipProps } from "../dashboards.constants";
 import Surface from "@components/ui/Surface/Surface";
+import Text from "../../Text/Text";
+import Stack from "../../Stack/Stack";
 
 export interface StatusPieMock {
     name: string;
@@ -19,7 +21,10 @@ const statusMock: StatusPieMock[] = [
 
 const DashboardPieStatsBlock = () => {
     return <Surface>
-        <Heading variant="secondary" level={2} subtitle="Распределение всех задач">По статусам</Heading>
+        <Stack gap="sm">
+            <Heading variant="secondary" level={2}>По статусам</Heading>
+            <Text size={7}>Распределение всех задач</Text>
+        </Stack>
 
         <ResponsiveContainer width="55%" height={256} style={{ marginTop: '1rem' }}>
             <PieChart data={statusMock} margin={{ right: -150, top: 10 }}>
@@ -40,7 +45,7 @@ const DashboardPieStatsBlock = () => {
                     paddingAngle={4}
                     dataKey="value"
                 />
-                <Tooltip {...tooltipProps} {...animationProps}/>
+                <Tooltip {...tooltipProps} {...animationProps} />
                 <Legend
                     align="right"
                     layout="vertical"

@@ -12,6 +12,7 @@ import Stack from '@/components/ui/Stack/Stack';
 import useAuthStore from '@/store/useAuthStore';
 import LegalNotice from '@/components/auth/LegalNotice/LegalNotice';
 import { useNavigate } from 'react-router-dom';
+import Text from '@/components/ui/Text/Text';
 
 export const Component = () => {
     const navigate = useNavigate();
@@ -47,8 +48,11 @@ export const Component = () => {
     }
 
     return <Stack gap='lg'>
+        <div>
+            <Heading variant='accent' level={1}>Join the community</Heading>
+            <Text align='center' weight='bolder' color='yellow'>Organize your time in a few clicks</Text>
+        </div>
 
-        <Heading variant='accent' subtitle='Organize your time in a few clicks' level={1}>Join the community</Heading>
         <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
 
         <form onSubmit={handleSubmit(onSubmit)}>

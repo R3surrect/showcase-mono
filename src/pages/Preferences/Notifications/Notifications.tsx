@@ -1,4 +1,4 @@
-import Heading, { type HeadingProps } from '@/components/ui/Heading/Heading'
+import Heading from '@/components/ui/Heading/Heading'
 import Surface from '@/components/ui/Surface/Surface';
 import Stack from '@/components/ui/Stack/Stack';
 import Hr from '@/components/ui/Hr/Hr';
@@ -69,14 +69,12 @@ const fieldsData = [
 ]
 
 export const Component = () => {
-    const headingProps: Omit<HeadingProps, 'children'> = { level: 4, variant: 'secondary' };
-
     return <>
         {
             fieldsData.map((item) => (
                 <Surface key={item.title}>
                     <Stack>
-                        <Heading {...headingProps}>{item.title}</Heading>
+                        <Heading level={4} variant='secondary'>{item.title}</Heading>
                         {item.body.map(property => (
                             <Fragment key={property.title}>
                                 <Hr variant='accent' thickness='thin' />

@@ -9,6 +9,8 @@ import {
     tooltipProps,
     yAxisProps
 } from "../dashboards.constants";
+import Text from "../../Text/Text";
+import Stack from "../../Stack/Stack";
 
 const taskLoadBarMock = [
     {
@@ -39,13 +41,13 @@ const taskLoadBarMock = [
 
 const DashboardProjectLoadBlock = () => {
     return <Surface>
-        <Heading
-            variant="secondary"
-            level={2}
-            subtitle="Число задач и процент выполнения в каждом проекте"
-        >
-            Нагрузка по проектам
-        </Heading>
+        <Stack gap="sm">
+            <Heading variant="secondary" level={2}
+            >
+                Нагрузка по проектам
+            </Heading>
+            <Text size={7}>Число задач и процент выполнения в каждом проекте</Text>
+        </Stack>
 
         <BarChart
             style={barStyles}

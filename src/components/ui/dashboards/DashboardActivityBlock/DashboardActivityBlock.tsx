@@ -35,7 +35,7 @@ const DashboardActivityBlock = () => {
     return <Surface>
         <Stack gap="sm">
             <Heading variant="secondary" level={2}>Активность за 2 недели</Heading>
-            <Text color="darkgray" size={7}>Количество задач по дате дедлайна</Text>
+            <Text size={7}>Количество задач по дате дедлайна</Text>
         </Stack>
         <ResponsiveContainer
             width="100%"

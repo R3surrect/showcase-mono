@@ -1,6 +1,7 @@
-import Heading from '@/components/ui/Heading/Heading';
+import Heading from '@components/ui/Heading/Heading';
 import stylesObj from './PropertyField.module.css';
 import { useId } from 'react';
+import Text from '@components/ui/Text/Text';
 
 interface PropertyFieldProps {
     title: string;
@@ -8,7 +9,7 @@ interface PropertyFieldProps {
     children: (id: string) => React.ReactNode;
 }
 
-const PropertyField = ({title, subtitle, children }: PropertyFieldProps) => {
+const PropertyField = ({ title, subtitle, children }: PropertyFieldProps) => {
     const id = useId();
 
     return <div className={stylesObj.propertyField}>
@@ -16,10 +17,10 @@ const PropertyField = ({title, subtitle, children }: PropertyFieldProps) => {
             <Heading
                 variant='secondary'
                 level={5}
-                subtitle={subtitle}
             >
                 {title}
             </Heading>
+            <Text size={7}>{subtitle}</Text>
         </label>
         {children(id)}
     </div>

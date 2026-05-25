@@ -3,6 +3,8 @@ import Heading from "../../Heading/Heading";
 import Surface from "../../Surface/Surface";
 import { barStyles } from "../dashboards.constants";
 import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "../dashboards.constants";
+import Text from "../../Text/Text";
+import Stack from "../../Stack/Stack";
 
 const taskPrioritiesBarMock = [
     {
@@ -46,13 +48,16 @@ const LegendRender = (
 
 const DashboardTaskPriorityBlock = () => {
     return <Surface>
-        <Heading
-            variant="secondary"
-            level={2}
-            subtitle="Сколько задач каждого приоритета выполнено : всего"
-        >
-            Приоритет задач - выполнение
-        </Heading>
+        <Stack gap="sm">
+            <Heading
+                variant="secondary"
+                level={2}
+            >
+                Приоритет задач - выполнение
+            </Heading>
+            <Text size={7}>Сколько задач каждого приоритета выполнено : всего</Text>
+        </Stack>
+
 
         <BarChart
             style={barStyles}

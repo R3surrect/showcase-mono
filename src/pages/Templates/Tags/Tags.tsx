@@ -43,7 +43,7 @@ export const Component = () => {
             </Stack>
         </Surface>
 
-        <Surface height='fit-content'>
+        <Surface>
             <Stack gap='md'>
                 <Heading level={5} variant='secondary'>Существующие теги</Heading>
                 <Stack direction='row' gap='sm' wrap={true}>
