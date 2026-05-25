@@ -1,7 +1,7 @@
 import { useId, useState } from 'react';
 import { Eye, EyeClosed } from 'lucide-react';
 
-import type InputProps from "@/interfaces/ui/InputProps";
+import type InputProps from './Input.types';
 import stylesObj from "./Input.module.css";
 
 const Input = ({
@@ -14,7 +14,8 @@ const Input = ({
     placeholder,
     ...props
 }: InputProps) => {
-    const controlId = id || useId();
+    const genId = useId();
+    const controlId = id || genId;
 
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const isPassword = (type === 'password');

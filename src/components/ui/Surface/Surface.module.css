@@ -14,8 +14,8 @@
 }
 
 .surface[data-radius='sm'] {border-radius: var(--border-radius-4)}
-.surface[data-radius='md'] {border-radius: var(--border-radius-10)}
-.surface[data-radius='lg'] {border-radius: var(--border-radius-15)}
+.surface[data-radius='md'] {border-radius: var(--border-radius-15)}
+.surface[data-radius='lg'] {border-radius: var(--border-radius-25)}
 
 .glass {
     background-color: var(--glass-surface-light-45);

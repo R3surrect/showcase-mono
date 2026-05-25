@@ -1,14 +1,12 @@
 import type { HTMLMotionProps } from "motion/react";
-import type { SIZE_TYPES } from "../_shared/system.types";
+import type { VARIANT_TYPES } from "./Surface.constants";
+import type { Size } from "../_shared/system.types";
 
-export const VARIANT_TYPES = ['glass', 'solid', 'outline'] as const;
-
-export type Radiuses = typeof SIZE_TYPES[number];
 export type Variants = typeof VARIANT_TYPES[number];
 
 export interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' | 'style'> {
     variant?: Variants;
-    cornerRadius?: Radiuses;
+    cornerRadius?: Size;
     isAnimated?: boolean;
     color?: string;
 }

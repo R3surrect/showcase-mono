@@ -10,11 +10,11 @@ interface ColorVariable extends React.CSSProperties {
     '--tag-color': string;
 }
 
-export const Tag = ({ label, emoji, color, ...rest }: TagProps) => {
+export const Tag = ({ label, emoji, color, ...props }: TagProps) => {
     return <div
-        {...rest}
         className={stylesObj.tag}
         style={{ '--tag-color': `${color}` } as ColorVariable}
+        {...props}
     >
         {emoji}
         <p>{label}</p>
