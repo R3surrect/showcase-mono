@@ -1,22 +1,8 @@
-import type { TextAlign } from "../_shared/system.types";
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
-
-export const VARIANT_TYPES = ['accent', 'secondary'] as const;
-export const LEVEL_TYPES = [1, 2, 3, 4, 5, 6] as const;
-
-export type Variants = typeof VARIANT_TYPES[number];
-export type Levels = typeof LEVEL_TYPES[number];
-
-export interface HeadingProps {
-    variant: Variants;
-    level: Levels;
-    align?: TextAlign;
-    children: React.ReactNode;
-}
+import type { HeadingProps } from "./Heading.types";
 
 const Heading = ({ variant = 'accent', align = 'start', level, children }: HeadingProps) => {
-
     const variantClass = stylesObj[variant];
 
     if (!variantClass && process.env.NODE_ENV === 'development')

@@ -1,7 +1,5 @@
-// #region Imports
 import stylesObj from './Text.module.css'
 import { type As, type TextProps } from './Text.types';
-// #endregion
 
 const Text = ({
     as = 'p',
