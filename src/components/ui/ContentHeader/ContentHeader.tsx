@@ -1,14 +1,8 @@
 import Heading from '@/components/ui/Heading/Heading.tsx';
 import Stack from '@components/ui/Stack/Stack';
 import stylesObj from './ContentHeader.module.css';
-import type { HTMLAttributes } from 'react';
 import Text from '../Text/Text';
-
-interface ContentHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
-    title: string;
-    subtitle: string;
-    children?: React.ReactNode;
-}
+import type { ContentHeaderProps } from './ContentHeader.types';
 
 export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps) => {
     return <Stack direction='row' justify='space-between' wrap={true}>

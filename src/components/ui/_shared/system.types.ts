@@ -1,19 +1,19 @@
-// 1. Базовые атомарные константы (ядро системы)
-export const SIZE_TYPES = ['sm', 'md', 'lg'] as const;
-export const DIRECTION_TYPES = ['row', 'column', 'row-reverse', 'column-reverse'] as const;
+import type {
+    BASE_ALIGN_TYPES,
+    BOX_ALIGN_TYPES,
+    DIRECTION_TYPES,
+    JUSTIFY_TYPES,
+    OPACITY_TYPES,
+    BASE_SIZE_TYPES,
+    STACK_ALIGN_TYPES,
+    TEXT_ALIGN_TYPES
+} from "./system.constants";
 
-export const BASE_ALIGN_TYPES = ['start', 'center', 'end'] as const;
-
-export const BOX_ALIGN_TYPES = [...BASE_ALIGN_TYPES, 'stretch'] as const;
-export const JUSTIFY_TYPES = [...BASE_ALIGN_TYPES, 'space-around', 'space-between', 'space-evenly'] as const;
-export const TEXT_ALIGN_TYPES = [...BASE_ALIGN_TYPES, 'justify'] as const;
-export const STACK_ALIGN_TYPES = [...BOX_ALIGN_TYPES, 'baseline'] as const;
-
-export type Gap = typeof SIZE_TYPES[number];
+export type Size = typeof BASE_SIZE_TYPES[number];
 export type Direction = typeof DIRECTION_TYPES[number];
-
 export type BaseAlignment = typeof BASE_ALIGN_TYPES[number];
 export type BoxAlignment = typeof BOX_ALIGN_TYPES[number];
 export type Justify = typeof JUSTIFY_TYPES[number];
 export type TextAlign = typeof TEXT_ALIGN_TYPES[number];
 export type StackAlign = typeof STACK_ALIGN_TYPES[number];
+export type OpacityLevel = typeof OPACITY_TYPES[number];

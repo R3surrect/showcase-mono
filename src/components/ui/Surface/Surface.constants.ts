@@ -1,0 +1,1 @@
+export const VARIANT_TYPES = ['glass', 'solid', 'outline'] as const;

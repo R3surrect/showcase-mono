@@ -6,6 +6,7 @@ import Input from '@components/ui/Input/Input'
 import { ColorPicker } from '@components/ui/ColorPicker/ColorPicker'
 import Stack from '@components/ui/Stack/Stack'
 import { Tag } from '@components/ui/Tag/Tag'
+import Grid from '@/components/ui/Grid/Grid'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -38,12 +39,15 @@ export const Component = () => {
         <Surface>
             <Stack gap='md'>
                 <Heading level={5} variant='secondary'>Создать тег</Heading>
-                <Input labelText='Название' placeholder='Новый тег' type='text' />
+                <Grid columns={2} >
+                    <Input labelText='Название' placeholder='Новый тег' type='text' />
+                    <Input labelText='Эмодзи' placeholder='🏷️' type='text' />
+                </Grid>
                 <ColorPicker />
             </Stack>
         </Surface>
 
-        <Surface height='fit-content'>
+        <Surface>
             <Stack gap='md'>
                 <Heading level={5} variant='secondary'>Существующие теги</Heading>
                 <Stack direction='row' gap='sm' wrap={true}>

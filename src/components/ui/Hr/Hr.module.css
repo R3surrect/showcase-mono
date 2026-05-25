@@ -17,19 +17,13 @@
     opacity: var(--hr-opacity, 1);
 }
 
-.shadow {
-    box-shadow: var(--shadow-md);
-}
+.shadow {box-shadow: var(--shadow-md)}
+.accent {background-color: var(--neutral-300)}
+.subtle {background-color: var(--neutral-0)}
 
 .glass {
     background-color: var(--neutral-0);
     backdrop-filter: blur(1.75rem);
 }
 
-.accent {
-    background-color: var(--neutral-300);
-}
 
-.subtle {
-    background-color: var(--neutral-0);
-}

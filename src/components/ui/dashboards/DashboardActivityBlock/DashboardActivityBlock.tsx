@@ -1,33 +1,12 @@
+import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, CartesianGrid } from "recharts";
 import Surface from "@components/ui/Surface/Surface";
 import Heading from "@components/ui/Heading/Heading";
-import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, type LineProps, CartesianGrid } from "recharts";
 import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "@components/ui/dashboards/dashboards.constants";
+import Text from "@components/ui/Text/Text";
+import Stack from "@components/ui/Stack/Stack";
 import { useDevice } from "@/hooks/useDevice";
-import Text from "../../Text/Text";
-import Stack from "../../Stack/Stack";
-
-const chartsMock: { day: string; completed: number; outdated: number; all: number }[] = [
-    { day: '20 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: '21 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: '22 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: '23 апр.', completed: 0, outdated: 0, all: 0 },
-    { day: '24 апр.', completed: 1, outdated: 0, all: 1 },
-    { day: '25 апр.', completed: 1, outdated: 0, all: 1 },
-    { day: '26 апр.', completed: 1, outdated: 0, all: 1 },
-    { day: '27 апр.', completed: 2, outdated: 0, all: 2 },
-    { day: '28 апр.', completed: 1, outdated: 1, all: 2 },
-    { day: '29 апр', completed: 1, outdated: 1, all: 2 },
-    { day: '30 апр', completed: 1, outdated: 1, all: 2 },
-    { day: '1 мая', completed: 1, outdated: 1, all: 2 },
-    { day: '2 мая', completed: 2, outdated: 0, all: 2 },
-    { day: '3 мая', completed: 0, outdated: 0, all: 0 },
-]
-
-const lineProps: Partial<LineProps> = {
-    strokeWidth: 3,
-    animationEasing: 'ease-in-out',
-    cursor: 'pointer',
-}
+import { lineProps } from "./DashboardActivityBlock.types";
+import { chartsData, chartsMock } from "./DashboardActivityBlock.constants";
 
 const DashboardActivityBlock = () => {
     const isTablet = useDevice('tablet');
@@ -35,7 +14,7 @@ const DashboardActivityBlock = () => {
     return <Surface>
         <Stack gap="sm">
             <Heading variant="secondary" level={2}>Активность за 2 недели</Heading>
-            <Text color="darkgray" size={7}>Количество задач по дате дедлайна</Text>
+            <Text size={7}>Количество задач по дате дедлайна</Text>
         </Stack>
         <ResponsiveContainer
             width="100%"
@@ -44,34 +23,17 @@ const DashboardActivityBlock = () => {
         >
             <LineChart responsive data={chartsMock}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(130,145,120,0.12)" />
-                <Line
-                    dataKey="all"
-                    name="Всего"
-                    stroke="var(--cold-blue-grey-400)"
-                    type="monotone"
-                    dot={false}
-                    {...animationProps}
-                    {...lineProps}
-                />
-                <Line
-                    dataKey="completed"
-                    name="Выполнено"
-                    stroke="var(--warm-green-500)"
-                    type="monotone"
-                    dot={{ r: 3, fill: 'var(--warm-green-500)' }}
-                    {...animationProps}
-                    {...lineProps}
-                />
-                <Line
-                    dataKey="outdated"
-                    name="Просрочено"
-                    stroke="var(--warm-red-400)"
-                    type="monotone"
-                    dot={false}
-                    strokeDasharray="4 3"
-                    {...animationProps}
-                    {...lineProps}
-                />
+                {
+                    chartsData.map(item => (
+                        <Line
+                            {...item}
+                            type="monotone"
+                            dot={false}
+                            {...animationProps}
+                            {...lineProps}
+                        />
+                    ))
+                }
                 <XAxis
                     dataKey="day"
                     name="День"

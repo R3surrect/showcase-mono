@@ -3,12 +3,6 @@ import clsx from 'clsx';
 import { motion } from 'motion/react';
 import type { SurfaceProps, SurfaceVars } from './Surface.types';
 
-const variantsObj = {
-    glass: stylesObj.glass,
-    solid: stylesObj.solid,
-    outline: stylesObj.outline,
-}
-
 const Surface = ({
     variant = 'solid',
     cornerRadius = 'md',
@@ -18,12 +12,11 @@ const Surface = ({
     isAnimated = false,
     ...props
 }: SurfaceProps) => {
-
     return (
         <motion.div
             onClick={props.onClick}
             data-clickable={Boolean(props.onClick)}
-            className={clsx(stylesObj.surface, variantsObj[variant])}
+            className={clsx(stylesObj.surface, stylesObj[variant])}
             ref={ref}
             data-animated={isAnimated}
             data-radius={cornerRadius}

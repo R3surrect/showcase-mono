@@ -1,22 +1,5 @@
-import type { Gap } from '../_shared/system.types';
 import stylesObj from './Grid.module.css';
-import type { AlignItems, AutoRows, Columns, Heights } from './Grid.types';
-
-interface GridProps {
-    columns?: Columns;
-    alignItems?: AlignItems;
-    height?: Heights;
-    children: React.ReactNode;
-    gap?: Gap;
-    autoRows?: AutoRows;
-}
-
-interface GridVars extends React.CSSProperties {
-    '--grid-gap': string;
-    '--grid-columns': number;
-    '--grid-align-items': string;
-    '--grid-height': string;
-}
+import type { GridProps, GridVars } from './Grid.types';
 
 const Grid = ({
     columns = 3,

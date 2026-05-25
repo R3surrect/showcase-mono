@@ -1,6 +1,9 @@
 import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from "recharts";
-import Heading from "../../Heading/Heading";
-import Surface from "../../Surface/Surface";
+import Heading from "@components/ui/Heading/Heading";
+import Surface from "@components/ui/Surface/Surface";
+import Text from "@components/ui/Text/Text";
+import Stack from "@components/ui/Stack/Stack";
+import { taskLoadBarMock } from "./DashboardProjectLoadBlock.constants";
 import {
     animationProps,
     axisProps,
@@ -10,42 +13,14 @@ import {
     yAxisProps
 } from "../dashboards.constants";
 
-const taskLoadBarMock = [
-    {
-        id: 'load-rebranding',
-        name: '✨ Ребрендинг',
-        'Всего': 6,
-        'Выполнено': 3,
-    },
-    {
-        id: 'load-mobile',
-        name: '📱 Мобильное приложение',
-        'Всего': 9,
-        'Выполнено': 4,
-    },
-    {
-        id: 'load-content',
-        name: '📅 Контент-план',
-        'Всего': 6,
-        'Выполнено': 2,
-    },
-    {
-        id: 'load-portal',
-        name: '🏢 Внутренний портал',
-        'Всего': 6,
-        'Выполнено': 2,
-    },
-]
-
 const DashboardProjectLoadBlock = () => {
     return <Surface>
-        <Heading
-            variant="secondary"
-            level={2}
-            subtitle="Число задач и процент выполнения в каждом проекте"
-        >
-            Нагрузка по проектам
-        </Heading>
+        <Stack gap="sm">
+            <Heading variant="secondary" level={2}>
+                Нагрузка по проектам
+            </Heading>
+            <Text size={7}>Число задач и процент выполнения в каждом проекте</Text>
+        </Stack>
 
         <BarChart
             style={barStyles}
