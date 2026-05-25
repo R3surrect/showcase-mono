@@ -1,19 +1,24 @@
 import type { Ref } from "react";
-import type { LogicalAlignment, Direction, Gap, Justify } from "../_shared/system.types";
+import type { Direction, Gap, Justify, StackAlign } from "../_shared/system.types";
 
-export interface StackProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
+export const WIDTH_TYPES = ['full', 'fit', 'auto'] as const;
+
+export type StackWidth = typeof WIDTH_TYPES[number];
+
+export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
     children: React.ReactNode;
     gap?: Gap;
-    align?: LogicalAlignment;
+    align?: StackAlign;
     direction?: Direction;
     wrap?: boolean;
     justify?: Justify;
+    width?: StackWidth;
     ref?: Ref<HTMLDivElement>;
 }
 
 export interface StackVars extends React.CSSProperties {
-    '--stack-gap': string,
-    '--stack-align': LogicalAlignment;
+    '--stack-gap': string;
+    '--stack-align': StackAlign;
     '--stack-direction': Direction;
     '--stack-justify': Justify;
 }

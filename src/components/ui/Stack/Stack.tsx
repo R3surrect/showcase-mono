@@ -10,9 +10,9 @@ const Stack = ({
   direction = 'column',
   wrap = false,
   justify = 'start',
+  width = 'auto',
   children,
   ref,
-  // grow = true,
   ...props
 }: StackProps) => {
   return <div
@@ -20,6 +20,7 @@ const Stack = ({
     className={stylesObj.stack}
     data-gap={gap}
     data-align={align}
+    data-width={width}
     style={{
       '--stack-gap': `var(--indent-${gap})`,
       '--stack-align': align,

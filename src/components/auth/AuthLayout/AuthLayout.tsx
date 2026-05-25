@@ -34,20 +34,20 @@ export const Component = () => {
     return (
         <div className={stylesObj.authWrapper}>
             <AnimatePresence mode='wait'>
-                <Surface variant='glass'
-                    key={location.pathname}
-                    variants={variants}
-                    initial='initial'
-                    animate='animate'
-                    exit='exit'
-                    height='fit-content'
-                    align='center'
-                >
-                    <Suspense fallback={null}>
-                        {outlet}
-                    </Suspense>
-                </Surface>
+                <div className={stylesObj.authWindow}>
+                    <Surface variant='glass'
+                        key={location.pathname}
+                        variants={variants}
+                        initial='initial'
+                        animate='animate'
+                        exit='exit'
+                    >
+                        <Suspense fallback={null}>
+                            {outlet}
+                        </Suspense>
+                    </Surface>
+                </div>
             </AnimatePresence>
-        </div>
+        </div >
     )
 }

@@ -10,3 +10,7 @@
     height: 100vh;
     overflow: hidden;
 }
+
+.authWindow {
+    width: 512px;
+}

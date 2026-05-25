@@ -1,52 +1,34 @@
-import type { Align } from "../_shared/system.types";
+import type { TextAlign } from "../_shared/system.types";
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
 
+export const VARIANT_TYPES = ['accent', 'secondary'] as const;
+export const LEVEL_TYPES = [1, 2, 3, 4, 5, 6] as const;
+
+export type Variants = typeof VARIANT_TYPES[number];
+export type Levels = typeof LEVEL_TYPES[number];
+
 export interface HeadingProps {
-    variant: 'accent' | 'secondary';
-    level: 1 | 2 | 3 | 4 | 5 | 6;
-    subtitle?: string;
-    align?: Exclude<Align, 'stretch'>;
+    variant: Variants;
+    level: Levels;
+    align?: TextAlign;
     children: React.ReactNode;
 }
 
-const variantStyles: Record<HeadingProps['variant'], {
-    headingClass: string, subtitleClass: string
-}> = {
-    accent: {
-        headingClass: stylesObj.accent,
-        subtitleClass: stylesObj.subtitleAccent
-    },
-    secondary: {
-        headingClass: stylesObj.secondary,
-        subtitleClass: stylesObj.subtitleSecondary
-    },
-}
+const Heading = ({ variant = 'accent', align = 'start', level, children }: HeadingProps) => {
 
-const Heading = ({ variant = 'accent', align = 'start', level, subtitle, children }: HeadingProps) => {
-    const { headingClass, subtitleClass } = variantStyles[variant];
+    const variantClass = stylesObj[variant];
+
+    if (!variantClass && process.env.NODE_ENV === 'development')
+        console.warn(`[UI-Kit Heading]: Класс для варианта "${variant}" не найден в Heading.module.css`)
 
     const Tag: React.ElementType = `h${level}`;
-    const headingElement = <Tag
-        className={clsx(stylesObj.heading, headingClass)}
+    return <Tag
+        className={clsx(stylesObj.heading, stylesObj[variant])}
         style={{ textAlign: align }}
     >
         {children}
     </Tag>
-
-    if (!subtitle) return headingElement;
-
-    return <div className={subtitle ? stylesObj.headingWrapper : undefined}>
-        {headingElement}
-        {subtitle && <span className={
-            clsx(
-                stylesObj.subtitle,
-                subtitleClass
-            )}
-        >
-            {subtitle}</span>
-        }
-    </div>
 
 }
 

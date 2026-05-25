@@ -1,12 +1,9 @@
-// #region Imports
 import Heading from "@components/ui/Heading/Heading";
 import Stack from "@components/ui/Stack/Stack";
 import stylesObj from './DashboardStatBlockFull.module.css';
 import type { DashboardStatBlockFullProps, IconColor } from "./DashboardStatBlockFull.types";
 import Text from "@components/ui/Text/Text";
 import Surface from "@components/ui/Surface/Surface";
-import { physicalToLogical } from "../../_shared/system.constants";
-// #endregion
 
 const DashboardStatBlockFull = ({
     iconObj,
@@ -16,50 +13,48 @@ const DashboardStatBlockFull = ({
     valueLabel,
     subtitle,
     variant = 'solid',
-    alignment = 'left',
+    alignment = 'start',
     justify = 'space-between',
-    iconPosition = 'right',
+    iconPosition = 'end',
     iconHasContainer = true,
     ...props
 }: DashboardStatBlockFullProps) => {
 
+    const icon = <iconObj.icon
+        width={16}
+        strokeWidth={2.25}
+        height={16}
+        stroke={iconObj?.color}
+    />;
+
     const renderIcon = iconHasContainer ? <div
-        data-icon-position={iconPosition}
         className={stylesObj.iconWrapper}
         data-outline={variant === 'outline'}
         style={{
-            '--icon-color': iconObj?.color
+            '--icon-color': iconObj?.color,
         } as IconColor}
     >
-        <iconObj.icon
-            width={16}
-            strokeWidth={2.25}
-            height={16}
-            stroke={iconObj?.color}
-        />
+        {icon}
     </div>
-        : <iconObj.icon
-            width={16}
-            strokeWidth={2.25}
-            height={16}
-            stroke={iconObj?.color}
-        />
-        ;
+        : icon;
 
     return <Surface
         variant={variant}
-        height="fit-content"
-        data-animated={isAnimated}
         isAnimated={isAnimated}
         color={iconObj.color}
         {...props}
     >
-        <Stack direction="column" gap="sm" align={physicalToLogical[alignment]} justify={justify} >
-            <Stack direction={iconPosition === 'left' ? 'row-reverse' : 'row'} align="center" justify={justify} gap="sm">
-                <Heading level={6} align={physicalToLogical[alignment]} variant="secondary">
-                    {label.toString().toUpperCase()}
+        <Stack direction="column" gap="sm" align={alignment} justify={justify}>
+            <Stack
+                direction={iconPosition === 'start' ? 'row-reverse' : 'row'}
+                align="center"
+                justify={justify}
+                gap="sm"
+                width="full"
+            >
+                <Heading level={3} align={alignment} variant="secondary">
+                    {label}
                 </Heading>
-
                 {renderIcon}
             </Stack>
             <Text

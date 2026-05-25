@@ -38,10 +38,6 @@ export const axisProps: Partial<XAxisProps> & Partial<YAxisProps> = {
     tickLine: false,
 }
 
-export const xAxisProps: Partial<XAxisProps> = {
-    interval: 0,
-}
-
 export const yAxisProps: Partial<YAxisProps> = {
     width: 24,
 }

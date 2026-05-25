@@ -1,6 +1,6 @@
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import Heading from "@components/ui/Heading/Heading";
-import { animationProps, tooltipProps } from "../config";
+import { animationProps, tooltipProps } from "../dashboards.constants";
 import Surface from "@components/ui/Surface/Surface";
 
 export interface StatusPieMock {

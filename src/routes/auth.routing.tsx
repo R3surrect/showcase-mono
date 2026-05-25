@@ -1,9 +1,9 @@
-import { RouteErrorFaLLback } from '@/components/shared/RouteErrorFallback';
+import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback';
 
 export const AUTH_ROUTES = {
     path: '/auth',
     lazy: () => import('@/components/auth/AuthLayout/AuthLayout'),
-    errorElement: <RouteErrorFaLLback />,
+    errorElement: <RouteErrorFallback />,
 
     children: [
         { path: 'login', lazy: () => import('@/pages/Auth/Login/Login.tsx') },

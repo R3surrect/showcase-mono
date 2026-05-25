@@ -1,29 +1,22 @@
-// #region Imports
-import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from 'recharts';
 import type { DashboardStatBlockFullProps } from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types';
 import Grid from '@/components/ui/Grid/Grid'
 import DashboardStatBlockFull from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull';
 import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
 import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
 import Stack from '@/components/ui/Stack/Stack';
-import Heading from '@/components/ui/Heading/Heading';
-import { animationProps, axisProps, legendProps, tooltipProps, xAxisProps, yAxisProps } from '@/components/ui/dashboards/config';
 import {
     LucideAlertCircle,
-    LucideAward,
     LucideBell,
-    LucideCalendarCheck,
     LucideCheckCircle2,
-    LucideFlame,
     LucideLayers,
     LucideStar,
     LucideTarget,
     LucideTrendingUp,
     LucideZap
 } from 'lucide-react'
-import Surface from '@/components/ui/Surface/Surface';
-import DashboardStatBlockMinimal, { type DashboardStatBlockMinimalProps } from '@/components/ui/dashboards/DashboardStatBlockMinimal/DashboardStatBlockMinimal';
-// #endregion
+import DashboardTaskPriorityBlock from '@/components/ui/dashboards/DashboardTaskPriorityBlock/DashboardTaskPriorityBlock';
+import DashboardProjectLoadBlock from '@/components/ui/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock';
+import DashboardInsightStatsBlock from '@/components/ui/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock';
 //#region Mock
 const dashboardStatMock: DashboardStatBlockFullProps[] = [
     {
@@ -107,273 +100,35 @@ const dashboardStatMock: DashboardStatBlockFullProps[] = [
         subtitle: 'в среднем'
     }
 ];
-const insightsStatsMock: DashboardStatBlockFullProps[] = [
-    {
-        id: '40',
-        iconObj: {
-            icon: LucideFlame,
-            color: 'var(--warm-red-400)',
-        },
-        label: 'Последние 7 дней',
-        value: '6',
-        valueLabel: 'задач выполнено',
-        subtitle: 'Лучший день: 2 задач за сутки',
-
-    },
-    {
-        id: '49',
-        iconObj: {
-            icon: LucideCalendarCheck,
-            color: 'var(--neutral-400)',
-        },
-        label: 'Задачи с дедлайном',
-        value: '25',
-        valueLabel: 'из 25',
-        subtitle: '100% задач имеют срок выполнения',
-
-    },
-    {
-        id: '31',
-        iconObj: {
-            icon: LucideAward,
-            color: 'var(--cold-blue-grey-400)',
-        },
-        label: 'Лидер по задачам',
-        value: '📱 Мобильное приложение',
-        subtitle: '9 задач · 44% выполнено',
-    },
-    {
-        id: '25',
-        iconObj: {
-            icon: LucideTrendingUp,
-            color: 'var(--cold-blue-grey-400)',
-        },
-        label: 'Самый продуктивный',
-        value: '✨ Ребрендинг',
-        subtitle: '50% задач завершены',
-    },
-]
-const insightsStatsBottomMock: DashboardStatBlockMinimalProps[] = [
-    { id: 'stat-no-project', title: 'Без проекта', value: '0', subtitle: '0%' },
-    { id: 'stat-total-notes', title: 'Заметок', value: '6', subtitle: 'Всего создано' },
-    { id: 'stat-avg-reminder', title: 'Среднее напоминание', value: '56', subtitle: 'минут' },
-]
-
-const taskPrioritiesBarMock = [
-    {
-        id: 'priority-high',
-        name: 'Высокий',
-        'Всего': 9,
-        'Выполнено': 5,
-        colorTotal: 'color-mix(in srgb, var(--warm-red-400), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-red-400)'
-    },
-    {
-        id: 'priority-medium',
-        name: 'Средний',
-        'Всего': 10,
-        'Выполнено': 4,
-        colorTotal: 'color-mix(in srgb, var(--warm-orange-400), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-orange-400)'
-    },
-    {
-        id: 'priority-low',
-        name: 'Низкий',
-        'Всего': 6,
-        'Выполнено': 2,
-        colorTotal: 'color-mix(in srgb, var(--warm-green-500), transparent var(--opacity-medium))',
-        colorDone: 'var(--warm-green-500)'
-    },
-]
-
-const taskLoadBarMock = [
-    {
-        id: 'load-rebranding',
-        name: '✨ Ребрендинг',
-        'Всего': 6,
-        'Выполнено': 3,
-    },
-    {
-        id: 'load-mobile',
-        name: '📱 Мобильное приложение',
-        'Всего': 9,
-        'Выполнено': 4,
-    },
-    {
-        id: 'load-content',
-        name: '📅 Контент-план',
-        'Всего': 6,
-        'Выполнено': 2,
-    },
-    {
-        id: 'load-portal',
-        name: '🏢 Внутренний портал',
-        'Всего': 6,
-        'Выполнено': 2,
-    },
-]
 // #endregion
-
-const barStyles = {
-    width: '100%',
-    maxHeight: '180px',
-    aspectRatio: 1.618,
-    marginTop: '1rem',
-    cursor: 'pointer'
-};
-const LegendRender = (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ccc' }} />
-            Всего
-        </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#666' }} />
-            Выполнено
-        </span>
-    </div>
-);
 
 export const Component = () => {
     return (
         <Stack>
-            <Grid columns={4} alignItems='start' height='fit-content'>
+
+            <Grid
+                columns={4}
+                alignItems='stretch'
+                height='fit-content'
+                autoRows='1fr'
+            >
                 {
                     dashboardStatMock.map(item => (
                         <DashboardStatBlockFull {...item} isAnimated={true} key={item.id} />
                     ))
                 }
             </Grid>
+
             <Grid columns={2} alignItems='start' height='fit-content'>
                 <DashboardActivityBlock />
                 <DashboardPieStatsBlock />
             </Grid>
-            <Surface>
-                <Heading
-                    variant="secondary"
-                    level={2}
-                    subtitle="Сколько задач каждого приоритета выполнено : всего"
-                >
-                    Приоритет задач - выполнение
-                </Heading>
 
-                <BarChart
-                    style={barStyles}
-                    data={taskPrioritiesBarMock}
-                    responsive
-                >
-                    <YAxis width='auto' {...axisProps} {...yAxisProps} />
-                    <XAxis dataKey='name' {...axisProps} {...xAxisProps} />
-                    <Tooltip {...tooltipProps} {...animationProps} />
-                    <Legend
-                        {...legendProps}
-                        content={() => {
-                            return LegendRender;
-                        }}
-                    />
-                    <Bar
-                        dataKey='Всего'
-                        shape={(props) => {
-                            const { payload } = props;
-                            return <Rectangle
-                                fill={payload.colorTotal}
-                                radius={[5, 5, 0, 0]}
-                                {...props}
-                            />
-                        }}
-                        {...animationProps}
-                    />
-                    <Bar
-                        dataKey='Выполнено'
-                        shape={(props) => {
-                            const { payload } = props;
-                            return <Rectangle
-                                fill={payload.colorDone}
-                                radius={[5, 5, 0, 0]}
-                                {...props}
-                            />
-                        }}
-                        {...animationProps}
-                    />
-                </BarChart>
-            </Surface>
-            <Surface>
-                <Heading
-                    variant="secondary"
-                    level={2}
-                    subtitle="Число задач и процент выполнения в каждом проекте"
-                >
-                    Нагрузка по проектам
-                </Heading>
+            <DashboardProjectLoadBlock />
+            <DashboardTaskPriorityBlock />
 
-                <BarChart
-                    style={barStyles}
-                    data={taskLoadBarMock}
-                    responsive
-                >
-                    <YAxis width='auto' {...axisProps} {...yAxisProps} />
-                    <XAxis dataKey='name' {...axisProps} {...xAxisProps} />
-                    <Tooltip {...tooltipProps} />
-                    <Legend {...legendProps} />
-                    <Bar
-                        dataKey='Всего'
-                        fill='color-mix(in srgb, var(--warm-green-500), transparent var(--opacity-medium))'
-                        shape={(props) => {
-                            return <Rectangle
-                                {...props}
-                                radius={[5, 5, 0, 0]}
-                            />
-                        }}
-                        {...animationProps}
-                    />
-                    <Bar
-                        dataKey='Выполнено'
-                        fill='var(--warm-green-500)'
-                        shape={(props) => {
-                            return <Rectangle
-                                {...props}
-                                radius={[5, 5, 0, 0]}
-                            />
-                        }}
-                        {...animationProps}
-                    />
-                </BarChart>
-            </Surface>
+            <DashboardInsightStatsBlock />
 
-            <Surface>
-                <Stack direction='column' gap='sm'>
-                    <Heading variant="secondary" level={2}>Инсайты продуктивности</Heading>
-
-                    <Grid columns={2} gap='sm'>
-                        {insightsStatsMock.map(item => (
-                            <DashboardStatBlockFull
-                                iconHasContainer={false}
-                                key={item.key}
-                                variant='outline'
-                                isAnimated={true}
-                                iconPosition='left'
-                                justify='start'
-                                {...item}
-                            />
-                        ))}
-                    </Grid>
-                    <Stack direction='row' align='center' gap='sm'>
-                        {/*//! Выделить в отдельный компонент */}
-                        {
-                            insightsStatsBottomMock.map(item => (
-                                <DashboardStatBlockMinimal
-                                    key={item.key}
-                                    variant='outline'
-                                    isAnimated={true}
-                                    title={item.title}
-                                    value={item.value.toString()}
-                                    subtitle={item.subtitle}
-                                />
-                            ))
-                        }
-                    </Stack>
-                </Stack>
-            </Surface>
         </Stack>
     )
 }

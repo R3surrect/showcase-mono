@@ -1,7 +1,6 @@
 import { loginSchema, type LoginInput } from '@/validation/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-
 import AuthSwitcher from '@/components/auth/AuthSwitcher/AuthSwitcher';
 import Button from '@/components/ui/Button/Button';
 import ErrorMessage from '@/components/ui/ErrorMessage/ErrorMessage';
@@ -12,6 +11,7 @@ import QrAuth from "@/components/auth/QRAuth/QRAuth";
 import Stack from '@/components/ui/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
 import { useNavigate } from 'react-router-dom';
+import Text from '@/components/ui/Text/Text';
 
 export const Component = () => {
     const navigate = useNavigate();
@@ -29,9 +29,6 @@ export const Component = () => {
     });
 
     const onSubmit = async (data: LoginInput) => {
-
-        //* The "Benevolent Deception" Approach to Prevent Button Flashing
-
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [loginResult] = await Promise.all([loginUser(data), minWait]);
 
@@ -50,8 +47,11 @@ export const Component = () => {
     }
 
     return <Stack gap='lg'>
+        <div>
+            <Heading variant="accent" align='center' level={1}>Welcome back</Heading>
+            <Text align='center' weight='bolder' color='yellow'>Good to see you again</Text>
+        </div>
 
-        <Heading variant="accent" subtitle='Good to see you again' level={1}>Welcome back</Heading>
         <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +82,7 @@ export const Component = () => {
                     Login as Guest (Demo mode)
                 </Button>
                 <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one' />
-            
+
             </Stack>
         </form>
 
