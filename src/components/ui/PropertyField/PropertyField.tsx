@@ -2,12 +2,7 @@ import Heading from '@components/ui/Heading/Heading';
 import stylesObj from './PropertyField.module.css';
 import { useId } from 'react';
 import Text from '@components/ui/Text/Text';
-
-interface PropertyFieldProps {
-    title: string;
-    subtitle: string;
-    children: (id: string) => React.ReactNode;
-}
+import type { PropertyFieldProps } from './PropertyField.types';
 
 const PropertyField = ({ title, subtitle, children }: PropertyFieldProps) => {
     const id = useId();

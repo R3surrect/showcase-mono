@@ -1,5 +1,5 @@
 import type { Ref } from "react";
-import type { Direction, Gap, Justify, StackAlign } from "../_shared/system.types";
+import type { Direction, Size, Justify, StackAlign } from "../_shared/system.types";
 
 export const WIDTH_TYPES = ['full', 'fit', 'auto'] as const;
 
@@ -7,7 +7,7 @@ export type StackWidth = typeof WIDTH_TYPES[number];
 
 export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
     children: React.ReactNode;
-    gap?: Gap;
+    gap?: Size;
     align?: StackAlign;
     direction?: Direction;
     wrap?: boolean;

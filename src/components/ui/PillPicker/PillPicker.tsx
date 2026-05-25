@@ -1,20 +1,7 @@
-import type { LucideIcon } from 'lucide-react';
 import stylesObj from './PillPicker.module.css';
 import { motion } from 'motion/react';
-import { useNavigate, useLocation, type To, type RouteObject } from 'react-router-dom';
-
-export interface PillPickerItem {
-  icon: LucideIcon;
-  value: string;
-  label: string;
-  to: string;
-  isDefault: boolean;
-  lazy: RouteObject['lazy'];
-};
-
-interface PillPickerProps {
-  items: PillPickerItem[];
-}
+import { useNavigate, useLocation } from 'react-router-dom';
+import type { PillPickerProps } from './PillPicker.types';
 
 export const PillPicker = ({ items }: PillPickerProps) => {
   const navigate = useNavigate();
