@@ -7,5 +7,3 @@
     justify-content: center;
     border-radius: var(--border-radius-10);
 }
-
-.iconWrapper[data-outline='true'] { background-color: transparent }

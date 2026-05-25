@@ -3,6 +3,8 @@ import Heading from "@components/ui/Heading/Heading";
 import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, type LineProps, CartesianGrid } from "recharts";
 import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "@components/ui/dashboards/dashboards.constants";
 import { useDevice } from "@/hooks/useDevice";
+import Text from "../../Text/Text";
+import Stack from "../../Stack/Stack";
 
 const chartsMock: { day: string; completed: number; outdated: number; all: number }[] = [
     { day: '20 апр.', completed: 0, outdated: 0, all: 0 },
@@ -31,7 +33,10 @@ const DashboardActivityBlock = () => {
     const isTablet = useDevice('tablet');
 
     return <Surface>
-        <Heading variant="secondary" level={2} subtitle="Количество задач по дате дедлайна">Активность за 2 недели</Heading>
+        <Stack gap="sm">
+            <Heading variant="secondary" level={2}>Активность за 2 недели</Heading>
+            <Text color="darkgray" size={7}>Количество задач по дате дедлайна</Text>
+        </Stack>
         <ResponsiveContainer
             width="100%"
             height={256}

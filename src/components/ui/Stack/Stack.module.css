@@ -8,11 +8,8 @@
     align-items: var(--stack-align, stretch);
     flex-wrap: var(--stack-wrap, nowrap);
     justify-content: var(--stack-justify, start);
-    width: 100%;
 }
 
-/* @media (--mobile) {
-    .stackWrapper {
-        flex-direction: column;
-    }
-} */
+.stack[data-width='full'] {width: 100%}
+.stack[data-width='fit'] {width: fit-content}
+.stack[data-width='auto'] {width: auto}

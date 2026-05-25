@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { Justify, PhysicalAlignment } from "@components/ui/_shared/system.types";
+import type { BaseAlignment, Justify } from "@components/ui/_shared/system.types";
 import type { HTMLMotionProps } from "motion/react";
 import type { Variants } from "@components/ui/Surface/Surface.types";
 
@@ -9,11 +9,11 @@ export interface DashboardStatBlockFullProps extends Omit<HTMLMotionProps<'div'>
     value: string | number;
     valueLabel?: string;
     subtitle: string;
-    alignment?: PhysicalAlignment;
+    alignment?: BaseAlignment;
     iconObj: { icon: LucideIcon; color: string }
     justify?: Justify;
     variant?: Variants;
-    iconPosition?: Omit<PhysicalAlignment, 'center'>;
+    iconPosition?: Omit<BaseAlignment, 'center'>;
     iconHasContainer?: boolean;
 }
 

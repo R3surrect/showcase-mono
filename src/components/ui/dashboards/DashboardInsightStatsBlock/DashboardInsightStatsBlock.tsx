@@ -1,8 +1,7 @@
-// #region Imports
-import Grid from "../../Grid/Grid";
-import Heading from "../../Heading/Heading";
-import Stack from "../../Stack/Stack";
-import Surface from "../../Surface/Surface";
+import Grid from '@components/ui/Grid/Grid'
+import Heading from '@components/ui/Heading/Heading'
+import Stack from '@components/ui/Stack/Stack';
+import Surface from '@components/ui/Surface/Surface';
 import DashboardStatBlockFull from "../DashboardStatBlockFull/DashboardStatBlockFull";
 import type { DashboardStatBlockFullProps } from "../DashboardStatBlockFull/DashboardStatBlockFull.types";
 import type { DashboardStatBlockMinimalProps } from "../DashboardStatBlockMinimal/DashboardStatBlockMinimal";
@@ -13,7 +12,6 @@ import {
     LucideTrendingUp,
 } from 'lucide-react'
 import DashboardStatBlockMinimal from "../DashboardStatBlockMinimal/DashboardStatBlockMinimal";
-// #endregion
 // #region Mock
 const insightsStatsMock: DashboardStatBlockFullProps[] = [
     {
@@ -79,13 +77,13 @@ const DashboardInsightStatsBlock = () => {
                         key={item.id}
                         variant='outline'
                         isAnimated={true}
-                        iconPosition='left'
                         justify='start'
+                        iconPosition='start'
                         {...item}
                     />
                 ))}
             </Grid>
-            
+
             <Stack direction='row' align='center' gap='sm'>
                 {
                     insightsStatsBottomMock.map(item => (

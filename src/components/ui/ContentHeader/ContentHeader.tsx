@@ -2,6 +2,7 @@ import Heading from '@/components/ui/Heading/Heading.tsx';
 import Stack from '@components/ui/Stack/Stack';
 import stylesObj from './ContentHeader.module.css';
 import type { HTMLAttributes } from 'react';
+import Text from '../Text/Text';
 
 interface ContentHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
     title: string;
@@ -11,13 +12,15 @@ interface ContentHeaderProps extends Omit<HTMLAttributes<HTMLDivElement>, 'style
 
 export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps) => {
     return <Stack direction='row' justify='space-between' wrap={true}>
-        <Heading
-            variant='secondary'
-            level={2}
-            subtitle={subtitle}
-        >
-            {title}
-        </Heading>
+        <Stack gap='sm' direction='column' width='fit'>
+            <Heading
+                variant='secondary'
+                level={2}
+            >
+                {title}
+            </Heading>
+            <Text color='darkgray' size={6} weight='regular'>{subtitle}</Text>
+        </Stack>
         <div className={stylesObj.content}>
             {children}
         </div>
