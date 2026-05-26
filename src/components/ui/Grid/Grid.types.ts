@@ -13,6 +13,7 @@ export interface GridProps extends Omit<React.ComponentPropsWithoutRef<'div'>, '
     children: React.ReactNode;
     gap?: Size;
     autoRows?: AutoRows;
+    templateColumns?: string;
 }
 
 export interface GridVars extends React.CSSProperties {
@@ -20,4 +21,5 @@ export interface GridVars extends React.CSSProperties {
     '--grid-columns': number;
     '--grid-align-items': string;
     '--grid-height': string;
+    '--grid-template-columns': string;
 }
