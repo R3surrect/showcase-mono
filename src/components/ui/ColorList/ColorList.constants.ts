@@ -1,4 +1,4 @@
-import type { ColorSet } from "./ColorPicker.types";
+import type { ColorSet } from "./ColorList.types";
 
 export const INITIAL_COLORS: ColorSet[] = [
     { id: 'clr-66a', color: 'hsl(66, 26%, 35%)' },

@@ -1,32 +1,54 @@
 @import url('@global/styles/_variables.css');
 
-.colorElement,
-.colorPipette {
-    transition: .2s ease-in-out;
+.colorPipette input,
+.colorPipette input::-webkit-color-swatch {
+    border: none;
     border-radius: 50%;
+}
+
+.colorPipette input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.colorPipette input,
+.colorPipette input::-webkit-color-swatch-wrapper,
+.colorPipette input::-webkit-color-swatch {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.colorPipette input::-webkit-color-swatch-wrapper {
+    opacity: 0
+}
+
+.colorPipette {
+    border: none;
     width: 2rem;
     height: 2rem;
+    position: relative;
+    transition: .2s ease-in-out;
+    border-radius: 50%;
     cursor: pointer;
     z-index: 0;
     will-change: transform;
-    border: 1px solid var(--neutral-25);
-}
-
-.colorPipette {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px
-}
-
-.colorElement:hover {
-    transform: scale(1.3);
 }
 
 .colorPipette:hover {
-    transform: scale(1.5);
+    transform: scale(1.3);
 }
 
-.colorElement:hover, .colorPipette:hover {
-    z-index: 1;
+.colorPipette svg {
+    position: absolute;
+    pointer-events: none;
 }

@@ -1,4 +1,3 @@
-export interface ColorSet {
-    id: string;
-    color: string;
-};
+export interface ColorPickerProps {
+    exportColor: (e: string) => void;
+}

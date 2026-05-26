@@ -1,4 +1,3 @@
-import { ColorPicker } from '@components/ui/ColorPicker/ColorPicker'
 import Heading from '@/components/ui/Heading/Heading.tsx'
 import Surface from '@/components/ui/Surface/Surface.tsx'
 import Grid from '@/components/ui/Grid/Grid'
@@ -8,6 +7,7 @@ import Stack from '@components/ui/Stack/Stack'
 // import Button from '@components/ui/Button/Button'
 import Tag from '@components/ui/Tag/Tag'
 import { tagMock } from './Tags.constants'
+import ColorList from '@/components/ui/ColorList/ColorList'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -21,7 +21,7 @@ export const Component = () => {
                     <Input labelText='Название' placeholder='Новый тег' type='text' />
                     <Input labelText='Эмодзи' placeholder='🏷️' type='text' />
                 </Grid>
-                <ColorPicker />
+                <ColorList />
             </Stack>
         </Surface>
 

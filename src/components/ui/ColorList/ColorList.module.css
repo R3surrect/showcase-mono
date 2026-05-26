@@ -1,0 +1,16 @@
+@import url('@global/styles/_variables.css');
+
+.colorElement {
+    transition: .2s ease-in-out;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    z-index: 0;
+    will-change: transform;
+    border: 1px solid var(--neutral-25);
+}
+
+.colorElement:hover {
+    transform: scale(1.25);
+}
