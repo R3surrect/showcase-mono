@@ -1,55 +1,33 @@
 import Heading from '@/components/ui/Heading/Heading.tsx'
 import Surface from '@/components/ui/Surface/Surface.tsx'
+import Grid from '@/components/ui/Grid/Grid'
+import Input from '@components/ui/Input/Input'
+import Stack from '@components/ui/Stack/Stack'
 // import { Grid } from '@components/ui/Grid/Grid'
 // import Button from '@components/ui/Button/Button'
-import Input from '@components/ui/Input/Input'
-import { ColorPicker } from '@components/ui/ColorPicker/ColorPicker'
-import Stack from '@components/ui/Stack/Stack'
-import { Tag } from '@components/ui/Tag/Tag'
-import Grid from '@/components/ui/Grid/Grid'
+import Tag from '@components/ui/Tag/Tag'
+import { tagMock } from './Tags.constants'
+import ColorList from '@/components/ui/ColorList/ColorList'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
-
-const tagMock = [
-    { id: 't-aq1', label: 'Срочно', emoji: '🔥', color: 'var(--warm-red-400)' },
-    { id: 't-bw2', label: 'В работе', emoji: '⚡', color: 'var(--cold-blue-grey-400)' },
-    { id: 't-ce3', label: 'Фокус', emoji: '👁️', color: 'var(--neutral-600)' },
-    { id: 't-dr4', label: 'Экосистема', emoji: '🌿', color: 'var(--warm-green-600)' },
-    { id: 't-et5', label: 'Идея', emoji: '💡', color: 'var(--warm-orange-400)' },
-    { id: 't-fy6', label: 'Аналитика', emoji: '📈', color: 'var(--neutral-500)' },
-    { id: 't-gu7', label: 'Биоритм', emoji: '🧬', color: 'var(--warm-green-500)' },
-    { id: 't-hi8', label: 'Дом', emoji: '🏠', color: 'var(--warm-gray-500)' },
-    { id: 't-jo9', label: 'Медитация', emoji: '🧘', color: 'var(--warm-green-700)' },
-    { id: 't-kp0', label: 'Финансы', emoji: '🪙', color: 'var(--neutral-750)' },
-    { id: 't-lx1', label: 'Синтез', emoji: '🧪', color: 'var(--cold-blue-grey-400)' },
-    { id: 't-mz2', label: 'План', emoji: '🗓️', color: 'var(--neutral-400)' },
-    { id: 't-nb3', label: 'Регенерация', emoji: '♻️', color: 'var(--warm-green-600)' },
-    { id: 't-ov4', label: 'Приоритет', emoji: '🔝', color: 'var(--warm-red-400)' },
-    { id: 't-pw5', label: 'Архив', emoji: '📦', color: 'var(--warm-gray-300)' },
-    { id: 't-qx6', label: 'Связи', emoji: '🕸️', color: 'var(--neutral-350)' },
-    { id: 't-ry7', label: 'Исследование', emoji: '🔭', color: 'var(--cold-blue-grey-400)' },
-    { id: 't-sz8', label: 'Здоровье', emoji: '🍏', color: 'var(--warm-green-500)' },
-    { id: 't-tu9', label: 'Творчество', emoji: '🎨', color: 'var(--warm-orange-400)' },
-    { id: 't-vx0', label: 'Сон', emoji: '💤', color: 'var(--neutral-850)' },
-];
 
 export const Component = () => {
     return <>
         <Surface>
             <Stack gap='md'>
-                <Heading level={5} variant='secondary'>Создать тег</Heading>
-                <Grid columns={2} >
+                <Heading level={3} variant='secondary'>Создать тег</Heading>
+                <Grid columns={2} templateColumns='10fr 1fr'>
                     <Input labelText='Название' placeholder='Новый тег' type='text' />
                     <Input labelText='Эмодзи' placeholder='🏷️' type='text' />
                 </Grid>
-                <ColorPicker />
+                <ColorList />
             </Stack>
         </Surface>
 
         <Surface>
             <Stack gap='md'>
-                <Heading level={5} variant='secondary'>Существующие теги</Heading>
+                <Heading level={3} variant='secondary'>Существующие теги</Heading>
                 <Stack direction='row' gap='sm' wrap={true}>
                     {
                         tagMock.map((item) => (
