@@ -13,19 +13,19 @@
 
 @media (--desktop) {
     .gridWrapper {
-        grid-template-columns: repeat(var(--grid-columns), 1fr);
+        grid-template-columns: var(--grid-template-columns, repeat(var(--grid-columns), 1fr));
     }
 }
 
 @media (--tablet) {
     .gridWrapper {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        grid-template-columns: var(--grid-template-columns, repeat(auto-fit, minmax(240px, 1fr)));
     }
 }
 
 @media (--mobile) {
     .gridWrapper {
-        grid-template-columns: 1fr;
+        grid-template-columns: var(--grid-template-columns, 1fr);
     }
 }

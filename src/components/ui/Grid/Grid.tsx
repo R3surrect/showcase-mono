@@ -7,7 +7,7 @@ const Grid = ({
     alignItems = 'stretch',
     height = 'max',
     autoRows = 'min-content',
-    templateColumns = '1fr',
+    templateColumns,
     children
 }: GridProps) => {
     const isFit = height === 'fit-content';

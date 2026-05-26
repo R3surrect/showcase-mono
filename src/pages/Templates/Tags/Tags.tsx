@@ -39,7 +39,7 @@ export const Component = () => {
         <Surface>
             <Stack gap='md'>
                 <Heading level={5} variant='secondary'>Создать тег</Heading>
-                <Grid columns={2} >
+                <Grid columns={2} templateColumns='7fr 1fr'>
                     <Input labelText='Название' placeholder='Новый тег' type='text' />
                     <Input labelText='Эмодзи' placeholder='🏷️' type='text' />
                 </Grid>
