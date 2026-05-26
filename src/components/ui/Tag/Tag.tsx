@@ -1,16 +1,7 @@
 import stylesObj from './Tag.module.css';
+import type { ColorVariable, TagProps } from './Tag.types';
 
-interface TagProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'className'> {
-    label: string;
-    emoji: string
-    color: string;
-}
-
-interface ColorVariable extends React.CSSProperties {
-    '--tag-color': string;
-}
-
-export const Tag = ({ label, emoji, color, ...props }: TagProps) => {
+const Tag = ({ label, emoji, color, ...props }: TagProps) => {
     return <div
         className={stylesObj.tag}
         style={{ '--tag-color': `${color}` } as ColorVariable}
@@ -20,3 +11,5 @@ export const Tag = ({ label, emoji, color, ...props }: TagProps) => {
         <p>{label}</p>
     </div>
 }
+
+export default Tag;
