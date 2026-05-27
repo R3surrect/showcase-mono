@@ -8,6 +8,7 @@ import Stack from '@components/ui/Stack/Stack'
 import Tag from '@components/ui/Tag/Tag'
 import { tagMock } from './Tags.constants'
 import ColorList from '@/components/ui/ColorList/ColorList'
+import EmojiPicker from '@/components/ui/EmojiPicker/EmojiPicker'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -17,9 +18,9 @@ export const Component = () => {
         <Surface>
             <Stack gap='md'>
                 <Heading level={3} variant='secondary'>Создать тег</Heading>
-                <Grid columns={2} templateColumns='10fr 1fr'>
-                    <Input labelText='Название' placeholder='Новый тег' type='text' />
-                    <Input labelText='Эмодзи' placeholder='🏷️' type='text' />
+                <Grid columns={2} templateColumns='12fr 1fr'>
+                    <Input labelText='Название' placeholder='Новый тег' autoComplete='off' inputMode='text'/>
+                    <EmojiPicker label='Иконка' placeholderEmoji='🏷️' exportEmoji={(emoji) => { console.log(emoji); return '' }} />
                 </Grid>
                 <ColorList />
             </Stack>

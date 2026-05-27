@@ -1,0 +1,26 @@
+.emojiButton {
+    transition: .2s;
+    border: 1px solid var(--neutral-500);
+    border-radius: var(--border-radius-10);
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.emojiButton[data-active='true'],
+.emojiButton:hover {
+    background-color: var(--neutral-300);
+    box-shadow: var(--shadow-md);
+}
+
+.emojiPickerMobileWrapper :global(.EmojiPickerReact) {
+    --epr-category-label-size: var(--font-size-level-7) !important;
+    --epr-picker-height: 15dvh;
+
+    position: absolute;
+    bottom: 0;
+}
+
+.emojiPickerDesktopTabletWrapper :global(.EmojiPickerReact) {
+    --epr-category-label-size: var(--font-size-level-7) !important;
+}
