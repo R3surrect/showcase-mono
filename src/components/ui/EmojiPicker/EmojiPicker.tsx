@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import stylesObj from './EmojiPicker.module.css'
 import Text from '@components/ui/Text/Text';
 import type { EmojiPickerProps } from './EmojiPicker.types';
 import Stack from '@components/ui/Stack/Stack';
-import Picker, { EmojiStyle, SkinTones, Theme, type PickerProps } from 'emoji-picker-react';
+const Picker = lazy(() => import('emoji-picker-react'))
+import { EmojiStyle, SkinTones, Theme, type PickerProps } from 'emoji-picker-react';
 import {
     flip,
     FloatingPortal,
@@ -49,26 +50,29 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
     const emojiPickerMobileProps: Partial<PickerProps> = {
         previewConfig: { showPreview: false },
         width: '100%',
-        height: '47dvh',
+        height: '35dvh',
     }
 
-    const emojiRender = <Picker
-        className={stylesObj.emojiPicker}
-        defaultSkinTone={SkinTones.LIGHT}
-        emojiStyle={EmojiStyle.GOOGLE}
-        theme={Theme.AUTO}
-        lazyLoadEmojis={true}
-        searchDisabled
-        onEmojiClick={
-            data => {
-                setUiState(
-                    (prev) => ({ ...prev, emoji: data.emoji })
-                );
-                exportEmoji(data.emoji);
-            }
-        }
-        {...(isMobile && emojiPickerMobileProps)}
-    />
+    const emojiRender =
+        <Suspense fallback='...loading'>
+            <Picker
+                className={stylesObj.emojiPicker}
+                defaultSkinTone={SkinTones.LIGHT}
+                emojiStyle={EmojiStyle.GOOGLE}
+                theme={Theme.AUTO}
+                lazyLoadEmojis={true}
+                searchDisabled
+                onEmojiClick={
+                    data => {
+                        setUiState(
+                            (prev) => ({ ...prev, emoji: data.emoji })
+                        );
+                        exportEmoji(data.emoji);
+                    }
+                }
+                {...(isMobile && emojiPickerMobileProps)}
+            />
+        </Suspense>
 
     return <Stack direction='column' gap='sm' justify='space-between'>
         {label &&
@@ -94,7 +98,13 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
                 <div
                     className={stylesObj.emojiPickerDesktopTabletWrapper}
                     ref={refs.setFloating}
-                    style={{ ...floatingStyles }}
+                    style={{
+                        ...floatingStyles,
+                        visibility: uiState.isPickerOpen ? 'visible' : 'hidden',
+                        opacity: uiState.isPickerOpen ? 1 : 0,
+                        pointerEvents: uiState.isPickerOpen ? 'auto' : 'none',
+
+                    }}
                     {...getFloatingProps()}
                 >
                     {emojiRender}
@@ -103,7 +113,9 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
             {(uiState.isPickerOpen && isMobile) &&
                 <div
                     ref={refs.setFloating}
-                    className={stylesObj.emojiPickerMobileWrapper}>
+                    className={stylesObj.emojiPickerMobileWrapper}
+                    style={{ display: uiState.isPickerOpen ? 'block' : 'none' }}
+                >
                     {emojiRender}
                 </div>
             }

@@ -1,7 +1,7 @@
-import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
+import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker.types';
 import { LucideCircleCheck, LucideFileText, LucideFolderOpen } from 'lucide-react';
 
-export const FAVORITES_ROUTES : PillPickerItem<string>[] = [
+export const FAVORITES_ROUTES : PillPickerItem[] = [
     {
         icon: LucideCircleCheck,
         value: 'tasks',

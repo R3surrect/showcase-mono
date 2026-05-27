@@ -7,20 +7,24 @@
     cursor: pointer;
 }
 
-.emojiButton[data-active='true'],
 .emojiButton:hover {
     background-color: var(--neutral-300);
-    box-shadow: var(--shadow-md);
 }
+
+.emojiButton[data-active='true'] {
+    box-shadow: var(--shadow-md);
+    background-color: var(--neutral-750);
+}
+
+.emojiPickerDesktopTabletWrapper {transition: opacity .4s ease}
 
 .emojiPickerMobileWrapper :global(.EmojiPickerReact) {
     --epr-category-label-size: var(--font-size-level-7) !important;
     --epr-picker-height: 15dvh;
-
     position: absolute;
-    bottom: 0;
+    bottom: 64px;
 }
 
-.emojiPickerDesktopTabletWrapper :global(.EmojiPickerReact) {
-    --epr-category-label-size: var(--font-size-level-7) !important;
+:global(.epr-emoji-category_content) {
+    content-visibility: auto;
 }

@@ -5,7 +5,7 @@ import { FAVORITES_ROUTES } from '@/routes/favorites.routing';
 export const Component = () => {
     return (
         <div>
-            <PillPicker items={FAVORITES_ROUTES} initialValue='tasks' />
+            <PillPicker items={FAVORITES_ROUTES}/>
             <main>
                 <Outlet />
             </main>
