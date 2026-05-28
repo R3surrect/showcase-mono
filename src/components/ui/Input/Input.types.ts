@@ -1,6 +1,11 @@
 import type { InputHTMLAttributes, SVGProps } from "react";
+import type { TextAlign } from "../_shared/system.types";
+import type { INPUT_TYPE_TYPES } from "./Input.constants";
 
-export default interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
+export type InputTypes = typeof INPUT_TYPE_TYPES[number];
+export interface InputVars extends React.CSSProperties { '--input-text-align': string; }
+
+export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
     id?: string;
     className?: string;
     name?: string;
@@ -8,8 +13,9 @@ export default interface InputProps extends InputHTMLAttributes<HTMLInputElement
     value?: string | number;
     disabled?: boolean;
     required?: boolean;
-    type: "text" | "password" | "email" | "tel" | "number";
+    type?: InputTypes;
     error?: string;
+    textAlign?: TextAlign;
 
     validate?: (value: string) => boolean | string;
     icon?: React.FC<SVGProps<SVGSVGElement>>;

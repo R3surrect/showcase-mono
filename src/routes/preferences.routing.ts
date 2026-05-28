@@ -1,4 +1,4 @@
-import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
+import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker.types';
 import { LucideBell, LucideFocus, LucidePalette, LucideShieldCheck } from 'lucide-react';
 
 export const PREFERENCES_ROUTES: PillPickerItem[] = [

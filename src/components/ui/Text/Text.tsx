@@ -1,17 +1,18 @@
+import type { ElementType } from 'react';
 import stylesObj from './Text.module.css'
-import { type As, type TextProps } from './Text.types';
+import { type TextProps } from './Text.types';
 
-const Text = ({
-    as = 'p',
+const Text = <T extends ElementType = 'p'> ({
+    as,
     weight = 'regular',
     color = 'darkgray',
     size = 4,
     children,
     align = 'start',
     ...props
-}: TextProps) => {
+}: TextProps<T>) => {
 
-    const Tag: As = as;
+    const Tag = as || 'p';
     return (
         <Tag
             className={stylesObj.text}

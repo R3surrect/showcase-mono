@@ -5,7 +5,7 @@ import {
     LucideTrendingUp,
 } from 'lucide-react'
 import type { DashboardStatBlockFullProps } from '../DashboardStatBlockFull/DashboardStatBlockFull.types'
-import type { DashboardStatBlockMinimalProps } from '../DashboardStatBlockMinimal/DashboardStatBlockMinimal'
+import type { DashboardStatBlockMinimalProps } from '../DashboardStatBlockMinimal/DashboardStatBlockMinimal.types'
 
 export const insightsStatsMock: DashboardStatBlockFullProps[] = [
     {

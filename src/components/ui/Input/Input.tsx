@@ -1,17 +1,21 @@
 import { useId, useState } from 'react';
 import { Eye, EyeClosed } from 'lucide-react';
 
-import type InputProps from './Input.types';
+import type { InputProps, InputVars } from './Input.types';
 import stylesObj from "./Input.module.css";
+
+import Stack from '@components/ui/Stack/Stack';
+import Text from '@components/ui/Text/Text';
 
 const Input = ({
     disabled,
     error,
-    type,
+    type = 'text',
     id,
     labelText,
     ref,
     placeholder,
+    textAlign = 'start',
     ...props
 }: InputProps) => {
     const genId = useId();
@@ -24,38 +28,40 @@ const Input = ({
         : type;
 
     return <div className={stylesObj.wrapper}>
+        <Stack gap='sm' justify='space-between'>
+            <Text as='label' htmlFor={controlId}>
+                {labelText}
+            </Text>
 
-        <label className={stylesObj.label} htmlFor={controlId}>
-            {labelText}
-        </label>
-
-        <div className={stylesObj.inputWrapper} data-valid={error ? 'invalid' : 'valid'}>
-            <input
-                className={stylesObj.input}
-                id={controlId}
-                disabled={disabled || false}
-                type={inputType}
-                ref={ref}
-                placeholder={
-                    isPassword
-                        ? (isPasswordHidden ? '*****************' : placeholder)
-                        : placeholder
-                }
-                {...props}
-                aria-invalid={!!error}
-            />
-            {type === 'password' && (
-                isPasswordHidden
-                    ? <EyeClosed
-                        className={stylesObj.eye}
-                        onClick={() => setIsPasswordHidden(!isPasswordHidden)}
-                    />
-                    : <Eye
-                        className={stylesObj.eye}
-                        onClick={() => setIsPasswordHidden(!isPasswordHidden)}
-                    />
-            )}
-        </div>
+            <div className={stylesObj.inputWrapper} data-valid={error ? 'invalid' : 'valid'}>
+                <input
+                    className={stylesObj.input}
+                    id={controlId}
+                    disabled={disabled || false}
+                    type={inputType}
+                    ref={ref}
+                    placeholder={
+                        isPassword
+                            ? (isPasswordHidden ? '*****************' : placeholder)
+                            : placeholder
+                    }
+                    style={{ '--input-text-align': textAlign } as InputVars}
+                    {...props}
+                    aria-invalid={!!error}
+                />
+                {type === 'password' && (
+                    isPasswordHidden
+                        ? <EyeClosed
+                            className={stylesObj.eye}
+                            onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                        />
+                        : <Eye
+                            className={stylesObj.eye}
+                            onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                        />
+                )}
+            </div>
+        </Stack>
 
         {error && <span className={stylesObj.error}>{error}</span>}
 

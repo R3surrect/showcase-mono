@@ -2,18 +2,12 @@
 @import url('@global/styles/_semantics.css');
 
 .wrapper {
-    --inner-offset-top: 0.7em;
+    --inner-offset-top: 0.7rem;
     --inner-offset-left: 1rem;
 
-    transition: .3s ease-in;
+    transition: .1s ease-in;
     position: relative;
     height: fit-content;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    justify-content: flex-start;
-    text-align: left;
-    /* padding-bottom: 1.3rem; */
 }
 
 .inputWrapper {
@@ -21,23 +15,29 @@
     line-height: 0;
 }
 
+.inputWrapper,
+.input {
+    transition: .2s ease-in;
+}
+
 .input {
     display: block;
     caret-color: var(--accent);
     padding: var(--inner-offset-top) var(--inner-offset-left);
     outline: none;
+    /*TODO a11y*/
     background-color: var(--glass-surface-light-80);
-    border: 1px solid var(--neutral-500);
+    border: 1px solid var(--neutral-250);
     border-radius: var(--border-radius-10);
     width: 100%;
     color: var(--neutral-750);
     font-weight: 400;
     font-size: var(--ui-main-size);
+    text-align: var(--input-text-align);
 }
 
 .inputWrapper[data-valid="valid"] .input {
     color: var(--neutral-850);
-    border-color: var(--neutral-500);
 }
 
 .input::placeholder {
@@ -47,10 +47,11 @@
 }
 
 .inputWrapper .input:focus {
-    transition: .1s ease-in;
+    will-change: transform;
     background-color: var(--glass-surface-light-30);
-    border: 1px solid var(--neutral-300);
+    border: 1px solid var(--neutral-350);
     color: var(--neutral-850);
+    box-shadow: var(--shadow-sm);
     animation: none;
 }
 
@@ -63,16 +64,6 @@
 
 .inputWrapper[data-valid="invalid"]:not(:focus-within) {
     animation: shake .2s ease-in-out;
-}
-
-.label {
-    /* padding-left: 1rem; */
-    color: var(--neutral-500);
-    pointer-events: none;
-    transition: 0.2s ease-out;
-    font-weight: 500;
-    text-shadow: var(--shadow-text-highlight);
-    font-size: var(--field-label-size);
 }
 
 .eye {
@@ -104,6 +95,7 @@
 }
 
 @keyframes shake {
+
     0%,
     100% {
         transform: translateX(0);

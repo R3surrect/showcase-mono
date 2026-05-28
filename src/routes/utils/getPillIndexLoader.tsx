@@ -1,4 +1,4 @@
-import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker';
+import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker.types';
 import { redirect } from 'react-router-dom';
 
 export const getPillIndexLoader = (parentPath: string, items: PillPickerItem[]) => {
