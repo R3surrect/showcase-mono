@@ -8,7 +8,7 @@
 }
 
 .emojiButton:hover {
-    background-color: var(--neutral-300);
+    background-color: var(--neutral-300)
 }
 
 .emojiButton[data-active='true'] {
@@ -16,15 +16,29 @@
     background-color: var(--neutral-750);
 }
 
-.emojiPickerDesktopTabletWrapper {transition: opacity .4s ease}
-
-.emojiPickerMobileWrapper :global(.EmojiPickerReact) {
-    --epr-category-label-size: var(--font-size-level-7) !important;
-    --epr-picker-height: 15dvh;
-    position: absolute;
-    bottom: 64px;
+.emojiPickerDesktopTabletWrapper,
+.emojiPickerMobileWrapper {
+    transition: opacity .4s ease
 }
 
-:global(.epr-emoji-category_content) {
-    content-visibility: auto;
+.emojiPickerMobileWrapper {
+    position: absolute;
+    left: 0;
+    bottom: 64px;
+    right: 0;
+    height: 35dvh;
+    width: 100vw;
+    top: auto;
+}
+
+.emojiPickerDesktopTabletWrapper[data-visible='true'],
+.emojiPickerMobileWrapper[data-visible='true'] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.emojiPickerDesktopTabletWrapper[data-visible='false'],
+.emojiPickerMobileWrapper[data-visible='false'] {
+    opacity: 0;
+    pointer-events: none;
 }
