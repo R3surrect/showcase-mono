@@ -9,6 +9,7 @@ import Tag from '@components/ui/Tag/Tag'
 import { tagMock } from './Tags.constants'
 import ColorList from '@/components/ui/ColorList/ColorList'
 import EmojiPicker from '@/components/ui/EmojiPicker/EmojiPicker'
+import Button from '@/components/ui/Button/Button'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -23,6 +24,7 @@ export const Component = () => {
                     <EmojiPicker label='Иконка' placeholderEmoji='🏷️' exportEmoji={(emoji) => { console.log(emoji); return '' }} />
                 </Grid>
                 <ColorList />
+                <Button>Создать тег</Button>
             </Stack>
         </Surface>
 

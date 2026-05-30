@@ -1,10 +1,5 @@
-import { lazy, Suspense, useState } from 'react';
-import stylesObj from './EmojiPicker.module.css'
-import Text from '@components/ui/Text/Text';
-import type { EmojiPickerProps } from './EmojiPicker.types';
-import Stack from '@components/ui/Stack/Stack';
-const Picker = lazy(() => import('emoji-picker-react'))
-import { EmojiStyle, SkinTones, Theme, type PickerProps } from 'emoji-picker-react';
+import { useState } from 'react';
+import Picker, { Emoji, EmojiStyle, SkinTones, Theme, type PickerProps } from 'emoji-picker-react';
 import {
     flip,
     FloatingPortal,
@@ -16,112 +11,113 @@ import {
     useInteractions,
     autoUpdate
 } from '@floating-ui/react';
+
+import Text from '@components/ui/Text/Text';
+import Stack from '@components/ui/Stack/Stack';
+import stylesObj from './EmojiPicker.module.css';
+import { emojiToUnified } from './EmojiPicker.constants';
 import { useDevice } from '@/hooks/useDevice';
+import type { EmojiPickerProps } from './EmojiPicker.types';
 
 const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps) => {
+    const [emoji, setEmoji] = useState(placeholderEmoji);
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
+    
+    const [wasOpenedAtLeastOnce, setWasOpenedAtLeastOnce] = useState(false);
+
     const isMobile = useDevice('mobile');
 
-    const [uiState, setUiState] = useState({
-        emoji: placeholderEmoji,
-        isPickerOpen: false,
-    });
     const { refs, floatingStyles, context } = useFloating({
-        open: uiState.isPickerOpen,
-        placement: 'bottom',
-        onOpenChange: (isOpenState) => setUiState((prev) => ({
-            ...prev,
-            isPickerOpen: isOpenState
-        })),
+        open: isPickerOpen,
+        placement: 'left',
+        onOpenChange: (isOpenState) => {
+            setIsPickerOpen(isOpenState);
+            if (isOpenState) {
+                setWasOpenedAtLeastOnce(true);
+            }
+        },
         middleware: [
             offset(16),
-            shift({ padding: 8 }),
-            flip({
-                fallbackPlacements: ['bottom'],
-                boundary: 'clippingAncestors'
-            }),
+            shift(),
+            flip(),
         ],
         whileElementsMounted: autoUpdate
-    })
+    });
 
     const click = useClick(context);
     const dismiss = useDismiss(context);
-    const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss])
+    const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
+
+    const onEmojiChange = (emojiUnified: string) => {
+        setEmoji(emojiUnified);
+        exportEmoji(emojiUnified);
+    };
 
     const emojiPickerMobileProps: Partial<PickerProps> = {
-        previewConfig: { showPreview: false },
         width: '100%',
         height: '35dvh',
-    }
+    };
 
-    const emojiRender =
-        <Suspense fallback='...loading'>
-            <Picker
-                className={stylesObj.emojiPicker}
-                defaultSkinTone={SkinTones.LIGHT}
-                emojiStyle={EmojiStyle.GOOGLE}
-                theme={Theme.AUTO}
-                lazyLoadEmojis={true}
-                searchDisabled
-                onEmojiClick={
-                    data => {
-                        setUiState(
-                            (prev) => ({ ...prev, emoji: data.emoji })
-                        );
-                        exportEmoji(data.emoji);
-                    }
-                }
-                {...(isMobile && emojiPickerMobileProps)}
-            />
-        </Suspense>
+    const pickerRender = wasOpenedAtLeastOnce ? (
+        <Picker
+            previewConfig={{ showPreview: false }}
+            className={stylesObj.emojiPicker}
+            defaultSkinTone={SkinTones.LIGHT}
+            emojiStyle={EmojiStyle.GOOGLE}
+            theme={Theme.AUTO}
+            lazyLoadEmojis={true}
+            searchDisabled
+            onEmojiClick={(data) => onEmojiChange(data.unified)}
+            {...(isMobile && emojiPickerMobileProps)}
+        />
+    ) : null;
 
-    return <Stack direction='column' gap='sm' justify='space-between'>
-        {label &&
-            <Text
-                size={4}
-                align='center'
-                as='span'
-                color='darkgray'
+    return (
+        <Stack direction='column' gap='sm' justify='space-between'>
+            {label && (
+                <Text
+                    size={4}
+                    align='center'
+                    as='span'
+                    color='darkgray'
+                >
+                    {label}
+                </Text>
+            )}
+            <button
+                data-active={isPickerOpen}
+                ref={refs.setReference}
+                {...getReferenceProps()}
+                className={stylesObj.emojiButton}
             >
-                {label}
-            </Text>}
-        <button
-            data-active={uiState.isPickerOpen}
-            ref={refs.setReference}
-            {...getReferenceProps()}
-            className={stylesObj.emojiButton}
-        >
-            {uiState.emoji}
-        </button>
+                <Emoji unified={emojiToUnified(emoji)} size={24} emojiStyle={EmojiStyle.GOOGLE} />
+            </button>
 
-        <FloatingPortal>
-            {(uiState.isPickerOpen && !isMobile) &&
-                <div
-                    className={stylesObj.emojiPickerDesktopTabletWrapper}
-                    ref={refs.setFloating}
-                    style={{
-                        ...floatingStyles,
-                        visibility: uiState.isPickerOpen ? 'visible' : 'hidden',
-                        opacity: uiState.isPickerOpen ? 1 : 0,
-                        pointerEvents: uiState.isPickerOpen ? 'auto' : 'none',
-
-                    }}
-                    {...getFloatingProps()}
-                >
-                    {emojiRender}
-                </div>
-            }
-            {(uiState.isPickerOpen && isMobile) &&
-                <div
-                    ref={refs.setFloating}
-                    className={stylesObj.emojiPickerMobileWrapper}
-                    style={{ display: uiState.isPickerOpen ? 'block' : 'none' }}
-                >
-                    {emojiRender}
-                </div>
-            }
-
-        </FloatingPortal>
-    </Stack>
-}
+            <FloatingPortal>
+                {!isMobile && (
+                    <div
+                        ref={refs.setFloating}
+                        className={stylesObj.emojiPickerDesktopTabletWrapper}
+                        style={{ ...floatingStyles }}
+                        data-visible={isPickerOpen}
+                        {...getFloatingProps()}
+                    >
+                        {pickerRender}
+                    </div>
+                )}
+                {isMobile && (
+                    <div
+                        ref={refs.setFloating}
+                        className={stylesObj.emojiPickerMobileWrapper}
+                        data-visible={isPickerOpen}
+                        {...getFloatingProps()}
+                    >
+                        {pickerRender}
+                    </div>
+                )}
+            </FloatingPortal>
+        </Stack>
+    );
+};
 
 export default EmojiPicker;
