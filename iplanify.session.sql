@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS tags (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
     title varchar(50) not null,
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     deadline TIMESTAMPTZ,
     notify_at TIMESTAMPTZ,
     owner_id INT NOT NULL,
-    tags VARCHAR(50)[] DEFAULT '{}' NOT NULL,
+    tags INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMETIMESTAMPTZ DEFAULT NOW() NOT NULL,
 
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS tasks (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
 CREATE TABLE IF NOT EXISTS tasks_tags_pivot (
     task_id INT NOT NULL,
     tag_id INT NOT NULL,
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS tasks_tags_pivot (
     CONSTRAINT fk_pivot_task
         FOREIGN KEY (task_id)
         REFERENCES tasks(id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
 
     CONSTRAINT fk_pivot_tag
         FOREIGN KEY (tag_id)
@@ -57,7 +59,16 @@ CREATE TABLE IF NOT EXISTS tasks_tags_pivot (
 )
 CREATE TABLE IF NOT EXISTS notes (
     id SERIAL PRIMARY KEY,
-    
+    title VARCHAR(32),
+    content TEXT NOT NULL,
+    owner_id INT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+
+    CONSTRAINT fk_notes_owner
+        FOREIGN KEY owner_id
+        REFERENCES users(id)
+
 )
 
 INSERT INTO projects (title, details, owner_id) 
