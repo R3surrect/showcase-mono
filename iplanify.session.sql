@@ -16,13 +16,18 @@ CREATE TABLE IF NOT EXISTS tags (
     owner_id INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-
-    CONSTRAINT fk_tags_owner
-        FOREIGN KEY (owner_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    CONSTRAINT fk_tags_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
+CREATE TABLE IF NOT EXISTS projects (
+    id SERIAL PRIMARY KEY,
+    label VARCHAR(50) NOT NULL,
+    details TEXT,
+    color VARCHAR(50),
+    owner_id INT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    CONSTRAINT fk_projects_owner FOREIGN KEY owner_id REFERENCES users(id) ON DELETE CASCADE
+);
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
     title varchar(50) not null,
@@ -34,29 +39,15 @@ CREATE TABLE IF NOT EXISTS tasks (
     tags INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMETIMESTAMPTZ DEFAULT NOW() NOT NULL,
-
-    CONSTRAINT fk_tasks_owner
-        FOREIGN KEY (owner_id)
-        REFERENCES users(id)
-        ON DELETE CASCADE
+    CONSTRAINT fk_tasks_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
 CREATE TABLE IF NOT EXISTS tasks_tags_pivot (
     task_id INT NOT NULL,
     tag_id INT NOT NULL,
-
     PRIMARY KEY (task_id, tag_id),
-
-    CONSTRAINT fk_pivot_task
-        FOREIGN KEY (task_id)
-        REFERENCES tasks(id)
-        ON DELETE CASCADE,
-
-    CONSTRAINT fk_pivot_tag
-        FOREIGN KEY (tag_id)
-        REFERENCES tags(id)
-        ON DELETE CASCADE
-)
+    CONSTRAINT fk_pivot_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+    CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
 CREATE TABLE IF NOT EXISTS notes (
     id SERIAL PRIMARY KEY,
     title VARCHAR(32),
@@ -64,12 +55,11 @@ CREATE TABLE IF NOT EXISTS notes (
     owner_id INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-
-    CONSTRAINT fk_notes_owner
-        FOREIGN KEY owner_id
-        REFERENCES users(id)
-
-)
-
-INSERT INTO projects (title, details, owner_id) 
-VALUES ('life', 'Твой дефолтный проект для повседневных задач', user_id);
+    CONSTRAINT fk_notes_owner FOREIGN KEY owner_id REFERENCES users(id) ON DELETE CASCADE
+);
+INSERT INTO projects (title, details, owner_id)
+VALUES (
+        'Life',
+        'Your default projects',
+        user_id
+    );
