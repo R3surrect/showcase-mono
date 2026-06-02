@@ -1,4 +1,5 @@
 import { serve } from "@hono/node-server";
+import dotenv from 'dotenv'
 import { Hono } from "hono";
 
 const app = new Hono();
