@@ -1,5 +1,5 @@
 {
-  "name": "showcase-backend-hono",
+  "name": "@showcase-mono/backend",
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
