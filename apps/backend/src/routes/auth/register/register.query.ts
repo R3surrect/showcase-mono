@@ -2,12 +2,18 @@ import type { PendingQuery } from "postgres";
 import sql from "../../../db.js";
 import type postgres from "postgres";
 
+export interface User {
+    id: number;
+    username: string;
+    email: string;
+}
+
 type QueryParams =
     (
         username: string,
         email: string,
         passwordHash: string
-    ) => PendingQuery<postgres.Row[]>
+    ) => PendingQuery<User[]>
 
 const REGISTER_USER_QUERY: QueryParams = (username, email, passwordHash) => sql`
     INSERT INTO users (username, email, password_hash)
