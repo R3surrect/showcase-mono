@@ -1,0 +1,15 @@
+@import url("@global/styles/_variables");
+@import url("@global/styles/_breakpoints");
+
+.stack {
+    display: flex;
+    gap: var(--stack-gap, 0);
+    flex-direction: var(--stack-direction, column);
+    align-items: var(--stack-align, stretch);
+    flex-wrap: var(--stack-wrap, nowrap);
+    justify-content: var(--stack-justify, start);
+}
+
+.stack[data-width='full'] {width: 100%}
+.stack[data-width='fit'] {width: fit-content}
+.stack[data-width='auto'] {width: auto}

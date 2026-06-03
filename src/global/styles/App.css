@@ -1,0 +1,44 @@
+@import './_variables.css';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body,
+#root,
+html {
+    height: 100%;
+    font-family: var(--font-main);
+    /* scroll-behavior: smooth; */
+    overflow: hidden;
+    position: fixed;
+    min-width: 360px;
+    width: 100%;
+    /* overflow-x: auto; */
+}
+
+body {
+    background: var(--neutral-0);
+    -webkit-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    display: block;
+}
+
+[data-clickable="true"] {
+    cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

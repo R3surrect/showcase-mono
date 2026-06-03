@@ -1,0 +1,42 @@
+@import url('@global/styles/_variables');
+@import url('@global/styles/_semantics');
+
+.button {
+    transition: opacity 0.2s ease, box-shadow 0.2s ease;
+    padding: 0.7em;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: var(--ui-main-size);
+    font-weight: 500;
+    border-radius: var(--border-radius-4);
+    cursor: pointer;
+
+    backface-visibility: hidden;
+}
+
+.accent {
+    background-color: var(--neutral-350);
+    color: var(--warm-gray-100);
+    border: 1px solid transparent;
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--neutral-350);
+  color: var(--neutral-350);
+}
+
+.button:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/** Повышаем специфичность */
+.button.isSubmitting:disabled {
+    opacity: .3;
+    cursor: wait;
+}

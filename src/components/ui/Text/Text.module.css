@@ -1,0 +1,27 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_semantics.css');
+
+.text {
+    font-weight: var(--text-weight, 400);
+    font-size: var(--text-size, 14px);
+    color: var(--text-color, var(--neutral-850));
+    text-align: var(--text-align, start)
+}
+
+.text[data-size="1"] {font-size: var(--title-size)}
+.text[data-size="2"] {font-size: var(--header-size)}
+.text[data-size="3"] {font-size: var(--subtitle-size)}
+.text[data-size="4"] {font-size: var(--label-size)}
+.text[data-size="5"] {font-size: var(--ui-main-size)}
+.text[data-size="6"] {font-size: var(--helper-text-size)}
+.text[data-size="7"] {font-size: var(--footer-text-size)}
+
+.text[data-color="lightgray"] {color: var(--monochrome-500) }
+.text[data-color="darkgray"]  {color: var(--monochrome-700) }
+.text[data-color="yellow"]    {color: color-mix(in srgb, var(--warm-orange-400), transparent var(--opacity-medium))}
+.text[data-color="orange"]    {color: var(--warm-orange-400) }
+
+.text[data-weight='thin']    {font-weight: 200}
+.text[data-weight='regular'] {font-weight: 350}
+.text[data-weight='bold']    {font-weight: 500}
+.text[data-weight='bolder']  {font-weight: 650}

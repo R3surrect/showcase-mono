@@ -1,0 +1,19 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_breakpoints.css');
+
+.baseContainer {
+    grid-area: content;
+    padding: 1.5rem;
+    background: var(--neutral-0);
+
+    height: 100%;
+    overflow-y: auto;
+    min-height: 0;
+    overscroll-behavior-y: contain;
+}
+
+@media (--mobile) {
+    .baseContainer {
+        padding-bottom: 2vh;
+    }
+}

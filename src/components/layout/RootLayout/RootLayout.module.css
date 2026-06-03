@@ -1,0 +1,43 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_breakpoints.css');
+
+.container {
+    display: grid;
+    grid-template-columns: [sidebar] 240px [header] 1fr;
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+@media (--mobile) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: [header] auto
+                            [content] 1fr
+                            [sidebar] auto;
+        grid-template-areas:
+            "header"
+            "content"
+            "sidebar";
+        height: 100dvh;
+    }
+}
+
+@media (--tablet) {
+    .container {
+        grid-template-columns: [sidebar] auto [header] 1fr;
+    }
+}
+
+@media (--tablet), (--desktop) {
+    .container {
+
+        grid-template-rows: [header] auto
+                            [content] 1fr;
+
+        grid-template-areas:
+            "sidebar header"
+            "sidebar content";
+    }
+}
+

@@ -1,0 +1,29 @@
+@import url("@/global/styles/_variables");
+
+:root {
+    --thickness-thin: 1px;
+    --thickness-half-medium: 3px;
+    --thickness-medium: 5px;
+    --thickness-thick: 10px;
+}
+
+.hr {
+    min-height: var(--hr-thickness, 1px);
+    padding: 0;
+    margin: 0;
+    border-radius: 24px;
+    border: 0px;
+    width: 100%;
+    opacity: var(--hr-opacity, 1);
+}
+
+.shadow {box-shadow: var(--shadow-md)}
+.accent {background-color: var(--neutral-300)}
+.subtle {background-color: var(--neutral-0)}
+
+.glass {
+    background-color: var(--neutral-0);
+    backdrop-filter: blur(1.75rem);
+}
+
+

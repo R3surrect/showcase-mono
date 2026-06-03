@@ -1,0 +1,13 @@
+@import url('@global/styles/_variables');
+@import url('@global/styles/_semantics');
+
+.switcher {
+  font-size: var(--helper-text-size);
+  color: var(--neutral-600);
+}
+
+.switcher a {
+  color: var(--neutral-750);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

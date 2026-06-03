@@ -1,0 +1,9 @@
+@import url('@global/styles/_variables.css');
+
+.iconWrapper {
+    padding: .5rem;
+    background-color: color-mix(in srgb, var(--icon-color), transparent var(--opacity-super));
+    display: flex;
+    justify-content: center;
+    border-radius: var(--border-radius-10);
+}

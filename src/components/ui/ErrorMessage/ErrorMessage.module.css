@@ -1,0 +1,10 @@
+@import url('@global/styles/_variables.css');
+@import url('@global/styles/_semantics.css');
+
+.ErrorMessage {
+  display: block;
+  color: var(--status-error);
+  font-size: var(--helper-text-size);
+  font-weight: 600;
+  height: var(--helper-text-size);
+}

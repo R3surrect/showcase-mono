@@ -1,0 +1,36 @@
+@import url('@/global/styles/_variables.css');
+
+:root {
+    --content-surface-color: var(--lite-white);
+}
+
+:root {
+    --status-success: var(--warm-green-500);
+    --status-pending: var(--warm-orange-400);
+    --status-error:   var(--warm-red-400);
+    --status-info:    var(--cold-blue-grey-400);
+}
+
+:root {
+    --title-size:       var(--font-size-level-1);
+    --header-size:      var(--font-size-level-2);
+    --subtitle-size:    var(--font-size-level-3);
+    --label-size:       var(--font-size-level-4);
+    --ui-main-size:     var(--font-size-level-5);
+    --helper-text-size: var(--font-size-level-6);
+    --footer-text-size: var(--font-size-level-7);
+}
+
+:root {
+    --accent:        var(--neutral-500);
+    --link-inactive: var(--warm-gray-300);
+    --link-active:   var(--warm-green-500);
+}
+
+:root {
+    --ui-bg: var(--glass-surface-light-60);
+}
+
+:root {
+    --glass-base: var(--neutral-0);
+}

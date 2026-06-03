@@ -1,0 +1,1 @@
+export const INPUT_TYPE_TYPES = ["text", "password", "email", "tel", "number"] as const;

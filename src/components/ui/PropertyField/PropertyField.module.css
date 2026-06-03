@@ -1,0 +1,17 @@
+.propertyField {
+    padding: .5rem;
+    transition: .3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    border-radius: var(--border-radius-15);
+}
+
+.propertyField label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.propertyField:hover {
+    background-color: var(--neutral-100);
+}
