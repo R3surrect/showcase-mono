@@ -34,8 +34,8 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
       '@validation': path.resolve(__dirname, './src/validation'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      "@routes/*": path.resolve(__dirname, "./src/routes"),
-      "@backend/*": path.resolve(__dirname, "../backend/src/")
+      "@routes": path.resolve(__dirname, "./src/routes"),
+      "@backend": path.resolve(__dirname, "../backend/src/")
     }
   },
   build: {
