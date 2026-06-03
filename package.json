@@ -1,0 +1,7 @@
+{
+  "name": "showcase-mono",
+  "private": true,
+  "workspaces": [
+     "apps/*"
+  ]
+}

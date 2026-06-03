@@ -13,7 +13,10 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   server: {
-    host: true
+    host: true,
+    fs: {
+      allow: ['searchForWorkspaceRoot(process.cwd())', '../backend']
+    },
   },
   plugins: [react({
     babel: {
@@ -31,7 +34,8 @@ export default defineConfig({
       '@store': path.resolve(__dirname, './src/store'),
       '@validation': path.resolve(__dirname, './src/validation'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      "@routes/*": path.resolve(__dirname, "./src/routes")
+      "@routes/*": path.resolve(__dirname, "./src/routes"),
+      "@backend/*": path.resolve(__dirname, "../backend/src/")
     }
   },
   build: {
@@ -44,8 +48,6 @@ export default defineConfig({
     projects: [{
       extends: true,
       plugins: [
-        // The plugin will run tests for the stories defined in your Storybook config
-        // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
         storybookTest({
           configDir: path.join(dirname, '.storybook')
         })],
@@ -66,5 +68,5 @@ export default defineConfig({
     postcss: {
       plugins: [postcssCustomMedia()]
     }
-  }
+  },
 });

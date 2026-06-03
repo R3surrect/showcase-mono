@@ -37,6 +37,8 @@
       "@validation/*": ["./src/validation/*"],
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
+      "@showcase-mono/backend": ["../backend/src/app.ts"],
+      "@backend": ["../backend/src/"],
     }
   },
   "include": ["src/**/*", "src", "vite.config.ts"],
