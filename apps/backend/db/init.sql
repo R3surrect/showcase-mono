@@ -9,7 +9,6 @@ CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
 CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username varchar(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash varchar(255) NOT NULL,
     role user_role_enum DEFAULT 'user' NOT NULL,

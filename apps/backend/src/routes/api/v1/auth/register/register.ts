@@ -3,7 +3,7 @@ import { zValidator } from '@hono/zod-validator'
 import registerUserQuery from "./register.query.js";
 import bcrypt from 'bcryptjs';
 import registerValidation from "./register.validation.js";
-import { PostgresError } from "postgres";
+import postgres from "postgres";
 import { PG_ERRORS } from "#/db.js";
 
 const registerRouter = new Hono();
@@ -34,7 +34,7 @@ registerRouter.post(
                 user: registerResult
             }, 201)
         } catch (e: unknown) {
-            if (e instanceof PostgresError) {
+            if (e instanceof postgres.PostgresError) {
                 if (e.code === PG_ERRORS['UNIQUE_VIOLATION'])
                     return c.json({
                         success: false as const,
@@ -43,7 +43,7 @@ registerRouter.post(
             }
             return c.json({
                 success: false as const,
-                errors: [{ field: null, message: 'Internal server error' }]
+                errors: [{ field: null, message: e }]
             }, 500)
         }
     }

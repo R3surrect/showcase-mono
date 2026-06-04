@@ -1,6 +1,5 @@
 import type { PendingQuery } from "postgres";
-import sql from "../../../db.js";
-import type postgres from "postgres";
+import sql from "#/db.js";
 
 export interface User {
     id: number;
@@ -17,7 +16,7 @@ type QueryParams =
 const registerUserQuery: QueryParams = (email, passwordHash) => sql`
     INSERT INTO users (email, password_hash)
     VALUES (${email}, ${passwordHash})
-    RETURNING id, username, email
+    RETURNING id, email
 `
 
 export default registerUserQuery;
