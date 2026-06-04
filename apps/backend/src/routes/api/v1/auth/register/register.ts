@@ -4,7 +4,7 @@ import registerUserQuery from "./register.query.js";
 import bcrypt from 'bcryptjs';
 import registerValidation from "./register.validation.js";
 import { PostgresError } from "postgres";
-import { PG_ERRORS } from "../../../db.js";
+import { PG_ERRORS } from "#/db.js";
 
 const registerRouter = new Hono();
 
@@ -48,3 +48,5 @@ registerRouter.post(
         }
     }
 )
+
+export default registerRouter;
