@@ -10,15 +10,14 @@ export interface User {
 
 type QueryParams =
     (
-        username: string,
         email: string,
         passwordHash: string
     ) => PendingQuery<User[]>
 
-const REGISTER_USER_QUERY: QueryParams = (username, email, passwordHash) => sql`
-    INSERT INTO users (username, email, password_hash)
-    VALUES (${username}, ${email}, ${passwordHash})
+const registerUserQuery: QueryParams = (email, passwordHash) => sql`
+    INSERT INTO users (email, password_hash)
+    VALUES (${email}, ${passwordHash})
     RETURNING id, username, email
 `
 
-export default REGISTER_USER_QUERY;
+export default registerUserQuery;

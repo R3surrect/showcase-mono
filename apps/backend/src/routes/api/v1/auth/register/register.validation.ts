@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const registerValidation = z.object({
-    username: z
+    email: z
         .string()
         .min(1, 'Required field')
         .trim()
