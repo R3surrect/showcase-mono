@@ -1,13 +1,8 @@
-import type { PendingQuery } from "postgres";
 import sql from "#/db.js";
+import type { User } from "#/types/user.types.js";
+import type { PendingQuery } from "postgres";
 
-export interface User {
-    id: number;
-    username: string;
-    email: string;
-}
-
-type QueryParams =
+export type QueryParams =
     (
         email: string,
         passwordHash: string
