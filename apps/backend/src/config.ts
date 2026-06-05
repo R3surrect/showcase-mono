@@ -1,16 +1,27 @@
 import dotenv from 'dotenv';
 import z from 'zod';
 
-dotenv.config({quiet: true});
+dotenv.config({ quiet: true });
 
-const envSchema = z.object({
+export const envSchema = z.object({
     PORT: z.string().transform(Number).default(8080),
     DB_PORT: z.string().transform(Number).default(5173),
     DB_NAME: z.string().default('test_db'),
     DB_USER: z.string().default('postgres'),
     DB_PASSWORD: z.string().default('postgres'),
     JWT_SECRET: z.string().default('test_jwt'),
+    ALLOWED_ORIGINS: z
+        .string()
+        .min(1, '.env ALLOWED_ORIGINS must not be null')
+        .transform(str => str.split(',').map(item => item.trim()))
+        .pipe(
+            z.array(
+                z.url({ error: 'One or ore origins isn\'t valid' })
+            )
+        )
 });
+
+export type EnvSchema = z.infer<typeof envSchema>;
 
 const parsedEnv = envSchema.safeParse(process.env);
 
@@ -31,4 +42,5 @@ export const config = {
         DB_PASSWORD: env.DB_PASSWORD,
     },
     jwtSecret: env.JWT_SECRET,
+    allowedOrigins: env.ALLOWED_ORIGINS
 } as const;

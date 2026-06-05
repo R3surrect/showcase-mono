@@ -1,5 +1,5 @@
 /// <reference types="vitest/config" />
-import { defineConfig } from 'vite';
+import { defineConfig, searchForWorkspaceRoot } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import postcssCustomMedia from 'postcss-custom-media';
@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     host: true,
     fs: {
-      allow: ['searchForWorkspaceRoot(process.cwd())', '../backend']
+      allow: [searchForWorkspaceRoot(process.cwd()), '../backend']
     },
   },
   plugins: [react({
