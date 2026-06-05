@@ -39,7 +39,7 @@ loginRouter.post(
         const hash = user['password_hash'];
 
         if (hash === undefined) {
-            console.error('api/v1/auth/login hashing error');
+            console.error('/api/v1/auth/login hashing error');
 
             return c.json({
                 success: false as const,
@@ -78,6 +78,8 @@ loginRouter.post(
                     email: user.email
                 }
             }
-        })
+        }, 200)
     }
 )
+
+export default loginRouter

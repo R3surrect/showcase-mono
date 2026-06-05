@@ -42,10 +42,12 @@ meRouter.get(
 
         return c.json({
             success: true as const,
-            data: {user: {
-                id: user.id,
-                email: user.email
-            }}
+            data: {
+                user: {
+                    id: user.id,
+                    email: user.email
+                }
+            }
         });
     }
 )
