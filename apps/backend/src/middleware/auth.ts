@@ -1,34 +1,37 @@
 import { config } from "#/config.js";
-import type { MiddlewareHandler } from "hono";
+import type { AuthEnv } from "#/types/auth-env.js";
 import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
+import { createMiddleware } from "hono/factory";
 
-export type AuthEnv = {
-    Variables: {
-        user: {
-            id: string;
-            email: string;
-        }
-    }
-}
-
-export const authMiddleware: MiddlewareHandler<AuthEnv> = async (c, next) => {
+export const authMiddleware = createMiddleware<AuthEnv>(async (c, next) => {
     try {
         const token = getCookie(c, "token");
 
         if (!token) return c.json({
             success: false as const,
             error: [{ message: 'Unauthorized: Invalid session!' }]
-        })
+        }, 401)
 
-        const user = await verify(token, config.jwtSecret, 'HS256');
+        const payload = await verify(token, config.jwtSecret, 'HS256');
 
-
-    } catch (e) {
-        console.error('Token counterfeit');
-        c.json({
+        if (!payload.sub || !payload.email) return c.json({
             success: false as const,
             error: [{ message: 'Unauthorized: Invalid session!' }]
         })
+
+        c.set('user', {
+            id: Number(payload.sub),
+            email: String(payload.email)
+        })
+
+        await next();
+
+    } catch (e) {
+        console.error('Token counterfeit');
+        return c.json({
+            success: false as const,
+            error: [{ message: 'Unauthorized: Invalid session!' }]
+        }, 401)
     }
-}
+})
