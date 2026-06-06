@@ -3,5 +3,11 @@
   "private": true,
   "workspaces": [
      "apps/*"
-  ]
+  ],
+  "scripts": {
+    "dev:frontend": "pnpm --filter @showcase-mono/frontend dev",
+    "dev:backend": "pnpm --filter @showcase-mono/backend dev",
+    "dev:all": "pnpm --parallel -r dev",
+    "build:all": "pnpm -r build"
+  }
 }
