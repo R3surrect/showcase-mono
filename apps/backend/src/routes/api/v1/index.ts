@@ -6,12 +6,12 @@ import templatesRouter from "./templates/index.js";
 
 const v1Router = new Hono();
 
-v1Router.route("/auth", registerRouter);
-v1Router.route("/auth", loginRouter);
+const routes = v1Router
+    .route("/auth", registerRouter)
+    .route("/auth", loginRouter)
+    .use('/*', authMiddleware)
+    .route('/templates', templatesRouter);
 
-v1Router.use('/*', authMiddleware);
-
-v1Router.route('/templates', templatesRouter);
 export default v1Router;
 
-export type AppType = typeof v1Router;
+export type AppRouterV1 = typeof routes;
