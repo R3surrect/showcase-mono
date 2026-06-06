@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS tags (
     label VARCHAR(50) NOT NULL,
     color VARCHAR(50) NOT NULL,
     owner_id INT NOT NULL,
+    emoji VARCHAR(64) DEFAULT '🏷️' NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     CONSTRAINT fk_tags_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
