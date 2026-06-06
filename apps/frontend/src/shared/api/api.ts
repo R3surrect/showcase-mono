@@ -1,19 +1,6 @@
-const BASE_URL = `${import.meta.env.VITE_BACKEND_API_URL}/${import.meta.env.VITE_BACKEND_API_PORT}`;
+import type { AppRouterV1 } from '@showcase-mono/backend/routes/api/v1';
+import { hc } from 'hono/client';
 
-export const fetchApi = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
-  const res = await fetch (`${BASE_URL}/${endpoint}`, {
-    ...options,
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-By': 'XMLHttpRequest',
-      ...options.headers
-    },
-  });
-  
-  if (!res.ok) {
-    console.log(`not ok due ${res.status} - ${res.statusText}`);
-  }
+const BASE_URL = `${import.meta.env.VITE_BACKEND_API_URL || 'http://localhost'}:${import.meta.env.VITE_BACKEND_API_PORT || '5173'}`;
 
-  return res.json();
-}
+export const apiV1 = hc<AppRouterV1>(`${BASE_URL}/api/v1`)
