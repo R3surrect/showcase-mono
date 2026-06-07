@@ -1,5 +1,5 @@
+import type { GridProps, GridVars } from '@/components/entities/Grid/Grid.types';
 import stylesObj from './Grid.module.css';
-import type { GridProps, GridVars } from './Grid.types';
 
 const Grid = ({
     columns = 3,

@@ -1,6 +1,6 @@
+import type { HeadingProps } from "@/components/entities/Heading/Heading.types";
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
-import type { HeadingProps } from "./Heading.types";
 
 const Heading = ({ variant = 'accent', align = 'start', level, children }: HeadingProps) => {
     const variantClass = stylesObj[variant];

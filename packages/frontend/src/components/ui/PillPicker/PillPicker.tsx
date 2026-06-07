@@ -1,7 +1,7 @@
+import type { PillPickerProps } from '@/components/entities/PillPicker/PillPicker.types';
 import stylesObj from './PillPicker.module.css';
 import { motion } from 'motion/react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import type { PillPickerProps } from './PillPicker.types';
 
 export const PillPicker = ({ items }: PillPickerProps) => {
   const navigate = useNavigate();

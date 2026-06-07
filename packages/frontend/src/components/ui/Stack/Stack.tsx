@@ -1,5 +1,5 @@
+import type { StackProps, StackVars } from '@/components/entities/Stack/Stack.types';
 import stylesObj from './Stack.module.css';
-import type { StackProps, StackVars } from './Stack.types';
 
 // TODO Мапить типы в сторибуке
 // TODO Добавить адаптив

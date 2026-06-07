@@ -1,9 +1,9 @@
 import Heading from "@components/ui/Heading/Heading";
 import Stack from "@components/ui/Stack/Stack";
 import stylesObj from './DashboardStatBlockFull.module.css';
-import type { DashboardStatBlockFullProps, IconColor } from "./DashboardStatBlockFull.types";
 import Text from "@components/ui/Text/Text";
 import Surface from "@components/ui/Surface/Surface";
+import type { DashboardStatBlockFullProps, IconColor } from "@/components/entities/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types";
 
 const DashboardStatBlockFull = ({
     iconObj,

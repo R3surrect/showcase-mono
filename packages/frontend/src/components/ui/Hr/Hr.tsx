@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import styledObj from "./Hr.module.css";
-import type { HrProps, HRVars } from "./Hr.types";
+import type { HrProps, HRVars } from "@/components/entities/Hr/Hr.types";
 
 const Hr = ({
     variant = "subtle",

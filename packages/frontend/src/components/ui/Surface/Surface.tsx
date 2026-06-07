@@ -1,7 +1,7 @@
+import type { SurfaceProps, SurfaceVars } from '@/components/entities/Surface/Surface.types';
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
-import type { SurfaceProps, SurfaceVars } from './Surface.types';
 
 const Surface = ({
     variant = 'solid',
