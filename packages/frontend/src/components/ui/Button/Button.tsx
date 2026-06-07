@@ -1,6 +1,6 @@
 import stylesObj from './Button.module.css'
 import clsx from 'clsx';
-import type { ButtonProps } from './Button.types';
+import type { ButtonProps } from '@/components/entities/Button/Button.types';
 
 const Button = ({
   type = 'button',

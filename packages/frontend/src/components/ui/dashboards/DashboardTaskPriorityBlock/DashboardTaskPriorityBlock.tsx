@@ -3,9 +3,8 @@ import Heading from "@components/ui/Heading/Heading";
 import Surface from "@components/ui/Surface/Surface";
 import Text from "@components/ui/Text/Text";
 import Stack from "@components/ui/Stack/Stack";
-import { barStyles } from "../dashboards.constants";
-import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "../dashboards.constants";
-import { taskPrioritiesBarMock } from "./DashboardTaskPriorityBlock.constants";
+import { animationProps, axisProps, barStyles, legendProps, tooltipProps, yAxisProps } from "@/components/entities/dashboards/dashboards.constants";
+import { taskPrioritiesBarMock } from "@/components/entities/dashboards/DashboardTaskPriorityBlock/DashboardTaskPriorityBlock.constants";
 
 const LegendRender = (
     <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', fontSize: '12px' }}>

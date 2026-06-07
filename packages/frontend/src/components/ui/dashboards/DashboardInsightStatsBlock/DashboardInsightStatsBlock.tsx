@@ -4,7 +4,7 @@ import Stack from '@components/ui/Stack/Stack';
 import Surface from '@components/ui/Surface/Surface';
 import DashboardStatBlockFull from "../DashboardStatBlockFull/DashboardStatBlockFull";
 import DashboardStatBlockMinimal from "../DashboardStatBlockMinimal/DashboardStatBlockMinimal";
-import { insightsStatsBottomMock, insightsStatsMock } from './DashboardInsightStatsBlock.constants';
+import { insightsStatsBottomMock, insightsStatsMock } from '@/components/entities/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock.constants';
 
 const DashboardInsightStatsBlock = () => {
     return <Surface>
