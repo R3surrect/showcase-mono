@@ -5,7 +5,7 @@ import Stack from '@components/ui/Stack/Stack.tsx';
 import Button from '@components/ui/Button/Button';
 import ColorPicker from '@components/ui/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
-import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
+import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ui/ColorList/ColorList.constants';
 
 const ColorList = () => {
     const [uiState, setUiState] = useState({

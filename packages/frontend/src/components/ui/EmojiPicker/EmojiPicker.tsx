@@ -16,8 +16,8 @@ import Text from '@components/ui/Text/Text';
 import Stack from '@components/ui/Stack/Stack';
 import stylesObj from './EmojiPicker.module.css';
 import { useDevice } from '@/hooks/useDevice';
-import type { EmojiPickerProps } from '@/components/entities/EmojiPicker/EmojiPicker.types';
-import { emojiToUnified } from '@/components/entities/EmojiPicker/EmojiPicker.constants';
+import type { EmojiPickerProps } from '@/components/entities/ui/EmojiPicker/EmojiPicker.types';
+import { emojiToUnified } from '@/components/entities/ui/EmojiPicker/EmojiPicker.constants';
 
 const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps) => {
     const [emoji, setEmoji] = useState(placeholderEmoji);
