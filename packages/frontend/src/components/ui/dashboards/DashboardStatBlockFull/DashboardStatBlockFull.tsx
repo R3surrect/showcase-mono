@@ -3,7 +3,7 @@ import Stack from "@components/ui/Stack/Stack";
 import stylesObj from './DashboardStatBlockFull.module.css';
 import Text from "@components/ui/Text/Text";
 import Surface from "@components/ui/Surface/Surface";
-import type { DashboardStatBlockFullProps, IconColor } from "@/components/entities/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types";
+import type { DashboardStatBlockFullProps, IconColor } from "@/components/entities/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types";
 
 const DashboardStatBlockFull = ({
     iconObj,

@@ -1,4 +1,4 @@
-import type { SurfaceProps, SurfaceVars } from '@/components/entities/Surface/Surface.types';
+import type { SurfaceProps, SurfaceVars } from '@/components/entities/ui/Surface/Surface.types';
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
@@ -10,6 +10,7 @@ const Surface = ({
     ref,
     children,
     isAnimated = false,
+    height = 'fit',
     ...props
 }: SurfaceProps) => {
     return (
@@ -21,7 +22,8 @@ const Surface = ({
             data-animated={isAnimated}
             data-radius={cornerRadius}
             style={{
-                '--surface-color': color
+                '--surface-color': color,
+                '--surface-height': height === 'fit' ? 'fit-content' : '100%',
             } as SurfaceVars}
             {...props}
         >

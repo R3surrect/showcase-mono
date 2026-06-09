@@ -1,6 +1,6 @@
 import type { HTMLMotionProps } from "motion/react";
 import type { VARIANT_TYPES } from "./Surface.constants";
-import type { Size } from "../_shared/system.types";
+import type { Heights, Size } from "@/components/ui/_shared/system.types"; 
 
 export type Variants = typeof VARIANT_TYPES[number];
 
@@ -9,8 +9,10 @@ export interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' |
     cornerRadius?: Size;
     isAnimated?: boolean;
     color?: string;
+    height?: Heights;
 }
 
 export interface SurfaceVars extends React.CSSProperties {
     '--surface-color': string;
+    '--surface-height': string;
 }

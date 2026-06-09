@@ -1,4 +1,4 @@
-import type { GridProps, GridVars } from '@/components/entities/Grid/Grid.types';
+import type { GridProps, GridVars } from '@/components/entities/ui/Grid/Grid.types';
 import stylesObj from './Grid.module.css';
 
 const Grid = ({
@@ -10,7 +10,7 @@ const Grid = ({
     templateColumns,
     children
 }: GridProps) => {
-    const isFit = height === 'fit-content';
+    const isFit = height === 'fit';
 
     return <div
         className={stylesObj.gridWrapper}

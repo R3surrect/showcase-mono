@@ -3,7 +3,7 @@ import Heading from "@components/ui/Heading/Heading";
 import Surface from "@components/ui/Surface/Surface";
 import Text from "@components/ui/Text/Text";
 import Stack from "@components/ui/Stack/Stack";
-import { taskLoadBarMock } from "@/components/entities/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock.constants";
+import { taskLoadBarMock } from "@/components/entities/ui/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock.constants";
 import {
     animationProps,
     axisProps,
@@ -11,7 +11,7 @@ import {
     legendProps,
     tooltipProps,
     yAxisProps
-} from "@components/entities/dashboards/dashboards.constants";
+} from "@components/entities/ui/dashboards/dashboards.constants";
 
 const DashboardProjectLoadBlock = () => {
     return <Surface>
