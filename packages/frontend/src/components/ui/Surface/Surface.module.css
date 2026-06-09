@@ -7,10 +7,12 @@
     padding: 1.25rem;
     background: var(--lite-white);
     border: 1px solid var(--neutral-400);
-    border-radius: var(--border-radius-25);
     backdrop-filter: blur(3.5rem);
     box-shadow: var(--shadow-md);
     transition: .3s;
+
+    border-radius: var(--border-radius-25);
+    height: var(--surface-height, fit-content);
 }
 
 .surface[data-radius='sm'] {border-radius: var(--border-radius-4)}

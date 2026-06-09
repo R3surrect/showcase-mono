@@ -14,11 +14,11 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@showcase-mono/backend": "workspace:*",
-    "@showcase-mono/api-client": "workspace:*",
     "@floating-ui/react": "^0.27.19",
     "@hookform/resolvers": "^5.2.2",
-    "@tanstack/react-query": "^5.100.11",
+    "@showcase-mono/api-client": "workspace:*",
+    "@showcase-mono/backend": "workspace:*",
+    "@tanstack/react-query": "^5.101.0",
     "@tanstack/react-query-devtools": "^5.100.11",
     "autoprefixer": "^10.4.22",
     "clsx": "^2.1.1",

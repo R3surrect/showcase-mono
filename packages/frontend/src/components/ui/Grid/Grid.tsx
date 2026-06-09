@@ -10,7 +10,7 @@ const Grid = ({
     templateColumns,
     children
 }: GridProps) => {
-    const isFit = height === 'fit-content';
+    const isFit = height === 'fit';
 
     return <div
         className={stylesObj.gridWrapper}
