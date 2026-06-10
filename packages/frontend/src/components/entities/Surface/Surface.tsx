@@ -1,4 +1,4 @@
-import type { SurfaceProps, SurfaceVars } from '@/components/entities/ui/Surface/Surface.types';
+import type { SurfaceProps, SurfaceVars } from '@/components/entities/Surface/Surface.types';
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';

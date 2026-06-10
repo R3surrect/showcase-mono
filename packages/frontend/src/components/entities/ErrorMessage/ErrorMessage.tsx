@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import stylesObj from './ErrorMessage.module.css';
-import type { ErrorMessageProps } from '@/components/entities/ui/ErrorMessage/ErrorMessage.types';
+import type { ErrorMessageProps } from '@/components/entities/ErrorMessage/ErrorMessage.types';
 
 const animation = {
   initial: { opacity: 0, y: -5, height: 0 },

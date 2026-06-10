@@ -1,4 +1,4 @@
-import type { ColorVariable, TagProps } from '@/components/entities/ui/Tag/Tag.types';
+import type { ColorVariable, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 
 const Tag = ({ label, emoji, color, ...props }: TagProps) => {

@@ -1,4 +1,4 @@
-import Surface from '@/components/ui/Surface/Surface';
+import Surface from '@/components/entities/Surface/Surface';
 import stylesObj from './Popover.module.css'
 import type { HTMLAttributes, Ref } from 'react';
 import { FloatingPortal } from '@floating-ui/react';

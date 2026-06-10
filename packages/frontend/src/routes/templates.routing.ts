@@ -1,4 +1,4 @@
-import type { PillPickerItem } from '@/components/ui/PillPicker/PillPicker.types';
+import type { PillPickerItem } from '@/components/entities/PillPicker/PillPicker.types';
 import { LucideCircleCheck, LucideTag } from 'lucide-react';
 
 export const TEMPLATES_ROUTES: PillPickerItem[] = [

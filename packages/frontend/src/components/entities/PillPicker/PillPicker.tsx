@@ -1,4 +1,4 @@
-import type { PillPickerProps } from '@/components/entities/ui/PillPicker/PillPicker.types';
+import type { PillPickerProps } from '@/components/entities/PillPicker/PillPicker.types';
 import stylesObj from './PillPicker.module.css';
 import { motion } from 'motion/react';
 import { useNavigate, useLocation } from 'react-router-dom';

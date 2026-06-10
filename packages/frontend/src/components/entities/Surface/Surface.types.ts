@@ -1,6 +1,6 @@
 import type { HTMLMotionProps } from "motion/react";
 import type { VARIANT_TYPES } from "./Surface.constants";
-import type { Heights, Size } from "@/components/ui/_shared/system.types"; 
+import type { Heights, Size } from "@/components/entities/_shared/system.types"; 
 
 export type Variants = typeof VARIANT_TYPES[number];
 

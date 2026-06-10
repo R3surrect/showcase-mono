@@ -1,4 +1,4 @@
-import type { HeadingProps } from "@/components/entities/ui/Heading/Heading.types";
+import type { HeadingProps } from "@/components/entities/Heading/Heading.types";
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
 

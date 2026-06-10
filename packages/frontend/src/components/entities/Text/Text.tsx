@@ -1,6 +1,6 @@
 import type { ElementType } from 'react';
 import stylesObj from './Text.module.css'
-import type { TextProps } from '@/components/entities/ui/Text/Text.types';
+import type { TextProps } from '@/components/entities/Text/Text.types';
 
 const Text = <T extends ElementType = 'p'> ({
     as,
