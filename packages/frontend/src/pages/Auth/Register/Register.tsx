@@ -1,18 +1,18 @@
-import { registerSchema, type RegisterInput } from '@/validation/registerSchema';
+import { registerSchema, type RegisterInput, type RegisterPayload } from '@/validation/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
-import AuthSwitcher from '@/components/auth/AuthSwitcher/AuthSwitcher';
-import Button from '@/components/ui/Button/Button';
-import ErrorMessage from '@/components/ui/ErrorMessage/ErrorMessage';
-import Heading from '@/components/ui/Heading/Heading';
-import Hr from '@/components/ui/Hr/Hr';
-import Input from '@/components/ui/Input/Input';
-import Stack from '@/components/ui/Stack/Stack';
+import AuthSwitcher from '@/components/entities/auth/AuthSwitcher/AuthSwitcher';
+import Button from '@/components/entities/Button/Button';
+import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
+import Heading from '@/components/entities/Heading/Heading';
+import Hr from '@/components/entities/Hr/Hr';
+import Input from '@/components/entities/Input/Input';
+import Stack from '@/components/entities/Stack/Stack';
 import useAuthStore from '@/store/useAuthStore';
-import LegalNotice from '@/components/auth/LegalNotice/LegalNotice';
+import LegalNotice from '@/components/entities/auth/LegalNotice/LegalNotice';
 import { useNavigate } from 'react-router-dom';
-import Text from '@/components/ui/Text/Text';
+import Text from '@/components/entities/Text/Text';
 
 export const Component = () => {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const Component = () => {
         },
     });
 
-    const onSubmit = async ({ confirmPassword, ...payload }: RegisterInput) => {
+    const onSubmit = async ({ ...payload }: RegisterPayload) => {
 
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [registerResult] = await Promise.all([registerUser(payload), minWait]);

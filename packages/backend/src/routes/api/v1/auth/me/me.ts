@@ -4,12 +4,10 @@ import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 import findUserById from "./me.query.js";
 
-const meRouter = new Hono();
-
-meRouter.get(
+const meRouter = new Hono().get(
     '/me',
     async (c) => {
-        const token = getCookie(c, 'token')
+        const token = getCookie(c, 'token');
 
         if (!token) return c.json({
             success: false as const,
@@ -19,6 +17,7 @@ meRouter.get(
         }, 401);
 
         let payload;
+
         try {
             payload = await verify(token, config.jwtSecret, 'HS256');
         } catch (e) {
@@ -27,6 +26,7 @@ meRouter.get(
                 errors: [{ message: 'Invalid or expired token' }]
             })
         }
+        
         const userId = payload.sub;
 
         const [user] = await findUserById(Number(userId));
@@ -51,3 +51,5 @@ meRouter.get(
         });
     }
 )
+
+export default meRouter;

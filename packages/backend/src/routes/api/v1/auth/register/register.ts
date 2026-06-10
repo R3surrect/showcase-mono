@@ -6,9 +6,7 @@ import registerValidation from "./register.validation.js";
 import postgres from "postgres";
 import { PG_ERRORS } from "#/db.js";
 
-const registerRouter = new Hono();
-
-registerRouter.post(
+const registerRouter = new Hono().post(
     '/register',
     zValidator(
         'json',

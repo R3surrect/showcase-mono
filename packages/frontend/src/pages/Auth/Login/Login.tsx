@@ -1,17 +1,17 @@
 import { loginSchema, type LoginInput } from '@/validation/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import AuthSwitcher from '@/components/auth/AuthSwitcher/AuthSwitcher';
-import Button from '@/components/ui/Button/Button';
-import ErrorMessage from '@/components/ui/ErrorMessage/ErrorMessage';
-import Heading from "@/components/ui/Heading/Heading";
-import Hr from "@/components/ui/Hr/Hr";
-import Input from "@/components/ui/Input/Input";
-import QrAuth from "@/components/auth/QRAuth/QRAuth";
-import Stack from '@/components/ui/Stack/Stack';
+import AuthSwitcher from '@/components/entities/auth/AuthSwitcher/AuthSwitcher';
+import Button from '@/components/entities/Button/Button';
+import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
+import Heading from "@/components/entities/Heading/Heading";
+import Hr from "@/components/entities/Hr/Hr";
+import Input from "@/components/entities/Input/Input";
+import QrAuth from "@/components/entities/auth/QRAuth/QRAuth";
+import Stack from '@/components/entities/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
 import { useNavigate } from 'react-router-dom';
-import Text from '@/components/ui/Text/Text';
+import Text from '@/components/entities/Text/Text';
 
 export const Component = () => {
     const navigate = useNavigate();

@@ -1,8 +1,8 @@
-import Heading from '@/components/ui/Heading/Heading'
-import Surface from '@/components/ui/Surface/Surface';
-import Stack from '@/components/ui/Stack/Stack';
-import Hr from '@/components/ui/Hr/Hr';
-import PropertyField from '@/components/ui/PropertyField/PropertyField';
+import Heading from '@/components/entities/Heading/Heading'
+import Surface from '@/components/entities/Surface/Surface';
+import Stack from '@/components/entities/Stack/Stack';
+import Hr from '@/components/entities/Hr/Hr';
+import PropertyField from '@/components/entities/PropertyField/PropertyField';
 import { Fragment } from 'react';
 
 const fieldsData = [
@@ -83,7 +83,7 @@ export const Component = () => {
                                     title={property.title}
                                     subtitle={property.subtitle}
                                 >
-                                    {(id) => <input
+                                    {(id: string) => <input
                                         id={id}
                                         type='checkbox'
                                         onChange={() => { console.log('it\'s me, Mario') }}

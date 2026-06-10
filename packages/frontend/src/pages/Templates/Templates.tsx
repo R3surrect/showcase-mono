@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import Button from '@components/ui/Button/Button';
-import { PillPicker } from '@components/ui/PillPicker/PillPicker';
+import Button from '@components/entities/Button/Button';
+import { PillPicker } from '@components/entities/PillPicker/PillPicker';
 import { TEMPLATES_ROUTES } from '@/routes/templates.routing.ts';
-import { ContentHeader } from '@components/ui/ContentHeader/ContentHeader';
-import Stack from '@components/ui/Stack/Stack';
-import Grid from '@components/ui/Grid/Grid';
+import { ContentHeader } from '@components/entities/ContentHeader/ContentHeader';
+import Stack from '@components/entities/Stack/Stack';
+import Grid from '@components/entities/Grid/Grid';
 
 export const Component = () => {
     return (

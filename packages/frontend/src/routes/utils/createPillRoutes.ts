@@ -1,6 +1,6 @@
 import type { SubRouteConfig } from '../index.ts';
 import { getPillIndexLoader } from './getPillIndexLoader.tsx';
-import type { PillPickerItem } from '@components/ui/PillPicker/PillPicker.types.ts';
+import type { PillPickerItem } from '@components/entities/PillPicker/PillPicker.types.ts';
 
 export const createPillRoutes = (parentPath: string, items: PillPickerItem[]): SubRouteConfig[] => 
    [
