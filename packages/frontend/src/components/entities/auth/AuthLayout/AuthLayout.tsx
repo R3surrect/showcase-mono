@@ -2,7 +2,7 @@ import { useLocation, useOutlet } from 'react-router-dom';
 import { Suspense } from 'react';
 import { AnimatePresence, type Variants } from 'motion/react';
 
-import Surface from "@/components/ui/Surface/Surface";
+import Surface from "@/components/entities/Surface/Surface";
 import stylesObj from './AuthLayout.module.css';
 
 export const Component = () => {

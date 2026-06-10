@@ -3,9 +3,9 @@ import { Eye, EyeClosed } from 'lucide-react';
 
 import stylesObj from "./Input.module.css";
 
-import Stack from '@components/ui/Stack/Stack';
-import Text from '@components/ui/Text/Text';
-import type { InputProps, InputVars } from '@/components/entities/ui/Input/Input.types';
+import Stack from '@components/entities/Stack/Stack';
+import Text from '@components/entities/Text/Text';
+import type { InputProps, InputVars } from '@/components/entities/Input/Input.types';
 
 const Input = ({
     disabled,

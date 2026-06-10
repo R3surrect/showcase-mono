@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
-import type { BaseAlignment, Justify } from "@components/ui/_shared/system.types";
+import type { BaseAlignment, Justify } from "@components/entities/_shared/system.types";
 import type { HTMLMotionProps } from "motion/react";
-import type { Variants } from "@components/ui/Surface/Surface.types";
+import type { Variants } from "@components/entities/Surface/Surface.types";
 
 export interface DashboardStatBlockFullProps extends Omit<HTMLMotionProps<'div'>, 'style' | 'className'> {
     label: string;

@@ -1,8 +1,8 @@
-import Stack from "@components/ui/Stack/Stack"
-import Text from "@components/ui/Text/Text";
-import Surface from "@components/ui/Surface/Surface";
+import Stack from "@components/entities/Stack/Stack"
+import Text from "@components/entities/Text/Text";
+import Surface from "@components/entities/Surface/Surface";
 import Heading from "../../Heading/Heading";
-import type { DashboardStatBlockMinimalProps } from "@/components/entities/ui/dashboards/DashboardStatBlockMinimal/DashboardStatBlockMinimal.types";
+import type { DashboardStatBlockMinimalProps } from "@/components/entities/dashboards/DashboardStatBlockMinimal/DashboardStatBlockMinimal.types";
 
 const DashboardStatBlockMinimal = ({
     title,

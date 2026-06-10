@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { BarChart3, CalendarDays, StickyNote, FolderOpen, Heart, LayoutTemplate, Settings } from 'lucide-react';
 import stylesObj from './Sidebar.module.css';
 import logo from '@/assets/svg/logo.svg'
-import Heading from '@/components/ui/Heading/Heading';
+import Heading from '@/components/entities/Heading/Heading';
 
 const Sidebar: React.FC = () => {
 

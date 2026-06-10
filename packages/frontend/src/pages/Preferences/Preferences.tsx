@@ -1,9 +1,9 @@
-import { PillPicker } from '@/components/ui/PillPicker/PillPicker';
+import { PillPicker } from '@/components/entities/PillPicker/PillPicker';
 import { PREFERENCES_ROUTES } from '@/routes/preferences.routing';
 import { Outlet } from 'react-router-dom';
-import Grid from '@components/ui/Grid/Grid';
-import Stack from '@components/ui/Stack/Stack';
-import { ContentHeader } from '@/components/ui/ContentHeader/ContentHeader';
+import Grid from '@components/entities/Grid/Grid';
+import Stack from '@components/entities/Stack/Stack';
+import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 
 export const Component = () => {
     return (

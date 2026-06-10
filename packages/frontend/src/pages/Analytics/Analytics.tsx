@@ -1,9 +1,9 @@
-import type { DashboardStatBlockFullProps } from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types';
-import Grid from '@/components/ui/Grid/Grid'
-import DashboardStatBlockFull from '@/components/ui/dashboards/DashboardStatBlockFull/DashboardStatBlockFull';
-import DashboardActivityBlock from '@/components/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock';
-import DashboardPieStatsBlock from '@/components/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
-import Stack from '@/components/ui/Stack/Stack';
+import type { DashboardStatBlockFullProps } from '@/components/entities/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types';
+import Grid from '@/components/entities/Grid/Grid'
+import DashboardStatBlockFull from '@/components/entities/dashboards/DashboardStatBlockFull/DashboardStatBlockFull';
+import DashboardActivityBlock from '@/components/entities/dashboards/DashboardActivityBlock/DashboardActivityBlock';
+import DashboardPieStatsBlock from '@/components/entities/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock';
+import Stack from '@/components/entities/Stack/Stack';
 import {
     LucideAlertCircle,
     LucideBell,
@@ -14,9 +14,9 @@ import {
     LucideTrendingUp,
     LucideZap
 } from 'lucide-react'
-import DashboardTaskPriorityBlock from '@/components/ui/dashboards/DashboardTaskPriorityBlock/DashboardTaskPriorityBlock';
-import DashboardProjectLoadBlock from '@/components/ui/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock';
-import DashboardInsightStatsBlock from '@/components/ui/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock';
+import DashboardTaskPriorityBlock from '@/components/entities/dashboards/DashboardTaskPriorityBlock/DashboardTaskPriorityBlock';
+import DashboardProjectLoadBlock from '@/components/entities/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock';
+import DashboardInsightStatsBlock from '@/components/entities/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock';
 //#region Mock
 const dashboardStatMock: DashboardStatBlockFullProps[] = [
     {

@@ -3,7 +3,7 @@
     justify-content: center;
     justify-items: center;
     align-items: center;
-    background-image: url('../../../assets/bg/authBg.jpg');
+    background-image: url('@/assets/bg/authBg.jpg');
     background-size: 100% 100%;
     background-position: revert-layer;
     width: 100vw;

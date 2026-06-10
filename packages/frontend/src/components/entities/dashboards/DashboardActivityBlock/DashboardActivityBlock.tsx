@@ -1,12 +1,12 @@
 import { Tooltip, ResponsiveContainer, Legend, Line, LineChart, XAxis, YAxis, CartesianGrid } from "recharts";
-import Surface from "@components/ui/Surface/Surface";
-import Heading from "@components/ui/Heading/Heading";
-import Text from "@components/ui/Text/Text";
-import Stack from "@components/ui/Stack/Stack";
+import Surface from "@components/entities/Surface/Surface";
+import Heading from "@components/entities/Heading/Heading";
+import Text from "@components/entities/Text/Text";
+import Stack from "@components/entities/Stack/Stack";
 import { useDevice } from "@/hooks/useDevice";
-import { chartsData, chartsMock } from "@/components/entities/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock.constants";
-import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "@/components/entities/ui/dashboards/dashboards.constants";
-import { lineProps } from "@/components/entities/ui/dashboards/DashboardActivityBlock/DashboardActivityBlock.types";
+import { chartsData, chartsMock } from "@/components/entities/dashboards/DashboardActivityBlock/DashboardActivityBlock.constants";
+import { animationProps, axisProps, legendProps, tooltipProps, yAxisProps } from "@/components/entities/dashboards/dashboards.constants";
+import { lineProps } from "@/components/entities/dashboards/DashboardActivityBlock/DashboardActivityBlock.types";
 
 const DashboardActivityBlock = () => {
     const isTablet = useDevice('tablet');

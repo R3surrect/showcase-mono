@@ -1,10 +1,10 @@
-import Grid from '@components/ui/Grid/Grid'
-import Heading from '@components/ui/Heading/Heading'
-import Stack from '@components/ui/Stack/Stack';
-import Surface from '@components/ui/Surface/Surface';
+import Grid from '@components/entities/Grid/Grid'
+import Heading from '@components/entities/Heading/Heading'
+import Stack from '@components/entities/Stack/Stack';
+import Surface from '@components/entities/Surface/Surface';
 import DashboardStatBlockFull from "../DashboardStatBlockFull/DashboardStatBlockFull";
 import DashboardStatBlockMinimal from "../DashboardStatBlockMinimal/DashboardStatBlockMinimal";
-import { insightsStatsBottomMock, insightsStatsMock } from '@/components/entities/ui/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock.constants';
+import { insightsStatsBottomMock, insightsStatsMock } from '@/components/entities/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock.constants';
 
 const DashboardInsightStatsBlock = () => {
     return <Surface>

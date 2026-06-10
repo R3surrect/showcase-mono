@@ -1,8 +1,8 @@
-import Heading from '@/components/ui/Heading/Heading.tsx';
-import Stack from '@components/ui/Stack/Stack';
+import Heading from '@/components/entities/Heading/Heading.tsx';
+import Stack from '@components/entities/Stack/Stack';
 import stylesObj from './ContentHeader.module.css';
 import Text from '../Text/Text';
-import type { ContentHeaderProps } from '@/components/entities/ui/ContentHeader/ContentHeader.types';
+import type { ContentHeaderProps } from '@/components/entities/ContentHeader/ContentHeader.types';
 
 export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps) => {
     return <Stack direction='row' justify='space-between' wrap={true}>

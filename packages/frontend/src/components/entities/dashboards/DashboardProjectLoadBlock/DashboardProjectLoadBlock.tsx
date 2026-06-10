@@ -1,9 +1,9 @@
 import { Bar, BarChart, Legend, Rectangle, Tooltip, XAxis, YAxis } from "recharts";
-import Heading from "@components/ui/Heading/Heading";
-import Surface from "@components/ui/Surface/Surface";
-import Text from "@components/ui/Text/Text";
-import Stack from "@components/ui/Stack/Stack";
-import { taskLoadBarMock } from "@/components/entities/ui/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock.constants";
+import Heading from "@components/entities/Heading/Heading";
+import Surface from "@components/entities/Surface/Surface";
+import Text from "@components/entities/Text/Text";
+import Stack from "@components/entities/Stack/Stack";
+import { taskLoadBarMock } from "@/components/entities/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock.constants";
 import {
     animationProps,
     axisProps,
@@ -11,7 +11,7 @@ import {
     legendProps,
     tooltipProps,
     yAxisProps
-} from "@components/entities/ui/dashboards/dashboards.constants";
+} from "@components/entities/dashboards/dashboards.constants";
 
 const DashboardProjectLoadBlock = () => {
     return <Surface>

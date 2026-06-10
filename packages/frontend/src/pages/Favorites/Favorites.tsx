@@ -1,4 +1,4 @@
-import { PillPicker } from '@/components/ui/PillPicker/PillPicker';
+import { PillPicker } from '@/components/entities/PillPicker/PillPicker';
 import { Outlet } from 'react-router-dom';
 import { FAVORITES_ROUTES } from '@/routes/favorites.routing';
 

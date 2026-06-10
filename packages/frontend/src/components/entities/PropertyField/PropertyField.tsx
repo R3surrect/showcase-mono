@@ -1,8 +1,8 @@
-import Heading from '@components/ui/Heading/Heading';
+import Heading from '@components/entities/Heading/Heading';
 import stylesObj from './PropertyField.module.css';
 import { useId } from 'react';
-import Text from '@components/ui/Text/Text';
-import type { PropertyFieldProps } from '@/components/entities/ui/PropertyField/PropertyField.types';
+import Text from '@components/entities/Text/Text';
+import type { PropertyFieldProps } from '@/components/entities/PropertyField/PropertyField.types';
 
 const PropertyField = ({ title, subtitle, children }: PropertyFieldProps) => {
     const id = useId();

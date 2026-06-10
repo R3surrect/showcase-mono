@@ -1,5 +1,5 @@
-import Heading from '@/components/ui/Heading/Heading.tsx'
-import Surface from '@/components/ui/Surface/Surface'
+import Heading from '@/components/entities/Heading/Heading.tsx'
+import Surface from '@/components/entities/Surface/Surface'
 
 export const Component = () => {
     return <>

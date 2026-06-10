@@ -14,8 +14,8 @@ export const ROOT_ROUTES: SubRouteConfig = {
   HydrateFallback: () => <div>...loading</div>,
   lazy: async () => {
     const [loaderModule, componentModule] = await Promise.all([
-      import('@/components/layout/RootLayout/RootLayout.loader.ts'),
-      import('@/components/layout/RootLayout/RootLayout.tsx'),
+      import('@/components/entities/layout/RootLayout/RootLayout.loader.ts'),
+      import('@/components/entities/layout/RootLayout/RootLayout.tsx'),
     ]);
 
     return {

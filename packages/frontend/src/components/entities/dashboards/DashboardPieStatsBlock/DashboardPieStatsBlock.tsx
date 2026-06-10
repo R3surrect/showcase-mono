@@ -1,11 +1,11 @@
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import Heading from "@components/ui/Heading/Heading";
-import Surface from "@components/ui/Surface/Surface";
-import Text from "@components/ui/Text/Text";
-import Stack from "@components/ui/Stack/Stack";
-import { statusMock } from "@/components/entities/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock.constants";
-import { animationProps, tooltipProps } from "@/components/entities/ui/dashboards/dashboards.constants";
-import type { StatusPieMock } from "@/components/entities/ui/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock.types";
+import Heading from "@components/entities/Heading/Heading";
+import Surface from "@components/entities/Surface/Surface";
+import Text from "@components/entities/Text/Text";
+import Stack from "@components/entities/Stack/Stack";
+import { statusMock } from "@/components/entities/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock.constants";
+import { animationProps, tooltipProps } from "@/components/entities/dashboards/dashboards.constants";
+import type { StatusPieMock } from "@/components/entities/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock.types";
 
 const DashboardPieStatsBlock = () => {
     return <Surface>

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { colord } from 'colord';
-import Heading from '@components/ui/Heading/Heading.tsx';
-import Stack from '@components/ui/Stack/Stack.tsx';
-import Button from '@components/ui/Button/Button';
-import ColorPicker from '@components/ui/ColorPicker/ColorPicker';
+import Heading from '@components/entities/Heading/Heading.tsx';
+import Stack from '@components/entities/Stack/Stack.tsx';
+import Button from '@components/entities/Button/Button';
+import ColorPicker from '@components/entities/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
-import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ui/ColorList/ColorList.constants';
+import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
 
 const ColorList = () => {
     const [uiState, setUiState] = useState({
