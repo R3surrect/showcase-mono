@@ -7,9 +7,7 @@ import { sign } from "hono/jwt";
 import { config } from "#/config.js";
 import { setCookie } from "hono/cookie";
 
-const loginRouter = new Hono();
-
-loginRouter.post(
+const loginRouter = new Hono().post(
     '/login',
     zValidator(
         'json',
@@ -63,12 +61,14 @@ loginRouter.post(
         const token = await sign(payload, config.jwtSecret);
 
         setCookie(c, 'token', token, {
-            httpOnly: true,
-            secure: true,
+            httpOnly: true, 
+            secure: config.nodeEnv,
             sameSite: 'Lax',
             maxAge: 60 * 60 * 24 * 7,
             path: '/',
         });
+
+        console.log(token);
 
         return c.json({
             success: true as const,

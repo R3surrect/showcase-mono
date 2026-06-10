@@ -27,6 +27,7 @@ const DashboardActivityBlock = () => {
                     chartsData.map(item => (
                         <Line
                             {...item}
+                            key={item.key}
                             type="monotone"
                             dot={false}
                             {...animationProps}

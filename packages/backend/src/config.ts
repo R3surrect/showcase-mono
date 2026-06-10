@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import z from 'zod';
+import z, { boolean } from 'zod';
 
 dotenv.config({ quiet: true });
 
@@ -18,7 +18,12 @@ export const envSchema = z.object({
             z.array(
                 z.url({ error: 'One or ore origins isn\'t valid' })
             )
-        )
+        ),
+    NODE_ENV: z
+        .string()
+        .toLowerCase()
+        .pipe(z.enum(['development', 'production']))
+        .default('development')
 });
 
 export type EnvSchema = z.infer<typeof envSchema>;
@@ -42,5 +47,6 @@ export const config = {
         DB_PASSWORD: env.DB_PASSWORD,
     },
     jwtSecret: env.JWT_SECRET,
-    allowedOrigins: env.ALLOWED_ORIGINS
+    allowedOrigins: env.ALLOWED_ORIGINS,
+    nodeEnv: env.NODE_ENV === 'production',
 } as const;

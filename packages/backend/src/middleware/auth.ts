@@ -8,17 +8,23 @@ export const authMiddleware = createMiddleware<AuthEnv>(async (c, next) => {
     try {
         const token = getCookie(c, "token");
 
-        if (!token) return c.json({
-            success: false as const,
-            error: [{ message: 'Unauthorized: Invalid session!' }]
-        }, 401)
+        if (!token) {
+            console.log('dick 1');
+
+            return c.json({
+                success: false as const,
+                error: [{ message: 'Unauthorized: Invalid session!' }],
+            }, 401)
+        }
 
         const payload = await verify(token, config.jwtSecret, 'HS256');
 
-        if (!payload.sub || !payload.email) return c.json({
-            success: false as const,
-            error: [{ message: 'Unauthorized: Invalid session!' }]
-        })
+        if (!payload.sub || !payload.email) {
+            return c.json({
+                success: false as const,
+                error: [{ message: 'Unauthorized: Invalid session!' }],
+            })
+        }
 
         c.set('user', {
             id: Number(payload.sub),
