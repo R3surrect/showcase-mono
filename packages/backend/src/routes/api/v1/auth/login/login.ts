@@ -68,8 +68,6 @@ const loginRouter = new Hono().post(
             path: '/',
         });
 
-        console.log(token);
-
         return c.json({
             success: true as const,
             data: {
