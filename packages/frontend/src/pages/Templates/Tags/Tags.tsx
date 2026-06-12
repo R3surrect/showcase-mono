@@ -52,14 +52,14 @@ export const Component = () => {
                 <Stack direction='row' gap='sm' wrap={true} align='center'>
                     {isLoading && <Text color='darkgray' weight='bold'>...loading</Text>}
                     {
-                        data?.success && data?.tags.slice(0, breakPoint).map(({ id, ...item }) => (
-                            <Tag {...item} key={id} />
+                        data?.success && data.tags.slice(0, breakPoint).map((item) => (
+                            <Tag {...item} key={item.id} id={item.id} />
                         ))
                     }
                     {
                         data?.success && data?.tags.length > breakPoint && <Text weight='bold' color='darkgray'>+ {data?.tags.length - breakPoint}</Text>
                     }
-                    {isError && !data?.success && data?.error.map((err, i) =>
+                    {(isError && !data?.success && data?.error) && data.error.map((err, i) =>
                         <Text
                             key={i}
                             color='orange'

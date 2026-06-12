@@ -1,14 +1,10 @@
 import sql from "#/db.js";
+import type { Tag } from "./tag.types.js";
 
-interface Tag {
-    id: number;
-    color: string;
-    label: string;
-    emoji: string;
-}
+type FindTagsByUserId = Omit<Tag, 'owner_id'>
 
-const findTagsByUserId = async (userId: number) => await sql<Tag[]>`
-    SELECT id, label, color, emoji
+const findTagsByUserId = async (userId: number) => await sql<FindTagsByUserId[]>`
+    SELECT id, label, color, emoji, created_at, updated_at
     FROM tags
     WHERE owner_id = ${userId}
 `

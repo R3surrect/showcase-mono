@@ -3,12 +3,13 @@ import findTagsByUserId from "./tags.query.js";
 import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
 import { tagCreateValidation } from "./tag.create.validation.js";
+import type { TagClientPayload } from "./tag.types.js";
 
 const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
     try {
         const rows = await findTagsByUserId(c.get('user').id)
 
-        const tags = [...rows];
+        const tags: TagClientPayload[] = [...rows];
 
         return c.json({
             success: true as const,
