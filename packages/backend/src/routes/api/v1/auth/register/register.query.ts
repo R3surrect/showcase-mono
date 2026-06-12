@@ -1,5 +1,5 @@
 import sql from "#/db.js";
-import type { User } from "#/types/user.types.js";
+import type { User } from "#/types/user.js";
 import type { PendingQuery } from "postgres";
 
 export type QueryParams =

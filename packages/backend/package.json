@@ -10,7 +10,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "tsx watch src/app.ts",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build": "npm run clean && tsc",
     "start": "node dist/app.js"
   },

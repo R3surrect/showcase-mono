@@ -1,15 +1,16 @@
 import { Hono } from "hono";
-import findTagsByUserId from "./tags.query.js";
+import { findTagsByUserId } from "./tags.query.js";
 import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
-import { tagCreateValidation } from "./tag.create.validation.js";
-import type { TagClientPayload } from "./tag.types.js";
+import type { TagGetClientPayload } from "./tag.types.js";
+import { tagCreateValidation } from "./validations/tag.create.validation.js";
+import type { ZodIssue } from "zod/v3";
 
 const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
     try {
         const rows = await findTagsByUserId(c.get('user').id)
 
-        const tags: TagClientPayload[] = [...rows];
+        const tags: TagGetClientPayload[] = [...rows];
 
         return c.json({
             success: true as const,
@@ -30,7 +31,7 @@ const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
         (result, c) => {
             if (!result.success) return c.json({
                 success: false as const,
-                errors: result.error.issues.map(issue => ({
+                errors: result.error.issues.map((issue: ZodIssue) => ({
                     field: issue.path.join('.'),
                     message: issue.message
                 }))
@@ -41,6 +42,7 @@ const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
             try {
                 const data = await c.req.valid('json');
 
+                const result = tagCreateValidation.safeParse(data);
             } catch (e) {
                 console.error(e);
                 return c.json({
