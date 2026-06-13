@@ -4,10 +4,9 @@ export type StatusCodesSuccess = Extract<StatusCode, 200 | 201>;
 export type StatusCodesClientError = Extract<StatusCode, 400 | 401 | 403 | 404 | 409>;
 export type StatusCodeServerError = Extract<StatusCode, 500>;
 
-
 export type ApiResponseSuccess<T> = {
     success: true;
-    data: T;
+    payload: T;
 }
 
 export type ApiErrorItem = {

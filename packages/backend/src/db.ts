@@ -7,6 +7,7 @@ const sql = postgres({
     database: config.db.DB_NAME,
     username: config.db.DB_USER,
     password: config.db.DB_PASSWORD,
+    transform: postgres.toCamel
 })
 
 export default sql;

@@ -6,12 +6,12 @@ import type {
     StatusCodesClientError,
     StatusCodeServerError,
     StatusCodesSuccess
-} from "#/types/api.types.js";
+} from "#/shared/types/api.types.js";
 
 export const apiResponse = {
-    success: <T>(c: Context, data: T, status: StatusCodesSuccess = 200) => c.json({
+    success: <T>(c: Context, payload: T, status: StatusCodesSuccess = 200) => c.json({
         success: true as const,
-        data
+        payload
     } satisfies ApiResponseSuccess<T>, status),
 
     error: (
