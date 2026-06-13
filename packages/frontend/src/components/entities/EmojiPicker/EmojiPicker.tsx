@@ -19,10 +19,9 @@ import { useDevice } from '@/hooks/useDevice';
 import type { EmojiPickerProps } from '@/components/entities/EmojiPicker/EmojiPicker.types';
 import { emojiToUnified } from '@/components/entities/EmojiPicker/EmojiPicker.constants';
 
-const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps) => {
-    const [emoji, setEmoji] = useState(placeholderEmoji);
+const EmojiPicker = ({ placeholderEmoji, label }: EmojiPickerProps) => {
+    const [emoji, setEmoji] = useState('');
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    
     const [wasOpenedAtLeastOnce, setWasOpenedAtLeastOnce] = useState(false);
 
     const isMobile = useDevice('mobile');
@@ -50,7 +49,7 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
 
     const onEmojiChange = (emojiUnified: string) => {
         setEmoji(emojiUnified);
-        exportEmoji(emojiUnified);
+        // exportEmoji(emojiUnified);
     };
 
     const emojiPickerMobileProps: Partial<PickerProps> = {
@@ -74,6 +73,7 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
 
     return (
         <Stack direction='column' gap='sm' justify='space-between'>
+            <input type='hidden' name='emoji' value={emojiToUnified(emoji)}/>
             {label && (
                 <Text
                     size={4}
@@ -88,9 +88,16 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
                 data-active={isPickerOpen}
                 ref={refs.setReference}
                 {...getReferenceProps()}
+                title={emoji === '' ? 'Click to pick an emoji' : `Emoji selected. Right click to vanish!`}
+                aria-label={emoji === '' ? 'Select emoji' : 'Change or reset selected emoji'}
                 className={stylesObj.emojiButton}
+                onContextMenu={(e) => {
+                    e.preventDefault();
+                    setEmoji('');
+                    // exportEmoji('')
+                }}
             >
-                <Emoji unified={emojiToUnified(emoji)} size={24} emojiStyle={EmojiStyle.GOOGLE} />
+                <Emoji unified={emojiToUnified(emoji === '' ? placeholderEmoji : emoji)} size={24} emojiStyle={EmojiStyle.GOOGLE} />
             </button>
 
             <FloatingPortal>
