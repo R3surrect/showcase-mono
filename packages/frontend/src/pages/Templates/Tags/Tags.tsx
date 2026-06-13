@@ -11,7 +11,7 @@ import EmojiPicker from '@/components/entities/EmojiPicker/EmojiPicker'
 import Button from '@/components/entities/Button/Button'
 import { useDevice } from '@/hooks/useDevice'
 import Text from '@/components/entities/Text/Text'
-import { useTagsQuery } from '@/components/entities/Tag/api/Tag.query'
+import { useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -31,7 +31,14 @@ export const Component = () => {
             ? tagListBreakpoints.tablet
             : tagListBreakpoints.desktop
 
-    const { data, isLoading, isError } = useTagsQuery();
+    const { data, isLoading, isError } = useGetTagsQuery();
+
+    const tags = data?.success ? data.payload : [];
+    const errors = (!data?.success && data?.error) ? data.error : [];
+
+    const createTagHandler = () => {
+
+    }
 
     return <>
         <Surface>
@@ -42,7 +49,7 @@ export const Component = () => {
                     <EmojiPicker label='Иконка' placeholderEmoji='🏷️' exportEmoji={(emoji) => { console.log(emoji); return '' }} />
                 </Grid>
                 <ColorList />
-                <Button>Создать тег</Button>
+                <Button onClick={createTagHandler}>Создать тег</Button>
             </Stack>
         </Surface>
 
@@ -52,14 +59,30 @@ export const Component = () => {
                 <Stack direction='row' gap='sm' wrap={true} align='center'>
                     {isLoading && <Text color='darkgray' weight='bold'>...loading</Text>}
                     {
-                        data?.success && data.tags.slice(0, breakPoint).map((item) => (
-                            <Tag {...item} key={item.id} id={item.id} />
-                        ))
+                        tags.length > breakPoint
+                            ? tags.slice(0, breakPoint).map((item) => (
+                                <Tag
+                                    {...item}
+                                    key={item.id}
+                                    id={item.id}
+                                />
+                            ))
+                            : tags.map((item) => (
+                                <Tag
+                                    {...item}
+                                    key={item.id}
+                                    id={item.id}
+                                />
+                            ))
                     }
                     {
-                        data?.success && data?.tags.length > breakPoint && <Text weight='bold' color='darkgray'>+ {data?.tags.length - breakPoint}</Text>
+                        tags.length > breakPoint
+                        && <Text
+                            weight='bold'
+                            color='darkgray'
+                        >+ {tags.length - breakPoint}</Text>
                     }
-                    {(isError && !data?.success && data?.error) && data.error.map((err, i) =>
+                    {isError && errors.map((err, i) =>
                         <Text
                             key={i}
                             color='orange'
