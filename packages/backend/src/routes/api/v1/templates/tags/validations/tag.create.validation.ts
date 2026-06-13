@@ -5,3 +5,10 @@ export const tagCreateValidation = tagSchema.omit({
     createdAt: true,
     updatedAt: true,
 })
+
+export const tagCreateInputSchema = tagSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+    ownerId: true,
+})

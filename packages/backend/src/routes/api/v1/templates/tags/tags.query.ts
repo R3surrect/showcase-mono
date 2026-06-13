@@ -5,6 +5,7 @@ import type { Tag, TagCreateInput, TagGetClientPayload } from "./tag.types.js";
 export type FindTagsByUserId = (userId: number) => Promise<TagGetClientPayload[]>
 
 export const findTagsByUserId: FindTagsByUserId = async (userId) => {
+    console.log(userId)
     const rows = await sql<TagGetClientPayload[]>`
         SELECT id, label, color, emoji, created_at, updated_at
         FROM tags

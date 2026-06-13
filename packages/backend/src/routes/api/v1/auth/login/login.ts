@@ -14,7 +14,6 @@ const loginRouter = new Hono().post(
         loginValidation,
         (result, c) => {
             if (!result.success) return c.json({
-                success: false as const,
                 errors: result.error.issues.map(issue => ({
                     field: issue.path.join('.'),
                     message: issue.message
@@ -30,17 +29,15 @@ const loginRouter = new Hono().post(
 
         if (!user)
             return c.json({
-                success: false as const,
                 errors: [{ message: 'Login or password is incorrect' }]
             }, 401)
 
-        const hash = user['password_hash'];
+        const hash = user['passwordHash'];
 
         if (hash === undefined) {
             console.error('/api/v1/auth/login hashing error');
 
             return c.json({
-                success: false as const,
                 errors: [{ message: 'Internal server error' }]
             }, 500)
         }
@@ -48,7 +45,6 @@ const loginRouter = new Hono().post(
         const isPasswordValid = await bcrypt.compare(password, hash);
 
         if (!isPasswordValid) return c.json({
-            success: false as const,
             errors: [{ message: 'Login or password is incorrect' }]
         }, 401)
 
@@ -69,7 +65,6 @@ const loginRouter = new Hono().post(
         });
 
         return c.json({
-            success: true as const,
             data: {
                 user: {
                     id: user.id,
