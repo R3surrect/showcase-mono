@@ -82,10 +82,20 @@ export const Component = () => {
                     {...register('confirmPassword')}
                 />
                 <ErrorMessage message={errors.root?.message} />
-                <Button type='submit' variant='accent' isSubmitting={isSubmitting}>
+                <Button
+                    width='max'
+                    type='submit'
+                    variant='accent'
+                    isSubmitting={isSubmitting}
+                >
                     {isSubmitting ? 'Loading...' : 'Create account'}
                 </Button>
-                <Button type='button' variant='outline' isSubmitting={isSubmitting}>
+                <Button
+                    width='max'
+                    type='button'
+                    variant='outline'
+                    isSubmitting={isSubmitting}
+                >
                     Explore as a Guest
                 </Button>
                 <LegalNotice

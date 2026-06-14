@@ -75,10 +75,20 @@ export const Component = () => {
                     {...register('password')}
                 />
                 <ErrorMessage message={errors.root?.message} />
-                <Button type='submit' variant='accent' isSubmitting={isSubmitting}>
+                <Button
+                    width='max'
+                    type='submit'
+                    variant='accent'
+                    isSubmitting={isSubmitting}
+                >
                     {isSubmitting ? 'Loading...' : 'Login'}
                 </Button>
-                <Button type='button' variant='outline' disabled={isSubmitting}>
+                <Button
+                    width='max'
+                    type='button'
+                    variant='outline'
+                    disabled={isSubmitting}
+                >
                     Login as Guest (Demo mode)
                 </Button>
                 <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one' />
