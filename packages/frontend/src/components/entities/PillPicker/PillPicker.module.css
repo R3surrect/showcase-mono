@@ -5,6 +5,7 @@
 /**TODO Прикрутить адаптив */
 
 .container {
+  box-shadow: var(--shadow-md);
   position: relative;
   background-color: var(--lite-white);
   display: flex;

@@ -53,6 +53,7 @@ const ColorList = () => {
         </Stack>
         <Button
             variant='outline'
+            width='max'
             onClick={
                 () => setColorSet(
                     (prevColors: ColorSet[]) => [...prevColors, {

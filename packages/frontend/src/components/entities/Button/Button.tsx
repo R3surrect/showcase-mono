@@ -1,6 +1,6 @@
 import stylesObj from './Button.module.css'
 import clsx from 'clsx';
-import type { ButtonProps } from '@/components/entities/Button/Button.types';
+import type { ButtonProps, ButtonVars } from '@/components/entities/Button/Button.types';
 
 const Button = ({
   type = 'button',
@@ -9,11 +9,13 @@ const Button = ({
   isSubmitting,
   disabled,
   children,
+  width = 'fit',
   ...props
 }: ButtonProps) => {
   return <button
     ref={ref}
     className={clsx(stylesObj.button, stylesObj[variant], isSubmitting ? stylesObj.isSubmitting : '')}
+    style={{ '--button-width': width === 'fit' ? 'fit-content' : '100%' } as ButtonVars}
     disabled={disabled || isSubmitting}
     type={type}
     {...props}

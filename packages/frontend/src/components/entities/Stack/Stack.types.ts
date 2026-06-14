@@ -1,9 +1,5 @@
 import type { Ref } from "react";
-import type { Direction, Size, Justify, StackAlign } from "../_shared/system.types";
-
-export const WIDTH_TYPES = ['full', 'fit', 'auto'] as const;
-
-export type StackWidth = typeof WIDTH_TYPES[number];
+import type { Direction, Size, Justify, StackAlign, StackWidth } from "../_shared/system.types";
 
 export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
     children: React.ReactNode;
