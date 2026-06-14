@@ -1,8 +1,10 @@
-import type { TagClientPayload } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
+import type { TagGetClientPayload } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
 
 export type TagProps = Omit<
     Partial<React.HTMLAttributes<HTMLDivElement>>, 'style' | 'className' | 'color' | 'id'
-> & TagClientPayload
+>
+    & Omit<TagGetClientPayload, 'id' | 'createdAt'>
+    & Partial<Pick<TagGetClientPayload, 'id' | 'createdAt'>>
 
 export interface ColorVariable extends React.CSSProperties {
     '--tag-color': string;

@@ -24,3 +24,8 @@
 .tag>* {
     display: block;
 }
+
+.tag>p {
+    font-size: var(--font-size-level-6);
+    font-weight: 450;
+}

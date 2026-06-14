@@ -35,14 +35,20 @@ export const Component = () => {
     const hasMoreTags = tags.length > breakpoint;
     const visibleTags = hasMoreTags ? tags.slice(0, breakpoint) : tags;
 
-
     const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         console.log(Object.fromEntries(data.entries()))
 
         const rawTag = Object.fromEntries(data.entries());
-        const result = tagCreateInputSchema.safeParse(rawTag);
+        const result = tagCreateInputSchema.safeParse({
+            label: rawTag.label,
+            emoji: rawTag.emoji,
+            color: JSON.parse(rawTag.color.toString()),
+        });
+
+        console.log(rawTag);
+        console.log(result);
 
         if (!result.success) return console.error(treeifyError(result.error));
 
@@ -68,6 +74,7 @@ export const Component = () => {
             <Stack gap='md'>
                 <Heading level={3} variant='secondary'>Существующие теги</Heading>
                 <Stack direction='row' gap='sm' wrap={true} align='center'>
+                    {tags.length === 0 && <Tag label='Tags list empty' color={{ h: 68, s: 30, l: 21 }} emoji={'♻'} />}
                     {
                         !isError && visibleTags.slice(0, breakpoint).map((item) => (
                             <Tag

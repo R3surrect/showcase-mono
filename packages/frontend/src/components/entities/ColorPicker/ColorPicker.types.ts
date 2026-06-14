@@ -1,3 +1,5 @@
+import type { HslColor } from "colord";
+
 export interface ColorPickerProps {
-    exportColor: (e: string) => void;
+    exportColor: (e: HslColor) => void;
 }
