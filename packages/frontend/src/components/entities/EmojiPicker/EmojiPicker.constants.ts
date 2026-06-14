@@ -1,4 +1,5 @@
-export function emojiToUnified(emoji: string): string {
+export function emojiToUnified(emoji?: string): string {
+    if (!emoji) return '';
     const isUnified = /^[0-9a-fA-F-]+$/.test(emoji);
     if (isUnified) return emoji;
 

@@ -28,4 +28,12 @@ export const getLocalStorageColors = () => {
     }
 }
 
-export const getHslString = (hslObject: HslColor) => `hsl(${hslObject.h}, ${hslObject.s}%, ${hslObject.l}%)`
+export const getHslString = (hslObject: HslColor) => {
+    if (!hslObject) return 'hsl(0, 0%, 0%)';
+    let result = hslObject;
+
+    if (typeof hslObject === 'string')
+        result = JSON.parse(hslObject);
+
+    return `hsl(${result.h}, ${result.s}%, ${result.l}%)`;
+}

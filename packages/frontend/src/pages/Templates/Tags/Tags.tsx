@@ -21,7 +21,7 @@ export const Component = () => {
     const isMobile = useDevice('mobile');
     const isTablet = useDevice('tablet');
 
-    const { mutate, isPending, } = useCreateTagQuery();
+    const { mutate } = useCreateTagQuery();
 
     const breakpoint = isMobile
         ? tagListBreakpoints.mobile
@@ -38,17 +38,17 @@ export const Component = () => {
     const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-        console.log(Object.fromEntries(data.entries()))
-
         const rawTag = Object.fromEntries(data.entries());
         const result = tagCreateInputSchema.safeParse({
             label: rawTag.label,
             emoji: rawTag.emoji,
             color: JSON.parse(rawTag.color.toString()),
         });
-
-        console.log(rawTag);
-        console.log(result);
+        console.log({
+            label: rawTag.label,
+            emoji: rawTag.emoji,
+            color: JSON.parse(rawTag.color.toString()),
+        });
 
         if (!result.success) return console.error(treeifyError(result.error));
 

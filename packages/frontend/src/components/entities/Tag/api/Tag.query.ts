@@ -2,13 +2,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { TagsService } from './Tag.service';
 import type { TagCreateClientPayload } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
 
-export const tagsKeys = {
-    all: ['tags'] as const,
-};
+export const tagsKeys = { all: ['tags'] as const };
 
 export const useGetTagsQuery = () => {
     return useQuery({
         queryKey: tagsKeys.all,
+
+        staleTime: 5 * 60 * 1000,
+        retry: 3,
+        retryDelay: (index) => 1000 * (index * 2),
+
         queryFn: async () => {
             const [res] = await Promise.all([
                 TagsService.getAll(),
@@ -17,9 +20,7 @@ export const useGetTagsQuery = () => {
 
             return res;
         },
-        staleTime: 5 * 60 * 1000,
-        retry: 3,
-        retryDelay: (index) => 1000 * (index * 2),
+
         placeholderData: [{
             id: 0,
             label: 'Loading...',
