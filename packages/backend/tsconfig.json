@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
@@ -17,7 +19,12 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "paths": {
-      "#/*": ["./src/*"]
+      "#/*": [
+        "./src/*"
+      ]
     }
   },
+  "include": [
+    "src/**/*"
+  ],
 }

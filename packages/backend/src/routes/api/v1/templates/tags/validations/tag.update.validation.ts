@@ -1,4 +1,4 @@
-import { tagSchema } from "./tag.schema.js";
+import { tagSchema } from "../tag.schema.js";
 
 export const tagUpdateValidation = tagSchema
     .pick({

@@ -19,10 +19,9 @@ import { useDevice } from '@/hooks/useDevice';
 import type { EmojiPickerProps } from '@/components/entities/EmojiPicker/EmojiPicker.types';
 import { emojiToUnified } from '@/components/entities/EmojiPicker/EmojiPicker.constants';
 
-const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps) => {
-    const [emoji, setEmoji] = useState(placeholderEmoji);
+const EmojiPicker = ({ placeholderEmoji, label }: EmojiPickerProps) => {
+    const [emoji, setEmoji] = useState('');
     const [isPickerOpen, setIsPickerOpen] = useState(false);
-    
     const [wasOpenedAtLeastOnce, setWasOpenedAtLeastOnce] = useState(false);
 
     const isMobile = useDevice('mobile');
@@ -48,11 +47,6 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
     const dismiss = useDismiss(context);
     const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss]);
 
-    const onEmojiChange = (emojiUnified: string) => {
-        setEmoji(emojiUnified);
-        exportEmoji(emojiUnified);
-    };
-
     const emojiPickerMobileProps: Partial<PickerProps> = {
         width: '100%',
         height: '35dvh',
@@ -60,6 +54,7 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
 
     const pickerRender = wasOpenedAtLeastOnce ? (
         <Picker
+            searchPlaceHolder=""
             previewConfig={{ showPreview: false }}
             className={stylesObj.emojiPicker}
             defaultSkinTone={SkinTones.LIGHT}
@@ -67,13 +62,14 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
             theme={Theme.AUTO}
             lazyLoadEmojis={true}
             searchDisabled
-            onEmojiClick={(data) => onEmojiChange(data.unified)}
+            onEmojiClick={(data) => setEmoji(data.unified)}
             {...(isMobile && emojiPickerMobileProps)}
         />
     ) : null;
 
     return (
         <Stack direction='column' gap='sm' justify='space-between'>
+            <input type='hidden' name='emoji' value={emoji} />
             {label && (
                 <Text
                     size={4}
@@ -87,10 +83,17 @@ const EmojiPicker = ({ placeholderEmoji, label, exportEmoji }: EmojiPickerProps)
             <button
                 data-active={isPickerOpen}
                 ref={refs.setReference}
-                {...getReferenceProps()}
+                type='button'
+                title={emoji === '' ? 'Click to pick an emoji' : `Emoji selected. Right click to vanish!`}
+                aria-label={emoji === '' ? 'Select emoji' : 'Change or reset selected emoji'}
                 className={stylesObj.emojiButton}
+                onContextMenu={(e) => {
+                    e.preventDefault();
+                    setEmoji('');
+                }}
+                {...getReferenceProps()}
             >
-                <Emoji unified={emojiToUnified(emoji)} size={24} emojiStyle={EmojiStyle.GOOGLE} />
+                <Emoji unified={emojiToUnified(emoji === '' ? placeholderEmoji : emoji)} size={24} emojiStyle={EmojiStyle.GOOGLE} />
             </button>
 
             <FloatingPortal>

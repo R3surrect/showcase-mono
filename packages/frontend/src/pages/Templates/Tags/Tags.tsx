@@ -3,69 +3,89 @@ import Surface from '@/components/entities/Surface/Surface.tsx'
 import Grid from '@/components/entities/Grid/Grid'
 import Input from '@components/entities/Input/Input'
 import Stack from '@components/entities/Stack/Stack'
-// import { Grid } from '@components/ui/Grid/Grid'
-// import Button from '@components/ui/Button/Button'
 import Tag from '@components/entities/Tag/Tag'
 import ColorList from '@/components/entities/ColorList/ColorList'
 import EmojiPicker from '@/components/entities/EmojiPicker/EmojiPicker'
 import Button from '@/components/entities/Button/Button'
-import { useDevice } from '@/hooks/useDevice'
 import Text from '@/components/entities/Text/Text'
-import { useTagsQuery } from '@/components/entities/Tag/api/Tag.query'
+import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
+import { useDevice } from '@/hooks/useDevice'
+import { tagListBreakpoints } from './Tags.constants'
+import { tagCreateInputSchema } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create.validation'
+import { treeifyError } from 'zod'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const Component = () => {
-    const tagListBreakpoints = {
-        mobile: 15,
-        tablet: 30,
-        desktop: 45
-    }
     const isMobile = useDevice('mobile');
     const isTablet = useDevice('tablet');
 
-    const breakPoint = isMobile
+    const { mutate } = useCreateTagQuery();
+
+    const breakpoint = isMobile
         ? tagListBreakpoints.mobile
         : isTablet
             ? tagListBreakpoints.tablet
             : tagListBreakpoints.desktop
 
-    const { data, isLoading, isError } = useTagsQuery();
+    const { data, isError, error } = useGetTagsQuery();
+
+    const tags = data ?? [];
+    const hasMoreTags = tags.length > breakpoint;
+    const visibleTags = hasMoreTags ? tags.slice(0, breakpoint) : tags;
+
+    const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const rawTag = Object.fromEntries(data.entries());
+        const result = tagCreateInputSchema.safeParse({
+            label: rawTag.label,
+            emoji: rawTag.emoji,
+            color: JSON.parse(rawTag.color.toString()),
+        });
+        console.log({
+            label: rawTag.label,
+            emoji: rawTag.emoji,
+            color: JSON.parse(rawTag.color.toString()),
+        });
+
+        if (!result.success) return console.error(treeifyError(result.error));
+
+        mutate(result.data)
+    }
 
     return <>
-        <Surface>
-            <Stack gap='md'>
-                <Heading level={3} variant='secondary'>Создать тег</Heading>
-                <Grid columns={2} templateColumns='12fr 1fr'>
-                    <Input labelText='Название' placeholder='Новый тег' autoComplete='off' inputMode='text' />
-                    <EmojiPicker label='Иконка' placeholderEmoji='🏷️' exportEmoji={(emoji) => { console.log(emoji); return '' }} />
-                </Grid>
-                <ColorList />
-                <Button>Создать тег</Button>
-            </Stack>
-        </Surface>
+        <form onSubmit={submitHandler}>
+            <Surface>
+                <Stack gap='md'>
+                    <Heading level={3} variant='secondary'>Создать тег</Heading>
+                    <Grid columns={2} templateColumns='12fr 1fr'>
+                        <Input name='label' labelText='Название' placeholder='Новый тег' autoComplete='off' inputMode='text' />
+                        <EmojiPicker label='Иконка' placeholderEmoji='🏷️' />
+                    </Grid>
+                    <ColorList />
+                    <Button type='submit'>Создать тег</Button>
+                </Stack>
+            </Surface>
+        </form>
 
         <Surface>
             <Stack gap='md'>
                 <Heading level={3} variant='secondary'>Существующие теги</Heading>
                 <Stack direction='row' gap='sm' wrap={true} align='center'>
-                    {isLoading && <Text color='darkgray' weight='bold'>...loading</Text>}
+                    {tags.length === 0 && <Tag label='Tags list empty' color={{ h: 68, s: 30, l: 21 }} emoji={'♻'} />}
                     {
-                        data?.success && data.tags.slice(0, breakPoint).map((item) => (
-                            <Tag {...item} key={item.id} id={item.id} />
+                        !isError && visibleTags.slice(0, breakpoint).map((item) => (
+                            <Tag
+                                {...item}
+                                key={item.id}
+                                id={item.id}
+                            />
                         ))
                     }
-                    {
-                        data?.success && data?.tags.length > breakPoint && <Text weight='bold' color='darkgray'>+ {data?.tags.length - breakPoint}</Text>
-                    }
-                    {(isError && !data?.success && data?.error) && data.error.map((err, i) =>
-                        <Text
-                            key={i}
-                            color='orange'
-                            weight='bolder'
-                        >{err.message}</Text>
-                    )}
+                    {!isError && hasMoreTags && <Text weight='bold' color='darkgray' >+ {tags.length - breakpoint}</Text>}
+                    {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}
                 </Stack>
             </Stack>
         </Surface>

@@ -10,7 +10,6 @@ const meRouter = new Hono().get(
         const token = getCookie(c, 'token');
 
         if (!token) return c.json({
-            success: false as const,
             errors: [{
                 message: 'Unauthorized: No Token Provided'
             }]
@@ -22,7 +21,6 @@ const meRouter = new Hono().get(
             payload = await verify(token, config.jwtSecret, 'HS256');
         } catch (e) {
             return c.json({
-                success: false as const,
                 errors: [{ message: 'Invalid or expired token' }]
             })
         }
@@ -35,13 +33,11 @@ const meRouter = new Hono().get(
             console.warn(`User ${userId} not found in DB but had valid JWT`);
 
             return c.json({
-                success: false as const,
                 errors: [{ message: 'Unauthorized: Session is invalid' }]
             }, 401)
         }
 
         return c.json({
-            success: true as const,
             data: {
                 user: {
                     id: user.id,

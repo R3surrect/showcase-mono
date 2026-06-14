@@ -48,5 +48,5 @@ export const config = {
     },
     jwtSecret: env.JWT_SECRET,
     allowedOrigins: env.ALLOWED_ORIGINS,
-    nodeEnv: env.NODE_ENV === 'production',
+    isProduction: env.NODE_ENV === 'production',
 } as const;

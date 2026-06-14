@@ -5,64 +5,67 @@ import Stack from '@components/entities/Stack/Stack.tsx';
 import Button from '@components/entities/Button/Button';
 import ColorPicker from '@components/entities/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
-import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
+import { getHslString, getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
+import type { ColorSet } from './ColorList.types';
 
 const ColorList = () => {
-    const [uiState, setUiState] = useState({
-        colorSet: getLocalStorageColors(),
-        selectedColor: INITIAL_COLORS[0],
-        colorPickerColor: {
-            h: 0,
-            s: 0,
-            l: 0,
-        },
-    })
+    const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
+    const [selectedColor, setSelectedColor] = useState(INITIAL_COLORS[0]);
+    const [colorPickerColor, setColorPickerColor] = useState({ h: 0, s: 0, l: 0 })
 
     useEffect(() => {
-        localStorage.setItem('colorSet', JSON.stringify(uiState.colorSet));
-    }, [uiState.colorSet])
-
-    const onChangePickerColor = (color: string) => {
-        setUiState((prev) => ({
-            ...prev,
-            colorPickerColor: colord(color).toHsl(),
-        }))
-    }
+        localStorage.setItem('colorSet', JSON.stringify(colorSet));
+    }, [colorSet])
 
     return <Stack gap='md' >
-        <Heading level={6} variant='secondary' > Цвет </Heading>
-        <Stack wrap={true} direction='row' >
-            {
-                [...INITIAL_COLORS, ...uiState.colorSet].map((item) => (
-                    <div
-                        key={item.id}
-                        className={stylesObj.colorElement}
-                        onClick={() => setUiState((prev) => ({ ...prev, selectedColor: item }))}
-                        style={{
-                            backgroundColor: `${item.color}`,
-                            boxShadow: item.id === uiState.selectedColor.id
-                                ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${uiState.selectedColor.color}`
-                                : ''
-                        }}
-                    />
-                ))}
+        <input
+            type='hidden'
+            name='color'
+            value={
+                JSON.stringify({
+                    h: colord(selectedColor.color).toHsl().h,
+                    s: colord(selectedColor.color).toHsl().s,
+                    l: colord(selectedColor.color).toHsl().l,
+                })
+            }
+        />
 
-            <ColorPicker exportColor={onChangePickerColor} />
+        <Heading level={6} variant='secondary'>Цвет</Heading>
+        <Stack wrap={true} direction='row'>
+            {
+                [...INITIAL_COLORS, ...colorSet].map((item) => {
+                    return (
+                        <div
+                            key={item.id}
+                            className={stylesObj.colorElement}
+                            onClick={() => setSelectedColor(item)}
+                            style={{
+                                backgroundColor: getHslString(item.color),
+                                boxShadow: item.id === selectedColor.id
+                                    ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${getHslString(selectedColor.color)}`
+                                    : ''
+                            }}
+                        />
+                    )
+                })
+            }
+            <ColorPicker exportColor={(color) => setColorPickerColor(color)} />
         </Stack>
         <Button
             variant='outline'
             onClick={
-                () => setUiState((prev) => ({
-                    ...prev,
-                    colorSet: [
-                        ...prev.colorSet, {
-                            id: (Date.now() + Math.random()).toString(36),
-                            color: `hsl(${Math.round(uiState.colorPickerColor.h)}, ${Math.round(uiState.colorPickerColor.s)}%, ${Math.round(uiState.colorPickerColor.l)}%)`
+                () => setColorSet(
+                    (prevColors: ColorSet[]) => [...prevColors, {
+                        id: (Date.now() + Math.random()).toString(36),
+                        color: {
+                            h: colorPickerColor.h,
+                            s: colorPickerColor.s,
+                            l: colorPickerColor.l
                         }
-                    ]
-                }))}>
-            Добавить цвет
-        </Button>
+                    }]
+                )
+            }
+        >Добавить цвет</Button>
     </Stack >
 }
 

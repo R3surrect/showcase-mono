@@ -1,21 +1,22 @@
+import type { HslColor } from "colord";
 import type { ColorSet } from "./ColorList.types";
 
 export const INITIAL_COLORS: ColorSet[] = [
-    { id: 'clr-66a', color: 'hsl(66, 26%, 35%)' },
-    { id: 'clr-11b', color: 'hsl(11, 35%, 47%)' },
-    { id: 'clr-35c', color: 'hsl(35, 36%, 53%)' },
-    { id: 'clr-207d', color: 'hsl(207, 10%, 42%)' },
-    { id: 'clr-37e', color: 'hsl(37, 13%, 56%)' },
-    { id: 'clr-34f', color: 'hsl(34, 39%, 40%)' },
-    { id: 'clr-94g', color: 'hsl(94, 18%, 25%)' },
-    { id: 'clr-300h', color: 'hsl(300, 11%, 33%)' },
-    { id: 'clr-20i', color: 'hsl(20, 39%, 65%)' },
-    { id: 'clr-205j', color: 'hsl(205, 15%, 29%)' },
-    { id: 'clr-300k', color: 'hsl(300, 9%, 60%)' },
-    { id: 'clr-175l', color: 'hsl(175, 11%, 59%)' },
-    { id: 'clr-37m', color: 'hsl(37, 29%, 57%)' },
-    { id: 'clr-11n', color: 'hsl(11, 26%, 24%)' },
-    { id: 'clr-11o', color: 'hsl(11, 36%, 35%)' },
+    { id: 'clr-66a', color: { h: 66, s: 26, l: 35 } },
+    { id: 'clr-11b', color: { h: 11, s: 35, l: 47 } },
+    { id: 'clr-35c', color: { h: 35, s: 36, l: 53 } },
+    { id: 'clr-207d', color: { h: 207, s: 10, l: 42 } },
+    { id: 'clr-37e', color: { h: 37, s: 13, l: 56 } },
+    { id: 'clr-34f', color: { h: 34, s: 39, l: 40 } },
+    { id: 'clr-94g', color: { h: 94, s: 18, l: 25 } },
+    { id: 'clr-300h', color: { h: 300, s: 11, l: 33 } },
+    { id: 'clr-20i', color: { h: 20, s: 39, l: 65 } },
+    { id: 'clr-205j', color: { h: 205, s: 15, l: 29 } },
+    { id: 'clr-300k', color: { h: 300, s: 9, l: 60 } },
+    { id: 'clr-175l', color: { h: 175, s: 11, l: 59 } },
+    { id: 'clr-37m', color: { h: 37, s: 29, l: 57 } },
+    { id: 'clr-11n', color: { h: 11, s: 26, l: 24 } },
+    { id: 'clr-11o', color: { h: 11, s: 36, l: 35 } },
 ]
 
 export const getLocalStorageColors = () => {
@@ -25,4 +26,14 @@ export const getLocalStorageColors = () => {
     catch (e) {
         console.log(e);
     }
+}
+
+export const getHslString = (hslObject: HslColor) => {
+    if (!hslObject) return 'hsl(0, 0%, 0%)';
+    let result = hslObject;
+
+    if (typeof hslObject === 'string')
+        result = JSON.parse(hslObject);
+
+    return `hsl(${result.h}, ${result.s}%, ${result.l}%)`;
 }

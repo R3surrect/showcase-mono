@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import registerValidation from "./register.validation.js";
 import postgres from "postgres";
 import { PG_ERRORS } from "#/db.js";
+import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
 
 const registerRouter = new Hono().post(
     '/register',
@@ -13,11 +14,7 @@ const registerRouter = new Hono().post(
         registerValidation,
         (result, c) => {
             if (!result.success) return c.json({
-                success: false as const,
-                errors: result.error.issues.map(issue => ({
-                    field: issue.path.join('.'),
-                    message: issue.message
-                }))
+                errors: zodToApiErrors(result.error.issues)
             }, 400)
         }
     ),
@@ -28,19 +25,16 @@ const registerRouter = new Hono().post(
         try {
             const registerResult = await registerUserQuery(email, hash);
             return c.json({
-                success: true as const,
                 user: registerResult
             }, 201)
         } catch (e: unknown) {
             if (e instanceof postgres.PostgresError) {
                 if (e.code === PG_ERRORS['UNIQUE_VIOLATION'])
                     return c.json({
-                        success: false as const,
                         errors: [{ field: 'email', message: 'This email is already in use' }]
                     }, 400)
             }
             return c.json({
-                success: false as const,
                 errors: [{ field: null, message: e }]
             }, 500)
         }

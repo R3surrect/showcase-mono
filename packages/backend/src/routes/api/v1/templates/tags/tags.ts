@@ -1,52 +1,45 @@
 import { Hono } from "hono";
-import findTagsByUserId from "./tags.query.js";
 import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
-import { tagCreateValidation } from "./tag.create.validation.js";
-import type { TagClientPayload } from "./tag.types.js";
+import { config } from "#/config.js";
+import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
+import { tagCreateInputSchema } from "./validations/tag.create.validation.js";
+import { createTag, findTagsByUserId } from "./tags.query.js";
 
 const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
     try {
-        const rows = await findTagsByUserId(c.get('user').id)
-
-        const tags: TagClientPayload[] = [...rows];
-
-        return c.json({
-            success: true as const,
-            tags: tags,
-        }, 200);
-
+        const tags = await findTagsByUserId(c.get('user').id)
+        return c.json(tags, 200);
     } catch (e) {
-        console.log('api/v1/templates/tags error while sending tags filtered by user');
-        return c.json({
-            success: false as const,
-            errors: [{ message: 'Internal server error' }]
-        }, 500)
+        !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: ${e}`);
+        return c.json([{ message: 'Internal server error' }], 500)
     }
 })
     .post('/', zValidator(
         'json',
-        tagCreateValidation,
+        tagCreateInputSchema,
         (result, c) => {
-            if (!result.success) return c.json({
-                success: false as const,
-                errors: result.error.issues.map(issue => ({
-                    field: issue.path.join('.'),
-                    message: issue.message
-                }))
-            }, 400)
+            if (!result.success)
+                return c.json(zodToApiErrors(result.error.issues), 400);
         }
     ),
         async (c) => {
             try {
                 const data = await c.req.valid('json');
 
+                const newTag = (await createTag({
+                    ...data,
+                    ownerId: c.get('user').id
+                }))[0];
+
+                if (!newTag) {
+                    !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: Empty response array from DB while creating tag`);
+                    return c.json([{ message: 'Internal server error' }], 500)
+                }
+                return c.json(newTag, 201);
             } catch (e) {
-                console.error(e);
-                return c.json({
-                    success: false as const,
-                    errors: [{ message: 'Internal server error' }]
-                }, 500)
+                !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method} ${c.req.path}`, e);
+                return c.json([{ message: 'Internal server error' }], 500)
             }
         }
     )
