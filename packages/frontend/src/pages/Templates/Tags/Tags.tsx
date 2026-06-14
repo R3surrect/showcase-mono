@@ -65,7 +65,7 @@ export const Component = () => {
                         <EmojiPicker label='Иконка' placeholderEmoji='🏷️' />
                     </Grid>
                     <ColorList />
-                    <Button type='submit'>Создать тег</Button>
+                    <Button type='submit' width='max'>Создать тег</Button>
                 </Stack>
             </Surface>
         </form>

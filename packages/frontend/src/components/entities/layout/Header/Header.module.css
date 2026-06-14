@@ -1,25 +1,8 @@
 @import url('@global/styles/_variables.css');
 
 .header {
-    display: flex;
     grid-area: header;
-    align-items: center;
-    justify-items: center;
-    justify-content: space-between;
     padding: .85rem 1.5rem;
     background: var(--header-bg);
     border-bottom: 1px solid var(--neutral-250);
-}
-
-.date {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .2rem
-
-}
-
-.date span {
-    font-size: var(--helper-text-size);
 }

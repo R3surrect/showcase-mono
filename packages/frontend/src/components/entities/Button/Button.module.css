@@ -4,13 +4,12 @@
 .button {
     transition: opacity 0.2s ease, box-shadow 0.2s ease;
     padding: 0.7em;
-    width: 100%;
+    width: var(--button-width, fit-content);
     box-sizing: border-box;
     font-size: var(--ui-main-size);
     font-weight: 500;
     border-radius: var(--border-radius-4);
     cursor: pointer;
-
     backface-visibility: hidden;
 }
 
