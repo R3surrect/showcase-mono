@@ -5,10 +5,11 @@
 }
 
 :root {
-    --status-success: var(--warm-green-500);
-    --status-pending: var(--warm-orange-400);
-    --status-error:   var(--warm-red-400);
-    --status-info:    var(--cold-blue-grey-400);
+    --status-success:   var(--warm-green-500);
+    --status-scheduled: var(--warm-yellow-400);
+    --status-pending:   var(--warm-orange-400);
+    --status-error:     var(--warm-red-400);
+    --status-info:      var(--cold-blue-grey-400);
 }
 
 :root {

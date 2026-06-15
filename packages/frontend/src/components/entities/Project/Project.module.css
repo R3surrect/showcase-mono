@@ -8,3 +8,38 @@
     width: 3rem;
     height: 3rem;
 }
+
+.progress {
+    display: flex;
+    flex-direction: row;
+    height: .5rem;
+    border-radius: var(--border-radius-15);
+}
+.progress > div {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+}
+
+.progress > .completed {
+    background-color: var(--warm-green-700);
+    width: var(--completed-width);
+}
+.progress > .pending {
+    background-color: var(--warm-orange-400);
+    width: var(--pending-width);
+}
+.progress > .overdue {
+    background-color: var(--warm-red-400);
+    width: var(--overdue-width);
+}
+.progress > .scheduled {
+    background-color: var(--cold-blue-grey-400);
+    width: var(--scheduled-width);
+}
+.progress > .in_progress {
+    background-color: var(--warm-yellow-400);
+    width: var(--in-progress-width);
+}
