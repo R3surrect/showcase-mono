@@ -1,0 +1,10 @@
+@import url("@global/styles/_variables");
+
+.iconWrapper {
+    box-sizing: border-box;
+    padding: 0.875rem;
+    background-color: color-mix(in srgb, var(--project-color, --warm-green-700), transparent var(--opacity-super));
+    border-radius: var(--border-radius-15);
+    width: 3rem;
+    height: 3rem;
+}
