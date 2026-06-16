@@ -8,7 +8,7 @@ import Grid from '@components/entities/Grid/Grid';
 
 export const Component = () => {
     return (
-        <Stack gap='lg' wrap={true}>
+        <Stack gap='md' wrap={true}>
             <ContentHeader
                 title="Шаблоны и теги"
                 subtitle="Готовые заготовки для задач, тегов и управление метками"

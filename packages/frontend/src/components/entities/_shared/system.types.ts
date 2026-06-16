@@ -1,3 +1,4 @@
+import type { HTMLAttributes } from "react";
 import type {
     BASE_ALIGN_TYPES,
     BOX_ALIGN_TYPES,
@@ -21,3 +22,6 @@ export type TextAlign = typeof TEXT_ALIGN_TYPES[number];
 export type StackAlign = typeof STACK_ALIGN_TYPES[number];
 export type OpacityLevel = typeof OPACITY_TYPES[number];
 export type Heights = typeof HEIGHT_TYPES[number];
+
+//* DOM frequently using types
+export type DivUiComponent = Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'className'>;
