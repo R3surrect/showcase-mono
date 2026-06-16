@@ -12,14 +12,6 @@ export const TEMPLATES_ROUTES: PillPickerItem[] = [
     },
     {
         icon: LucideTag,
-        value: 'tagTemplates',
-        label: 'Tag Templates',
-        to: 'tagTemplates',
-        isDefault: false,
-        lazy: () => import('@pages/Templates/TagTemplates/TagTemplates.tsx')
-    },
-    {
-        icon: LucideTag,
         value: 'tags',
         label: 'Tags',
         to: 'tags',
