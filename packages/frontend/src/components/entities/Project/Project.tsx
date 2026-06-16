@@ -25,9 +25,10 @@ const Project = ({ emoji, color, isPinned = false, label, description, tasks, ..
                             '--project-color': getHslString(color || DEFAULT_HSL_COLOR)
                         } as ProjectVars}
                     >
-                        {isValidElement(emoji)
-                            ? emoji
-                            : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.GOOGLE} />
+                        {
+                            isValidElement(emoji)
+                                ? emoji
+                                : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.GOOGLE} />
                         }
                     </div>
                 }
