@@ -1,6 +1,7 @@
 @import url("@global/styles/_variables");
 
 .iconWrapper {
+    position: relative;
     box-sizing: border-box;
     padding: 0.875rem;
     background-color: color-mix(in srgb, var(--project-color, --warm-green-700), transparent var(--opacity-super));
@@ -8,3 +9,14 @@
     width: 3rem;
     height: 3rem;
 }
+
+.pin {
+    transition: .1s ease-in;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.pin[data-pinned="true"]{rotate: 0deg}
+.pin[data-pinned="false"]{rotate: 45deg}

@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS tags (
 CREATE TABLE IF NOT EXISTS projects (
     id SERIAL PRIMARY KEY,
     label VARCHAR(50) NOT NULL,
+    emoji VARCHAR(64) DEFAULT '📁',
+    color JSONB DEFAULT '{"h": 0, "s": 0, "l": 50}' NOT NULL,
     details TEXT,
     owner_id INT NOT NULL,
     priority priority_enum DEFAULT 'medium',
@@ -35,6 +37,7 @@ CREATE TABLE IF NOT EXISTS projects (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
+    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     CONSTRAINT fk_projects_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS tasks (
@@ -51,6 +54,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
+    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     CONSTRAINT fk_tasks_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_tasks_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
@@ -63,6 +67,7 @@ CREATE TABLE IF NOT EXISTS notes (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
+    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     project_id INT NOT NULL,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
