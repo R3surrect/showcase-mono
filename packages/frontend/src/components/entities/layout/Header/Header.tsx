@@ -2,7 +2,7 @@ import Stack from '@components/entities/Stack/Stack';
 import Text from '@components/entities/Text/Text';
 import stylesObj from './Header.module.css';
 import Button from '../../Button/Button';
-import { useLogoutQuery } from '../../Tag/api/Auth.query';
+import { useLogoutQuery } from '@components/entities/auth/api/Auth.query';
 
 const Header = () => {
     const { mutate: logout } = useLogoutQuery();
