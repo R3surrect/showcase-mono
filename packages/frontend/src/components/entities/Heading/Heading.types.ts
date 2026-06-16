@@ -10,3 +10,7 @@ export interface HeadingProps {
     align?: TextAlign;
     children: React.ReactNode;
 }
+
+export interface HeadingVars extends React.CSSProperties {
+    '--heading-text-align': string;
+}

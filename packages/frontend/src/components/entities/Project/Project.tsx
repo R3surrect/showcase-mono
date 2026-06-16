@@ -8,25 +8,16 @@ import { getHslString } from '@components/entities/ColorList/ColorList.constants
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import { emojiToUnified } from '@components/entities/EmojiPicker/EmojiPicker.constants';
 import Text from '@components/entities/Text/Text';
+import Progress from '../Progress/Progress';
+import { sumTasks } from './Project.constants';
+import { isValidElement } from 'react';
 
-const tasksMock = { completed: 25, pending: 50, overdue: 30, scheduled: 40, inProgress: 15 };
+const Project = ({ emoji, color, isPinned = false, label, description, tasks, ...props }: ProjectProps) => {
+    const tasksCount = sumTasks(tasks)
 
-const sortTasks = (tasks) => {
-    const keys = Object.keys(tasks);
-    const sortedTasks = {};
-
-    keys.sort((a, b) => tasks[a] - tasks[b])
-
-    for (const key of keys) {
-        sortedTasks[key] = tasks[key];
-    }
-}
-
-const Project = ({ emoji, color, isPinned = false, label, description }: ProjectProps) => {
-
-    return <Surface variant="solid" isAnimated>
+    return <Surface variant="solid" isAnimated {...props}>
         <Stack direction="column" gap="md">
-            <Stack direction="row" gap="md" align='center'>
+            <Stack direction="row" gap="sm" align='center'>
                 {emoji &&
                     <div
                         className={stylesObj.iconWrapper}
@@ -34,9 +25,9 @@ const Project = ({ emoji, color, isPinned = false, label, description }: Project
                             '--project-color': getHslString(color || DEFAULT_HSL_COLOR)
                         } as ProjectVars}
                     >
-                        {typeof emoji === 'string'
-                            ? <Emoji unified={emojiToUnified(emoji)} size={20} emojiStyle={EmojiStyle.GOOGLE} />
-                            : emoji
+                        {isValidElement(emoji)
+                            ? emoji
+                            : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.GOOGLE} />
                         }
                     </div>
                 }
@@ -45,14 +36,16 @@ const Project = ({ emoji, color, isPinned = false, label, description }: Project
                     <Text color='lightgray' weight='bold' size={6}>{description}</Text>
                 </Stack>
             </Stack>
-            <Text color='lightgray' weight='bold' size={6}>{description}</Text>
-            <div className={stylesObj.progress}>
-                <div className={stylesObj.completed} id='completed'></div>
-                <div className={stylesObj.pending} id='pending'></div>
-                <div className={stylesObj.overdue} id='overdue'></div>
-                <div className={stylesObj.scheduled} id='scheduled'></div>
-                <div className={stylesObj.in_progress} id='in_progress'></div>
-            </div>
+            <Stack direction='column' gap='sm'>
+                <Text
+                    color='lightgray'
+                    weight='bold'
+                    size={6}
+                >
+                    {tasksCount} tasks ({tasks.completed} completed)
+                </Text>
+                <Progress all={tasksCount} value={tasks.completed} color={color} />
+            </Stack>
         </Stack>
     </Surface>
 }

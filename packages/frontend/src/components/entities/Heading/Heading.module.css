@@ -17,9 +17,9 @@ h6 { font-size: var(--helper-text-size)}
 .heading {
     margin: 0;
     padding: 0;
+    vertical-align: middle;
+    text-align: var(--heading-text-align, start);
 }
-
-/** Variants */
 
 .accent, .secondary {
     color: var(--neutral-750);
@@ -30,8 +30,6 @@ h6 { font-size: var(--helper-text-size)}
 .secondary{
     font-family: var(--font-main);
     color: var(--neutral-750);
-    display: inline-block;
-    text-align: start;
 }
 
 .subtitleAccent {

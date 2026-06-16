@@ -1,12 +1,21 @@
 import type { HslColor } from "colord";
-import type { DivUiComponent } from "../_shared/system.types"
+import type { HTMLMotionProps } from "motion/react";
 
-export interface ProjectProps extends Omit<DivUiComponent, 'color'> {
+export interface Task {
+    completed: number;
+    pending: number;
+    overdue: number;
+    scheduled: number;
+    inProgress: number;
+}
+
+export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color'> {
     emoji?: string | React.ReactNode;
     label: string;
     color?: HslColor;
     isPinned?: boolean;
     description?: string;
+    tasks: Task
 }
 
 export interface ProjectVars extends React.CSSProperties {

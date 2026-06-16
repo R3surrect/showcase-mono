@@ -1,0 +1,27 @@
+.progress {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    border-radius: var(--border-radius-15);
+    height: .5rem;
+    width: 100%;
+    background-color: color-mix(in srgb, var(--warm-gray-300), transparent var(--opacity-super));
+}
+
+.progress,
+.progress .value {
+    border-radius: var(--border-radius-15);
+}
+
+.progress>div {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.progress>.value {
+    background-color: var(--progress-color, var(--warm-green-700));
+    width: var(--progress-value-width);
+    height: 100%;
+}

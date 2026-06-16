@@ -7,7 +7,7 @@ export function emojiToUnified(emoji?: string): string {
         try {
             cleanEmoji = JSON.parse(`"${cleanEmoji}"`);
         } catch (e) {
-            console.error(`emojiToUnified converting '${emoji}' error; skipping...`, e)
+            console.error(e);
         }
     }
 
@@ -21,9 +21,23 @@ export function emojiToUnified(emoji?: string): string {
         })
         .filter(Boolean);
 
-    if (parts.length === 1 && parseInt(parts[0], 16) < 0x1f000) {
-        if (parts[0] !== 'fe0f') {
+    if (parts.length === 1) {
+        const hex = parseInt(parts[0], 16);
+
+        const needsFe0f =
+            (hex >= 0x2000 && hex <= 0x27af) ||
+            (hex >= 0x3000 && hex <= 0x3300) ||
+            (hex >= 0x0020 && hex <= 0x007f);
+
+        if (needsFe0f && parts[0] !== 'fe0f') {
             parts.push('fe0f');
+        }
+    }
+
+    if (parts.length > 1 && parts[parts.length - 1] === 'fe0f') {
+        const hex = parseInt(parts[0], 16);
+        if (hex >= 0x1f000 || (hex >= 0x27b0 && hex <= 0x27bf)) {
+            parts.pop();
         }
     }
 
