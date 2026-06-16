@@ -36,7 +36,7 @@ export function emojiToUnified(emoji?: string): string {
 
     if (parts.length > 1 && parts[parts.length - 1] === 'fe0f') {
         const hex = parseInt(parts[0], 16);
-        if (hex >= 0x1f000 || (hex >= 0x27b0 && hex <= 0x27bf)) {
+        if (hex >= 0x27b0 && hex <= 0x27bf) {
             parts.pop();
         }
     }
