@@ -28,9 +28,9 @@ export const tagSchema = z.object({
     emoji: z
         .string()
         .trim()
-        .optional()
+        .nullable()
         .refine(emoji => {
-            if (emoji === undefined || emoji === '') return true;
+            if (emoji === '' || emoji === null) return true;
             return hexEmojiRegular.test(emoji) || [...emoji].length === 1;
         }, 'Should be exactly 1 emoji'),
 

@@ -1,11 +1,9 @@
 import sql from "#/db.js";
-import type { RowList } from "postgres";
-import type { Tag, TagCreateInput, TagGetClientPayload } from "./tag.types.js";
+import type { TagCreateInput, TagGetClientPayload } from "./tag.types.js";
 
 export type FindTagsByUserId = (userId: number) => Promise<TagGetClientPayload[]>
 
 export const findTagsByUserId: FindTagsByUserId = async (userId) => {
-    console.log(userId)
     const rows = await sql<TagGetClientPayload[]>`
         SELECT id, label, color, emoji, created_at, updated_at
         FROM tags
@@ -14,15 +12,17 @@ export const findTagsByUserId: FindTagsByUserId = async (userId) => {
     return [...rows]
 
 }
-export type CreateTag = (data: TagCreateInput) => Promise<RowList<TagGetClientPayload[]>>
+export type CreateTag = (data: TagCreateInput) => Promise<TagGetClientPayload[]>
 
-export const createTag = async ({ label, color, ownerId, emoji }: TagCreateInput) => {
+export const createTag: CreateTag = async ({ label, color, ownerId, emoji }) => {
     const colorString = JSON.stringify(color);
 
-    return await sql<Tag[]>`
+    const rows = await sql<TagGetClientPayload[]>`
     INSERT INTO tags(label, emoji, color, owner_id)
     values
     (${label},${emoji},${colorString},${ownerId})
     RETURNING *
     `
+
+    return [...rows];
 }
