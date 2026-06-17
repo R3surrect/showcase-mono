@@ -18,10 +18,10 @@ export const createTag: CreateTag = async ({ label, color, ownerId, emoji }) => 
     const colorString = JSON.stringify(color);
 
     const rows = await sql<TagGetClientPayload[]>`
-    INSERT INTO tags(label, emoji, color, owner_id)
-    values
-    (${label},${emoji},${colorString},${ownerId})
-    RETURNING *
+        INSERT INTO tags(label, emoji, color, owner_id)
+        values
+        (${label},${emoji},${colorString},${ownerId})
+        RETURNING *
     `
 
     return [...rows];

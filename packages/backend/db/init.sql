@@ -1,12 +1,28 @@
-CREATE TYPE task_status_enum AS ENUM (
+DO $$ BEGIN IF NOT EXISTS (
+    SELECT 1
+    FROM pg_type
+    WHERE typname = 'task_status_enum'
+) THEN CREATE TYPE task_status_enum AS ENUM (
     'completed',
     'pending',
     'overdue',
     'scheduled',
     'in_progress'
 );
-CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
-CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+END IF;
+IF NOT EXISTS (
+    SELECT 1
+    FROM pg_type
+    WHERE typname = 'priority_enum'
+) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
+END IF;
+IF NOT EXISTS (
+    SELECT 1
+    FROM pg_type
+    WHERE typname = 'user_role_enum'
+) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+END IF;
+END $$;
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -37,7 +53,7 @@ CREATE TABLE IF NOT EXISTS projects (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
-    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    pinned_at TIMESTAMPTZ,
     CONSTRAINT fk_projects_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS tasks (
@@ -54,7 +70,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
-    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    pinned_at TIMESTAMPTZ,
     CONSTRAINT fk_tasks_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_tasks_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 );
@@ -67,7 +83,7 @@ CREATE TABLE IF NOT EXISTS notes (
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
-    pinned_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    pinned_at TIMESTAMPTZ,
     project_id INT NOT NULL,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
