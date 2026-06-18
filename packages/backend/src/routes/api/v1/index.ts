@@ -16,6 +16,7 @@ export const appRouterV1 = v1Router
     .route("/auth", meRouter)
     .route("/auth", logoutRouter)
     .route('/templates', templatesRouter);
+    // .route('/projects', projectsRouter)
 
 export type AppRouterV1 = typeof appRouterV1;
 export default v1Router;
