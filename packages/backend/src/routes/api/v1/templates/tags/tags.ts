@@ -3,7 +3,7 @@ import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
 import { config } from "#/config.js";
 import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
-import { tagCreateClientPayloadSchema } from "./validations/tag.create.js";
+import { tagCreateInputSchema, tagCreateOutputSchema } from "./validations/tag.create.js";
 import { createTag, findTagsByUserId } from "./tags.query.js";
 
 const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
@@ -17,7 +17,7 @@ const tagsRouter = new Hono<AuthEnv>().get('/', async (c) => {
 })
     .post('/', zValidator(
         'json',
-        tagCreateClientPayloadSchema,
+        tagCreateInputSchema,
         (result, c) => {
             if (!result.success)
                 return c.json(zodToApiErrors(result.error.issues), 400);

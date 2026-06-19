@@ -6,7 +6,13 @@ export const tagCreateValidation = tagSchema.omit({
     updatedAt: true,
 })
 
-export const tagCreateClientPayloadSchema = tagSchema.omit({
+export const tagCreateOutputSchema = tagSchema.omit({
+    createdAt: true,
+    updatedAt: true,
+    ownerId: true,
+})
+
+export const tagCreateInputSchema = tagSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
