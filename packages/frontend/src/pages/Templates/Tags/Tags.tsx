@@ -11,8 +11,8 @@ import Text from '@/components/entities/Text/Text'
 import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
 import { useDevice } from '@/hooks/useDevice'
 import { tagListBreakpoints } from './Tags.constants'
-import { tagCreateInputSchema } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create.validation'
 import { treeifyError } from 'zod'
+import { tagCreateInputSchema } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
