@@ -1,4 +1,4 @@
-import type { HTMLAttributes } from "react";
+import type { ComponentPropsWithRef, HTMLAttributes } from "react";
 import type {
     BASE_ALIGN_TYPES,
     BOX_ALIGN_TYPES,
@@ -24,4 +24,9 @@ export type OpacityLevel = typeof OPACITY_TYPES[number];
 export type Heights = typeof HEIGHT_TYPES[number];
 
 //* DOM frequently using types
-export type DivUiComponent = Omit<HTMLAttributes<HTMLDivElement>, 'style' | 'className'>;
+
+export type DivUiComponent = Omit<HTMLAttributes<'div'>, 'style' | 'className'>;
+export type DivUiRefComponent = Omit<ComponentPropsWithRef<'div'>, 'style' | 'className'>
+
+export type InputUiComponent = Omit<HTMLAttributes<'input'>, 'style' | 'className'>;
+export type InputUiRefComponent = Omit<ComponentPropsWithRef<'input'>, 'style' | 'className'>

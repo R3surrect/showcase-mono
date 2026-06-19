@@ -12,12 +12,13 @@ import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/ap
 import { useDevice } from '@/hooks/useDevice'
 import { tagListBreakpoints } from './Tags.constants'
 import { treeifyError } from 'zod'
-import { tagCreateInputSchema } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
+import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const Component = () => {
+    // #region
     const isMobile = useDevice('mobile');
     const isTablet = useDevice('tablet');
 
@@ -39,12 +40,7 @@ export const Component = () => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const rawTag = Object.fromEntries(data.entries());
-        const result = tagCreateInputSchema.safeParse({
-            label: rawTag.label,
-            emoji: rawTag.emoji,
-            color: JSON.parse(rawTag.color.toString()),
-        });
-        console.log({
+        const result = tagCreateInputValidation.safeParse({
             label: rawTag.label,
             emoji: rawTag.emoji,
             color: JSON.parse(rawTag.color.toString()),
@@ -54,7 +50,11 @@ export const Component = () => {
 
         mutate(result.data)
     }
+    // #endregion
 
+    // #region 
+    //! Внедрить rhf+zod валидацию
+    // #endregion 
     return <>
         <form onSubmit={submitHandler}>
             <Surface>
