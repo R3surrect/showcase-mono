@@ -26,3 +26,5 @@ export const emojiSchema = z
         if (emoji === '' || emoji === null) return true;
         return hexEmojiRegular.test(emoji) || [...emoji].length === 1;
     }, 'Should be exactly 1 emoji')
+
+export type ColorSchema = z.infer<typeof colorSchema>;

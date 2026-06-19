@@ -1,13 +1,20 @@
-import { tagSchema } from "../../templates/tags/tag.schema.js";
 import { projectSchema } from "../projects.schema.js";
 
-export const projectCreateValidation = projectSchema.omit({
+//* The database requires an additional ownerId field
+export const projectCreateDbInputValidation = projectSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
-})
+});
 
-export const projectCreateClientPayloadSchema = tagSchema.omit({
+//* Sending data field filtration
+export const projectCreateOutputSchema = projectSchema.omit({
+    updatedAt: true,
+    ownerId: true,
+});
+
+//* Getting data field filtration
+export const projectCreateInputValidation = projectSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
