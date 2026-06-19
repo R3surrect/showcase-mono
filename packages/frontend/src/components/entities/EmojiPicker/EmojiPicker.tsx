@@ -19,7 +19,7 @@ import { useDevice } from '@/hooks/useDevice';
 import type { EmojiPickerProps } from '@/components/entities/EmojiPicker/EmojiPicker.types';
 import { emojiToUnified } from '@/components/entities/EmojiPicker/EmojiPicker.constants';
 
-const EmojiPicker = ({ placeholderEmoji, label }: EmojiPickerProps) => {
+const EmojiPicker = ({ placeholderEmoji, label, ref }: EmojiPickerProps) => {
     const [emoji, setEmoji] = useState('');
     const [isPickerOpen, setIsPickerOpen] = useState(false);
     const [wasOpenedAtLeastOnce, setWasOpenedAtLeastOnce] = useState(false);
@@ -69,7 +69,7 @@ const EmojiPicker = ({ placeholderEmoji, label }: EmojiPickerProps) => {
 
     return (
         <Stack direction='column' gap='sm' justify='space-between'>
-            <input type='hidden' name='emoji' value={emoji} />
+            <input type='hidden' name='emoji' value={emoji} ref={ref} />
             {label && (
                 <Text
                     size={4}

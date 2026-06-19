@@ -6,9 +6,9 @@ import Button from '@components/entities/Button/Button';
 import ColorPicker from '@components/entities/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
 import { getHslString, getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
-import type { ColorSet } from './ColorList.types';
+import type { ColorSet, ColorListProps } from './ColorList.types';
 
-const ColorList = () => {
+const ColorList = ({ ref }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
     const [selectedColor, setSelectedColor] = useState(INITIAL_COLORS[0]);
     const [colorPickerColor, setColorPickerColor] = useState({ h: 0, s: 0, l: 0 })
@@ -19,6 +19,7 @@ const ColorList = () => {
 
     return <Stack gap='md' >
         <input
+            ref={ref}
             type='hidden'
             name='color'
             value={

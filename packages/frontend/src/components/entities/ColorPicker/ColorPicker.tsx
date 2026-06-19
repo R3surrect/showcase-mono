@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { LucidePipette } from 'lucide-react';
+import { colord } from 'colord';
 import stylesObj from './ColorPicker.module.css';
 import type { ColorPickerProps } from '@/components/entities/ColorPicker/ColorPicker.types';
-import { colord } from 'colord';
 
 const ColorPicker = ({ exportColor }: ColorPickerProps) => {
     const [color, setColor] = useState({
