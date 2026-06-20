@@ -5,7 +5,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -41,6 +41,6 @@
       "@showcase-mono/backend/*": ["../backend/src/*"],
     }
   },
-  "include": ["src/**/*", "src", "vite.config.ts", "../backend/src/**/*"],
+  "include": ["src/**/*", "src", "vite.config.ts", "../backend/src/**/*", "tools/**/*"],
   "exclude": ["node_modules"]
 }
