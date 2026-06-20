@@ -9,7 +9,9 @@ import type {
     STACK_ALIGN_TYPES,
     TEXT_ALIGN_TYPES,
     HEIGHT_TYPES,
-    STACK_WIDTH_TYPES
+    STACK_WIDTH_TYPES,
+    WEIGHTS_TYPES,
+    SIZE_TYPES
 } from "./system.constants";
 
 export type StackWidth = typeof STACK_WIDTH_TYPES[number];
@@ -22,6 +24,8 @@ export type TextAlign = typeof TEXT_ALIGN_TYPES[number];
 export type StackAlign = typeof STACK_ALIGN_TYPES[number];
 export type OpacityLevel = typeof OPACITY_TYPES[number];
 export type Heights = typeof HEIGHT_TYPES[number];
+export type Weights = typeof WEIGHTS_TYPES[number];
+export type Sizes = typeof SIZE_TYPES[number];
 
 //* DOM frequently using types
 
