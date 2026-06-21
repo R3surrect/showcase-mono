@@ -4,7 +4,7 @@ import path from 'node:path';
 let cssContent = `/*
     * This file was automatically generated.
     * Any modifications will be lost the next time the file is regenerated.
-    * */`;
+    * */\n`;
 
 let successCounter = 0;
 let failsCounter = 0;
