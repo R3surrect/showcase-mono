@@ -21,10 +21,8 @@ const Surface = ({
             ref={ref}
             data-animated={isAnimated}
             data-radius={cornerRadius}
-            style={{
-                '--surface-color': color,
-                '--surface-height': height === 'fit' ? 'fit-content' : '100%',
-            } as SurfaceVars}
+            data-height={height}
+            style={{ '--surface-color': color } as SurfaceVars}
             {...props}
         >
             {children}

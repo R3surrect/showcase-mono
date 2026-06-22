@@ -15,9 +15,12 @@
     height: var(--surface-height, fit-content);
 }
 
-.surface[data-radius='sm'] {border-radius: var(--border-radius-4)}
-.surface[data-radius='md'] {border-radius: var(--border-radius-15)}
-.surface[data-radius='lg'] {border-radius: var(--border-radius-25)}
+.surface[data-radius='sm'] { border-radius: var(--border-radius-4) }
+.surface[data-radius='md'] { border-radius: var(--border-radius-15) }
+.surface[data-radius='lg'] { border-radius: var(--border-radius-25) }
+
+.surface[data-height='max'] { height: 100% }
+.surface[data-height='fit'] { height: fit-content }
 
 .glass {
     background-color: var(--glass-surface-light-45);

@@ -47,10 +47,16 @@ export const Component = () => {
     }
 
     return <Stack gap='lg'>
-        <div>
+        <Stack gap='sm'>
             <Heading variant="accent" align='center' level={1}>Welcome back</Heading>
-            <Text align='center' weight='bolder' color='yellow'>Good to see you again</Text>
-        </div>
+            <Text
+                align='center'
+                weight='bolder'
+                color='lightgray'
+            >
+                Good to see you again
+            </Text>
+        </Stack>
 
         <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
 

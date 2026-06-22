@@ -10,6 +10,9 @@
     justify-content: var(--stack-justify, start);
 }
 
-.stack[data-width='full'] {width: 100%}
-.stack[data-width='fit'] {width: fit-content}
-.stack[data-width='auto'] {width: auto}
+.stack[data-width='max'] { width: 100% }
+.stack[data-width='fit'] { width: fit-content }
+.stack[data-width='auto'] { width: auto }
+
+.stack[data-wrap='true'] { flex-wrap: wrap }
+.stack[data-wrap='false'] { flex-wrap: nowrap }

@@ -16,10 +16,10 @@ const Grid = ({
             '--grid-gap': `var(--indent-${gap})`,
             '--grid-columns': columns,
             '--grid-align-items': alignItems,
-            '--grid-height': height === 'fit' ? 'fit-content' : '100%',
             '--grid-auto-rows': autoRows,
             '--grid-template-columns': templateColumns,
         } as GridVars}
+        data-height={height}
     >
         {children}
     </div>
