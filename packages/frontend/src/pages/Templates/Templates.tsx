@@ -5,10 +5,16 @@ import { TEMPLATES_ROUTES } from '@/routes/templates.routing.ts';
 import { ContentHeader } from '@components/entities/ContentHeader/ContentHeader';
 import Stack from '@components/entities/Stack/Stack';
 import Grid from '@components/entities/Grid/Grid';
+import Banner from '@/components/entities/Banner/Banner';
+import Text from '@/components/entities/Text/Text';
 
 export const Component = () => {
     return (
         <Stack gap='md' wrap={true}>
+            <Banner hintId='templates-page-hint'>
+                <Text weight='bold' size={5}>Как работают шаблоны: </Text>
+                <Text size={5}>сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
+            </Banner >
             <ContentHeader
                 title="Шаблоны и теги"
                 subtitle="Готовые заготовки для задач, тегов и управление метками"
