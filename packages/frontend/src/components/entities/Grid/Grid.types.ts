@@ -18,6 +18,5 @@ export interface GridVars extends React.CSSProperties {
     '--grid-gap': string;
     '--grid-columns': number;
     '--grid-align-items': string;
-    '--grid-height': string;
     '--grid-template-columns': string;
 }

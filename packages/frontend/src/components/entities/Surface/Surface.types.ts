@@ -14,5 +14,4 @@ export interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' |
 
 export interface SurfaceVars extends React.CSSProperties {
     '--surface-color': string;
-    '--surface-height': string;
 }

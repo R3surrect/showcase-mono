@@ -1,8 +1,8 @@
-import { LucideAlertCircle, LucideCircleAlert, LucideInfo } from 'lucide-react';
+import { LucideInfo, LucideOctagonAlert, LucideTriangleAlert } from 'lucide-react';
 
 export const VARIANT_ICONS = {
-    'alert': LucideAlertCircle,
+    'alert': LucideOctagonAlert,
     'info': LucideInfo,
-    'warning': LucideCircleAlert,
+    'warning': LucideTriangleAlert,
     'hint': LucideInfo,
 } as const;

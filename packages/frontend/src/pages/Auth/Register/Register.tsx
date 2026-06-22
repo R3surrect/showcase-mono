@@ -48,10 +48,10 @@ export const Component = () => {
     }
 
     return <Stack gap='lg'>
-        <div>
-            <Heading variant='accent' level={1}>Join the community</Heading>
-            <Text align='center' weight='bolder' color='yellow'>Organize your time in a few clicks</Text>
-        </div>
+        <Stack gap='md'>
+            <Heading variant='accent' level={1} align='center'>Join the community</Heading>
+            <Text align='center' weight='bolder' color='lightgray'>Organize your time in a few clicks</Text>
+        </Stack>
 
         <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
 
