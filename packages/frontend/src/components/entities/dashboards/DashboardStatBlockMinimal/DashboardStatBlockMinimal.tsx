@@ -15,11 +15,11 @@ const DashboardStatBlockMinimal = ({
 }: DashboardStatBlockMinimalProps) => {
     return <Surface data-animated={isAnimated} variant={variant} {...props}>
         <Stack gap="md" align="center">
-            <Heading level={3} variant="secondary">{title}</Heading>
+            <Heading level={4} variant="secondary" weight="bold">{title}</Heading>
             <div>
                 <Text weight="bolder" as='span' size={2}>{value}</Text> {valueLabel && <Text as='span'> {valueLabel}</Text>}
             </div>
-            <Text size={3}>{subtitle}</Text>
+            <Text size={4} weight="bold">{subtitle}</Text>
         </Stack>
     </Surface>
 }

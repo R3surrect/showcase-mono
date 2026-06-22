@@ -2,6 +2,10 @@
 @import url('@global/styles/_semantics');
 
 .button {
+    display: flex;
+    /* TODO Проверить необходимость проброса пропса выравнивания */
+    justify-content: center;
+    align-items: center;
     transition: opacity 0.2s ease, box-shadow 0.2s ease;
     padding: 0.7em;
     width: var(--button-width, fit-content);
@@ -25,10 +29,12 @@
   color: var(--neutral-350);
 }
 
-.button:hover {
-    box-shadow: var(--shadow-md);
+.transparent {
+    background-color: transparent;
+    border: none;
 }
 
+.button:hover { box-shadow: var(--shadow-md) }
 .button:disabled {
     opacity: .6;
     cursor: not-allowed;

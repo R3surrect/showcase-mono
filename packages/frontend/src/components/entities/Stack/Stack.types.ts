@@ -1,5 +1,6 @@
 import type { Ref } from "react";
-import type { Direction, Size, Justify, StackAlign, StackWidth } from "../_shared/system.types";
+import type { Direction, Size, Justify } from "../_shared/system.types";
+import type { STACK_ALIGN_TYPES, STACK_WIDTH_TYPES } from "./Stack.constants";
 
 export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
     children: React.ReactNode;
@@ -18,3 +19,6 @@ export interface StackVars extends React.CSSProperties {
     '--stack-direction': Direction;
     '--stack-justify': Justify;
 }
+
+export type StackWidth = typeof STACK_WIDTH_TYPES[number];
+export type StackAlign = typeof STACK_ALIGN_TYPES[number];
