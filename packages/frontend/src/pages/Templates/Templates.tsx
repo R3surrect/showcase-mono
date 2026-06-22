@@ -11,16 +11,16 @@ import Text from '@/components/entities/Text/Text';
 export const Component = () => {
     return (
         <Stack gap='md' wrap={true}>
-            <Banner hintId='templates-page-hint'>
-                <Text weight='bold' size={5}>Как работают шаблоны: </Text>
-                <Text size={5}>сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
-            </Banner >
             <ContentHeader
                 title="Шаблоны и теги"
                 subtitle="Готовые заготовки для задач, тегов и управление метками"
             >
                 <Button variant='accent'>Создать шаблон</Button>
             </ContentHeader>
+            <Banner variant='hint' hintId='templates-page-hint'>
+                <Text weight='bold' size={6}>Как работают шаблоны:</Text>
+                <Text size={6}>сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
+            </Banner >
             <PillPicker items={TEMPLATES_ROUTES} />
             <Grid columns={2}>
                 <Outlet />

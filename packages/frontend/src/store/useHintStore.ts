@@ -4,12 +4,11 @@ import { persist } from "zustand/middleware";
 export interface HintStore {
     data: Record<string, boolean>,
     dismissHint: (key: string) => void;
-    isHintDismissed: (key: string) => boolean;
 }
 
 export const useHintStore = create<HintStore>()(
     persist(
-        (set, get) => ({
+        (set) => ({
             data: {},
             dismissHint: (key) => set((state) => ({
                 data: {
@@ -17,8 +16,6 @@ export const useHintStore = create<HintStore>()(
                     [key]: true
                 }
             })),
-
-            isHintDismissed: (key) => !!get().data[key]
         }),
         { name: 'app-hints-store' }
     )

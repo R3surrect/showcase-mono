@@ -10,7 +10,7 @@ export interface BaseBannerProps extends DivUiComponent {
 };
 
 export interface HintBannerProps extends BaseBannerProps {
-    variant?: 'hint';
+    variant: 'hint';
     hintId: string;
 }
 
