@@ -8,8 +8,8 @@
     height: var(--grid-height, fit-content);
 }
 
-.gridWrapper[data-height='fit']{ width: fit-content }
-.gridWrapper[data-height='max']{ width: 100% }
+.gridWrapper[data-height='fit']{ height: fit-content }
+.gridWrapper[data-height='max']{ height: 100% }
 
 /* TODO Adaptive */
 
