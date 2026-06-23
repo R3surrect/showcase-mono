@@ -12,6 +12,7 @@ export interface BannerProps extends DivUiRefComponent {
     onClose?: () => void;
     onAction?: () => void;
     onAfterClose?: () => void;
+    isClosable?: boolean;
 };
 
 export interface BannerVars extends React.CSSProperties {
