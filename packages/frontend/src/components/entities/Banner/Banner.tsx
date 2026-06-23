@@ -5,7 +5,7 @@ import { VARIANT_ICONS } from './Banner.constants';
 import { LucideX } from 'lucide-react';
 import Button from '../Button/Button';
 
-const Banner = ({ variant = 'hint', onClose, children, width, ...props }: BannerProps) => {
+const Banner = ({ variant = 'hint', onClose, children, width, isClosable = true, ...props }: BannerProps) => {
     const Icon = VARIANT_ICONS[variant];
     return (
         <div
@@ -20,7 +20,7 @@ const Banner = ({ variant = 'hint', onClose, children, width, ...props }: Banner
                     {children}
                 </Stack>
                 {
-                    onClose &&
+                    isClosable &&
                     <Button variant='transparent' onClick={onClose} radius='lg' size='sm' isHoverAnimated={false}>
                         <LucideX size={14} />
                     </Button>
