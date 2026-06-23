@@ -21,11 +21,11 @@ const Stack = ({
     data-gap={gap}
     data-align={align}
     data-width={width}
+    data-wrap={wrap}
     style={{
       '--stack-gap': `var(--indent-${gap})`,
       '--stack-align': align,
       '--stack-direction': direction,
-      '--stack-wrap': wrap ? `wrap` : `nowrap`,
       '--stack-justify': justify,
     } as StackVars}
     {...props}

@@ -1,4 +1,4 @@
-import type { StackWidth } from "../_shared/system.types";
+import type { AxisSizeVariations, Size } from "../_shared/system.types";
 import type { TYPE_TYPES, VARIANT_TYPES } from "./Button.constants";
 import type { ComponentPropsWithRef } from "react";
 
@@ -9,9 +9,8 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'clas
   type?: Type;
   variant?: Variant;
   isSubmitting?: boolean;
-  width?: StackWidth;
-}
-
-export interface ButtonVars extends React.CSSProperties {
-  '--button-width': string;
+  width?: AxisSizeVariations;
+  radius?: Size;
+  size?: Size;
+  isHoverAnimated?: boolean;
 }

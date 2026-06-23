@@ -2,7 +2,7 @@ import type { HeadingProps, HeadingVars } from "@/components/entities/Heading/He
 import stylesObj from "./Heading.module.css";
 import clsx from "clsx";
 
-const Heading = ({ variant = 'accent', align = 'start', weight = 'regular', level, children }: HeadingProps) => {
+const Heading = ({ variant = 'accent', align = 'start', weight = 'bold', level, children }: HeadingProps) => {
     const Tag: React.ElementType = `h${level}`;
 
     return <Tag

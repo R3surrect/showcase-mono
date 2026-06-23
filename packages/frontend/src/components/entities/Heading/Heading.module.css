@@ -19,12 +19,12 @@ h6 { font-size: var(--helper-text-size)}
     padding: 0;
     vertical-align: middle;
     text-align: var(--heading-text-align, start);
+    font-weight: var(--heading-text-weight, 400);
 }
 
 .accent, .secondary {
     color: var(--neutral-750);
     font-family: var(--font-accent);
-    font-weight: 500;
 }
 
 .secondary{
@@ -32,12 +32,5 @@ h6 { font-size: var(--helper-text-size)}
     color: var(--neutral-750);
 }
 
-.subtitleAccent {
-    color: var(--neutral-500);
-    font-weight: 650;
-}
-
-
-.subtitleSecondary {
-    font-size: var(--footer-text-size);
-}
+.subtitleAccent {color: var(--neutral-500)}
+.subtitleSecondary {font-size: var(--footer-text-size)}

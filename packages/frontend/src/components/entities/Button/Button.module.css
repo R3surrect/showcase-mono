@@ -2,6 +2,10 @@
 @import url('@global/styles/_semantics');
 
 .button {
+    display: flex;
+    /* TODO Проверить необходимость проброса пропса выравнивания */
+    justify-content: center;
+    align-items: center;
     transition: opacity 0.2s ease, box-shadow 0.2s ease;
     padding: 0.7em;
     width: var(--button-width, fit-content);
@@ -25,10 +29,13 @@
   color: var(--neutral-350);
 }
 
-.button:hover {
-    box-shadow: var(--shadow-md);
+.transparent {
+    background-color: transparent;
+    border: none;
 }
 
+.button[data-hover-animated="true"]:hover { box-shadow: var(--shadow-md) }
+.button[data-hover-animated="false"]:hover { box-shadow: none }
 .button:disabled {
     opacity: .6;
     cursor: not-allowed;
@@ -39,3 +46,14 @@
     opacity: .3;
     cursor: wait;
 }
+
+.button[data-radius='sm'] {border-radius: var(--border-radius-4)}
+.button[data-radius='md'] {border-radius: var(--border-radius-10)}
+.button[data-radius='lg'] {border-radius: var(--border-radius-15)}
+
+.button[data-size='sm'] { padding: calc(var(--border-radius-4) / 2) }
+.button[data-size='md'] { padding: var(--border-radius-10) }
+.button[data-size='lg'] { padding: var(--border-radius-15) }
+
+.button[data-width='fit']{ width: fit-content }
+.button[data-width='max']{ width: 100% }

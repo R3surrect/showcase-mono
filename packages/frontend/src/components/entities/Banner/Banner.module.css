@@ -1,0 +1,13 @@
+.banner[data-variant="hint"] {--banner-color: var(--warm-green-500)}
+.banner[data-variant="info"] {--banner-color: var(--cold-blue-grey-400)}
+.banner[data-variant="alert"] {--banner-color: var(--warm-red-400)}
+.banner[data-variant="warning"] {--banner-color: var(--warm-orange-400)}
+
+.banner {
+    border-radius: var(--border-radius-15);
+    padding: .5rem .8rem;
+    background-color: color-mix(in srgb, var(--banner-color), transparent var(--opacity-full));
+    border: 1px solid color-mix(in srgb, var(--banner-color), transparent var(--opacity-super));
+    width: var(--banner-width, 100%);
+    color: var(--banner-color, var(--neutral-850));
+}
