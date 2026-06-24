@@ -1,11 +1,9 @@
 import Heading from '@/components/entities/Heading/Heading.tsx'
 import Surface from '@/components/entities/Surface/Surface.tsx'
-import Grid from '@/components/entities/Grid/Grid'
 import Input from '@components/entities/Input/Input'
 import Stack from '@components/entities/Stack/Stack'
 import Tag from '@components/entities/Tag/Tag'
 import ColorList from '@/components/entities/ColorList/ColorList'
-import EmojiPicker from '@/components/entities/EmojiPicker/EmojiPicker'
 import Button from '@/components/entities/Button/Button'
 import Text from '@/components/entities/Text/Text'
 import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
@@ -42,7 +40,6 @@ export const Component = () => {
         const rawTag = Object.fromEntries(data.entries());
         const result = tagCreateInputValidation.safeParse({
             label: rawTag.label,
-            emoji: rawTag.emoji,
             color: JSON.parse(rawTag.color.toString()),
         });
 
@@ -60,10 +57,14 @@ export const Component = () => {
             <Surface>
                 <Stack gap='md'>
                     <Heading level={3} variant='secondary'>Создать тег</Heading>
-                    <Grid columns={2} templateColumns='12fr 1fr'>
-                        <Input name='label' labelText='Название' placeholder='Новый тег' autoComplete='off' inputMode='text' />
-                        <EmojiPicker label='Иконка' placeholderEmoji='🏷️' />
-                    </Grid>
+                        <Input
+                            name='label'
+                            labelText='Название'
+                            placeholder='Новый тег'
+                            autoComplete='off'
+                            inputMode='text'
+                            hasEmojiPicker
+                        />
                     <ColorList />
                     <Button type='submit' width='max'>Создать тег</Button>
                 </Stack>

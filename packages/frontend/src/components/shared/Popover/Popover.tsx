@@ -1,27 +1,77 @@
-import Surface from '@/components/entities/Surface/Surface';
-import stylesObj from './Popover.module.css'
-import type { HTMLAttributes, Ref } from 'react';
-import { FloatingPortal } from '@floating-ui/react';
+import stylesObj from './Popover.module.css';
+import { type Dispatch, type ReactNode, type SetStateAction } from 'react';
+import {
+    FloatingPortal,
+    useFloating,
+    offset,
+    flip,
+    shift,
+    autoUpdate,
+    useInteractions,
+    useClick,
+    useDismiss,
+    type Placement
+} from '@floating-ui/react';
 
-interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
-    ref?: Ref<HTMLDivElement>;
-    style?: React.CSSProperties;
+interface PopoverProps {
+    triggerElement: ReactNode;
+    children: ReactNode;
+    defaultOpen?: boolean;
+    placement?: Placement;
     isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Popover = ({ ref, children, style, isOpen, ...props }: PopoverProps) => {
-    return isOpen && <FloatingPortal >
-        <div
-            ref={ref}
-            className={stylesObj.popoverWrapper}
-            style={style}
-            {...props}
-        >
-            <Surface variant={'solid'}>
-                {children}
-            </Surface>
-        </div>
-    </FloatingPortal>
-}
+const Popover = ({
+    triggerElement,
+    children,
+    placement = 'bottom',
+    isOpen,
+    setIsOpen,
+}: PopoverProps) => {
+    const { refs, floatingStyles, context } = useFloating({
+        open: isOpen,
+        onOpenChange: setIsOpen,
+        placement: placement,
+        whileElementsMounted: autoUpdate,
+        middleware: [
+            offset(16),
+            flip(),
+            shift(),
+        ],
+    });
+
+    const click = useClick(context);
+    const dismiss = useDismiss(context);
+
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+        click,
+        dismiss,
+    ]);
+
+    return (
+        <>
+            <div
+                ref={refs.setReference}
+                {...getReferenceProps()}
+                style={{ display: 'inline-block' }}
+            >
+                {triggerElement}
+            </div>
+            {isOpen && (
+                <FloatingPortal>
+                    <div
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        className={stylesObj.popoverWrapper}
+                        {...getFloatingProps()}
+                    >
+                        {children}
+                    </div>
+                </FloatingPortal>
+            )}
+        </>
+    );
+};
 
 export default Popover;

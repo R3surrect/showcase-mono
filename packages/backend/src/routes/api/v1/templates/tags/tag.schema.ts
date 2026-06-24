@@ -1,5 +1,5 @@
 import { colorSchema, emojiSchema } from "#/shared/validations/customizable.validation.js";
-import z from "zod";
+import { z } from "zod";
 
 export const tagSchema = z.object({
     id: z.number().int().positive(),
@@ -11,7 +11,6 @@ export const tagSchema = z.object({
         .trim(),
 
     color: colorSchema,
-    emoji: emojiSchema,
 
     ownerId: z.number().int().positive(),
     createdAt: z.date().or(z.iso.datetime()),
