@@ -6,7 +6,6 @@
     gap: var(--stack-gap, 0);
     flex-direction: var(--stack-direction, column);
     align-items: var(--stack-align, stretch);
-    flex-wrap: var(--stack-wrap, nowrap);
     justify-content: var(--stack-justify, start);
 }
 
@@ -16,3 +15,27 @@
 
 .stack[data-wrap='true'] { flex-wrap: wrap }
 .stack[data-wrap='false'] { flex-wrap: nowrap }
+
+.stack[data-height="fit"] { height: fit-content }
+.stack[data-height="max"] {
+    height: 100%;
+    min-height: 0; 
+    flex-grow: 1;
+}
+
+.stack[data-overflow="auto"] {
+    overflow: auto;
+    min-height: 0; 
+    min-width: 0;
+}
+
+.stack[data-overflow="hidden"] { overflow: hidden }
+.stack[data-overflow="visible"] {
+    overflow: visible;
+    min-height: auto; 
+}
+.stack[data-overflow="scroll"] {
+    overflow: scroll;
+    min-height: 0;
+    min-width: 0;
+}

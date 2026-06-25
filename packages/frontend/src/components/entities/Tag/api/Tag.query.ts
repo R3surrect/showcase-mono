@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { TagsService } from './Tag.service';
-import type { TagCreateClientPayload } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
+import type { TagCreateInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
 
 export const tagsKeys = { all: ['tags'] as const };
 
@@ -23,8 +23,7 @@ export const useGetTagsQuery = () => {
 
         placeholderData: [{
             id: 0,
-            label: 'Loading...',
-            emoji: '⏳',
+            label: '⏳ Loading...',
             color: { h: 0, s: 0, l: 0 },
             createdAt: new Date().toISOString()
         }],
@@ -35,7 +34,7 @@ export const useCreateTagQuery = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (newTag: TagCreateClientPayload) => await TagsService.createTag(newTag),
+        mutationFn: async (newTag: TagCreateInput) => await TagsService.createTag(newTag),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: tagsKeys.all }),
         onError: (error) => console.error('Error while creating tag', error)
     })

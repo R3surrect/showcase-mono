@@ -13,15 +13,17 @@ const Stack = ({
   width = 'auto',
   children,
   ref,
+  overflow = 'visible',
+  height = 'fit',
   ...props
 }: StackProps) => {
   return <div
     ref={ref}
     className={stylesObj.stack}
-    data-gap={gap}
-    data-align={align}
     data-width={width}
     data-wrap={wrap}
+    data-overflow={overflow}
+    data-height={height}
     style={{
       '--stack-gap': `var(--indent-${gap})`,
       '--stack-align': align,

@@ -12,7 +12,7 @@ import EmojiPicker from '../EmojiPicker/EmojiPicker';
 import { unifiedToEmoji } from '../EmojiPicker/EmojiPicker.constants';
 
 const Input = ({
-    disabled,
+    disabled = false,
     error,
     type = 'text',
     id,
@@ -23,7 +23,7 @@ const Input = ({
     hasEmojiPicker = false,
     ...props
 }: InputProps) => {
-    
+
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [text, setText] = useState('');
 
@@ -54,7 +54,7 @@ const Input = ({
                     {...props}
                     className={stylesObj.input}
                     id={controlId}
-                    disabled={disabled || false}
+                    disabled={disabled}
                     type={inputType}
                     ref={ref}
                     value={text}
@@ -82,8 +82,18 @@ const Input = ({
                 )}
                 {
                     hasEmojiPicker &&
-                    <Popover isOpen={isPopoverOpen} setIsOpen={setIsPopoverOpen} triggerElement={emojiButtonRender}>
-                        <EmojiPicker onEmojiChange={(emojiUnified) => setText(prev => `${prev}${unifiedToEmoji(emojiUnified)}`)} />
+                    <Popover
+                        isOpen={isPopoverOpen}
+                        setIsOpen={setIsPopoverOpen}
+                        triggerElement={emojiButtonRender}
+                        placement='bottom-end'
+                    >
+                        <EmojiPicker
+                            onEmojiChange={
+                                emojiUnified => setText(
+                                    prev => `${prev}${unifiedToEmoji(emojiUnified)}`
+                                )
+                            } />
                     </Popover>
                 }
             </div>

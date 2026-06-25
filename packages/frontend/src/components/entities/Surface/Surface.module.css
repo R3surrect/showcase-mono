@@ -2,6 +2,9 @@
 @import url('@global/styles/_breakpoints.css');
 
 .surface {
+    min-height: 0;
+    display: flex;
+    
     height: 100%;
     width: 100%;
     padding: 1.25rem;

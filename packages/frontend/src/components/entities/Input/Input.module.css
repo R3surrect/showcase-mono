@@ -13,6 +13,21 @@
 .inputWrapper {
     position: relative;
     line-height: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: .875rem;
+    background-color: var(--glass-surface-light-80);
+    border: 1px solid var(--neutral-250);
+    border-radius: var(--border-radius-10);
+    color: var(--neutral-750);
+
+    will-change: transform;
+    background-color: var(--glass-surface-light-30);
+    border: 1px solid var(--neutral-350);
+    color: var(--neutral-850);
+    box-shadow: var(--shadow-sm);
+    animation: none;
 }
 
 .inputWrapper,
@@ -24,16 +39,14 @@
     display: block;
     caret-color: var(--accent);
     padding: var(--inner-offset-top) var(--inner-offset-left);
-    outline: none;
     /*TODO a11y*/
-    background-color: var(--glass-surface-light-80);
-    border: 1px solid var(--neutral-250);
-    border-radius: var(--border-radius-10);
+
     width: 100%;
-    color: var(--neutral-750);
     font-weight: 400;
     font-size: var(--ui-main-size);
     text-align: var(--input-text-align);
+    background: transparent;
+    border: none;
 }
 
 .inputWrapper[data-valid="valid"] .input {
@@ -44,15 +57,6 @@
     color: var(--status-info);
     font-family: var(--font-main);
     font-weight: 400;
-}
-
-.inputWrapper .input:focus {
-    will-change: transform;
-    background-color: var(--glass-surface-light-30);
-    border: 1px solid var(--neutral-350);
-    color: var(--neutral-850);
-    box-shadow: var(--shadow-sm);
-    animation: none;
 }
 
 .inputWrapper[data-valid="invalid"] .input {
@@ -70,12 +74,6 @@
     transition: .3s ease-in;
     display: block;
     line-height: 0;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: var(--inner-offset-left);
     border: none;
 
     cursor: pointer;
@@ -91,7 +89,6 @@
     position: absolute;
     font-size: var(--helper-text-size);
     font-weight: 500;
-    padding-left: 1rem;
     color: var(--status-error);
     bottom: 0;
     left: 0px;

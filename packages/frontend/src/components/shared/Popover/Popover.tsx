@@ -62,9 +62,9 @@ const Popover = ({
                 <FloatingPortal>
                     <div
                         ref={refs.setFloating}
-                        style={floatingStyles}
                         className={stylesObj.popoverWrapper}
                         {...getFloatingProps()}
+                        style={floatingStyles}
                     >
                         {children}
                     </div>

@@ -4,7 +4,6 @@ import { PillPicker } from '@components/entities/PillPicker/PillPicker';
 import { TEMPLATES_ROUTES } from '@/routes/templates.routing.ts';
 import { ContentHeader } from '@components/entities/ContentHeader/ContentHeader';
 import Stack from '@components/entities/Stack/Stack';
-import Grid from '@components/entities/Grid/Grid';
 import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
 import { useHintStore } from '@/store/useHintStore';
@@ -30,9 +29,7 @@ export const Component = () => {
                 </Banner >
             }
             <PillPicker items={TEMPLATES_ROUTES} />
-            <Grid columns={2}>
-                <Outlet />
-            </Grid>
+            <Outlet />
         </Stack>
     )
 }

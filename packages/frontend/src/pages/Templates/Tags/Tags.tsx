@@ -7,32 +7,33 @@ import ColorList from '@/components/entities/ColorList/ColorList'
 import Button from '@/components/entities/Button/Button'
 import Text from '@/components/entities/Text/Text'
 import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
-import { useDevice } from '@/hooks/useDevice'
-import { tagListBreakpoints } from './Tags.constants'
+// import { useDevice } from '@/hooks/useDevice'
+// import { tagListBreakpoints } from './Tags.constants'
 import { treeifyError } from 'zod'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
+import Grid from '@/components/entities/Grid/Grid'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const Component = () => {
     // #region
-    const isMobile = useDevice('mobile');
-    const isTablet = useDevice('tablet');
+    // const isMobile = useDevice('mobile');
+    // const isTablet = useDevice('tablet');
 
     const { mutate } = useCreateTagQuery();
 
-    const breakpoint = isMobile
-        ? tagListBreakpoints.mobile
-        : isTablet
-            ? tagListBreakpoints.tablet
-            : tagListBreakpoints.desktop
+    // const breakpoint = isMobile
+    //     ? tagListBreakpoints.mobile
+    //     : isTablet
+    //         ? tagListBreakpoints.tablet
+    //         : tagListBreakpoints.desktop
 
     const { data, isError, error } = useGetTagsQuery();
 
     const tags = data ?? [];
-    const hasMoreTags = tags.length > breakpoint;
-    const visibleTags = hasMoreTags ? tags.slice(0, breakpoint) : tags;
+    // const hasMoreTags = tags.length > breakpoint;
+    // const visibleTags = hasMoreTags ? tags.slice(0, breakpoint) : tags;
 
     const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,32 +53,32 @@ export const Component = () => {
     // #region 
     //! Внедрить rhf+zod валидацию
     // #endregion 
-    return <>
+    return <Grid columns={2} autoRows='1fr' height='max'>
         <form onSubmit={submitHandler}>
-            <Surface>
+            <Surface height='fit'>
                 <Stack gap='md'>
                     <Heading level={3} variant='secondary'>Создать тег</Heading>
-                        <Input
-                            name='label'
-                            labelText='Название'
-                            placeholder='Новый тег'
-                            autoComplete='off'
-                            inputMode='text'
-                            hasEmojiPicker
-                        />
+                    <Input
+                        name='label'
+                        labelText='Название'
+                        placeholder='Новый тег'
+                        autoComplete='off'
+                        inputMode='text'
+                        hasEmojiPicker
+                    />
                     <ColorList />
                     <Button type='submit' width='max'>Создать тег</Button>
                 </Stack>
             </Surface>
         </form>
 
-        <Surface>
-            <Stack gap='md'>
+        <Surface height='max'>
+            <Stack gap='md' height='max'>
                 <Heading level={3} variant='secondary'>Существующие теги</Heading>
-                <Stack direction='row' gap='sm' wrap={true} align='center'>
-                    {tags.length === 0 && <Tag label='Tags list empty' color={{ h: 68, s: 30, l: 21 }} emoji={'♻'} />}
+                <Stack direction='row' gap='sm' wrap={true} align='center' height='max' overflow='scroll'>
                     {
-                        !isError && visibleTags.slice(0, breakpoint).map((item) => (
+                        // !isError && visibleTags.map((item) => (
+                        !isError && tags.map((item) => (
                             <Tag
                                 {...item}
                                 key={item.id}
@@ -85,10 +86,10 @@ export const Component = () => {
                             />
                         ))
                     }
-                    {!isError && hasMoreTags && <Text weight='bold' color='darkgray' >+ {tags.length - breakpoint}</Text>}
+                    {/* {!isError && hasMoreTags && <Text weight='bold' color='darkgray' >+ {tags.length - breakpoint}</Text>} */}
                     {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}
                 </Stack>
             </Stack>
         </Surface>
-    </>
+    </Grid>
 }
