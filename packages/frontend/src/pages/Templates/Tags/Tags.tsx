@@ -75,7 +75,14 @@ export const Component = () => {
         <Surface height='max'>
             <Stack gap='md' height='max'>
                 <Heading level={3} variant='secondary'>Существующие теги</Heading>
-                <Stack direction='row' gap='sm' wrap={true} align='center' height='max' overflow='scroll'>
+                <Stack
+                    direction='row'
+                    gap='sm'
+                    wrap={true}
+                    align='center'
+                    height='max'
+                    overflow='auto'
+                >
                     {
                         // !isError && visibleTags.map((item) => (
                         !isError && tags.map((item) => (

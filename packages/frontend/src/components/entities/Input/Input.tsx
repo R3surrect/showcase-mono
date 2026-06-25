@@ -88,12 +88,14 @@ const Input = ({
                         triggerElement={emojiButtonRender}
                         placement='bottom-end'
                     >
+                        {/*
+                            //TODO реализовать вставку на место курсора, не в конец
+                        */}
                         <EmojiPicker
-                            onEmojiChange={
-                                emojiUnified => setText(
-                                    prev => `${prev}${unifiedToEmoji(emojiUnified)}`
-                                )
-                            } />
+                            onEmojiChange={emojiUnified => setText(
+                                prev => `${prev}${unifiedToEmoji(emojiUnified)}`
+                            )}
+                        />
                     </Popover>
                 }
             </div>

@@ -11,28 +11,26 @@ import type { ColorSet, ColorListProps } from './ColorList.types';
 const ColorList = ({ ref }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
     const [selectedColor, setSelectedColor] = useState(INITIAL_COLORS[0]);
-    const [colorPickerColor, setColorPickerColor] = useState({ h: 0, s: 0, l: 0 })
+    const [colorPickerColor, setColorPickerColor] = useState({ h: 26, s: 22, l: 30 })
 
     useEffect(() => {
         localStorage.setItem('colorSet', JSON.stringify(colorSet));
     }, [colorSet])
+
+    const { h, s, l } = colord(selectedColor.color).toHsl();
+    const serializedColor = JSON.stringify({ h, s, l });
 
     return <Stack gap='md' >
         <input
             ref={ref}
             type='hidden'
             name='color'
-            value={
-                JSON.stringify({
-                    h: colord(selectedColor.color).toHsl().h,
-                    s: colord(selectedColor.color).toHsl().s,
-                    l: colord(selectedColor.color).toHsl().l,
-                })
-            }
+            value={serializedColor}
         />
 
         <Heading level={6} variant='secondary'>Цвет</Heading>
         <Stack wrap={true} direction='row'>
+            <ColorPicker exportColor={(color) => setColorPickerColor(color)} color={colorPickerColor} />
             {
                 [...INITIAL_COLORS, ...colorSet].map((item) => {
                     return (
@@ -50,7 +48,6 @@ const ColorList = ({ ref }: ColorListProps) => {
                     )
                 })
             }
-            <ColorPicker exportColor={(color) => setColorPickerColor(color)} />
         </Stack>
         <Button
             variant='outline'

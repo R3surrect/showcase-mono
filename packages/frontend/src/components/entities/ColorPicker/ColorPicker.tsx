@@ -1,19 +1,12 @@
-import { useState } from 'react';
 import { LucidePipette } from 'lucide-react';
 import { colord } from 'colord';
 import stylesObj from './ColorPicker.module.css';
 import type { ColorPickerProps } from '@/components/entities/ColorPicker/ColorPicker.types';
 
-const ColorPicker = ({ exportColor }: ColorPickerProps) => {
-    const [color, setColor] = useState({
-        h: 0,
-        s: 0,
-        l: 0,
-    });
-
+const ColorPicker = ({ exportColor, color }: ColorPickerProps) => {
     return <div
         className={stylesObj.colorPipette}
-        style={{ boxShadow: `0 0 0 2px hsl(${color.h}, ${color.s}%, ${color.l}%)` }}
+        style={{ boxShadow: `0 0 0 3px hsl(${color.h}, ${color.s}%, ${color.l}%)` }}
     >
         <LucidePipette
             width={20}
@@ -24,10 +17,9 @@ const ColorPicker = ({ exportColor }: ColorPickerProps) => {
 
         <input
             type='color'
+            value={colord(color).toHex()}
             onChange={e => {
-                const { h, s, l } = colord(e.target.value).toHsl();
-                setColor({ h, s, l });
-                exportColor({ h, s, l });
+                exportColor(colord(e.target.value).toHsl());
             }}
         />
     </div>
