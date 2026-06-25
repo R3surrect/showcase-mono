@@ -1,4 +1,4 @@
-export function emojiToUnified(emoji?: string): string {
+export const emojiToUnified = (emoji?: string): string => {
     if (!emoji) return '';
 
     let cleanEmoji: string = emoji;
@@ -42,4 +42,14 @@ export function emojiToUnified(emoji?: string): string {
     }
 
     return parts.join('-');
+}
+
+export const unifiedToEmoji = (unified: string): string => {
+    if (!unified) return '';
+
+    return unified
+        .split('-')
+        .map(hex => parseInt(hex, 16))
+        .map(codePoint => String.fromCodePoint(codePoint))
+        .join('');
 }

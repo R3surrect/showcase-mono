@@ -16,6 +16,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
     type?: InputTypes;
     error?: string;
     textAlign?: TextAlign;
+    hasEmojiPicker?: boolean;
 
     validate?: (value: string) => boolean | string;
     icon?: React.FC<SVGProps<SVGSVGElement>>;

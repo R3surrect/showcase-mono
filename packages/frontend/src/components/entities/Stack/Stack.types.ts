@@ -1,5 +1,5 @@
 import type { Ref } from "react";
-import type { Direction, Size, Justify } from "../_shared/system.types";
+import type { Direction, Size, Justify, AxisSizeVariations, Overflows } from "../_shared/system.types";
 import type { STACK_ALIGN_TYPES, STACK_WIDTH_TYPES } from "./Stack.constants";
 
 export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
@@ -11,6 +11,8 @@ export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'st
     justify?: Justify;
     width?: StackWidth;
     ref?: Ref<HTMLDivElement>;
+    height?: AxisSizeVariations;
+    overflow?: Overflows;
 }
 
 export interface StackVars extends React.CSSProperties {

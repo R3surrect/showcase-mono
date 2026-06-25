@@ -9,7 +9,6 @@ export const tagCreateDbInputValidation = tagSchema.omit({
 
 //* Sending data field filtration
 export const tagCreateOutputValidation = tagSchema.omit({
-    createdAt: true,
     updatedAt: true,
     ownerId: true,
 })

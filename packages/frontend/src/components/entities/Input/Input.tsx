@@ -1,14 +1,18 @@
 import { useId, useState } from 'react';
-import { Eye, EyeClosed } from 'lucide-react';
+import { Eye, EyeClosed, LucideSmile } from 'lucide-react';
 
 import stylesObj from "./Input.module.css";
 
 import Stack from '@components/entities/Stack/Stack';
 import Text from '@components/entities/Text/Text';
 import type { InputProps, InputVars } from '@/components/entities/Input/Input.types';
+import Button from '../Button/Button';
+import Popover from '@/components/shared/Popover/Popover';
+import EmojiPicker from '../EmojiPicker/EmojiPicker';
+import { unifiedToEmoji } from '../EmojiPicker/EmojiPicker.constants';
 
 const Input = ({
-    disabled,
+    disabled = false,
     error,
     type = 'text',
     id,
@@ -16,16 +20,28 @@ const Input = ({
     ref,
     placeholder,
     textAlign = 'start',
+    hasEmojiPicker = false,
     ...props
 }: InputProps) => {
+
+    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
+    const [text, setText] = useState('');
+
     const genId = useId();
     const controlId = id || genId;
 
-    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const isPassword = (type === 'password');
     const inputType = isPassword
         ? (isPasswordHidden ? 'password' : 'text')
         : type;
+
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+    const emojiButtonRender = (
+        <Button variant='transparent' className={stylesObj.additionalElement}>
+            <LucideSmile stroke='var(--neutral-500)' />
+        </Button>
+    )
 
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
@@ -35,36 +51,56 @@ const Input = ({
 
             <div className={stylesObj.inputWrapper} data-valid={error ? 'invalid' : 'valid'}>
                 <input
+                    {...props}
                     className={stylesObj.input}
                     id={controlId}
-                    disabled={disabled || false}
+                    disabled={disabled}
                     type={inputType}
                     ref={ref}
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                    style={{ '--input-text-align': textAlign } as InputVars}
+                    aria-invalid={!!error}
                     placeholder={
                         isPassword
                             ? (isPasswordHidden ? '*****************' : placeholder)
                             : placeholder
                     }
-                    style={{ '--input-text-align': textAlign } as InputVars}
-                    {...props}
-                    aria-invalid={!!error}
                 />
                 {type === 'password' && (
                     isPasswordHidden
                         ? <EyeClosed
-                            className={stylesObj.eye}
+                            className={stylesObj.additionalElement}
                             onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                            stroke='var(--neutral-500)'
                         />
                         : <Eye
-                            className={stylesObj.eye}
+                            className={stylesObj.additionalElement}
                             onClick={() => setIsPasswordHidden(!isPasswordHidden)}
+                            stroke='var(--neutral-500)'
                         />
                 )}
+                {
+                    hasEmojiPicker &&
+                    <Popover
+                        isOpen={isPopoverOpen}
+                        setIsOpen={setIsPopoverOpen}
+                        triggerElement={emojiButtonRender}
+                        placement='bottom-end'
+                    >
+                        {/*
+                            //TODO реализовать вставку на место курсора, не в конец
+                        */}
+                        <EmojiPicker
+                            onEmojiChange={emojiUnified => setText(
+                                prev => `${prev}${unifiedToEmoji(emojiUnified)}`
+                            )}
+                        />
+                    </Popover>
+                }
             </div>
         </Stack>
-
         {error && <span className={stylesObj.error}>{error}</span>}
-
     </div>
 };
 
