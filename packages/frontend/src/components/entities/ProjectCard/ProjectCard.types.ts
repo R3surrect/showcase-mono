@@ -14,8 +14,8 @@ export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color'> {
     label: string;
     color?: HslColor;
     isPinned?: boolean;
-    description?: string;
-    tasks: Task
+    details?: string | null;
+    // tasks: Task;
 }
 
 export interface ProjectVars extends React.CSSProperties {

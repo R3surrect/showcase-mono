@@ -1,4 +1,4 @@
-import type { Task } from "./Project.types";
+import type { Task } from "./ProjectCard.types";
 
 export const sumTasks = (task: Task) => {
     if (!task) return 0;

@@ -1,16 +1,16 @@
-import { config } from "#/config.js";
-import type { AuthEnv } from "#/types/auth-env.js";
 import { Hono } from "hono";
-import { createProject, findProjectsByUserId } from "./projects.query.js";
+import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
-import { projectCreateDbInputValidation } from "./validations/project.create.js";
+import { config } from "#/config.js";
 import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
+import { projectCreateDbInputValidation } from "./validations/project.create.js";
+import { createProject, findProjectsByUserId } from "./projects.query.js";
 
 export const projectsRouter = new Hono<AuthEnv>()
     .get('/', async (c) => {
         try {
             const projects = await findProjectsByUserId(c.get('user').id);
-            return c.json(projects, 200)
+            return c.json(projects, 200);
         } catch (e) {
             !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: ${e}`);
             return c.json([{ message: 'Internal server error' }], 500)

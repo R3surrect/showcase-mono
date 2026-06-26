@@ -1,7 +1,7 @@
 import sql from "#/db.js";
-import type { TagDbCreateInput, TagCreateInput, TagCreateOutput } from "./tag.types.js";
+import type { TagDbCreateInput, TagCreateOutput, TagGetOutput } from "./tag.types.js";
 
-export type FindTagsByUserId = (userId: number) => Promise<TagCreateOutput[]>
+export type FindTagsByUserId = (userId: number) => Promise<TagGetOutput[]>
 
 export const findTagsByUserId: FindTagsByUserId = async (userId) => {
     const rows = await sql<TagCreateOutput[]>`

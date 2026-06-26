@@ -10,6 +10,7 @@ import projectsRouter from "./projects/projects.js";
 const v1Router = new Hono();
 
 v1Router.use('/templates/*', authMiddleware);
+v1Router.use('/projects/*', authMiddleware);
 
 export const appRouterV1 = v1Router
     .route("/auth", registerRouter)

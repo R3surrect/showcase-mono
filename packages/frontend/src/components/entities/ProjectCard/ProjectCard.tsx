@@ -1,28 +1,32 @@
-import stylesObj from './Project.module.css';
+import stylesObj from './ProjectCard.module.css';
 import Surface from "@components/entities/Surface/Surface";
 import Stack from "@components/entities/Stack/Stack";
 import Heading from "../Heading/Heading";
-import type { ProjectProps, ProjectVars } from './Project.types';
+import type { ProjectProps, ProjectVars } from './ProjectCard.types';
 import { Emoji, EmojiStyle } from 'emoji-picker-react';
 import { getHslString } from '@components/entities/ColorList/ColorList.constants';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import { emojiToUnified } from '@components/entities/EmojiPicker/EmojiPicker.constants';
 import Text from '@components/entities/Text/Text';
 import Progress from '../Progress/Progress';
-import { sumTasks } from './Project.constants';
+// import { sumTasks } from './ProjectCard.constants';
 import { isValidElement } from 'react';
 import { LucidePin } from 'lucide-react';
 
 const Project = ({
     emoji,
-    color,
+    color = {
+        h: 41,
+        s: 23,
+        l: 43,
+    },
     isPinned = false,
     label,
-    description,
-    tasks,
+    details,
+    // tasks,
     ...props
 }: ProjectProps) => {
-    const tasksCount = sumTasks(tasks)
+    // const tasksCount = sumTasks(tasks)
 
     const pinProps = {
         size: 20,
@@ -32,7 +36,7 @@ const Project = ({
         'data-pinned': isPinned,
     }
 
-    return <Surface variant="solid" isAnimated {...props}>
+    return <Surface variant="solid" isAnimated {...props} color={getHslString(color)}>
         <LucidePin
             {...pinProps}
             fill={
@@ -58,7 +62,7 @@ const Project = ({
                 }
                 <Stack direction="column" gap="sm">
                     <Heading level={3} variant="secondary">{label}</Heading>
-                    <Text color='lightgray' weight='bold' size={6}>{description}</Text>
+                    <Text color='lightgray' weight='bold' size={6}>{details}</Text>
                 </Stack>
             </Stack>
             <Stack direction='column' gap='sm'>
@@ -67,10 +71,13 @@ const Project = ({
                     weight='bold'
                     size={6}
                 >
-                    {tasksCount} tasks ({tasks.completed} completed)
+                    {/* {tasksCount} tasks ({tasks.completed} completed) */}
+                    {24} tasks ({12} completed)
                 </Text>
-                <Progress all={tasksCount} value={tasks.completed} color={color} />
+                <Progress all={24} value={12} color={color} />
+                {/* <Progress all={tasksCount} value={tasks.completed} color={color} /> */}
             </Stack>
+            
         </Stack>
     </Surface>
 }

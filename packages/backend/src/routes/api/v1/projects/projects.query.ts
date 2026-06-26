@@ -1,5 +1,8 @@
 import sql from "#/db.js"
-import { type ProjectDbCreateInput, type ProjectGetOutput } from './projects.types.js'
+import {
+    type ProjectDbCreateInput,
+    type ProjectGetOutput
+} from './projects.types.js'
 
 export type FindProjectsByUserId = (userId: number) => Promise<ProjectGetOutput[]>;
 

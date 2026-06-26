@@ -3,8 +3,9 @@ import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 import findUserById from "./me.query.js";
+import type { AuthEnv } from "#/types/auth-env.js";
 
-const meRouter = new Hono().get(
+const meRouter = new Hono<AuthEnv>().get(
     '/me',
     async (c) => {
         const token = getCookie(c, 'token');
