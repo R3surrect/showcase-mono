@@ -1,6 +1,6 @@
 import Button from '@/components/entities/Button/Button';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
-import Project from '@/components/entities/Project/Project';
+import Project from '@/components/entities/ProjectCard/ProjectCard';
 import Stack from '@/components/entities/Stack/Stack';
 import { LucidePlusCircle } from 'lucide-react';
 import { mockData } from './Project.constants';

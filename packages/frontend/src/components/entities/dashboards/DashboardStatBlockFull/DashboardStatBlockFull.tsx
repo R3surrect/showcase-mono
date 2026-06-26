@@ -50,7 +50,7 @@ const DashboardStatBlockFull = ({
                 align="center"
                 justify={justify}
                 gap="sm"
-                width="full"
+                width="max"
             >
                 <Heading level={3} align={alignment} variant="secondary">
                     {label}
