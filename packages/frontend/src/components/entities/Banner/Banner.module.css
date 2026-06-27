@@ -1,5 +1,5 @@
 .banner[data-variant="hint"] {--banner-color: var(--warm-green-500)}
-.banner[data-variant="info"] {--banner-color: var(--cold-blue-grey-400)}
+.banner[data-variant="info"] {--banner-color: var(--cold-blue-gray-400)}
 .banner[data-variant="alert"] {--banner-color: var(--warm-red-400)}
 .banner[data-variant="warning"] {--banner-color: var(--warm-orange-400)}
 

@@ -1,11 +1,11 @@
-import type { InputHTMLAttributes, SVGProps } from "react";
-import type { TextAlign } from "../_shared/system.types";
+import type { ComponentPropsWithRef, SVGProps } from "react";
+import type {  TextAlign } from "../_shared/system.types";
 import type { INPUT_TYPE_TYPES } from "./Input.constants";
 
 export type InputTypes = typeof INPUT_TYPE_TYPES[number];
 export interface InputVars extends React.CSSProperties { '--input-text-align': string; }
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+export interface InputProps extends Omit<ComponentPropsWithRef<'input'>, 'style' | 'className' | 'type'> {
     id?: string;
     className?: string;
     name?: string;

@@ -36,7 +36,7 @@ export const insightsStatsMock: DashboardStatBlockFullProps[] = [
         id: '31',
         iconObj: {
             icon: LucideAward,
-            color: 'var(--cold-blue-grey-400)',
+            color: 'var(--cold-blue-gray-400)',
         },
         label: 'Лидер по задачам',
         value: '📱 Мобильное приложение',
@@ -46,7 +46,7 @@ export const insightsStatsMock: DashboardStatBlockFullProps[] = [
         id: '25',
         iconObj: {
             icon: LucideTrendingUp,
-            color: 'var(--cold-blue-grey-400)',
+            color: 'var(--cold-blue-gray-400)',
         },
         label: 'Самый продуктивный',
         value: '✨ Ребрендинг',

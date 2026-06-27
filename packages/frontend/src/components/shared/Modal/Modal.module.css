@@ -1,0 +1,26 @@
+.modalWrapper {
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalWrapper[data-has-background="true"] {
+    background: color-mix(in srgb, var(--cold-blue-gray-400), transparent 70%);
+    backdrop-filter: blur(4px);
+}
+.modalWrapper[data-has-background="false"] {
+    background: transparent;
+    backdrop-filter: 0;
+}
+
+.modal {
+    outline: none;
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease, overlay 0.4s ease allow-discrete, display 0.4s ease allow-discrete;
+}

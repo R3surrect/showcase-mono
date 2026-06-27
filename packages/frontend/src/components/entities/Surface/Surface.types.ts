@@ -10,6 +10,7 @@ export interface SurfaceProps extends Omit<HTMLMotionProps<'div'>, 'className' |
     isAnimated?: boolean;
     color?: string;
     height?: AxisSizeVariations;
+    width?: AxisSizeVariations;
 }
 
 export interface SurfaceVars extends React.CSSProperties {
