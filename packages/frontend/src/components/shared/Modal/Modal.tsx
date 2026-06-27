@@ -42,6 +42,7 @@ const Modal = ({ isOpen, onClose, hasBackground = true, children, ...props }: Mo
                         ref={refs.setFloating}
                         {...getFloatingProps()}
                         {...props}
+                        className={stylesObj.focusManagerWrapper}
                     >
                         {children}
                     </div>

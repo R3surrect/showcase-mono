@@ -20,11 +20,9 @@ export const Component = () => {
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
     const projectContextMenuClick = (id: number) => {
-        console.log(id);
         setSelectedProject(
-            data?.find(
-                item => item.id === id
-            ))
+            data?.find(item => item.id === id)
+        )
         setIsModalOpen(true);
     }
 

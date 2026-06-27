@@ -2,6 +2,8 @@
 @import url('@global/styles/_breakpoints.css');
 
 .surface {
+    /*TODO a11y */
+    outline: none;
     min-height: 0;
     height: 100%;
     width: 100%;

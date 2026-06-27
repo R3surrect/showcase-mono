@@ -1,5 +1,8 @@
-.modalWrapper {
+.focusManagerWrapper, .modalWrapper, .modal {
     outline: none;
+}
+
+.modalWrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +18,6 @@
 }
 
 .modal {
-    outline: none;
     width: fit-content;
     height: fit-content;
     border: none;
