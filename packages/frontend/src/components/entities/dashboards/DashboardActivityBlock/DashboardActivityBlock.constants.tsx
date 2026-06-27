@@ -19,7 +19,7 @@ export const chartsMock: DataProps[] = [
 ]
 
 export const chartsData: Partial<LineProps>[] = [
-    { key: '1', dataKey: "all", name: "Всего", stroke: "var(--cold-blue-grey-400)" },
+    { key: '1', dataKey: "all", name: "Всего", stroke: "var(--cold-blue-gray-400)" },
     { key: '2', dataKey: "completed", name: "Выполнено", stroke: "var(--warm-green-500)", dot: { r: 3, fill: 'var(--warm-green-500)' } },
     { key: '3', dataKey: "outdated", name: "Просрочено", stroke: "var(--warm-red-400)", strokeDasharray: "4 3" },
 ]

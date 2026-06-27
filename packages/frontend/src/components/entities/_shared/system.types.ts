@@ -1,4 +1,4 @@
-import type { ComponentPropsWithRef, HTMLAttributes } from "react";
+import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
 import type {
     BASE_ALIGN_TYPES,
     BOX_ALIGN_TYPES,
@@ -27,8 +27,5 @@ export type Overflows = typeof OVERFLOW_TYPES[number];
 
 //* DOM frequently using types
 
-export type DivUiComponent = Omit<HTMLAttributes<'div'>, 'style' | 'className'>;
+export type DivUiComponent = Omit<ComponentPropsWithoutRef<'div'>, 'style' | 'className'>;
 export type DivUiRefComponent = Omit<ComponentPropsWithRef<'div'>, 'style' | 'className'>
-
-export type InputUiComponent = Omit<HTMLAttributes<'input'>, 'style' | 'className'>;
-export type InputUiRefComponent = Omit<ComponentPropsWithRef<'input'>, 'style' | 'className'>

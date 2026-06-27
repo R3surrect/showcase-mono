@@ -13,7 +13,7 @@ import Progress from '../Progress/Progress';
 import { isValidElement } from 'react';
 import { LucidePin } from 'lucide-react';
 
-const Project = ({
+const ProjectCard = ({
     emoji,
     color = {
         h: 41,
@@ -24,6 +24,7 @@ const Project = ({
     label,
     details,
     // tasks,
+    hasSurface = true,
     ...props
 }: ProjectProps) => {
     // const tasksCount = sumTasks(tasks)
@@ -36,7 +37,7 @@ const Project = ({
         'data-pinned': isPinned,
     }
 
-    return <Surface variant="solid" isAnimated {...props} color={getHslString(color)}>
+    const projectCardRender = <>
         <LucidePin
             {...pinProps}
             fill={
@@ -77,9 +78,20 @@ const Project = ({
                 <Progress all={24} value={12} color={color} />
                 {/* <Progress all={tasksCount} value={tasks.completed} color={color} /> */}
             </Stack>
-            
+
         </Stack>
+    </>
+
+    return hasSurface ? <Surface
+        variant="outline"
+        isAnimated
+        color={getHslString(color)}
+        width='max'
+        {...props}
+    >
+        {projectCardRender}
     </Surface>
+        : projectCardRender
 }
 
-export default Project
+export default ProjectCard

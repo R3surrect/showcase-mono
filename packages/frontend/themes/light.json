@@ -24,7 +24,7 @@
     "--warm-yellow-400": "hsl(64,39%,53%);",
     "--warm-orange-400": "hsl(35,39%,53%);",
     "--warm-red-400": "hsl(11,35%,47%);",
-    "--cold-blue-grey-400": "hsl(207,10%,42%);",
+    "--cold-blue-gray-400": "hsl(207,10%,42%);",
     "--monochrome-0": "hsl(0,0%,100%);",
     "--monochrome-100": "hsl(0,0%,96%);",
     "--monochrome-200": "hsl(0,0%,90%);",

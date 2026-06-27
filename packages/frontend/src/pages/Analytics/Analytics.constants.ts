@@ -46,7 +46,7 @@ export const dashboardStatMock: DashboardStatBlockFullProps[] = [
         id: '4',
         iconObj: {
             icon: LucideZap,
-            color: 'var(--cold-blue-grey-400)',
+            color: 'var(--cold-blue-gray-400)',
         },
         label: 'В работе сейчас',
         value: '4',
