@@ -2,7 +2,7 @@
 
 /** Main Colors */
 :root {
-  --neutral-0:   hsl(90, 6%, 95%);
+  --neutral-0:   hsl(105, 12%, 95%);
   --neutral-25:  hsl(0, 0%, 64%);
   --neutral-100: hsl(53, 22%, 92%);
   --neutral-200: hsl(48, 31%, 84%);
@@ -17,7 +17,7 @@
   --neutral-850: hsl(40, 26%, 13%);
 
   /** Needs design-refactor */
-  --lite-white: hsl(0, 0%, 97%);
+  --lite-white: hsl(105, 0%, 98%);
 
   --warm-gray-100: hsl(80, 14%, 91%);
   --warm-gray-300: hsl(42, 12%, 55%);

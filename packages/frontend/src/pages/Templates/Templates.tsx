@@ -19,7 +19,7 @@ export const Component = () => {
                 title="Шаблоны и теги"
                 subtitle="Готовые заготовки для задач, тегов и управление метками"
             >
-                <Button variant='accent' size='lg'>Создать шаблон</Button>
+                <Button variant='accent' size='sm'>Создать шаблон</Button>
             </ContentHeader>
             {
                 !isDismissed &&

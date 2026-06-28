@@ -51,9 +51,9 @@
 .button[data-radius='md'] {border-radius: var(--border-radius-10)}
 .button[data-radius='lg'] {border-radius: var(--border-radius-15)}
 
-.button[data-size='sm'] { padding: calc(var(--border-radius-4) / 2) }
-.button[data-size='md'] { padding: var(--border-radius-10) }
-.button[data-size='lg'] { padding: var(--border-radius-15) }
+.button[data-size='sm'] { padding: .3rem }
+.button[data-size='md'] { padding: .875rem }
+.button[data-size='lg'] { padding: 1rem }
 
 .button[data-width='fit']{ width: fit-content }
 .button[data-width='max']{ width: 100% }
