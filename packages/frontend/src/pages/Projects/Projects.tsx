@@ -11,6 +11,7 @@ import Modal from '@/components/shared/Modal/Modal';
 import Surface from '@/components/entities/Surface/Surface';
 import { useState } from 'react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
+import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
@@ -20,11 +21,9 @@ export const Component = () => {
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
     const projectContextMenuClick = (id: number) => {
-        console.log(id);
         setSelectedProject(
-            data?.find(
-                item => item.id === id
-            ))
+            data?.find(item => item.id === id)
+        )
         setIsModalOpen(true);
     }
 
@@ -42,7 +41,7 @@ export const Component = () => {
                 {isLoading
                     ? <Text>...loading</Text>
                     : !isError
-                        ? projects.map(item => (
+                        ? projects.length !== 0 ? projects.map(item => (
                             <ProjectCard
                                 key={item.id}
                                 onClick={() => projectContextMenuClick(item.id)}
@@ -50,21 +49,24 @@ export const Component = () => {
                                 id={item.id.toString()}
                             />
                         ))
+                            : <Text>Projects are empty</Text>
                         : <ErrorMessage message={error.message} />
                 }
             </Grid>
-            {selectedProject && <Modal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(!isModalOpen)}
-            >
-                <Surface height='fit'>
-                    <ProjectCard
-                        {...selectedProject}
-                        hasSurface={false}
-                        id={selectedProject.id.toString()}
-                    />
-                </Surface>
-            </Modal>}
+            {
+                selectedProject &&
+                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
+                    <Surface>
+                        <Surface height='fit' variant='outline' color={getHslString(selectedProject.color)}>
+                            <ProjectCard
+                                {...selectedProject}
+                                hasSurface={false}
+                                id={selectedProject.id.toString()}
+                            />
+                        </Surface>
+                    </Surface>
+                </Modal>
+            }
         </Stack >
     )
 }

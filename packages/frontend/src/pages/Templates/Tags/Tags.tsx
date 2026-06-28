@@ -79,19 +79,20 @@ export const Component = () => {
                     direction='row'
                     gap='sm'
                     wrap={true}
-                    align='center'
+                    align='start'
                     height='max'
                     overflow='auto'
                 >
                     {
                         // !isError && visibleTags.map((item) => (
-                        !isError && tags.map((item) => (
+                        (!isError && tags.length !== 0) ? tags.map((item) => (
                             <Tag
                                 {...item}
                                 key={item.id}
                                 id={item.id}
                             />
                         ))
+                            : <Text weight='bold'>No tags created</Text>
                     }
                     {/* {!isError && hasMoreTags && <Text weight='bold' color='darkgray' >+ {tags.length - breakpoint}</Text>} */}
                     {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}

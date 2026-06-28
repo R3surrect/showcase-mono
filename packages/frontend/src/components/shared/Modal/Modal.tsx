@@ -1,6 +1,4 @@
-import React from "react";
 import stylesObj from './Modal.module.css';
-import type { DivUiRefComponent } from "@/components/entities/_shared/system.types";
 import {
     FloatingFocusManager,
     FloatingOverlay,
@@ -8,20 +6,22 @@ import {
     useDismiss,
     useFloating,
     useInteractions,
-    useRole
+    useRole,
+    useTransitionStatus,
 } from "@floating-ui/react";
-
-export interface ModalProps extends DivUiRefComponent {
-    children: React.ReactNode;
-    isOpen: boolean;
-    onClose: () => void;
-    hasBackground?: boolean;
-};
+import type { ModalProps, ModalVars } from './Modal.types';
 
 const Modal = ({ isOpen, onClose, hasBackground = true, children, ...props }: ModalProps) => {
+    const animationDuration = 150;
     const { refs, context } = useFloating({
         open: isOpen,
-        onOpenChange: onClose,
+        onOpenChange: (nextOpen) => {
+            if (!nextOpen) onClose();
+        },
+    });
+
+    const { isMounted, status } = useTransitionStatus(context, {
+        duration: animationDuration,
     });
 
     const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
@@ -29,17 +29,26 @@ const Modal = ({ isOpen, onClose, hasBackground = true, children, ...props }: Mo
 
     const { getFloatingProps } = useInteractions([dismiss, role]);
 
-    if (!isOpen) return null;
+    if (!isMounted) return null;
     return (
         <FloatingPortal>
             <FloatingOverlay
                 lockScroll
+                style={{
+                    '--modal-animation-duration': `${animationDuration}ms`
+                } as ModalVars}
                 className={stylesObj.modalWrapper}
                 data-has-background={hasBackground}
+                data-status={status}
             >
                 <FloatingFocusManager context={context}>
                     <div
+                        className={stylesObj.focusManagerWrapper}
                         ref={refs.setFloating}
+                        data-status={status}
+                        style={{
+                            '--modal-animation-duration': `${animationDuration}ms`
+                        } as ModalVars}
                         {...getFloatingProps()}
                         {...props}
                     >
