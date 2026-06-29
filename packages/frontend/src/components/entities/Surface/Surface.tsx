@@ -16,8 +16,6 @@ const Surface = ({
 }: SurfaceProps) => {
     return (
         <motion.div
-            onClick={props.onClick}
-            data-clickable={Boolean(props.onClick)}
             className={clsx(stylesObj.surface, stylesObj[variant])}
             ref={ref}
             data-animated={isAnimated}
