@@ -19,7 +19,7 @@ export const Component = () => {
             >
                 {
                     dashboardStatMock.map(item => (
-                        <DashboardStatBlockFull {...item} isAnimated={true} key={item.id} />
+                        <DashboardStatBlockFull {...item} isAnimated={true} key={item.id}/>
                     ))
                 }
             </Grid>
