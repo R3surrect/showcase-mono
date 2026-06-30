@@ -13,18 +13,18 @@ import { useState } from 'react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 
+export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', project: ProjectGetOutput };
+
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
     const projects = data || [];
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
     const projectContextMenuClick = (id: number) => {
-        setSelectedProject(
-            data?.find(item => item.id === id)
-        )
-        setIsModalOpen(true);
+        setSelectedProject(data?.find(item => item.id === id))
+        setIsViewModalOpen(true);
     }
 
     return (
@@ -55,7 +55,7 @@ export const Component = () => {
             </Grid>
             {
                 selectedProject &&
-                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
+                <Modal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(!isViewModalOpen)}>
                     <Surface>
                         <Surface height='fit' variant='outline' color={getHslString(selectedProject.color)}>
                             <ProjectCard
