@@ -12,12 +12,10 @@ body,
 html {
     height: 100%;
     font-family: var(--font-main);
-    /* scroll-behavior: smooth; */
     overflow: hidden;
     position: fixed;
     min-width: 360px;
     width: 100%;
-    /* overflow-x: auto; */
 }
 
 body {
@@ -33,9 +31,7 @@ select {
     display: block;
 }
 
-[data-clickable="true"] {
-    cursor: pointer;
-}
+[data-clickable]{ cursor: pointer }
 
 @media (prefers-reduced-motion: reduce) {
     html {

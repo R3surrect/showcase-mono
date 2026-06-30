@@ -2,15 +2,15 @@
 @import url('@global/styles/_breakpoints.css');
 
 .surface {
+    /*TODO a11y */
+    outline: none;
     min-height: 0;
-    
     height: 100%;
     width: 100%;
     padding: 1.25rem;
     background: var(--lite-white);
     border: 1px solid var(--neutral-400);
     backdrop-filter: blur(3.5rem);
-    /* box-shadow: var(--shadow-md); */
     transition: .3s;
 
     border-radius: var(--border-radius-25);
@@ -24,15 +24,18 @@
 .surface[data-height='max'] { height: 100% }
 .surface[data-height='fit'] { height: fit-content }
 
+.surface[data-width='max'] { width: 100% }
+.surface[data-width='fit'] { width: fit-content }
+
 .glass {
     background-color: var(--glass-surface-light-45);
-    border: 1px solid rgb(255, 255, 255, 40%);
+    border: 1px solid color-mix(in srgb, var(--cold-blue-gray-400), transparent 80%);
 }
 
 .solid,
 .outline {
     background-color: var(--lite-white);
-    border: 1px solid color-mix(in srgb, var(--cold-blue-grey-400), transparent var(--opacity-high));
+    border: 1px solid color-mix(in srgb, var(--cold-blue-gray-400), transparent var(--opacity-high));
 }
 
 .surface[data-animated="true"]:hover {

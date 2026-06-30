@@ -9,12 +9,13 @@ export interface Task {
     inProgress: number;
 }
 
-export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color'> {
+export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'children'> {
     emoji?: string | React.ReactNode;
     label: string;
     color?: HslColor;
     isPinned?: boolean;
     details?: string | null;
+    hasSurface?: boolean;
     // tasks: Task;
 }
 

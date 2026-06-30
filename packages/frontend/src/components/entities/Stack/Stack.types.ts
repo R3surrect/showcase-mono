@@ -3,7 +3,7 @@ import type { Direction, Size, Justify, AxisSizeVariations, Overflows } from "..
 import type { STACK_ALIGN_TYPES, STACK_WIDTH_TYPES } from "./Stack.constants";
 
 export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'style' | 'className'> {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     gap?: Size;
     align?: StackAlign;
     direction?: Direction;

@@ -11,17 +11,17 @@ const Surface = ({
     children,
     isAnimated = false,
     height = 'fit',
+    width = 'max',
     ...props
 }: SurfaceProps) => {
     return (
         <motion.div
-            onClick={props.onClick}
-            data-clickable={Boolean(props.onClick)}
             className={clsx(stylesObj.surface, stylesObj[variant])}
             ref={ref}
             data-animated={isAnimated}
             data-radius={cornerRadius}
             data-height={height}
+            data-width={width}
             style={{ '--surface-color': color } as SurfaceVars}
             {...props}
         >
