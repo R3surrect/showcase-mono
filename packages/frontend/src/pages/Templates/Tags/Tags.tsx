@@ -12,13 +12,13 @@ import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/ap
 import { treeifyError } from 'zod'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import Grid from '@/components/entities/Grid/Grid'
-import { createPortal } from 'react-dom'
+// import { createPortal } from 'react-dom'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const Component = () => {
-    const slot = document.querySelector('#content-header-slot')
+    // const slot = document.querySelector('#content-header-slot')
     // #region
     // const isMobile = useDevice('mobile');
     // const isTablet = useDevice('tablet');
@@ -70,16 +70,11 @@ export const Component = () => {
                         hasEmojiPicker
                     />
                     <ColorList />
-                    {
-                        slot && createPortal(
-                            <Button
-                                type='submit'
-                                width='max'
-                                size='lg'
-                            >Создать тег</Button>,
-                            slot
-                        )
-                    }
+                    <Button
+                        type='submit'
+                        width='max'
+                        size='lg'
+                    >Создать тег</Button>
                 </Stack>
             </Surface>
         </form>
