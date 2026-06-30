@@ -13,7 +13,7 @@ export const ContentHeader = ({ title, subtitle, children }: ContentHeaderProps)
         {title}
     </Heading>
 
-    return <Stack direction='row' justify='space-between' wrap={true} >
+    return <Stack direction='row' justify='space-between' wrap={true} align='center'>
         {subtitle ? <Stack gap='sm' direction='column' width='fit'>
             {heading}
             <Text color='darkgray' size={6} weight='regular'>{subtitle}</Text>
