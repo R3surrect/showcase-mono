@@ -11,7 +11,7 @@ const Button = ({
   children,
   width = 'fit',
   radius = 'sm',
-  size = 'sm',
+  size = 'lg',
   isHoverAnimated = true,
   ...props
 }: ButtonProps) => {

@@ -4,11 +4,6 @@
     display: grid;
 }
 
-.content {
-    display: flex;
-    gap: 1rem;
-}
-
 @media (--desktop), (--tablet) {
     .wrapper {
         grid-template-columns: 10fr auto;

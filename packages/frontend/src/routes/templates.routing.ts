@@ -18,4 +18,4 @@ export const TEMPLATES_ROUTES: PillPickerItem[] = [
         isDefault: false,
         lazy: () => import('@pages/Templates/Tags/Tags.tsx'),
     },
-] as const
+] as const;

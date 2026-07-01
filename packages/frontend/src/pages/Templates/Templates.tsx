@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import Button from '@components/entities/Button/Button';
 import { PillPicker } from '@components/entities/PillPicker/PillPicker';
 import { TEMPLATES_ROUTES } from '@/routes/templates.routing.ts';
 import { ContentHeader } from '@components/entities/ContentHeader/ContentHeader';
@@ -18,9 +17,7 @@ export const Component = () => {
             <ContentHeader
                 title="Шаблоны и теги"
                 subtitle="Готовые заготовки для задач, тегов и управление метками"
-            >
-                <Button variant='accent' size='sm'>Создать шаблон</Button>
-            </ContentHeader>
+            />
             {
                 !isDismissed &&
                 <Banner variant='hint' onClose={() => dismiss(hintId)} width='max'>

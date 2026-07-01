@@ -15,6 +15,7 @@ h5 { font-size: var(--footer-text-size)}
 h6 { font-size: var(--helper-text-size)}
 
 .heading {
+    height: min-content;
     margin: 0;
     padding: 0;
     vertical-align: middle;
