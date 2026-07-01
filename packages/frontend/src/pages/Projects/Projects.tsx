@@ -19,6 +19,7 @@ export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
     const projects = data || [];
 
+    
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
@@ -30,7 +31,7 @@ export const Component = () => {
     return (
         <Stack direction='column'>
             <ContentHeader title='Проекты'>
-                <Button variant='outline'>
+                <Button variant='outline' size='sm'>
                     <Stack direction='row' gap='sm' align='center'>
                         <LucidePlusCircle strokeWidth={1.5} />
                         Новый проект
