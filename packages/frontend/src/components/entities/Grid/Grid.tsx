@@ -5,6 +5,7 @@ const Grid = ({
     columns = 3,
     gap = 'sm',
     alignItems = 'stretch',
+    justifyItems = 'stretch',
     height = 'max',
     autoRows = 'min-content',
     templateColumns,
@@ -18,6 +19,7 @@ const Grid = ({
             '--grid-align-items': alignItems,
             '--grid-auto-rows': autoRows,
             '--grid-template-columns': templateColumns,
+            '--grid-justify-items': justifyItems,
         } as GridVars}
         data-height={height}
     >
