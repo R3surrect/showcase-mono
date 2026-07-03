@@ -30,4 +30,6 @@ export type ResponsiveObj<T> = T | { base?: T, md?: T, lg?: T }
 //* DOM frequently using types
 
 export type DivUiComponent = Omit<ComponentPropsWithoutRef<'div'>, 'style' | 'className'>;
-export type DivUiRefComponent = Omit<ComponentPropsWithRef<'div'>, 'style' | 'className'>
+export type DivUiRefComponent = Omit<ComponentPropsWithRef<'div'>, 'style' | 'className'>;
+
+export type InputUiRefComponent = Omit<ComponentPropsWithRef<'input'>, 'style' | 'clasName'>;
