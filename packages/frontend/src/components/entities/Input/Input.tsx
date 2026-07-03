@@ -5,10 +5,10 @@ import stylesObj from "./Input.module.css";
 
 import Stack from '@components/entities/Stack/Stack';
 import Text from '@components/entities/Text/Text';
-import type { InputProps, InputVars } from '@/components/entities/Input/Input.types';
-import Button from '../Button/Button';
-import Popover from '@/components/shared/Popover/Popover';
-import EmojiPicker from '../EmojiPicker/EmojiPicker';
+import type { InputProps, InputVars } from '@components/entities/Input/Input.types';
+import Button from '@components/entities/Button/Button';
+import Popover from '@components/shared/Popover/Popover';
+import EmojiPicker from '@components/entities/EmojiPicker/EmojiPicker';
 import { unifiedToEmoji } from '../EmojiPicker/EmojiPicker.constants';
 
 const Input = ({

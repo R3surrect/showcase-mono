@@ -1,3 +1,9 @@
+import type { PickerProps } from "emoji-picker-react";
+export const VARIANT_TYPES = ['default', 'keyboard'] as const;
+export const emojiPickerKeyboardProps: Partial<PickerProps> = {
+    width: '100%',
+    height: '35dvh',
+};
 export const emojiToUnified = (emoji?: string): string => {
     if (!emoji) return '';
 
@@ -43,7 +49,6 @@ export const emojiToUnified = (emoji?: string): string => {
 
     return parts.join('-');
 }
-
 export const unifiedToEmoji = (unified: string): string => {
     if (!unified) return '';
 

@@ -58,11 +58,18 @@ export const Component = () => {
                 }
             </Grid>
             {
-                <Modal isOpen={pageState.type !== 'idle'} onClose={() => setPageState({ type: 'idle' })}>
+                <Modal
+                    isOpen={pageState.type !== 'idle'}
+                    onClose={() => setPageState({ type: 'idle' })}
+                >
                     <Surface>
                         {
                             (selectedProject && pageState.type === 'view') &&
-                            <Surface height='fit' variant='outline' color={getHslString(selectedProject.color)}>
+                            <Surface
+                                height='fit'
+                                variant='outline'
+                                color={getHslString(selectedProject.color)}
+                            >
                                 <ProjectCard
                                     {...selectedProject}
                                     hasSurface={false}
