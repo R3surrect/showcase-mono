@@ -38,14 +38,15 @@ const Input = ({
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
     const emojiButtonRender = (
-        <Button variant='transparent' className={stylesObj.additionalElement}>
+        // <Button variant='transparent' className={stylesObj.additionalElement}>
+        <Button variant='transparent'>
             <LucideSmile stroke='var(--neutral-500)' />
         </Button>
     )
 
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
-            <Text as='label' htmlFor={controlId}>
+            <Text as='label' htmlFor={controlId} size={4} weight='bold' color='lightgray'>
                 {labelText}
             </Text>
 
@@ -92,7 +93,7 @@ const Input = ({
                             //TODO реализовать вставку на место курсора, не в конец
                         */}
                         <EmojiPicker
-                            onEmojiChange={emojiUnified => setText(
+                            onEmojiChange={(emojiUnified: string) => setText(
                                 prev => `${prev}${unifiedToEmoji(emojiUnified)}`
                             )}
                         />

@@ -25,6 +25,8 @@ export type Weights = typeof WEIGHTS_TYPES[number];
 export type Sizes = typeof SIZE_TYPES[number];
 export type Overflows = typeof OVERFLOW_TYPES[number];
 
+export type ResponsiveObj<T> = T | { base?: T, md?: T, lg?: T }
+
 //* DOM frequently using types
 
 export type DivUiComponent = Omit<ComponentPropsWithoutRef<'div'>, 'style' | 'className'>;

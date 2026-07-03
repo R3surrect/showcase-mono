@@ -12,6 +12,7 @@ import Surface from '@/components/entities/Surface/Surface';
 import { useEffect, useState } from 'react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
+import ProjectCreateForm from './create/Project.create';
 
 export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: number };
 
@@ -25,7 +26,7 @@ export const Component = () => {
 
     const projectClickHandler = (id: number) => {
         setSelectedProject(data?.find(item => item.id === id))
-        setPageState({ projectId: id, type: 'view'});
+        setPageState({ projectId: id, type: 'view' });
     }
 
     useEffect(() => console.log(pageState), [pageState])
@@ -33,7 +34,7 @@ export const Component = () => {
     return (
         <Stack direction='column'>
             <ContentHeader title='Проекты'>
-                <Button variant='outline' size='sm'>
+                <Button variant='outline' size='sm' onClick={() => setPageState({ type: 'create' })}>
                     <Stack direction='row' gap='sm' align='center'>
                         <LucidePlusCircle strokeWidth={1.5} />
                         Новый проект
@@ -57,16 +58,19 @@ export const Component = () => {
                 }
             </Grid>
             {
-                selectedProject &&
-                <Modal isOpen={pageState.type === 'view'} onClose={() => setPageState({ type: 'idle' })}>
+                <Modal isOpen={pageState.type !== 'idle'} onClose={() => setPageState({ type: 'idle' })}>
                     <Surface>
-                        <Surface height='fit' variant='outline' color={getHslString(selectedProject.color)}>
-                            <ProjectCard
-                                {...selectedProject}
-                                hasSurface={false}
-                                id={selectedProject.id.toString()}
-                            />
-                        </Surface>
+                        {
+                            (selectedProject && pageState.type === 'view') &&
+                            <Surface height='fit' variant='outline' color={getHslString(selectedProject.color)}>
+                                <ProjectCard
+                                    {...selectedProject}
+                                    hasSurface={false}
+                                    id={selectedProject.id.toString()}
+                                />
+                            </Surface>
+                        }
+                        {pageState.type === 'create' && <ProjectCreateForm />}
                     </Surface>
                 </Modal>
             }

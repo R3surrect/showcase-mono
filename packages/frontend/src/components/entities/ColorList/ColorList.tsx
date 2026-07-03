@@ -7,6 +7,7 @@ import ColorPicker from '@components/entities/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
 import { getHslString, getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
 import type { ColorSet, ColorListProps } from './ColorList.types';
+import Grid from '@components/entities/Grid/Grid';
 
 const ColorList = ({ ref }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
@@ -29,7 +30,8 @@ const ColorList = ({ ref }: ColorListProps) => {
         />
 
         <Heading level={6} variant='secondary'>Цвет</Heading>
-        <Stack wrap={true} direction='row'>
+        {/* <Stack wrap={true} direction='row'> */}
+        <Grid columns={16} justifyItems='center' gap='md'>
             <ColorPicker exportColor={(color) => setColorPickerColor(color)} color={colorPickerColor} />
             {
                 [...INITIAL_COLORS, ...colorSet].map((item) => {
@@ -48,7 +50,8 @@ const ColorList = ({ ref }: ColorListProps) => {
                     )
                 })
             }
-        </Stack>
+        </Grid>
+        {/* </Stack> */}
         <Button
             variant='outline'
             width='max'

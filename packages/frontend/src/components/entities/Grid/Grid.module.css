@@ -5,6 +5,7 @@
     gap: var(--grid-gap, 0);
     grid-auto-rows: var(--grid-auto-rows, min-content);
     align-items: var(--grid-align-items, start);
+    justify-items: var(--grid-justify-items, start);
     height: var(--grid-height, fit-content);
 }
 
