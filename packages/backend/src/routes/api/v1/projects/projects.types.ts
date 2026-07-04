@@ -16,13 +16,17 @@ export type ProjectOwnerId = Project['ownerId'];
 
 //* INPUT
 
-export type ProjectDbCreateInput = z.infer<typeof projectCreateDbInputValidation>
-export type ProjectCreateInput = z.infer<typeof projectCreateInputValidation>
-export type ProjectUpdateInput = z.infer<typeof projectUpdateValidation>
-export type ProjectDeleteInput = z.infer<typeof projectDeleteValidation>
+export type ProjectDbCreateInput = z.infer<typeof projectCreateDbInputValidation>;
+export type ProjectCreateInput = z.infer<typeof projectCreateInputValidation>;
+export type ProjectUpdateInput = z.infer<typeof projectUpdateValidation>;
+export type ProjectDeleteInput = z.infer<typeof projectDeleteValidation>;
+
+export type ProjectPinInput = Pick<Project, 'id' | 'isPinned'>;
 
 //* OUTPUT
 
-export type ProjectGetOutput = Omit<Project, 'ownerId' | 'updatedAt'>
-export type ProjectCreateOutput = z.infer<typeof projectCreateOutputSchema>
+export type ProjectGetOutput = Omit<Project, 'ownerId' | 'updatedAt'>;
+export type ProjectCreateOutput = z.infer<typeof projectCreateOutputSchema>;
 export type ProjectUpdateOutput = ProjectCreateOutput;
+
+export type ProjectPinOutput = ProjectUpdateOutput;

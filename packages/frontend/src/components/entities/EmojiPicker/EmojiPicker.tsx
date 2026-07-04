@@ -27,7 +27,6 @@ const EmojiPicker = ({ onEmojiChange, variant = 'default', ...props }: EmojiPick
                     {...props}
                 />
             </div>
-
         </Stack>
     );
 };

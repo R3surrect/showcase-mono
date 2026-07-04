@@ -1,7 +1,9 @@
 import sql from "#/db.js"
 import {
     type ProjectDbCreateInput,
-    type ProjectGetOutput
+    type ProjectGetOutput,
+    type ProjectPinInput,
+    type ProjectPinOutput
 } from './projects.types.js'
 
 export type FindProjectsByUserId = (userId: number) => Promise<ProjectGetOutput[]>;
@@ -46,4 +48,14 @@ export const createProject: CreateProject = async ({
     `;
 
     return [...rows]
+}
+
+export type PinProject = (data: ProjectPinInput) => Promise<ProjectPinOutput[]>
+
+export const pinProject: PinProject = async ({ id, isPinned }) => {
+    const rows = await sql<ProjectPinOutput[]>`
+        UPDATE projects SET is_pinned = ${isPinned} where projects.id = ${id}
+    `;
+
+    return [...rows];
 }
