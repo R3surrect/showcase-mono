@@ -9,12 +9,12 @@ import Text from '@/components/entities/Text/Text';
 import Grid from '@/components/entities/Grid/Grid';
 import Modal from '@/components/shared/Modal/Modal';
 import Surface from '@/components/entities/Surface/Surface';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 import ProjectCreateForm from './create/Project.create';
 
-export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: number };
+export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: string };
 
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
@@ -24,12 +24,14 @@ export const Component = () => {
 
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
-    const projectClickHandler = (id: number) => {
-        setSelectedProject(data?.find(item => item.id === id))
+    const projectClickHandler = (id: string) => {
+        setSelectedProject(data?.find(item => item.id.toString() === id))
         setPageState({ projectId: id, type: 'view' });
     }
 
-    useEffect(() => console.log(pageState), [pageState])
+    const projectPinHandler = (id: string) => {
+        console.log(id)
+    }
 
     return (
         <Stack direction='column'>
@@ -48,9 +50,10 @@ export const Component = () => {
                         ? projects.length !== 0 ? projects.map(item => (
                             <ProjectCard
                                 key={item.id}
-                                onClick={() => projectClickHandler(item.id)}
+                                onClick={() => projectClickHandler(item.id.toString())}
                                 {...item}
                                 id={item.id.toString()}
+                                onPinClick={(projectId) => projectPinHandler(projectId.toString())}
                             />
                         ))
                             : <Text>Projects are empty</Text>
@@ -74,6 +77,7 @@ export const Component = () => {
                                     {...selectedProject}
                                     hasSurface={false}
                                     id={selectedProject.id.toString()}
+                                    onPinClick={(projectId) => projectPinHandler(projectId.toString())}
                                 />
                             </Surface>
                         }

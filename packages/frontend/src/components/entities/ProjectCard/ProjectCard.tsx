@@ -25,24 +25,28 @@ const ProjectCard = ({
     details,
     // tasks,
     hasSurface = true,
+    onPinClick,
     ...props
 }: ProjectProps) => {
     // const tasksCount = sumTasks(tasks)
+
+    const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
+        e.stopPropagation();
+        onPinClick(props.id)
+    }
 
     const pinProps = {
         size: 20,
         className: stylesObj.pin,
         strokeWidth: 1,
-        onClick: () => { console.log(isPinned) },
+        onClick: pinClickHandler,
         'data-pinned': isPinned,
     }
 
     const projectCardRender = <>
         <LucidePin
             {...pinProps}
-            fill={
-                isPinned ? getHslString(color ? { ...color, l: 75 } : DEFAULT_HSL_COLOR) : 'transparent'
-            }
+            fill={isPinned ? getHslString(color ? { ...color, l: 75 } : DEFAULT_HSL_COLOR) : 'transparent'}
             stroke='var(--monochrome-700)'
         />
         <Stack direction="column" gap="md">
@@ -50,9 +54,7 @@ const ProjectCard = ({
                 {emoji &&
                     <div
                         className={stylesObj.iconWrapper}
-                        style={{
-                            '--project-color': getHslString(color || DEFAULT_HSL_COLOR)
-                        } as ProjectVars}
+                        style={{ '--project-color': getHslString(color || DEFAULT_HSL_COLOR) } as ProjectVars}
                     >
                         {
                             isValidElement(emoji)

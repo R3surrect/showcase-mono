@@ -10,12 +10,14 @@ export interface Task {
 }
 
 export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'children'> {
+    id: string;
     emoji?: string | React.ReactNode;
     label: string;
     color?: HslColor;
     isPinned?: boolean;
     details?: string | null;
     hasSurface?: boolean;
+    onPinClick: (projectId: string) => void;
     // tasks: Task;
 }
 
