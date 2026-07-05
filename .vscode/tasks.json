@@ -1,0 +1,75 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pnpm",
+            "type": "shell",
+            "command": "clear && pnpm -w run dev:all",
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev-group",
+                "panel": "dedicated"
+            },
+            "icon": {
+                "id": "play-circle",
+                "color": "terminal.ansiMagenta"
+            }
+        },
+        {
+            "label": "docker",
+            "type": "shell",
+            "command": "sleep 1 && clear && start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\" -headless && until docker info >/dev/null 2>&1; do sleep 2; done; cd packages/backend && docker compose up -d && docker compose logs -f --tail=100 || read",
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev-group",
+                "panel": "dedicated"
+            },
+            "icon": {
+                "id": "server-process",
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "label": "git",
+            "type": "shell",
+            "command": "sleep 2 && clear && exec bash",
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev-group",
+                "panel": "dedicated"
+            },
+            "icon": {
+                "id": "github",
+                "color": "terminal.ansiGreen"
+            }
+        },
+        {
+            "label": "verdaccio",
+            "type": "shell",
+            "command": "sleep 3 && clear && verdaccio",
+            "problemMatcher": [],
+            "presentation": {
+                "group": "dev-group",
+                "panel": "dedicated"
+            },
+            "icon": {
+                "id": "radio-tower",
+                "color": "terminal.ansiCyan"
+            }
+        },
+        {
+            "label": "Start All Terminals",
+            "dependsOn": [
+                "pnpm",
+                "docker",
+                "git",
+                "verdaccio"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": [],
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        }
+    ]
+}

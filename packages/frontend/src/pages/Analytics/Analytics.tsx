@@ -10,7 +10,7 @@ import { dashboardStatMock } from './Analytics.constants';
 
 export const Component = () => {
     return (
-        <Stack>
+        <Stack gap='sm'>
             <Grid
                 columns={4}
                 alignItems='stretch'
