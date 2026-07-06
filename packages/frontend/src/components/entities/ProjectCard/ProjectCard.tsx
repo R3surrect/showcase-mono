@@ -6,7 +6,7 @@ import type { ProjectProps, ProjectVars } from './ProjectCard.types';
 import { Emoji, EmojiStyle } from 'emoji-picker-react';
 import { getHslString } from '@components/entities/ColorList/ColorList.constants';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
-import { emojiToUnified } from '@components/entities/EmojiPicker/EmojiPicker.constants';
+import { emojiToUnified } from '@components/entities/Emoji/EmojiPicker/EmojiPicker.constants';
 import Text from '@components/entities/Text/Text';
 import Progress from '../Progress/Progress';
 // import { sumTasks } from './ProjectCard.constants';
@@ -59,7 +59,7 @@ const ProjectCard = ({
                         {
                             isValidElement(emoji)
                                 ? emoji
-                                : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.GOOGLE} />
+                                : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.NATIVE} />
                         }
                     </div>
                 }

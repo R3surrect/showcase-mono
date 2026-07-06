@@ -12,7 +12,7 @@ import Surface from '@/components/entities/Surface/Surface';
 import { useState } from 'react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
-import ProjectCreateForm from './create/Project.create';
+import ProjectCreateForm from './create';
 
 export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: string };
 

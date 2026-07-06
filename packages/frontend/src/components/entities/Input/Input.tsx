@@ -8,8 +8,8 @@ import Text from '@components/entities/Text/Text';
 import type { InputProps, InputVars } from '@components/entities/Input/Input.types';
 import Button from '@components/entities/Button/Button';
 import Popover from '@components/shared/Popover/Popover';
-import EmojiPicker from '@components/entities/EmojiPicker/EmojiPicker';
-import { unifiedToEmoji } from '../EmojiPicker/EmojiPicker.constants';
+import EmojiPicker from '@components/entities/Emoji/EmojiPicker/EmojiPicker';
+import { unifiedToEmoji } from '@components/entities/Emoji/EmojiPicker/EmojiPicker.constants';
 
 const Input = ({
     disabled = false,
