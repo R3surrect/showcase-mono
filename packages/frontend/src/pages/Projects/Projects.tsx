@@ -1,17 +1,17 @@
-import Button from '@/components/entities/Button/Button';
-import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
-import ProjectCard from '@/components/entities/ProjectCard/ProjectCard';
-import Stack from '@/components/entities/Stack/Stack';
-import { LucidePlusCircle } from 'lucide-react';
-import { useGetProjectsQuery } from '@/components/entities/ProjectCard/api/ProjectCard.query';
-import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
-import Text from '@/components/entities/Text/Text';
-import Grid from '@/components/entities/Grid/Grid';
-import Modal from '@/components/shared/Modal/Modal';
-import Surface from '@/components/entities/Surface/Surface';
 import { useState } from 'react';
+import { LucidePlusCircle } from 'lucide-react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
+import { useGetProjectsQuery } from '@/components/entities/ProjectCard/api/ProjectCard.query';
+import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
+import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
+import ProjectCard from '@/components/entities/ProjectCard/ProjectCard';
+import Surface from '@/components/entities/Surface/Surface';
+import Button from '@/components/entities/Button/Button';
+import Stack from '@/components/entities/Stack/Stack';
+import Modal from '@/components/shared/Modal/Modal';
+import Grid from '@/components/entities/Grid/Grid';
+import Text from '@/components/entities/Text/Text';
 import ProjectCreateForm from './create';
 
 export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: string };
