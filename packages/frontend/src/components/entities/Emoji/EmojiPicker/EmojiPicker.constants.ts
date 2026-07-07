@@ -4,11 +4,12 @@ export const emojiPickerKeyboardProps: Partial<PickerProps> = {
     width: '100%',
     height: '35dvh',
 };
+
+export const isUnified = /^[0-9a-fA-F-]+$/;
 export const emojiToUnified = (emoji?: string): string => {
     if (!emoji) return '';
 
     let cleanEmoji: string = emoji;
-
     if (cleanEmoji.includes('\\u')) {
         try {
             cleanEmoji = JSON.parse(`"${cleanEmoji}"`);
@@ -17,8 +18,7 @@ export const emojiToUnified = (emoji?: string): string => {
         }
     }
 
-    const isUnified = /^[0-9a-fA-F-]+$/.test(cleanEmoji);
-    if (isUnified) return cleanEmoji.toLowerCase();
+    if (isUnified.test(cleanEmoji)) return cleanEmoji.toLowerCase();
 
     const parts = Array.from(cleanEmoji)
         .map(char => {
@@ -49,12 +49,19 @@ export const emojiToUnified = (emoji?: string): string => {
 
     return parts.join('-');
 }
+
 export const unifiedToEmoji = (unified: string): string => {
     if (!unified) return '';
+    if (!isUnified.test(unified)) return unified;
 
-    return unified
-        .split('-')
-        .map(hex => parseInt(hex, 16))
-        .map(codePoint => String.fromCodePoint(codePoint))
-        .join('');
+    try {
+        return unified
+            .split('-')
+            .map(hex => parseInt(hex, 16))
+            .map(codePoint => String.fromCodePoint(codePoint))
+            .join('');
+    } catch (e) {
+        console.error('Error while parsing unified to emoji', e);
+        return unified;
+    }
 }

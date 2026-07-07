@@ -20,8 +20,7 @@ export const projectsRouter = new Hono<AuthEnv>()
         'json',
         projectCreateDbInputValidation,
         (result, c) => {
-            if (!result.success)
-                return c.json(zodToApiErrors(result.error.issues), 400);
+            if (!result.success) return c.json(zodToApiErrors(result.error.issues), 400);
         }
     ),
         async (c) => {
