@@ -1,17 +1,16 @@
-import stylesObj from './ProjectCard.module.css';
-import Surface from "@components/entities/Surface/Surface";
-import Stack from "@components/entities/Stack/Stack";
-import Heading from "../Heading/Heading";
-import type { ProjectProps, ProjectVars } from './ProjectCard.types';
-import { Emoji, EmojiStyle } from 'emoji-picker-react';
-import { getHslString } from '@components/entities/ColorList/ColorList.constants';
-import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
-import { emojiToUnified } from '@components/entities/Emoji/EmojiPicker/EmojiPicker.constants';
-import Text from '@components/entities/Text/Text';
-import Progress from '../Progress/Progress';
-// import { sumTasks } from './ProjectCard.constants';
 import { isValidElement } from 'react';
 import { LucidePin } from 'lucide-react';
+import { getHslString } from '@components/entities/ColorList/ColorList.constants';
+import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
+import EmojiPreview from '@components/entities/Emoji/EmojiPreview/EmojiPreview';
+import Progress from '@components/entities/Progress/Progress';
+import Heading from "@components/entities/Heading/Heading";
+import Surface from "@components/entities/Surface/Surface";
+import Stack from "@components/entities/Stack/Stack";
+import Text from '@components/entities/Text/Text';
+import type { ProjectProps, ProjectVars } from './ProjectCard.types';
+import stylesObj from './ProjectCard.module.css';
+// import { sumTasks } from './ProjectCard.constants';
 
 const ProjectCard = ({
     emoji,
@@ -59,7 +58,7 @@ const ProjectCard = ({
                         {
                             isValidElement(emoji)
                                 ? emoji
-                                : <Emoji unified={emojiToUnified(emoji.toString())} size={20} emojiStyle={EmojiStyle.NATIVE} />
+                                : <EmojiPreview emoji={emoji.toString()} />
                         }
                     </div>
                 }

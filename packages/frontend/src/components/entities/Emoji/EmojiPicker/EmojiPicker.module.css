@@ -59,6 +59,7 @@
 
 .emojiPickerLight {
     --epr-bg-color: color-mix(in srgb, var(--warm-green-700), transparent var(--opacity-full)) !important;
+    --epr-emoji-variation-picker-bg-color: color-mix(in srgb, var(--neutral-300), transparent var(--opacity-low)) !important;
     --epr-picker-border-color: var(--neutral-350) !important;
 
     /* --epr-text-color: var(--cold-blue-gray-400) !important; */
@@ -154,4 +155,8 @@
     font-weight: 600 !important;
 
     backdrop-filter: blur(4px) !important;
+}
+
+.emojiPicker :global(.epr-emoji-variation-picker) {
+    border-radius: var(--border-radius-10) !important;
 }
