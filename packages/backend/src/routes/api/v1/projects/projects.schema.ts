@@ -23,4 +23,11 @@ export const projectSchema = z.object({
     isPinned: z.boolean(),
     isArchived: z.boolean(),
     pinnedAt: z.date().or(z.iso.datetime()).nullable(),
-})
+});
+
+export const projectPatchSchema = projectSchema.omit({
+    id: true,
+    createdAt: true,
+    ownerId: true,
+    pinnedAt: true,
+}).partial();
