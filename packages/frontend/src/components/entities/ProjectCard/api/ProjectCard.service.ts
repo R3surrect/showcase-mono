@@ -8,9 +8,7 @@ export const ProjectService = {
 
         return await res.json();
     },
-    // async pinProject(id: string) {
-    //     const res = await api.projects.
-    // }
+
     // async createProject(projectData: ProjectCreateInput) {
     //     const res = await api.projects.$post({ json: projectData });
     //     if (!res.ok) throw new Error(`Fetch failed: ${res.status}: ${res.statusText}`);
