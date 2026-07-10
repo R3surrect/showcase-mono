@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LucidePlusCircle } from 'lucide-react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
-import { useGetProjectsQuery } from '@/components/entities/ProjectCard/api/ProjectCard.query';
+import { useGetProjectsQuery, useUpdateProjectsQuery } from '@/components/entities/ProjectCard/api/ProjectCard.query';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
@@ -18,10 +18,11 @@ export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view
 
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
+    const { mutate: projectPinMutate, isError: projectPinIsError, error: projectPinError } = useUpdateProjectsQuery();
+
     const projects = data || [];
 
     const [pageState, setPageState] = useState<ProjectsMode>({ type: 'idle' });
-
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
     const projectClickHandler = (id: string) => {
@@ -29,8 +30,11 @@ export const Component = () => {
         setPageState({ projectId: id, type: 'view' });
     }
 
-    const projectPinHandler = (id: string) => {
-        console.log(id)
+    const projectPinHandler = (id: string, isPinned: boolean) => {
+        if (!id) return;
+
+        projectPinMutate({ id: Number(id), isPinned: !isPinned });
+        
     }
 
     return (
@@ -53,7 +57,7 @@ export const Component = () => {
                                 onClick={() => projectClickHandler(item.id.toString())}
                                 {...item}
                                 id={item.id.toString()}
-                                onPinClick={(projectId) => projectPinHandler(projectId.toString())}
+                                onPinClick={(projectId) => projectPinHandler(projectId.toString(), item.isPinned)}
                             />
                         ))
                             : <Text>Projects are empty</Text>
@@ -77,7 +81,7 @@ export const Component = () => {
                                     {...selectedProject}
                                     hasSurface={false}
                                     id={selectedProject.id.toString()}
-                                    onPinClick={(projectId) => projectPinHandler(projectId.toString())}
+                                    onPinClick={(projectId) => projectPinHandler(projectId.toString(), selectedProject.isPinned)}
                                 />
                             </Surface>
                         }

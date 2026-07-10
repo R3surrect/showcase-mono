@@ -9,10 +9,12 @@ import Text from "@/components/entities/Text/Text";
 import Button from "@/components/entities/Button/Button";
 import { LucidePlusCircle } from "lucide-react";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
+import { useUpdateProjectsQuery } from "@/components/entities/ProjectCard/api/ProjectCard.query";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
-
+    const {isLoading, mutate, isError, error} = useUpdateProjectsQuery();
+    
     return <Stack gap="md">
         <Heading level={3} variant="secondary" weight="bolder">Новый проект</Heading>
         <Input labelText="Label" placeholder="Project label" />
