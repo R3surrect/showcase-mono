@@ -12,6 +12,7 @@ export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
     const rows = await sql<ProjectGetOutput[]>`
         SELECT * FROM projects
         where owner_id = ${userId}
+        ORDER BY created_at DESC, id ASC
     `
 
     return [...rows];
@@ -63,18 +64,17 @@ export const updateProject: UpdateProject = async (data) => {
 
     if (fieldsToUpdate.isPinned !== undefined) {
         dbPayload.is_pinned = fieldsToUpdate.isPinned;
-        dbPayload.pinned_at = fieldsToUpdate.isPinned ? new Date() : null;
+        dbPayload.pinned_at = fieldsToUpdate.isPinned ? new Date() : sql`NULL`;
     }
 
-    const columns = Object.keys(dbPayload);
-    if (columns.length === 0) return [];
+    if (Object.keys(dbPayload).length === 0) return [];
 
     const rows = await sql<ProjectUpdateOutput[]>`
         UPDATE projects
-        SET ${sql(dbPayload, ...columns)}
+        SET ${sql(dbPayload)}
         WHERE id = ${id} AND owner_id = ${ownerId}
         RETURNING *
-    `
+    `;
 
-    return [...rows];
+    return rows;
 }
