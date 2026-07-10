@@ -3,7 +3,7 @@ import { unifiedToEmoji } from "@components/entities/Emoji/EmojiPicker/EmojiPick
 import Stack from "@components/entities/Stack/Stack";
 import type { EmojiPreviewProps } from "./EmojiPreview.types";
 
-const EmojiPreview = ({ emoji, setEmoji }: EmojiPreviewProps) => {
+const EmojiPreview = ({ emoji, setEmoji, name }: EmojiPreviewProps) => {
     return <div
         className={stylesObj.emojiPreview}
         onContextMenu={(e) => {
@@ -11,11 +11,17 @@ const EmojiPreview = ({ emoji, setEmoji }: EmojiPreviewProps) => {
             if (setEmoji) setEmoji('');
         }}
     >
-        {/* <span> */}
+        {
+            name && <input
+                type='hidden'
+                name={name}
+                id={name}
+                value={emoji}
+            />
+        }
         <Stack justify="center">
             {unifiedToEmoji(emoji)}
         </Stack>
-        {/* </span> */}
     </div >
 }
 

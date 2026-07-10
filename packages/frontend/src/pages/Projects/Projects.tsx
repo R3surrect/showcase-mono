@@ -18,7 +18,8 @@ export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view
 
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
-    const { mutate: projectPinMutate, isError: projectPinIsError, error: projectPinError } = useUpdateProjectsQuery();
+    // const { mutate: projectPinMutate, isError: projectPinIsError, error: projectPinError } = useUpdateProjectsQuery();
+    const { mutate: projectPinMutate } = useUpdateProjectsQuery();
 
     const projects = data || [];
 
@@ -32,9 +33,11 @@ export const Component = () => {
 
     const projectPinHandler = (id: string, isPinned: boolean) => {
         if (!id) return;
-
-        projectPinMutate({ id: Number(id), isPinned: !isPinned });
-        
+        try {
+            projectPinMutate({ id: Number(id), isPinned: !isPinned });
+        } catch (e) {
+            console.error('Error while updating project pin field', e);
+        }
     }
 
     return (
