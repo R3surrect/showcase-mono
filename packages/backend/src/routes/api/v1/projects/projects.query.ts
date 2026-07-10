@@ -1,9 +1,9 @@
 import sql from "#/db.js"
 import {
     type ProjectDbCreateInput,
+    type ProjectDbUpdateInput,
     type ProjectGetOutput,
-    type ProjectPinInput,
-    type ProjectPinOutput
+    type ProjectUpdateOutput,
 } from './projects.types.js'
 
 export type FindProjectsByUserId = (userId: number) => Promise<ProjectGetOutput[]>;
@@ -12,6 +12,7 @@ export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
     const rows = await sql<ProjectGetOutput[]>`
         SELECT * FROM projects
         where owner_id = ${userId}
+        ORDER BY created_at DESC, id ASC
     `
 
     return [...rows];
@@ -50,12 +51,30 @@ export const createProject: CreateProject = async ({
     return [...rows]
 }
 
-export type PinProject = (data: ProjectPinInput) => Promise<ProjectPinOutput[]>
+export type UpdateProject = (data: ProjectDbUpdateInput) => Promise<ProjectUpdateOutput[]>;
 
-export const pinProject: PinProject = async ({ id, isPinned }) => {
-    const rows = await sql<ProjectPinOutput[]>`
-        UPDATE projects SET is_pinned = ${isPinned} where projects.id = ${id}
+export const updateProject: UpdateProject = async (data) => {
+    const { id, ownerId, ...fieldsToUpdate } = data;
+    if (id === undefined || ownerId === undefined) return [];
+
+    const dbPayload: Record<string, unknown> = {};
+
+    if (fieldsToUpdate.label !== undefined) dbPayload.label = fieldsToUpdate.label;
+    if (fieldsToUpdate.details !== undefined) dbPayload.details = fieldsToUpdate.details;
+
+    if (fieldsToUpdate.isPinned !== undefined) {
+        dbPayload.is_pinned = fieldsToUpdate.isPinned;
+        dbPayload.pinned_at = fieldsToUpdate.isPinned ? new Date() : sql`NULL`;
+    }
+
+    if (Object.keys(dbPayload).length === 0) return [];
+
+    const rows = await sql<ProjectUpdateOutput[]>`
+        UPDATE projects
+        SET ${sql(dbPayload)}
+        WHERE id = ${id} AND owner_id = ${ownerId}
+        RETURNING *
     `;
 
-    return [...rows];
+    return rows;
 }

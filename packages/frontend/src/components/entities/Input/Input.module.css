@@ -47,6 +47,7 @@
     text-align: var(--input-text-align);
     background: transparent;
     border: none;
+    font-family: var(--font-main), 'Noto Color Emoji';
 }
 
 .inputWrapper[data-valid="valid"] .input {

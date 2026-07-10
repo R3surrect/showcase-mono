@@ -9,7 +9,7 @@ import { getHslString, getLocalStorageColors, INITIAL_COLORS } from '@/component
 import type { ColorSet, ColorListProps } from './ColorList.types';
 import Grid from '@components/entities/Grid/Grid';
 
-const ColorList = ({ ref }: ColorListProps) => {
+const ColorList = ({ ref, ...props }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
     const [selectedColor, setSelectedColor] = useState(INITIAL_COLORS[0]);
     const [colorPickerColor, setColorPickerColor] = useState({ h: 26, s: 22, l: 30 })
@@ -22,12 +22,14 @@ const ColorList = ({ ref }: ColorListProps) => {
     const serializedColor = JSON.stringify({ h, s, l });
 
     return <Stack gap='md' >
-        <input
-            ref={ref}
-            type='hidden'
-            name='color'
-            value={serializedColor}
-        />
+        {
+            props.name && <input
+                ref={ref}
+                type='hidden'
+                value={serializedColor}
+                {...props}
+            />
+        }
 
         <Heading level={6} variant='secondary'>Цвет</Heading>
         {/* <Stack wrap={true} direction='row'> */}

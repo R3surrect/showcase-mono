@@ -7,12 +7,6 @@ export const projectCreateDbInputValidation = projectSchema.omit({
     updatedAt: true,
 });
 
-//* Sending data field filtration
-export const projectCreateOutputSchema = projectSchema.omit({
-    updatedAt: true,
-    ownerId: true,
-});
-
 //* Getting data field filtration
 export const projectCreateInputValidation = projectSchema.omit({
     id: true,
@@ -20,3 +14,9 @@ export const projectCreateInputValidation = projectSchema.omit({
     updatedAt: true,
     ownerId: true,
 })
+
+//* Sending data field filtration
+export const projectCreateOutputSchema = projectSchema.omit({
+    updatedAt: true,
+    ownerId: true,
+});

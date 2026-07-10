@@ -23,4 +23,4 @@ export const projectSchema = z.object({
     isPinned: z.boolean(),
     isArchived: z.boolean(),
     pinnedAt: z.date().or(z.iso.datetime()).nullable(),
-})
+});
