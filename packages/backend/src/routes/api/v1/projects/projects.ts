@@ -3,7 +3,7 @@ import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
 // import { config } from "#/config.js";
 // import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
-import { projectCreateDbInputValidation } from "./validations/project.create.js";
+import { projectCreateInputValidation } from "./validations/project.create.js";
 import { createProject, findProjectsByUserId, updateProject } from "./projects.query.js";
 import { projectUpdateValidation } from "./validations/project.update.js";
 
@@ -40,7 +40,7 @@ export const projectsRouter = new Hono<AuthEnv>()
     )
     .post('/', zValidator(
         'json',
-        projectCreateDbInputValidation,
+        projectCreateInputValidation,
         // (result, c) => {
         //     if (!result.success) return c.json(zodToApiErrors(result.error.issues), 400);
         // }
