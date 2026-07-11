@@ -8,7 +8,7 @@ import { animationProps, tooltipProps } from "@/components/entities/dashboards/d
 import type { StatusPieMock } from "@/components/entities/dashboards/DashboardPieStatsBlock/DashboardPieStatsBlock.types";
 
 const DashboardPieStatsBlock = () => {
-    return <Surface>
+    return <Surface data-interactive>
         <Stack gap="sm">
             <Heading variant="secondary" level={2}>По статусам</Heading>
             <Text size={7}>Распределение всех задач</Text>

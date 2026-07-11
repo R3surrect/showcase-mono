@@ -14,7 +14,7 @@ import {
 } from "@components/entities/dashboards/dashboards.constants";
 
 const DashboardProjectLoadBlock = () => {
-    return <Surface>
+    return <Surface data-interactive>
         <Stack gap="sm">
             <Heading variant="secondary" level={2}>
                 Нагрузка по проектам

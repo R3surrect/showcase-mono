@@ -1,28 +1,31 @@
-DO $$ BEGIN IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'task_status_enum'
-) THEN CREATE TYPE task_status_enum AS ENUM (
-    'completed',
-    'pending',
-    'overdue',
-    'scheduled',
-    'in_progress'
-);
-END IF;
-IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'priority_enum'
-) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
-END IF;
-IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'user_role_enum'
-) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
-END IF;
+DO $$ BEGIN 
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'task_status_enum'
+-- ) THEN CREATE TYPE task_status_enum AS ENUM (
+--     'completed',
+--     'pending',
+--     'overdue',
+--     'scheduled',
+--     'in_progress'
+-- );
+-- END IF;
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'priority_enum'
+-- ) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
+-- END IF;
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'user_role_enum'
+-- ) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+-- END IF;
 END $$;
+
+
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,

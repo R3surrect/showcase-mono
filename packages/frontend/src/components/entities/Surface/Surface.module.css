@@ -38,11 +38,6 @@
     border: 1px solid color-mix(in srgb, var(--cold-blue-gray-400), transparent var(--opacity-high));
 }
 
-.surface[data-animated="true"]:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
 .outline {
     background-color: color-mix(in srgb, var(--surface-color), transparent var(--opacity-full));
     border: 1px solid color-mix(in srgb, var(--surface-color), transparent var(--opacity-super));

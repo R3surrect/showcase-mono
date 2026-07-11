@@ -10,10 +10,9 @@ const DashboardStatBlockMinimal = ({
     valueLabel,
     subtitle,
     variant = 'solid',
-    isAnimated = false,
     ...props
 }: DashboardStatBlockMinimalProps) => {
-    return <Surface data-animated={isAnimated} variant={variant} {...props}>
+    return <Surface data-interactive variant={variant} {...props}>
         <Stack gap="md" align="center">
             <Heading level={4} variant="secondary" weight="bold">{title}</Heading>
             <div>

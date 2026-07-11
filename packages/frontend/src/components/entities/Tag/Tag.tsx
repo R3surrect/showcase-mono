@@ -1,7 +1,7 @@
+import { useId } from 'react';
 import type { ColorVariable, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
-import { useId } from 'react';
-import { getHslString } from '../ColorList/ColorList.constants';
+import { getHslString } from '@components/entities/ColorList/ColorList.constants';
 
 const Tag = ({ label, color, id, ...props }: TagProps) => {
     const genId = useId();
@@ -12,7 +12,7 @@ const Tag = ({ label, color, id, ...props }: TagProps) => {
         style={{ '--tag-color': getHslString(color) } as ColorVariable}
         {...props}
     >
-        <p>{label}</p>
+        <span>{label}</span>
     </div>
 }
 
