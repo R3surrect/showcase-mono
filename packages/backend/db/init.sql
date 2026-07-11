@@ -16,13 +16,15 @@ IF NOT EXISTS (
     WHERE typname = 'priority_enum'
 ) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
 END IF;
-IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'user_role_enum'
-) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
-END IF;
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'user_role_enum'
+-- ) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+-- END IF;
 END $$;
+
+
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,
