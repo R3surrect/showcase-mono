@@ -12,7 +12,7 @@ const Tag = ({ label, color, id, ...props }: TagProps) => {
         style={{ '--tag-color': getHslString(color) } as ColorVariable}
         {...props}
     >
-        <p>{label}</p>
+        <span>{label}</span>
     </div>
 }
 

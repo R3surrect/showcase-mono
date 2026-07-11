@@ -70,4 +70,7 @@ export default defineConfig({
       plugins: [postcssCustomMedia()]
     }
   },
+  esbuild: {
+    charset: 'utf8',
+  }
 });

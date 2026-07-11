@@ -1,21 +1,22 @@
-DO $$ BEGIN IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'task_status_enum'
-) THEN CREATE TYPE task_status_enum AS ENUM (
-    'completed',
-    'pending',
-    'overdue',
-    'scheduled',
-    'in_progress'
-);
-END IF;
-IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'priority_enum'
-) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
-END IF;
+DO $$ BEGIN 
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'task_status_enum'
+-- ) THEN CREATE TYPE task_status_enum AS ENUM (
+--     'completed',
+--     'pending',
+--     'overdue',
+--     'scheduled',
+--     'in_progress'
+-- );
+-- END IF;
+-- IF NOT EXISTS (
+--     SELECT 1
+--     FROM pg_type
+--     WHERE typname = 'priority_enum'
+-- ) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
+-- END IF;
 -- IF NOT EXISTS (
 --     SELECT 1
 --     FROM pg_type

@@ -15,6 +15,14 @@ import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPick
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
+export const TAG_TYPE_PROPS = [
+    { id: 0x2fa4, color: { h: 207, s: 20, l: 50 }, label: "📦 Default" },
+    { id: 0xd3fa, color: { h: 11, s: 35, l: 47 }, label: "🔥 Priority" },
+    { id: 0x13cf, color: { h: 35, s: 39, l: 53 }, label: "⚡ Status" },
+    { id: 0x84fc, color: { h: 142, s: 25, l: 45 }, label: "⏳ Time" },
+    { id: 0x1289, color: { h: 275, s: 25, l: 52 }, label: "👥 People" },
+] as const;
+
 export const Component = () => {
     const { mutate } = useCreateTagQuery();
     const { data, isError, error } = useGetTagsQuery();
@@ -27,20 +35,25 @@ export const Component = () => {
         const rawTag = Object.fromEntries(data.entries());
         const result = tagCreateInputValidation.safeParse({
             label: rawTag.label,
-            color: JSON.parse(rawTag.color.toString()),
+            color: rawTag.color,
         });
 
+        console.log(rawTag)
         if (!result.success) return console.error(treeifyError(result.error));
-
         mutate(result.data)
     }
+
+    // console.log({
+    //     fromObject: TAG_TYPE_PROPS[0].label,
+    //     fromJsx: '📦 label'
+    // });
 
     //* Внедрить rhf+zod валидацию
     return <Grid columns={2} autoRows='1fr' height='max'>
         <form onSubmit={submitHandler}>
             <Surface height='fit'>
                 <Stack gap='md'>
-                    <Heading level={3} variant='secondary'>Создать тег</Heading>
+                    <Heading level={3} variant='secondary'>Create Tag</Heading>
                     <Input
                         name='label'
                         labelText='Название'
@@ -50,20 +63,22 @@ export const Component = () => {
                         hasEmojiPicker
                     />
                     <SegmentedPicker label='Tag type:'>
-                        <Tag color={{ h: 11, s: 35, l: 47 }} label="Fire" data-interactive />
-                        <Tag color={{ h: 35, s: 39, l: 53 }} label="High" data-interactive />
-                        <Tag color={{ h: 64, s: 39, l: 53 }} label="Medium" data-interactive />
-                        <Tag color={{ h: 67, s: 22, l: 50 }} label="Low" data-interactive />
+                        {
+                            TAG_TYPE_PROPS.map(item => (
+                                <Tag {...item} key={item.id} data-interactive />
+                            ))
+                        }
+                        <Tag color={{ h: 0, s: 0, l: 0 }} label={'📦 label'} data-interactive />
                     </SegmentedPicker>
-                    <ColorList />
-                    <Button type='submit' width='max' size='lg' >Создать тег</Button>
+                    <ColorList name='color' />
+                    <Button type='submit' width='max' size='lg' >Send new tag</Button>
                 </Stack>
             </Surface>
         </form>
 
         <Surface height='max'>
             <Stack gap='md' height='max'>
-                <Heading level={3} variant='secondary'>Существующие теги</Heading>
+                <Heading level={3} variant='secondary'>Existing tags</Heading>
                 <Stack
                     direction='row'
                     gap='sm'
