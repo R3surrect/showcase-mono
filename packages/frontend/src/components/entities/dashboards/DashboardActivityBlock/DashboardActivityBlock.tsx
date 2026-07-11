@@ -11,7 +11,7 @@ import { lineProps } from "@/components/entities/dashboards/DashboardActivityBlo
 const DashboardActivityBlock = () => {
     const isTablet = useDevice('tablet');
 
-    return <Surface>
+    return <Surface data-interactive>
         <Stack gap="sm">
             <Heading variant="secondary" level={2}>Активность за 2 недели</Heading>
             <Text size={7}>Количество задач по дате дедлайна</Text>

@@ -6,6 +6,5 @@ export interface DashboardStatBlockMinimalProps extends Omit<HTMLMotionProps<'di
     value: string;
     valueLabel?: string;
     subtitle: string;
-    isAnimated?: boolean;
     variant?: Variants;
 }

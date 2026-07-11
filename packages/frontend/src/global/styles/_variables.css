@@ -28,11 +28,10 @@
   --warm-green-500: hsl(67, 26%, 35%);
   --warm-green-600: hsl(67, 27%, 26%);
   --warm-green-700: hsl(68, 30%, 21%);
-
+  
   --warm-yellow-400:    hsl(64, 39%, 53%);
-
-  --warm-orange-400:    hsl(35, 39%, 53%);
   --warm-red-400:       hsl(11, 35%, 47%);
+  --warm-orange-400:    hsl(35, 39%, 53%);
   --cold-blue-gray-400: hsl(207, 10%, 42%);
 }
 

@@ -42,6 +42,7 @@ const DashboardStatBlockFull = ({
         variant={variant}
         isAnimated={isAnimated}
         color={iconObj.color}
+        data-interactive
         {...props}
     >
         <Stack direction="column" gap="sm" align={alignment} justify={justify}>

@@ -7,35 +7,18 @@ import ColorList from '@/components/entities/ColorList/ColorList'
 import Button from '@/components/entities/Button/Button'
 import Text from '@/components/entities/Text/Text'
 import { useCreateTagQuery, useGetTagsQuery } from '@/components/entities/Tag/api/Tag.query'
-// import { useDevice } from '@/hooks/useDevice'
-// import { tagListBreakpoints } from './Tags.constants'
 import { treeifyError } from 'zod'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import Grid from '@/components/entities/Grid/Grid'
-// import { createPortal } from 'react-dom'
+import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const Component = () => {
-    // const slot = document.querySelector('#content-header-slot')
-    // #region
-    // const isMobile = useDevice('mobile');
-    // const isTablet = useDevice('tablet');
-
     const { mutate } = useCreateTagQuery();
-
-    // const breakpoint = isMobile
-    //     ? tagListBreakpoints.mobile
-    //     : isTablet
-    //         ? tagListBreakpoints.tablet
-    //         : tagListBreakpoints.desktop
-
     const { data, isError, error } = useGetTagsQuery();
-
     const tags = data ?? [];
-    // const hasMoreTags = tags.length > breakpoint;
-    // const visibleTags = hasMoreTags ? tags.slice(0, breakpoint) : tags;
 
     const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,10 +35,7 @@ export const Component = () => {
         mutate(result.data)
     }
 
-    // #endregion
-    // #region 
     //* Внедрить rhf+zod валидацию
-    // #endregion 
     return <Grid columns={2} autoRows='1fr' height='max'>
         <form onSubmit={submitHandler}>
             <Surface height='fit'>
@@ -69,12 +49,14 @@ export const Component = () => {
                         inputMode='text'
                         hasEmojiPicker
                     />
+                    <SegmentedPicker label='Tag type:'>
+                        <Tag color={{ h: 11, s: 35, l: 47 }} label="Fire" data-interactive />
+                        <Tag color={{ h: 35, s: 39, l: 53 }} label="High" data-interactive />
+                        <Tag color={{ h: 64, s: 39, l: 53 }} label="Medium" data-interactive />
+                        <Tag color={{ h: 67, s: 22, l: 50 }} label="Low" data-interactive />
+                    </SegmentedPicker>
                     <ColorList />
-                    <Button
-                        type='submit'
-                        width='max'
-                        size='lg'
-                    >Создать тег</Button>
+                    <Button type='submit' width='max' size='lg' >Создать тег</Button>
                 </Stack>
             </Surface>
         </form>
@@ -91,7 +73,6 @@ export const Component = () => {
                     overflow='auto'
                 >
                     {
-                        // !isError && visibleTags.map((item) => (
                         (!isError && tags.length !== 0) ? tags.map((item) => (
                             <Tag
                                 {...item}
@@ -101,7 +82,6 @@ export const Component = () => {
                         ))
                             : <Text weight='bold'>No tags created</Text>
                     }
-                    {/* {!isError && hasMoreTags && <Text weight='bold' color='darkgray' >+ {tags.length - breakpoint}</Text>} */}
                     {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}
                 </Stack>
             </Stack>

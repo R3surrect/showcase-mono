@@ -20,7 +20,7 @@ const LegendRender = (
 );
 
 const DashboardTaskPriorityBlock = () => {
-    return <Surface>
+    return <Surface data-interactive>
         <Stack gap="sm">
             <Heading
                 variant="secondary"

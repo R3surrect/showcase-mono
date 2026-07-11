@@ -8,6 +8,7 @@
     flex-wrap: nowrap;
     align-items: center;
     padding: .5rem .75rem;
+    font-family: var(--font-main), 'Noto Color Emoji';
     font-size: var(--helper-text-size);
     border-radius: var(--border-radius-20);
     flex-wrap: wrap;
