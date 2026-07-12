@@ -68,7 +68,6 @@ export const Component = () => {
                                 <Tag {...item} key={item.id} data-interactive />
                             ))
                         }
-                        <Tag color={{ h: 0, s: 0, l: 0 }} label={'📦 label'} data-interactive />
                     </SegmentedPicker>
                     <ColorList name='color' />
                     <Button type='submit' width='max' size='lg' >Send new tag</Button>
