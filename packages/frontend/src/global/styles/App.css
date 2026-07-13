@@ -30,16 +30,20 @@ select {
     font: inherit;
     display: block;
 }
-
 [data-interactive] {
     transition: .3s;
     cursor: pointer;
 }
-
-[data-interactive]:hover {
+[data-selected="true"], [data-interactive]:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
+
+/* [data-selected="true"]::after{
+    content: '•';
+    position: absolute;
+    right: 3%;
+} */
 
 @media (prefers-reduced-motion: reduce) {
     html {

@@ -7,19 +7,29 @@
     justify-content: space-evenly;
     flex-wrap: nowrap;
     align-items: center;
-    padding: .5rem .75rem;
     font-family: var(--font-main), 'Noto Color Emoji';
     font-size: var(--helper-text-size);
-    border-radius: var(--border-radius-20);
     flex-wrap: wrap;
-    width: fit-content;
+    overflow: visible;
+    gap: .5rem;
+    padding: .5rem .75rem;
+}
+
+.default {
     color: var(--tag-color);
     background-color: color-mix(in srgb, var(--tag-color), transparent 90%);
+    border-radius: var(--border-radius-20);
     border: 1px solid color-mix(in srgb, var(--tag-color), transparent 35%);
-    text-shadow: var(--shadow-text-highlight);
-    overflow: visible;
-    gap: .5rem
 }
+.system {
+    color: var(--neutral-100);
+    background-color: var(--tag-color);
+    border-radius: var(--border-radius-4);
+    
+}
+
+.tag[data-width="fit"]{ width: fit-content }
+.tag[data-width="max"]{ width: 100% }
 
 .tag>* {
     display: block;
@@ -28,4 +38,8 @@
 .tag>p {
     font-size: var(--font-size-level-6);
     font-weight: 450;
+}
+
+.tag[data-selected="false"]{
+    opacity: .4;
 }

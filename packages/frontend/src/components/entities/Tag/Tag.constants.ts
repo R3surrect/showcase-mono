@@ -1,0 +1,1 @@
+export const VARIANT_TYPES = ['default', 'system'] as const;
