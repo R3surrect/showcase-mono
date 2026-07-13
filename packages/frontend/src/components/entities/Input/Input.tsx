@@ -17,7 +17,7 @@ const Input = ({
     type = 'text',
     id,
     labelText,
-    ref,
+    ref: externalRef,
     placeholder,
     textAlign = 'start',
     hasEmojiPicker = false,
@@ -57,7 +57,7 @@ const Input = ({
                     id={controlId}
                     disabled={disabled}
                     type={inputType}
-                    ref={ref}
+                    ref={externalRef}
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     style={{ '--input-text-align': textAlign } as InputVars}

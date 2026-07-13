@@ -16,7 +16,6 @@ export const PillPicker = ({ items }: PillPickerProps) => {
           <div
             key={item.value}
             className={stylesObj.item}
-            style={{ position: 'relative' }}
             onClick={() => navigate(item.to)}
           >
             {isActive && (

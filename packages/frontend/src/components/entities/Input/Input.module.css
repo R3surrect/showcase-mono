@@ -12,6 +12,7 @@
 
 .inputWrapper {
     position: relative;
+    height: fit-content;
     line-height: 0;
     display: flex;
     flex-direction: row;
@@ -38,7 +39,7 @@
 .input {
     display: block;
     caret-color: var(--accent);
-    padding: var(--inner-offset-top) var(--inner-offset-left);
+    padding: 0 var(--inner-offset-left);
     /*TODO a11y*/
 
     width: 100%;

@@ -11,22 +11,25 @@ import { treeifyError } from 'zod'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import Grid from '@/components/entities/Grid/Grid'
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
+import { useState } from 'react'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const TAG_TYPE_PROPS = [
-    { id: 0x2fa4, color: { h: 207, s: 20, l: 50 }, label: "📦 Default" },
-    { id: 0xd3fa, color: { h: 11, s: 35, l: 47 }, label: "🔥 Priority" },
-    { id: 0x13cf, color: { h: 35, s: 39, l: 53 }, label: "⚡ Status" },
-    { id: 0x84fc, color: { h: 142, s: 25, l: 45 }, label: "⏳ Time" },
-    { id: 0x1289, color: { h: 275, s: 25, l: 52 }, label: "👥 People" },
+    { id: 16, color: { h: 207, s: 20, l: 50 }, label: "Default" },
+    { id: 33, color: { h: 11, s: 35, l: 47 }, label: "Priority" },
+    { id: 13, color: { h: 35, s: 39, l: 53 }, label: "Status" },
+    { id: 84, color: { h: 142, s: 25, l: 45 }, label: "Time" },
+    { id: 12, color: { h: 275, s: 25, l: 52 }, label: "People" },
 ] as const;
 
 export const Component = () => {
     const { mutate } = useCreateTagQuery();
     const { data, isError, error } = useGetTagsQuery();
     const tags = data ?? [];
+
+    const [selectedType, setSelectedType] = useState<number>(TAG_TYPE_PROPS[0].id);
 
     const submitHandler = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,13 +65,19 @@ export const Component = () => {
                         inputMode='text'
                         hasEmojiPicker
                     />
-                    <SegmentedPicker label='Tag type:'>
+                    <SegmentedPicker label='Selected type:' name='type' value={selectedType}>
                         {
                             TAG_TYPE_PROPS.map(item => (
-                                <Tag {...item} key={item.id} data-interactive />
+                                <Tag
+                                    {...item}
+                                    key={item.id}
+                                    data-interactive
+                                    data-selected={item.id === selectedType}
+                                    onClick={() => setSelectedType(item.id)}
+                                    variant='system'
+                                />
                             ))
                         }
-                        <Tag color={{ h: 0, s: 0, l: 0 }} label={'📦 label'} data-interactive />
                     </SegmentedPicker>
                     <ColorList name='color' />
                     <Button type='submit' width='max' size='lg' >Send new tag</Button>
