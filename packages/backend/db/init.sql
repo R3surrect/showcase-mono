@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS tags (
     owner_id INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-    CONSTRAINT fk_tags_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_tags_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_tag_per_owner UNIQUE (label, type, owner_id)
 );
 CREATE TABLE IF NOT EXISTS projects (
     id SERIAL PRIMARY KEY,
