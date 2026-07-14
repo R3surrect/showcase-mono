@@ -9,10 +9,7 @@ export interface GeneralProps {
     variant?: Variants;
 };
 
-
-export type TagProps = Omit<
-    Partial<DivUiComponent>, 'color' | 'id'
->
+export type TagProps = Omit<Partial<DivUiComponent>, 'color' | 'id'>
     & Omit<TagGetOutput, 'id' | 'createdAt' | 'emoji'>
     & Partial<Pick<TagGetOutput, 'id' | 'createdAt'>>
     & GeneralProps;
