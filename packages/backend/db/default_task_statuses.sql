@@ -1,31 +1,38 @@
-INSERT INTO tags (type, label, color, owner_id)
+-- TODO Вставка тягается триггером регистрации
+-- ?    TEST INSERT 
+INSERT INTO tags (label, color, type, category, owner_id)
 VALUES (
-        'task_status',
         'Completed',
-        '{"h": 200, "s": 30, "l": 50}',
+        '{"h": 145, "s": 45, "l": 45}',
+        'task_status',
+        'System',
         1
     ),
     (
-        'task_status',
         'Pending',
-        '{"h": 45, "s": 70, "l": 50}',
+        '{"h": 40, "s": 65, "l": 48}',
+        'task_status',
+        'System',
         1
     ),
     (
-        'task_status',
         'Overdue',
-        '{"h": 140, "s": 50, "l": 45}',
+        '{"h": 0, "s": 65, "l": 50}',
+        'task_status',
+        'System',
         1
     ),
     (
-        'task_status',
         'Scheduled',
-        '{"h": 140, "s": 50, "l": 45}',
+        '{"h": 210, "s": 25, "l": 50}',
+        'task_status',
+        'System',
         1
     ),
     (
-        'task_status',
         'In progress',
-        '{"h": 0, "s": 70, "l": 50}',
+        '{"h": 200, "s": 60, "l": 48}',
+        'task_status',
+        'System',
         1
-    ) ON CONFLICT (id, type) DO NOTHING;
+    ) ON CONFLICT (label, type, owner_id) DO NOTHING;
