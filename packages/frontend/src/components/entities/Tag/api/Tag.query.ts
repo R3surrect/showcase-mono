@@ -25,6 +25,8 @@ export const useGetTagsQuery = () => {
             id: 0,
             label: '⏳ Loading...',
             color: { h: 0, s: 0, l: 0 },
+            type: 'custom',
+            category: 'system',
             createdAt: new Date().toISOString()
         }],
     })

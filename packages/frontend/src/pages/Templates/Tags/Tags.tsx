@@ -17,11 +17,11 @@ import { useState } from 'react'
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
 
 export const TAG_TYPE_PROPS = [
-    { id: 16, color: { h: 207, s: 20, l: 50 }, label: "Default" },
-    { id: 33, color: { h: 11, s: 35, l: 47 }, label: "Priority" },
-    { id: 13, color: { h: 35, s: 39, l: 53 }, label: "Status" },
-    { id: 84, color: { h: 142, s: 25, l: 45 }, label: "Time" },
-    { id: 12, color: { h: 275, s: 25, l: 52 }, label: "People" },
+    { id: 16, color: { h: 207, s: 20, l: 50 }, type: 'custom', category: 'category', label: "Default" },
+    { id: 33, color: { h: 11, s: 35, l: 47 }, type: 'custom', category: 'category', label: "Priority" },
+    { id: 13, color: { h: 35, s: 39, l: 53 }, type: 'custom', category: 'category', label: "Status" },
+    { id: 84, color: { h: 142, s: 25, l: 45 }, type: 'custom', category: 'category', label: "Time" },
+    { id: 12, color: { h: 275, s: 25, l: 52 }, type: 'custom', category: 'category', label: "People" },
 ] as const;
 
 export const Component = () => {

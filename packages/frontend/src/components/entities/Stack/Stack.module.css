@@ -7,6 +7,7 @@
     flex-direction: var(--stack-direction, column);
     align-items: var(--stack-align, stretch);
     justify-content: var(--stack-justify, start);
+    align-content: flex-start;
 }
 
 .stack[data-width='max'] { width: 100% }
