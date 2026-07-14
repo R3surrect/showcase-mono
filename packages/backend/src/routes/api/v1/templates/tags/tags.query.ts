@@ -5,22 +5,22 @@ export type FindTagsByUserId = (userId: number) => Promise<TagGetOutput[]>
 
 export const findTagsByUserId: FindTagsByUserId = async (userId) => {
     const rows = await sql<TagCreateOutput[]>`
-        SELECT id, label, color, created_at, updated_at
+        SELECT id, label, color, type, category, created_at, updated_at
         FROM tags
         WHERE owner_id = ${userId}
     `
-    
+
     return [...rows]
 }
 
 export type CreateTag = (data: TagDbCreateInput) => Promise<TagCreateOutput[]>
 
-export const createTag: CreateTag = async ({ label, color, ownerId }) => {
+export const createTag: CreateTag = async ({ label, color, type, category, ownerId }) => {
     const colorString = JSON.stringify(color);
     const rows = await sql<TagCreateOutput[]>`
-        INSERT INTO tags(label, color, owner_id)
+        INSERT INTO tags(label, color, type, category, owner_id)
         values
-        (${label},${colorString},${ownerId})
+        (${label},${colorString},${type},${category},${ownerId})
         RETURNING *
     `
 
