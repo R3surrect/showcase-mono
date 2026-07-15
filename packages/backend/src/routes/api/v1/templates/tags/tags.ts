@@ -4,7 +4,7 @@ import { zValidator } from "@hono/zod-validator";
 import { config } from "#/config.js";
 import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
 import { tagCreateInputValidation } from "./validations/tag.create.js";
-import { createTag, findTagsByUserId } from "./tags.query.js";
+import { createTag, deleteTag, findTagsByUserId } from "./tags.query.js";
 
 const tagsRouter = new Hono<AuthEnv>()
     .get('/', async (c) => {
@@ -40,6 +40,23 @@ const tagsRouter = new Hono<AuthEnv>()
                     return c.json([{ message: 'Internal server error' }], 500)
                 }
                 return c.json(newTag, 201);
+            } catch (e) {
+                !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method} ${c.req.path}`, e);
+                return c.json([{ message: 'Internal server error' }], 500)
+            }
+        }
+    )
+    .delete(
+        '/:id',
+        async (c) => {
+            try {
+                const id = parseInt(c.req.param('id'));
+                if (isNaN(id)) return c.json({ message: 'Incorrect ID was provided' }, 400);
+
+                const userId = c.get('user').id;
+                
+                const row = (await deleteTag({ id: id, ownerId: userId }))[0];
+                return c.json(row, 200);
             } catch (e) {
                 !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method} ${c.req.path}`, e);
                 return c.json([{ message: 'Internal server error' }], 500)

@@ -1,7 +1,7 @@
 import { colorSchema } from "#/shared/validations/customizable.validation.js";
 import { z } from "zod";
 
-export const tagTypes = ['project_status', 'task_status', 'priority', 'custom'] as const;
+export const tagTypes = ['project_status', 'task_status', 'priority', 'tag_type', 'tag_category', 'custom'] as const;
 export const tagTypeSchema = z.enum(tagTypes, { error: 'Type mismatch' });
 
 export const tagSchema = z.object({
