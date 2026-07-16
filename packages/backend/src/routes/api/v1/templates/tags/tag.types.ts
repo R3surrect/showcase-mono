@@ -6,7 +6,7 @@ import type {
     tagCreateDbInputValidation
 } from "./validations/tag.create.js";
 import type { tagUpdateValidation } from "./validations/tag.update.js";
-import type { tagDeleteValidation } from "./validations/tag.delete.js";
+import type { tagDbDeleteValidation, tagDeleteValidation } from "./validations/tag.delete.js";
 
 //* GENERAL
 
@@ -19,6 +19,7 @@ export type TagOwnerId = Tag['ownerId'];
 export type TagDbCreateInput = z.infer<typeof tagCreateDbInputValidation>;
 export type TagCreateInput = z.infer<typeof tagCreateInputValidation>;
 export type TagUpdateInput = z.infer<typeof tagUpdateValidation>;
+export type TagDbDeleteInput = z.infer<typeof tagDbDeleteValidation>;
 export type TagDeleteInput = z.infer<typeof tagDeleteValidation>;
 
 //* OUTPUT

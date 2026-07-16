@@ -11,7 +11,7 @@ const Button = ({
   children,
   width = 'fit',
   radius = 'sm',
-  size = 'lg',
+  // size = 'lg',
   isHoverAnimated = true,
   ...props
 }: ButtonProps) => {
@@ -22,7 +22,7 @@ const Button = ({
     type={type}
     data-width={width}
     data-radius={radius}
-    data-size={size}
+    // data-size={size}
     data-hover-animated={isHoverAnimated}
     {...props}
   >{children}</button>

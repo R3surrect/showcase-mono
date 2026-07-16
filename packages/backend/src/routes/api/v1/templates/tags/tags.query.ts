@@ -1,9 +1,8 @@
 import sql from "#/db.js";
-import type { TagDbCreateInput, TagCreateOutput, TagGetOutput } from "./tag.types.js";
+import type { TagDbCreateInput, TagCreateOutput, TagGetOutput, TagDbDeleteInput } from "./tag.types.js";
 
-export type FindTagsByUserId = (userId: number) => Promise<TagGetOutput[]>
-
-export const findTagsByUserId: FindTagsByUserId = async (userId) => {
+export type QueryTagsByUserId = (userId: number) => Promise<TagGetOutput[]>;
+export const findTagsByUserId: QueryTagsByUserId = async (userId) => {
     const rows = await sql<TagCreateOutput[]>`
         SELECT id, label, color, type, category, created_at, updated_at
         FROM tags
@@ -13,16 +12,39 @@ export const findTagsByUserId: FindTagsByUserId = async (userId) => {
     return [...rows]
 }
 
-export type CreateTag = (data: TagDbCreateInput) => Promise<TagCreateOutput[]>
-
-export const createTag: CreateTag = async ({ label, color, type, category, ownerId }) => {
+export type InsertTagMutation = (data: TagDbCreateInput) => Promise<TagCreateOutput[]>;
+export const createTag: InsertTagMutation = async ({ label, color, type, category, ownerId }) => {
     const colorString = JSON.stringify(color);
     const rows = await sql<TagCreateOutput[]>`
         INSERT INTO tags(label, color, type, category, owner_id)
-        values
-        (${label},${colorString},${type},${category},${ownerId})
+        values (${label},${colorString},${type},${category},${ownerId})
         RETURNING *
     `
 
     return [...rows];
 }
+
+export type QueryTagByOwner = (data: TagDbDeleteInput) => Promise<TagCreateOutput[]>;
+// #region QueryTagByOwner queries
+export const findTagById: QueryTagByOwner = async ({ id, ownerId }) => {
+    const rows = await sql<TagGetOutput[]>`
+        SELECT * from TAGS
+        WHERE id = ${id} and owner_id = ${ownerId}
+    `;
+
+    return [...rows];
+}
+
+export const deleteTag: QueryTagByOwner = async ({ id, ownerId }) => {
+    const rows = await sql<TagCreateOutput[]>` 
+        DELETE FROM tags
+        WHERE id = ${id} and owner_id=${ownerId} and category != 'System'
+        RETURNING *;
+    `;
+
+    return [...rows];
+}
+
+
+
+//#endregion
