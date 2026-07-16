@@ -29,10 +29,10 @@ const Tag = (props: TagProps) => {
                 height='max'
                 width='max'
             >
-                <Button variant='transparent' radius='lg' onClick={() => id !== undefined && props.onEditAction(id.toString())}>
+                <Button variant='transparent' radius='lg' onClick={() => id !== undefined && props.onEditAction(id)}>
                     <LucidePencil size={16} color='var(--neutral-400)' />
                 </Button>
-                <Button variant='transparent' onClick={() => id !== undefined && props.onDeleteAction(id.toString())}>
+                <Button variant='transparent' onClick={() => id !== undefined && props.onDeleteAction(id)}>
                     <LucideCircleX size={16} color='var(--status-error)' />
                 </Button>
             </Stack>

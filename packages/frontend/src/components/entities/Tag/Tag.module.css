@@ -10,12 +10,12 @@
     flex-wrap: nowrap;
     align-items: center;
     font-family: var(--font-main), 'Noto Color Emoji';
-    font-size: var(--helper-text-size);
     flex-wrap: wrap;
     overflow: visible;
     gap: .5rem;
-    padding: .5rem .75rem;
     overflow: hidden;
+    padding: .5rem .75rem;
+    font-size: var(--font-size-level-6);
 }
 
 .default {
@@ -29,6 +29,8 @@
     color: var(--neutral-100);
     background-color: var(--tag-color);
     border-radius: var(--border-radius-4);
+    padding: .4rem;
+    font-size: var(--font-size-level-6);
 
 }
 
@@ -42,11 +44,6 @@
 
 .tag>* {
     display: block;
-}
-
-.tag>p {
-    font-size: var(--font-size-level-6);
-    font-weight: 450;
 }
 
 .tag[data-selected="false"] {
