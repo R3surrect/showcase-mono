@@ -4,9 +4,10 @@ import type { TagDbCreateInput, TagCreateOutput, TagGetOutput, TagDbDeleteInput 
 export type QueryTagsByUserId = (userId: number) => Promise<TagGetOutput[]>;
 export const findTagsByUserId: QueryTagsByUserId = async (userId) => {
     const rows = await sql<TagCreateOutput[]>`
-    SELECT id, label, color, type, category, created_at, updated_at
-    FROM tags
-    WHERE owner_id = ${userId}`
+        SELECT id, label, color, type, category, created_at, updated_at
+        FROM tags
+        WHERE owner_id = ${userId}
+    `
 
     return [...rows]
 }
@@ -27,8 +28,8 @@ export type QueryTagByOwner = (data: TagDbDeleteInput) => Promise<TagCreateOutpu
 // #region QueryTagByOwner queries
 export const findTagById: QueryTagByOwner = async ({ id, ownerId }) => {
     const rows = await sql<TagGetOutput[]>`
-    SELECT * from TAGS
-    WHERE id = ${id} and owner_id = ${ownerId}
+        SELECT * from TAGS
+        WHERE id = ${id} and owner_id = ${ownerId}
     `;
 
     return [...rows];
@@ -36,11 +37,14 @@ export const findTagById: QueryTagByOwner = async ({ id, ownerId }) => {
 
 export const deleteTag: QueryTagByOwner = async ({ id, ownerId }) => {
     const rows = await sql<TagCreateOutput[]>` 
-    DELETE FROM tags
-    WHERE id = ${id} and owner_id=${ownerId}
-    RETURNING *;
+        DELETE FROM tags
+        WHERE id = ${id} and owner_id=${ownerId} and category != 'System'
+        RETURNING *;
     `;
 
     return [...rows];
 }
+
+
+
 //#endregion

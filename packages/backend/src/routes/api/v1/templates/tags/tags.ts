@@ -51,12 +51,14 @@ const tagsRouter = new Hono<AuthEnv>()
         async (c) => {
             try {
                 const id = parseInt(c.req.param('id'));
-                if (isNaN(id)) return c.json({ message: 'Incorrect ID was provided' }, 400);
+                if (isNaN(id)) return c.json([{ message: 'Incorrect ID was provided' }], 400);
 
                 const userId = c.get('user').id;
-                
+
                 const row = (await deleteTag({ id: id, ownerId: userId }))[0];
-                return c.json(row, 200);
+                if (row) return c.json(row, 200);
+                else return c.json([{ message: 'Not found' }], 404);
+
             } catch (e) {
                 !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method} ${c.req.path}`, e);
                 return c.json([{ message: 'Internal server error' }], 500)
