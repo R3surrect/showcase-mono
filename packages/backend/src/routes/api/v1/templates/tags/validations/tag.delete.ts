@@ -5,6 +5,4 @@ export const tagDbDeleteValidation = tagSchema.pick({
     ownerId: true,
 });
 
-export const tagDeleteValidation = tagSchema.pick({
-    id: true,
-});
+export const tagDeleteValidation = tagSchema.shape.id;
