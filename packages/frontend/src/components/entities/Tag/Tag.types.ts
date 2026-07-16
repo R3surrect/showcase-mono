@@ -9,9 +9,28 @@ export interface GeneralProps {
     variant?: Variants;
 };
 
+// export interface SystemProps {
+
+// }
+
+export interface MutableProps {
+    isEditable: true;
+    onDeleteAction: (id: string) => void;
+    onEditAction: (id: string) => void;
+}
+
+export interface ImmutableProps {
+    isEditable?: false;
+    onDeleteAction?: never;
+    onEditAction?: never;
+}
+
+export type IsEditableProps = MutableProps | ImmutableProps;
+
 export type TagProps = Omit<Partial<DivUiComponent>, 'color' | 'id'>
     & Omit<TagGetOutput, 'id' | 'createdAt' | 'emoji'>
     & Partial<Pick<TagGetOutput, 'id' | 'createdAt'>>
+    & IsEditableProps
     & GeneralProps;
 
 export interface ColorVariable extends React.CSSProperties {

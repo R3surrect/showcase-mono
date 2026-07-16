@@ -23,7 +23,7 @@
     min-height: 0; 
     flex-grow: 1;
 }
-
+/*! TEMPORARY UI TESTING
 .stack[data-overflow="auto"] {
     overflow: auto;
     min-height: 0; 
@@ -39,4 +39,4 @@
     overflow: scroll;
     min-height: 0;
     min-width: 0;
-}
+} */
