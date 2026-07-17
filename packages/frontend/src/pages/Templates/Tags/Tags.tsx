@@ -17,6 +17,7 @@ import {
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
 import { tagTypeConfigs } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
+import Toast from '@/components/entities/Toast/Toast'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -56,6 +57,7 @@ export const Component = () => {
 
     //* Внедрить rhf+zod валидацию
     return <Grid columns={2} autoRows='1fr' height='max'>
+        <Toast />
         <form onSubmit={submitHandler}>
             <Surface height='fit'>
                 <Stack gap='md'>

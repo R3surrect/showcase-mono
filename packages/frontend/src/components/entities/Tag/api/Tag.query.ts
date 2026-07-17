@@ -46,9 +46,7 @@ export const useDeleteTagQuery = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (tagId: TagDeleteInput) => {
-            await TagsService.deleteTag(tagId)
-        },
+        mutationFn: async (tagId: TagDeleteInput) => await TagsService.deleteTag(tagId),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: tagsKeys.all }),
         onError: (error) => console.error('Error while deleting tag', error)
     })
