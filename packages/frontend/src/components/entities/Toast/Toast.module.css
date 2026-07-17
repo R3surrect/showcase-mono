@@ -1,16 +1,22 @@
 .toastWrapper {
+    animation: fadeIn .3s ease-in-out forwards;
     position: absolute;
     right: 3.2rem;
-    bottom: 3.2rem;
 
     background-color: var(--lite-white);
-    min-height: 128px;
+    height: fit-content;
+    /* min-height: 128px; */
     min-width: 192px;
 
-    box-shadow: var(--shadow-md);
     border-radius: var(--border-radius-10);
     overflow: hidden;
     padding: 1rem 2rem;
+
+    cursor: pointer;
+}
+
+.toastWrapper[data-closed="true"] {
+    animation: fadeOut .3s ease-in-out forwards;
 }
 
 .toastWrapper::before {
@@ -20,5 +26,33 @@
     top: 0;
     left: 0;
     width: .875rem;
-    background-color: var(--status-info);
+    background-color: var(--status-info, -var(-lite-white));
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+        box-shadow: none;
+    }
+
+    to {
+        opacity: 100%;
+        transform: translateY(2rem);
+        box-shadow: var(--shadow-md);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 100%;
+        transform: translateY(2rem);
+        box-shadow: var(--shadow-md);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-100%);
+        box-shadow: none;
+    }
 }
