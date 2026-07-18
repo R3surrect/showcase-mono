@@ -1,11 +1,18 @@
-.toastWrapper {
-    animation: fadeIn .3s ease-in-out forwards;
+.toastStack {
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
     position: absolute;
-    right: 3.2rem;
-
-    background-color: var(--lite-white);
     height: fit-content;
-    /* min-height: 128px; */
+    width: fit-content;
+    right: 1.5rem;
+    bottom: 1rem;
+}
+
+.toastWrapper {
+    border: 1px solid color-mix(in srgb, var(--toast-status-color, var(--cold-blue-gray-400)), transparent var(--opacity-high));
+    position: relative;
+    /* animation: fadeIn .3s ease-in-out forwards; */
+    background-color: var(--toast-status-color, var(--lite-white));
+    height: fit-content;
     min-width: 192px;
 
     border-radius: var(--border-radius-10);
@@ -16,7 +23,7 @@
 }
 
 .toastWrapper[data-closed="true"] {
-    animation: fadeOut .3s ease-in-out forwards;
+    animation: fadeOut .3s ease-in-out forwards
 }
 
 .toastWrapper::before {
@@ -26,8 +33,9 @@
     top: 0;
     left: 0;
     width: .875rem;
-    background-color: var(--status-info, -var(-lite-white));
+    background-color: var(--status-success, -var(-lite-white));
 }
+
 
 @keyframes fadeIn {
     from {
