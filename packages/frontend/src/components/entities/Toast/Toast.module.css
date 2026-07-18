@@ -15,7 +15,7 @@
     height: fit-content;
     min-width: 192px;
 
-    border-radius: var(--border-radius-10);
+    border-radius: var(--border-radius-4);
     overflow: hidden;
     padding: 1rem 2rem;
 

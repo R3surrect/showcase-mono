@@ -22,11 +22,9 @@ const useToastStore = create<ToastStore>((set) => ({
         toastList: [...prev.toastList, data],
     })),
 
-    closeToast: (id) => set((prev) => {
-        const index = prev.toastList.find(item => item.id === id);
-
-        if (index !== -1) return prev.toastList.splice(index, 1);
-    })
+    closeToast: (id) => set((prev) => ({
+        toastList: prev.toastList.filter(item => item.id !== id)
+    })),
 }))
 
 export default useToastStore;
