@@ -9,14 +9,14 @@ import Tag from '@components/entities/Tag/Tag'
 import ColorList from '@/components/entities/ColorList/ColorList'
 import Button from '@/components/entities/Button/Button'
 import Text from '@/components/entities/Text/Text'
+import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
+import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
+import { tagTypeConfigs } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import {
     useCreateTagQuery,
     useDeleteTagQuery,
     useGetTagsQuery
 } from '@/components/entities/Tag/api/Tag.query'
-import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
-import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
-import { tagTypeConfigs } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно

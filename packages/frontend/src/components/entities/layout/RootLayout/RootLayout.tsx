@@ -7,6 +7,7 @@ import Sidebar from '@components/entities/layout/Sidebar/Sidebar';
 import BaseContainer from '@components/entities/layout/BaseContainer/BaseContainer'
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import useAuthStore from '@/store/useAuthStore';
+import ToastProvider from '@components/entities/Toast/Toast';
 
 export const Component = () => {
     const checkAuth = useAuthStore(store => store.checkAuth);
@@ -15,13 +16,15 @@ export const Component = () => {
     return (
         <ProtectedRoute>
             <Suspense fallback={null}>
-                <div className={stylesObj.container}>
-                    <Header />
-                    <Sidebar />
-                    <BaseContainer>
-                        <Outlet />
-                    </BaseContainer>
-                </div>
+                <ToastProvider>
+                    <div className={stylesObj.container}>
+                        <Header />
+                        <Sidebar />
+                        <BaseContainer>
+                            <Outlet />
+                        </BaseContainer>
+                    </div>
+                </ToastProvider>
             </Suspense>
         </ProtectedRoute>
     )

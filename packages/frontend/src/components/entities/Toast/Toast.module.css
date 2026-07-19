@@ -1,0 +1,63 @@
+@import url('@global/styles/_semantics.css');
+
+.toastStack {
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    right: 2.5rem; /* !!! */
+    bottom: 1rem;
+}
+
+.toastWrapper {
+    cursor: pointer;
+    animation: fadeIn .3s ease-in-out forwards;
+
+    border: 1px solid color-mix(in srgb, var(--toast-status-color, var(--cold-blue-gray-400)), transparent var(--opacity-high));
+    position: relative;
+    background-color: var(--lite-white);
+    height: fit-content;
+    min-width: 192px;
+
+    border-radius: var(--border-radius-4);
+    overflow: hidden;
+    padding: 1rem 2rem;
+
+}
+
+.toastWrapper::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: .875rem;
+    background-color: var(--toast-status-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        box-shadow: var(--shadow-md);
+    }
+
+    to {
+        opacity: 100%;
+        box-shadow: none;
+    }
+}
+
+/* 
+@keyframes fadeOut {
+    from {
+        opacity: 100%;
+        transform: translateY(2rem);
+        box-shadow: var(--shadow-md);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-100%);
+        box-shadow: none;
+    }
+} */

@@ -25,9 +25,7 @@ const useTaskStore = create<TaskStore>((set, get) => ({
 
     updateTask: (taskId: string, updatedTask: Task) => set(
         prev => ({
-            tasks: prev.tasks.map(
-                task => task.id === taskId ? updatedTask : task
-            )
+            tasks: prev.tasks.map(task => task.id === taskId ? updatedTask : task)
         })
     ),
 
