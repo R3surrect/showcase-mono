@@ -7,7 +7,7 @@ import Sidebar from '@components/entities/layout/Sidebar/Sidebar';
 import BaseContainer from '@components/entities/layout/BaseContainer/BaseContainer'
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import useAuthStore from '@/store/useAuthStore';
-import ToastProvider from '../../Toast/Toast.provider';
+import ToastProvider from '@components/entities/Toast/Toast';
 
 export const Component = () => {
     const checkAuth = useAuthStore(store => store.checkAuth);
