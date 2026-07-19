@@ -3,13 +3,18 @@ import type { ToastStore } from "./Toast.types";
 
 const useToastStore = create<ToastStore>((set) => ({
     toastList: [],
+
     pushToast: (data) => set((prev) => ({
         toastList: [...prev.toastList, data],
     })),
 
-    closeToast: (id) => set((prev) => ({
-        toastList: prev.toastList.filter(item => item.id !== id)
-    })),
+    deleteToast: (item) => {
+        item.onClose?.();
+        set(state => ({
+            toastList: state.toastList.filter(toast => toast.id !== item.id)
+        }))
+    },
+
 }))
 
 export default useToastStore;
