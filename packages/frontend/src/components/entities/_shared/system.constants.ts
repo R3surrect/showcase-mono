@@ -1,6 +1,6 @@
 import type { HslColor } from "colord";
 
-export const BASE_SIZE_TYPES = ['sm', 'md', 'lg'] as const;
+export const BASE_SIZE_TYPES = ['none', 'sm', 'md', 'lg'] as const;
 export const DIRECTION_TYPES = ['row', 'column', 'row-reverse', 'column-reverse'] as const;
 export const BASE_ALIGN_TYPES = ['start', 'center', 'end'] as const;
 export const WEIGHTS_TYPES = ["thin", "regular", "bold", "bolder"] as const;

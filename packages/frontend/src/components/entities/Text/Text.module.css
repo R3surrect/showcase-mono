@@ -16,11 +16,6 @@
 .text[data-size="6"] {font-size: var(--helper-text-size)}
 .text[data-size="7"] {font-size: var(--footer-text-size)}
 
-.text[data-color="lightgray"] {color: var(--monochrome-500) }
-.text[data-color="darkgray"]  {color: var(--monochrome-700) }
-.text[data-color="yellow"]    {color: color-mix(in srgb, var(--warm-orange-400), transparent var(--opacity-medium))}
-.text[data-color="orange"]    {color: var(--warm-orange-400) }
-
 .text[data-weight='thin']    {font-weight: 200}
 .text[data-weight='regular'] {font-weight: 350}
 .text[data-weight='bold']    {font-weight: 500}

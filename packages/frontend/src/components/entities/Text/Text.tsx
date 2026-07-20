@@ -1,28 +1,26 @@
 import type { ElementType } from 'react';
 import stylesObj from './Text.module.css'
-import type { TextProps } from '@/components/entities/Text/Text.types';
+import type { TextProps, TextVars } from '@/components/entities/Text/Text.types';
 
-const Text = <T extends ElementType = 'p'> ({
+const Text = <T extends ElementType = 'p'>({
     as,
     weight = 'regular',
-    color = 'darkgray',
+    color = 'var(--neutral-850)',
     size = 4,
     children,
     align = 'start',
     ...props
 }: TextProps<T>) => {
-
     const Tag = as || 'p';
     return (
         <Tag
             className={stylesObj.text}
             data-size={size}
-            data-color={color}
             data-weight={weight}
             style={{
-                textAlign: align
-            }}
-
+                textAlign: align,
+                '--text-color': color,
+            } as TextVars}
             {...props}
         >
             {children}

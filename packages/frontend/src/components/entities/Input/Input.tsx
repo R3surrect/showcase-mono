@@ -46,7 +46,7 @@ const Input = ({
 
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
-            <Text as='label' htmlFor={controlId} size={4} weight='bold' color='lightgray'>
+            <Text as='label' htmlFor={controlId} size={6} weight='bolder'>
                 {labelText}
             </Text>
 
