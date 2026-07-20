@@ -4,15 +4,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import '@/global/styles/App.css';
 import '@/global/styles/normalize.css';
 import { router } from '@/routes/index.ts';
-// import useAuthStore from './store/useAuthStore';
+import ToastProvider from './components/entities/Toast/Toast';
 
 const queryClient = new QueryClient();
-
 const App: React.FC = () => {
-  // useAuthStore(store => store.checkAuth)();
-  
+
   return <QueryClientProvider client={queryClient}>
-    <RouterProvider router={router} />
+    <ToastProvider>
+      <RouterProvider router={router} />
+    </ToastProvider>
   </QueryClientProvider>
 }
 
