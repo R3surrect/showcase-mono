@@ -11,7 +11,7 @@ const SegmentedPicker = <T extends string | number>({
 }: SegmentedPickerProps<T>) => {
     return <>
         <Stack {...props} direction='row' justify='space-between' align='center'>
-            <Text size={4} weight='bold' color='lightgray'>{label}</Text>
+            <Text size={4} weight='bold'>{label}</Text>
             <Stack gap='sm' direction='row'>
                 {name && <input value={value} type='hidden' name={name} />}
                 {children}

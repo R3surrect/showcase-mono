@@ -7,7 +7,7 @@ export type ToastTypes = typeof TOAST_TYPES[number];
 export interface ToastVars extends React.CSSProperties { '--toast-status-color': string }
 
 interface BaseToastData extends Omit<DivUiComponent, 'id'> {
-    id: number;
+    id: string;
     label: string;
     text?: string;
     status: ToastStatuses;

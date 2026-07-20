@@ -3,7 +3,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import AuthSwitcher from '@/components/entities/auth/AuthSwitcher/AuthSwitcher';
 import Button from '@/components/entities/Button/Button';
-import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
 import Heading from "@/components/entities/Heading/Heading";
 import Hr from "@/components/entities/Hr/Hr";
 import Input from "@/components/entities/Input/Input";
@@ -12,10 +11,13 @@ import Stack from '@/components/entities/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
 import { useNavigate } from 'react-router-dom';
 import Text from '@/components/entities/Text/Text';
+import useToast from '@/components/entities/Toast/Toast.hook';
 
 export const Component = () => {
     const navigate = useNavigate();
     const loginUser = useAuthStore(store => store.login);
+    const { pushToast } = useToast();
+    const id = crypto.randomUUID();
 
     const {
         register,
@@ -32,9 +34,8 @@ export const Component = () => {
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [loginResult] = await Promise.all([loginUser(data), minWait]);
 
-        if (loginResult?.success) {
-            navigate('/analytics', { replace: true });
-        } else if (loginResult?.message) {
+        if (loginResult?.success) navigate('/analytics', { replace: true });
+        else if (loginResult?.message) {
             const errorMessage = loginResult.status === 401
                 ? "Email or password are incorrect"
                 : (loginResult.message || "Something went wrong, please try again later");
@@ -42,7 +43,9 @@ export const Component = () => {
             setError("root", {
                 type: "server",
                 message: errorMessage
-            })
+            });
+            
+            pushToast({ id: id, label: "Login failed", status: 'error', type: 'popup', text: errorMessage });
         }
     }
 
@@ -52,7 +55,7 @@ export const Component = () => {
             <Text
                 align='center'
                 weight='bolder'
-                color='lightgray'
+                color='var(--neutral-550)'
             >
                 Good to see you again
             </Text>
@@ -62,7 +65,6 @@ export const Component = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
             <Stack>
-
                 <Input
                     labelText="EMail"
                     type="email"
@@ -80,7 +82,7 @@ export const Component = () => {
                     placeholder='_yo4rP@$$w0rdH3re'
                     {...register('password')}
                 />
-                <ErrorMessage message={errors.root?.message} />
+                {/* <ErrorMessage message={errors.root?.message} /> */}
                 <Button
                     width='max'
                     type='submit'
@@ -98,7 +100,6 @@ export const Component = () => {
                     Login as Guest (Demo mode)
                 </Button>
                 <AuthSwitcher to='/auth/register' mainText="Don't have an account yet?" linkText='Create one' />
-
             </Stack>
         </form>
 

@@ -11,6 +11,6 @@ export interface ButtonProps extends Omit<ComponentPropsWithRef<'button'>, 'clas
   isSubmitting?: boolean;
   width?: AxisSizeVariations;
   radius?: Size;
-  // size?: Size;
+  size?: Size;
   isHoverAnimated?: boolean;
 }
