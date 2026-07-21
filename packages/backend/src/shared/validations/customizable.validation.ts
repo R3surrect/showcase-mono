@@ -7,7 +7,7 @@ const baseColorSchema = z.object({
     l: z.number().min(0, 'Min l: 0').max(100, 'Max l: 100')
 }, { message: 'Incorrect format' });
 
-export const colorSchema = z.preprocess((val) => {
+export const colorSchema = z.any().transform((val, ctx) => {
     if (typeof val === 'string') {
         try {
             return JSON.parse(val);
@@ -16,7 +16,7 @@ export const colorSchema = z.preprocess((val) => {
         }
     }
     return val;
-}, baseColorSchema);
+}).pipe(baseColorSchema);
 
 export const emojiSchema = z
     .string()
