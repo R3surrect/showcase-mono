@@ -1,4 +1,3 @@
-import stylesObj from './Modal.module.css';
 import {
     FloatingFocusManager,
     FloatingOverlay,
@@ -9,6 +8,7 @@ import {
     useRole,
     useTransitionStatus,
 } from "@floating-ui/react";
+import stylesObj from './Modal.module.css';
 import type { ModalProps, ModalVars } from './Modal.types';
 
 const Modal = ({ isOpen, onClose, hasBackground = true, children, ...props }: ModalProps) => {
@@ -24,7 +24,16 @@ const Modal = ({ isOpen, onClose, hasBackground = true, children, ...props }: Mo
         duration: animationDuration,
     });
 
-    const dismiss = useDismiss(context, { outsidePressEvent: 'mousedown' });
+    const dismiss = useDismiss(context, {
+        outsidePressEvent: 'mousedown',
+        outsidePress: (event) => {
+            const target = event.target as HTMLElement;
+            if (target.closest('[data-no-dismiss]')) {
+                return false;
+            }
+            return true;
+        },
+    });
     const role = useRole(context, { role: 'dialog' });
 
     const { getFloatingProps } = useInteractions([dismiss, role]);

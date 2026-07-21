@@ -1,6 +1,6 @@
 import { loginSchema, type LoginInput } from '@/validation/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitErrorHandler } from 'react-hook-form';
 import AuthSwitcher from '@/components/entities/auth/AuthSwitcher/AuthSwitcher';
 import Button from '@/components/entities/Button/Button';
 import Heading from "@/components/entities/Heading/Heading";
@@ -17,7 +17,6 @@ export const Component = () => {
     const navigate = useNavigate();
     const loginUser = useAuthStore(store => store.login);
     const { pushToast } = useToast();
-    const id = crypto.randomUUID();
 
     const {
         register,
@@ -44,9 +43,14 @@ export const Component = () => {
                 type: "server",
                 message: errorMessage
             });
-            
-            pushToast({ id: id, label: "Login failed", status: 'error', type: 'popup', text: errorMessage });
+
+            pushToast({ label: "Login failed", status: 'error', type: 'popup', text: errorMessage });
         }
+    }
+
+    const onError: SubmitErrorHandler<LoginInput> = (errors) => {
+        if (errors.email?.message) pushToast({ text: errors.email?.message, type: 'popup', label: 'Email error', status: 'error' });
+        if (errors.password?.message) pushToast({ text: errors.email?.message, type: 'popup', label: 'Password error', status: 'error' });
     }
 
     return <Stack gap='lg'>
@@ -63,7 +67,7 @@ export const Component = () => {
 
         <Hr variant="accent" thickness="medium" opacity={0.8} shadow={true} />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
             <Stack>
                 <Input
                     labelText="EMail"

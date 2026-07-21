@@ -1,6 +1,6 @@
 import { registerSchema, type RegisterInput, type RegisterPayload } from '@/validation/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitErrorHandler } from 'react-hook-form';
 
 import AuthSwitcher from '@/components/entities/auth/AuthSwitcher/AuthSwitcher';
 import Button from '@/components/entities/Button/Button';
@@ -13,9 +13,11 @@ import useAuthStore from '@/store/useAuthStore';
 import LegalNotice from '@/components/entities/auth/LegalNotice/LegalNotice';
 import { useNavigate } from 'react-router-dom';
 import Text from '@/components/entities/Text/Text';
+import useToast from '@/components/entities/Toast/Toast.hook';
 
 export const Component = () => {
     const navigate = useNavigate();
+    const { pushToast } = useToast();
     const registerUser = useAuthStore(store => store.register);
     const {
         register,
@@ -32,7 +34,6 @@ export const Component = () => {
     });
 
     const onSubmit = async ({ ...payload }: RegisterPayload) => {
-
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [registerResult] = await Promise.all([registerUser(payload), minWait]);
 
@@ -47,6 +48,12 @@ export const Component = () => {
         }
     }
 
+    const onError: SubmitErrorHandler<RegisterInput> = (errors) => {
+        if (errors.email?.message) pushToast({ text: errors.email?.message, type: 'popup', label: 'Email error', status: 'error' });
+        if (errors.password?.message) pushToast({ text: errors.email?.message, type: 'popup', label: 'Password error', status: 'error' });
+        if (errors.confirmPassword?.message) pushToast({ text: errors.email?.message, type: 'popup', label: 'Confirm error', status: 'error' });
+    }
+
     return <Stack gap='lg'>
         <Stack gap='md'>
             <Heading variant='accent' level={1} align='center'>Join the community</Heading>
@@ -55,7 +62,7 @@ export const Component = () => {
 
         <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
             <Stack>
                 <Input
                     labelText='EMail'

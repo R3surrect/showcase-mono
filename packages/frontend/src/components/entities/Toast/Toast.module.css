@@ -2,11 +2,12 @@
 
 .toastStack {
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
-    position: absolute;
+    position: fixed;
     height: fit-content;
     width: fit-content;
     right: 2.5rem; /* !!! */
     bottom: 1rem;
+    z-index: 9999;
 }
 
 .toastWrapper {
@@ -46,18 +47,3 @@
         box-shadow: none;
     }
 }
-
-/* 
-@keyframes fadeOut {
-    from {
-        opacity: 100%;
-        transform: translateY(2rem);
-        box-shadow: var(--shadow-md);
-    }
-
-    to {
-        opacity: 0;
-        transform: translateY(-100%);
-        box-shadow: none;
-    }
-} */

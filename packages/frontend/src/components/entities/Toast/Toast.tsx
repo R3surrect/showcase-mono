@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { LucideCircleCheck, LucideCircleX } from "lucide-react";
 import { FloatingPortal } from "@floating-ui/react";
 import stylesObj from './Toast.module.css';
@@ -8,7 +9,6 @@ import type { DivUiComponent } from "@components/entities/_shared/system.types";
 import type { ToastData, ToastVars } from "./Toast.types";
 import useToastStore from "./Toast.store";
 import Button from "@components/entities/Button/Button";
-import { motion, AnimatePresence } from "framer-motion";
 
 const Toast = () => {
     const toastList = useToastStore(state => state.toastList);
@@ -53,7 +53,7 @@ const Toast = () => {
     }
 
     return <FloatingPortal>
-        <div className={stylesObj.toastStack}>
+        <div className={stylesObj.toastStack} data-no-dismiss>
             <AnimatePresence>
                 <Stack height="fit" gap="lg">
                     {
