@@ -20,3 +20,9 @@ export const tagCreateInputValidation = tagSchema.omit({
     updatedAt: true,
     ownerId: true,
 })
+
+export const categoryTagOutput = tagSchema.pick({
+    id: true,
+    category: true,
+    color: true,
+});

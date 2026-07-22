@@ -3,7 +3,8 @@ import type { tagSchema } from "./tag.schema.js";
 import type {
     tagCreateInputValidation,
     tagCreateOutputValidation,
-    tagCreateDbInputValidation
+    tagCreateDbInputValidation,
+    categoryTagOutput
 } from "./validations/tag.create.js";
 import type { tagUpdateValidation } from "./validations/tag.update.js";
 import type { tagDbDeleteValidation, tagDeleteValidation } from "./validations/tag.delete.js";
@@ -27,3 +28,5 @@ export type TagDeleteInput = z.infer<typeof tagDeleteValidation>;
 export type TagGetOutput = Omit<Tag, 'ownerId' | 'updatedAt'>
 export type TagCreateOutput = z.infer<typeof tagCreateOutputValidation>
 export type TagUpdateOutput = TagCreateOutput;
+
+export type CategoryTagOutput = z.infer<typeof categoryTagOutput>;
