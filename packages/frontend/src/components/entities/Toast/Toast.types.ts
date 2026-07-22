@@ -15,6 +15,7 @@ interface BaseToastData extends Omit<DivUiComponent, 'id'> {
     onClose?: () => void;
     onClick?: () => void;
 }
+
 // #region DialogTypes
 export interface DialogBaseData {
     confirmLabel: string;
@@ -51,9 +52,10 @@ export type DialogActions = DialogBaseData & (OnlyConfirmDialogToastData | OnlyD
 // #endregion
 
 export type ToastData = BaseToastData & (NonDialogToastData | DialogActions);
+export type ToastCreateData = Omit<BaseToastData, 'id'> & (NonDialogToastData | DialogActions);
 
 export interface ToastStore {
     toastList: ToastData[];
-    pushToast: (data: ToastData) => void;
-    deleteToast: (data: ToastData) => void;
+    pushToast: (data: ToastCreateData) => void;
+    deleteToast: (item: ToastData) => void;
 }

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ProjectService } from "./ProjectCard.service";
 import type { ProjectCreateInput, ProjectUpdateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
+import { ProjectService } from "./projects.service";
 
 export const projectsKeys = { all: ['projects'] as const }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LucidePlusCircle } from 'lucide-react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
-import { useGetProjectsQuery, useUpdateProjectsQuery } from '@/components/entities/ProjectCard/api/ProjectCard.query';
+import { useGetProjectsQuery, useUpdateProjectsQuery } from '@/queries/projects/projects.query';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
@@ -27,7 +27,7 @@ export const Component = () => {
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
     const projectClickHandler = (id: string) => {
-        setSelectedProject(data?.find(item => item.id.toString() === id))
+        setSelectedProject(data?.find((item: ProjectGetOutput) => item.id.toString() === id))
         setPageState({ projectId: id, type: 'view' });
     }
 
@@ -54,7 +54,7 @@ export const Component = () => {
                 {isLoading
                     ? <Text>...loading</Text>
                     : !isError
-                        ? projects.length !== 0 ? projects.map(item => (
+                        ? projects.length !== 0 ? projects.map((item: ProjectGetOutput) => (
                             <ProjectCard
                                 key={item.id}
                                 onClick={() => projectClickHandler(item.id.toString())}

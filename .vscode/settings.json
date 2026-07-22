@@ -1,4 +1,8 @@
 {
+    "editor.letterSpacing": 0.8,
+    "editor.lineHeight": 22,
+    "editor.fontWeight": "300",
+    
     "sqltools.connections": [
         {
             "ssh": "Disabled",

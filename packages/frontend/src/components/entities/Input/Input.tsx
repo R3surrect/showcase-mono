@@ -36,7 +36,7 @@ const Input = ({
         : type;
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-
+ 
     const emojiButtonRender = (
         <Button variant='transparent' size='none'>
             <LucideSmile stroke='var(--neutral-500)' />
