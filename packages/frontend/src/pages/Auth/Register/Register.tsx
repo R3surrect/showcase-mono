@@ -37,10 +37,8 @@ export const Component = () => {
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [registerResult] = await Promise.all([registerUser(payload), minWait]);
 
-        if (registerResult?.success) {
-            navigate('/analytics', { replace: true });
-        } else if (registerResult?.message) {
-            // Если ошибка — выводим её в форму
+        if (registerResult?.success) navigate('/analytics', { replace: true });
+        else if (registerResult?.message) {
             setError("root", {
                 type: "server",
                 message: registerResult.message,

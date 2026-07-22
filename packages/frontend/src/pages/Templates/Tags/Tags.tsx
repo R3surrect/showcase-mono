@@ -16,7 +16,8 @@ import {
     useCreateTagQuery,
     useDeleteTagQuery,
     useGetTagsQuery
-} from '@/components/entities/Tag/api/Tag.query'
+} from '@/queries/tags/tags.query'
+import type { TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -109,7 +110,7 @@ export const Component = () => {
                     overflow='auto'
                 >
                     {
-                        (!isError && tags.length !== 0) ? tags.map((item) => (
+                        (!isError && tags.length !== 0) ? tags.map((item: TagGetOutput) => (
                             <Tag
                                 {...item}
                                 key={item.id}

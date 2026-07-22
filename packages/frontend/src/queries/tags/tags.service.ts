@@ -22,3 +22,10 @@ export const TagsService = {
     }
 }
 
+export const CategoriesService = {
+    async getAll() {
+        const res = await api.tags.categories.$get();
+        if (!res.ok) throw new Error(`Pulling categories failed: ${res.status}: ${res.statusText}`);
+        return await res.json();
+    }
+}

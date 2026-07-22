@@ -2,7 +2,7 @@ import Stack from '@components/entities/Stack/Stack';
 import Text from '@components/entities/Text/Text';
 import stylesObj from './Header.module.css';
 import Button from '../../Button/Button';
-import { useLogoutQuery } from '@components/entities/auth/api/Auth.query';
+import { useLogoutQuery } from '@/queries/auth/auth.query';
 
 const Header = () => {
     const { mutate: logout } = useLogoutQuery();
@@ -16,7 +16,7 @@ const Header = () => {
         <div className={stylesObj.header}>
             <Stack direction='row' justify='space-between' align='center'>
                 <div className={stylesObj.content}>
-                    CONTENT
+                    content
                 </div>
                 <Stack direction='column' gap='sm' align='center'>
                     <Text size={4} weight='bold'>{fullDay}</Text>
