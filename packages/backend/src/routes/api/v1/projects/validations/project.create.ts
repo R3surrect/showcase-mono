@@ -5,6 +5,9 @@ export const projectCreateDbInputValidation = projectSchema.omit({
     id: true,
     createdAt: true,
     updatedAt: true,
+    isArchived: true,
+    pinnedAt: true,
+    isPinned: true,
 });
 
 //* Getting data field filtration
@@ -13,6 +16,9 @@ export const projectCreateInputValidation = projectSchema.omit({
     createdAt: true,
     updatedAt: true,
     ownerId: true,
+    isArchived: true,
+    pinnedAt: true,
+    isPinned: true,
 })
 
 //* Sending data field filtration

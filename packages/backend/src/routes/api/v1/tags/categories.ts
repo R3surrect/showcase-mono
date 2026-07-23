@@ -9,6 +9,6 @@ export const categoriesRouter = new Hono<AuthEnv>()
             return c.json(categories, 200);
         } catch (e) {
             console.log(e);
-            return c.json([{ message: 'Internal server error' }], 500)
+            return c.body(null, 500)
         }
     })

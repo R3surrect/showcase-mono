@@ -14,7 +14,7 @@ export const projectsRouter = new Hono<AuthEnv>()
             return c.json(projects, 200);
         } catch (e) {
             console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: ${e}`);
-            return c.json([{ message: 'Internal server error' }], 500)
+            return c.body(null, 500)
         }
     })
     .patch('/:id',
@@ -34,7 +34,7 @@ export const projectsRouter = new Hono<AuthEnv>()
 
             } catch (e) {
                 console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: ${e}`);
-                return c.json([{ message: 'Internal server error' }], 500);
+                return c.body(null, 500);
             }
         }
     )
@@ -48,7 +48,6 @@ export const projectsRouter = new Hono<AuthEnv>()
         async (c) => {
             try {
                 const data = await c.req.valid('json');
-
                 const newProject = (await createProject({
                     ...data,
                     ownerId: c.get('user').id
@@ -58,12 +57,12 @@ export const projectsRouter = new Hono<AuthEnv>()
                     console.error(
                         `[CRITICAL 500]: ${c.req.method}] ${c.req.path}: Empty response array from DB while creating project`
                     );
-                    return c.json([{ message: 'Internal server error' }], 500)
+                    return c.body(null, 500)
                 }
                 return c.json(newProject, 201);
             } catch (e) {
                 console.error(`[CRITICAL 500]: ${c.req.method} ${c.req.path}`, e);
-                return c.json([{ message: 'Internal server error' }], 500)
+                return c.body(null, 500)
             }
         }
     )

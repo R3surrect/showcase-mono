@@ -8,12 +8,14 @@ import logoutRouter from "./auth/logout/logout.js";
 import projectsRouter from "./projects/projects.js";
 import tagsRouter from "./templates/tags/tags.js";
 import { categoriesRouter } from "./tags/categories.js";
+import { prioritiesRouter } from "./tags/priorities.js";
 
 const v1Router = new Hono();
 
 v1Router.use('/templates/*', authMiddleware);
 v1Router.use('/projects/*', authMiddleware);
 v1Router.use('/tags/*', authMiddleware);
+v1Router.use('/priorities/*', authMiddleware);
 
 export const appRouterV1 = v1Router
     .route("/auth", registerRouter)
@@ -24,6 +26,7 @@ export const appRouterV1 = v1Router
     .route('/projects', projectsRouter)
     .route('/tags', tagsRouter)
     .route('/tags', categoriesRouter)
+    .route('/priorities', prioritiesRouter)
 
 export type AppRouterV1 = typeof appRouterV1;
 export default v1Router;

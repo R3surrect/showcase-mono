@@ -24,11 +24,11 @@ export const createProject: CreateProject = async ({
     label,
     details,
     color,
-    priority,
+    priorityTagId,
     ownerId,
     emoji,
-    isPinned,
-    isArchived
+    // isPinned,
+    // isArchived
 }) => {
     const colorString = JSON.stringify(color) || null;
 
@@ -38,15 +38,13 @@ export const createProject: CreateProject = async ({
             details,
             emoji,
             color,
-            owner_id,
-            priority,
-            is_pinned,
-            is_archived
+            priority_tag_id,
+            owner_id
         )
-        VALUES (
-            ${label},${details || null},${emoji},${colorString},${ownerId},${priority},${isPinned},${isArchived}
-        )
+        VALUES (${label},${details || null},${emoji},${colorString},${priorityTagId},${ownerId})
     `;
+
+    // ${label},${details || null},${emoji},${colorString},${ownerId},${priority},${isPinned},${isArchived}
 
     return [...rows]
 }
