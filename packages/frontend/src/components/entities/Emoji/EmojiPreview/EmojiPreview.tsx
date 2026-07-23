@@ -3,20 +3,22 @@ import { unifiedToEmoji } from "@components/entities/Emoji/EmojiPicker/EmojiPick
 import Stack from "@components/entities/Stack/Stack";
 import type { EmojiPreviewProps } from "./EmojiPreview.types";
 
-const EmojiPreview = ({ emoji, setEmoji, name }: EmojiPreviewProps) => {
+const EmojiPreview = ({ emoji, setEmoji, ...props }: EmojiPreviewProps) => {
     return <div
         className={stylesObj.emojiPreview}
         onContextMenu={(e) => {
-            e.preventDefault();
-            if (setEmoji) setEmoji('');
+            if (setEmoji) {
+                e.preventDefault();
+                setEmoji('');
+            }
         }}
     >
         {
-            name && <input
+            props.name && <input
                 type='hidden'
-                name={name}
-                id={name}
+                id={props.name}
                 value={emoji}
+                {...props}
             />
         }
         <Stack justify="center">

@@ -25,6 +25,10 @@ const useToastStore = create<ToastStore>((set) => ({
         }))
     },
 
+    clearToasts: () => set({
+        toastList: []
+    })
+
 }))
 
 export default useToastStore;

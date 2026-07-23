@@ -7,7 +7,7 @@
     width: fit-content;
     right: 2.5rem; /* !!! */
     bottom: 1rem;
-    z-index: 9999;
+    z-index: 2;
 }
 
 .toastWrapper {
@@ -18,12 +18,13 @@
     position: relative;
     background-color: var(--lite-white);
     height: fit-content;
-    min-width: 192px;
+    width: 20rem;
+    
+    /* width: fit-content; */
 
     border-radius: var(--border-radius-4);
     overflow: hidden;
     padding: 1rem 2rem;
-
 }
 
 .toastWrapper::before {

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ProjectCreateInput, ProjectUpdateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { ProjectService } from "./projects.service";
 
-export const projectsKeys = { all: ['projects'] as const }
+export const projectsKeys = { all: ['projects'] as const };
 
 export const useGetProjectsQuery = () => {
     return useQuery({
@@ -18,7 +18,7 @@ export const useGetProjectsQuery = () => {
             ]);
             return res;
         },
-    })
+    });
 };
 
 export const useUpdateProjectsQuery = () => {
@@ -27,7 +27,7 @@ export const useUpdateProjectsQuery = () => {
         mutationFn: async (data: ProjectUpdateInput) => ProjectService.updateProject(data),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
         onError: (error) => console.error('Error while updating project', error)
-    })
+    });
 }
 
 export const useCreateProjectQuery = () => {
@@ -37,5 +37,5 @@ export const useCreateProjectQuery = () => {
         mutationFn: async (newProject: ProjectCreateInput) => await ProjectService.createProject(newProject),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
         onError: (error) => console.error('Error while creating project', error)
-    })
+    });
 }

@@ -32,7 +32,6 @@ const ColorList = ({ ref, ...props }: ColorListProps) => {
         }
 
         <Heading level={6} variant='secondary'>Цвет</Heading>
-        {/* <Stack wrap={true} direction='row'> */}
         <Grid columns={16} justifyItems='center' gap='md'>
             <ColorPicker exportColor={(color) => setColorPickerColor(color)} color={colorPickerColor} />
             {
@@ -53,7 +52,6 @@ const ColorList = ({ ref, ...props }: ColorListProps) => {
                 })
             }
         </Grid>
-        {/* </Stack> */}
         <Button
             variant='outline'
             width='max'
