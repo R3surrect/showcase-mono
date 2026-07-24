@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
+import type { HslColor } from "colord";
 import type {
     BASE_ALIGN_TYPES,
     BOX_ALIGN_TYPES,
@@ -24,6 +25,11 @@ export type AxisSizeVariations = typeof AXIS_SIZE_TYPES[number];
 export type Weights = typeof WEIGHTS_TYPES[number];
 export type Sizes = typeof SIZE_TYPES[number];
 export type Overflows = typeof OVERFLOW_TYPES[number];
+
+export interface ColorSet {
+    id: string;
+    color: HslColor;
+};
 
 export type ResponsiveObj<T> = T | { base?: T, md?: T, lg?: T }
 

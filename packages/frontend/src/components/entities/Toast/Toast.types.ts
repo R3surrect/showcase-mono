@@ -58,4 +58,5 @@ export interface ToastStore {
     toastList: ToastData[];
     pushToast: (data: ToastCreateData) => void;
     deleteToast: (item: ToastData) => void;
+    clearToasts: () => void;
 }

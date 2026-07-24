@@ -1,8 +1,6 @@
 import { colorSchema, emojiSchema } from "#/shared/validations/customizable.validation.js";
 import z from "zod";
 
-export const prioritySchema = z.enum(['low', 'medium', 'high', 'fire']);
-
 export const projectSchema = z.object({
     id: z.number().int().positive(),
     label: z
@@ -15,7 +13,8 @@ export const projectSchema = z.object({
 
     color: colorSchema,
     emoji: emojiSchema,
-    priority: prioritySchema,
+    priorityTagId: z.number().int().positive(),
+    statusTagId: z.number().int().positive(),
 
     ownerId: z.number().int().positive(),
     createdAt: z.date().or(z.iso.datetime()),

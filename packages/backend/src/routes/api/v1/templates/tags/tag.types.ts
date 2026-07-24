@@ -4,7 +4,8 @@ import type {
     tagCreateInputValidation,
     tagCreateOutputValidation,
     tagCreateDbInputValidation,
-    categoryTagOutput
+    categoryTagOutput,
+    systemTagOutput
 } from "./validations/tag.create.js";
 import type { tagUpdateValidation } from "./validations/tag.update.js";
 import type { tagDbDeleteValidation, tagDeleteValidation } from "./validations/tag.delete.js";
@@ -30,3 +31,6 @@ export type TagCreateOutput = z.infer<typeof tagCreateOutputValidation>
 export type TagUpdateOutput = TagCreateOutput;
 
 export type CategoryTagOutput = z.infer<typeof categoryTagOutput>;
+export type PriorityTagOutput = z.infer<typeof systemTagOutput>
+export type StatusTagOutput = z.infer<typeof systemTagOutput>
+

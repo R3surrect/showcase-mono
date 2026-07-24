@@ -1,11 +1,5 @@
 import type { HslColor } from "colord";
-import type { InputUiRefComponent } from "../_shared/system.types";
-import type { Ref } from "react";
-
-export interface ColorSet {
-    id: string;
-    color: HslColor;
-};
+import type { ColorSet, DivUiRefComponent } from "../_shared/system.types";
 
 export interface StateType {
     colorSet: ColorSet[];
@@ -13,6 +7,7 @@ export interface StateType {
     colorPickerColor: HslColor;
 }
 
-export interface ColorListProps extends InputUiRefComponent {
-    ref?: Ref<HTMLInputElement>
+export interface ColorListProps extends DivUiRefComponent {
+    value: HslColor;
+    onColorChange: (color: HslColor) => void;
 }

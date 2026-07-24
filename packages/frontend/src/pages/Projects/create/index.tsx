@@ -1,8 +1,11 @@
 import z from "zod";
 import { useState } from "react";
+import type { HslColor } from "colord";
 import { LucidePlusCircle } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type SubmitErrorHandler } from "react-hook-form";
+import { Controller, useForm, type SubmitErrorHandler } from "react-hook-form";
+
+import Tag from "@/components/entities/Tag/Tag";
 import Text from "@/components/entities/Text/Text";
 import Input from "@/components/entities/Input/Input";
 import Stack from "@/components/entities/Stack/Stack";
@@ -10,50 +13,51 @@ import Button from "@/components/entities/Button/Button";
 import Heading from "@/components/entities/Heading/Heading";
 import useToast from "@/components/entities/Toast/Toast.hook";
 import ColorList from "@/components/entities/ColorList/ColorList";
+import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
+import { useCreateProjectQuery } from "@/queries/projects/projects.query";
+import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import EmojiPicker from "@/components/entities/Emoji/EmojiPicker/EmojiPicker";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
+import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
+import { DEFAULT_COLOR } from "@/components/entities/ColorList/ColorList.constants";
 import type { ProjectCreateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/projects/validations/project.create";
-import { useUpdateProjectsQuery } from "@/queries/projects/projects.query";
-import { useGetCategoriesQuery } from "@/queries/tags/tags.query";
-import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
-import Tag from "@/components/entities/Tag/Tag";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<number>();
+    const { data: priorityData, isLoading: isPrioritiesLoading } = useGetPrioritiesQuery();
+    const { data: statusesData, isLoading: isStatusesLoading } = useGetStatusesQuery('project');
+    const { mutate: createProject, isPending: isProjectsPending } = useCreateProjectQuery();
+    const { pushToast, clearToasts } = useToast();
 
-    const { mutate, isError, error, isPending } = useUpdateProjectsQuery();
-    const { pushToast } = useToast();
-    const { isLoading: isCategoriesLoading, data: categoriesData } = useGetCategoriesQuery();
+    const priorities = priorityData || [];
+    const statuses = statusesData || [];
 
-    const {
-        register,
-        handleSubmit,
-        formState: { isSubmitting }
-    } = useForm<ProjectCreateInput>({
+    const { register, handleSubmit, control, formState: { isSubmitting } } = useForm({
         resolver: zodResolver(projectCreateInputValidation),
         mode: 'onBlur',
-
+        defaultValues: { color: DEFAULT_COLOR.color }
     });
 
     const onSubmit = (data: z.infer<typeof projectCreateInputValidation>) => {
-        // e.preventDefault();
-        // const formData = new FormData(e.currentTarget);
-        // const rawTag = Object.fromEntries(formData.entries());
-        // const result = projectCreateInputValidation.safeParse(rawTag);
+        clearToasts();
+        createProject({ ...data, color: data.color });
 
-        if (isError) return pushToast({ label: 'Error', status: 'error', type: 'popup', text: error.message });
+        pushToast({
+            text: `Project ${data.label} created`,
+            type: 'popup',
+            label: 'Created',
+            status: 'success'
+        });
+    };
 
-        mutate(data);
-    }
-
-    // 
     const onError: SubmitErrorHandler<ProjectCreateInput> = (errors) => {
-        Object.values(errors).forEach((error) => {
+        clearToasts();
+
+        Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {
                 pushToast({
-                    text: String(error.message),
+                    text: `${fieldName}: ${error.message}`,
                     type: 'popup',
                     label: 'Validation error',
                     status: 'error'
@@ -80,31 +84,68 @@ const ProjectCreateForm = () => {
                 </Stack>
                 <EmojiPicker variant="keyboard" onEmojiChange={(emoji: string) => setSelectedEmoji(emoji)} />
             </Stack>
-            <SegmentedPicker label="Categories:">
-                {
-                    isCategoriesLoading
-                        ? <Text>...loading</Text>
-                        : categoriesData && categoriesData.map((item) => (
-                            <Tag
-                                key={item.id}
-                                color={item.color}
-                                label={item.category}
-                                data-interactive
-                                data-selected={item.id === selectedCategory}
-                                onClick={() => setSelectedCategory(item.id)}
-                                variant='system'
-                                isSystem
-                            />
-                        ))
-                }
-            </SegmentedPicker>
-            <ColorList {...register('color')} />
-            <Button type="submit" width="max" disabled={isPending || isSubmitting}>
+            <Controller
+                name="priorityTagId"
+                control={control}
+                render={({ field }) => (
+                    <SegmentedPicker label="Priorities:">
+                        {
+                            isPrioritiesLoading
+                                ? '...loading'
+                                : priorities.map((item) => (
+                                    <Tag
+                                        key={item.id}
+                                        color={item.color}
+                                        label={item.label}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        variant='system'
+                                        isSystem
+                                    />
+                                ))
+                        }
+                    </SegmentedPicker>
+                )}
+            />
+            <Controller
+                name="statusTagId"
+                control={control}
+                render={({ field }) => (
+                    <SegmentedPicker label="Status:">
+                        {
+                            isStatusesLoading
+                                ? '...loading'
+                                : statuses.map((item) => (
+                                    <Tag
+                                        key={item.id}
+                                        color={item.color}
+                                        label={item.label}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        variant='system'
+                                        isSystem
+                                    />
+                                ))
+                        }
+                    </SegmentedPicker>
+                )}
+            />
+            <Controller
+                name="color"
+                control={control}
+                render={({ field }) => (
+                    <ColorList value={field.value} onColorChange={(color: HslColor) => field.onChange(color)} />
+                )}
+            />
+            <Button type="submit" width="max" disabled={isProjectsPending || isSubmitting}>
                 <Stack direction="row" align="center" gap='sm'>
                     <LucidePlusCircle />
                     Создать проект
                 </Stack>
             </Button>
+            {/* //TODO реализовать подгрузку JSON'а задач с заметками */}
         </Stack>
     </form>
 }

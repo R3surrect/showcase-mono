@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ProjectCreateInput, ProjectUpdateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { ProjectService } from "./projects.service";
+import useToast from "@/components/entities/Toast/Toast.hook";
 
-export const projectsKeys = { all: ['projects'] as const }
+export const projectsKeys = { all: ['projects'] as const };
 
 export const useGetProjectsQuery = () => {
     return useQuery({
@@ -18,24 +19,37 @@ export const useGetProjectsQuery = () => {
             ]);
             return res;
         },
-    })
+    });
 };
 
 export const useUpdateProjectsQuery = () => {
     const queryClient = useQueryClient();
+    const { pushToast } = useToast();
+
     return useMutation({
         mutationFn: async (data: ProjectUpdateInput) => ProjectService.updateProject(data),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
-        onError: (error) => console.error('Error while updating project', error)
-    })
+        onError: (error) => pushToast({
+            text: `${error}`,
+            type: 'popup',
+            label: 'Project updating failed',
+            status: 'error'
+        })
+    });
 }
 
 export const useCreateProjectQuery = () => {
     const queryClient = useQueryClient();
+    const { pushToast } = useToast();
 
     return useMutation({
         mutationFn: async (newProject: ProjectCreateInput) => await ProjectService.createProject(newProject),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
-        onError: (error) => console.error('Error while creating project', error)
-    })
+        onError: (error) => pushToast({
+            text: `${error}`,
+            type: 'popup',
+            label: 'Project creating failed',
+            status: 'error'
+        })
+    });
 }

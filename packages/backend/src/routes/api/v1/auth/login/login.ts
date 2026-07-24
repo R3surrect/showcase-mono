@@ -23,9 +23,7 @@ const loginRouter = new Hono().post(
     ),
     async (c) => {
         const { email, password } = c.req.valid('json');
-        const rows = await findUserByEmail(email);
-
-        const [user] = rows;
+        const [user] = await findUserByEmail(email);
 
         if (!user)
             return c.json({
@@ -57,7 +55,7 @@ const loginRouter = new Hono().post(
         const token = await sign(payload, config.jwtSecret);
 
         setCookie(c, 'token', token, {
-            httpOnly: true, 
+            httpOnly: true,
             secure: config.isProduction,
             sameSite: 'Lax',
             maxAge: 60 * 60 * 24 * 7,

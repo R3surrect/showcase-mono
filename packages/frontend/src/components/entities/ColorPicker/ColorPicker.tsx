@@ -3,7 +3,7 @@ import { colord } from 'colord';
 import stylesObj from './ColorPicker.module.css';
 import type { ColorPickerProps } from '@/components/entities/ColorPicker/ColorPicker.types';
 
-const ColorPicker = ({ exportColor, color }: ColorPickerProps) => {
+const ColorPicker = ({ exportColor, color = { h: 0, s: 0, l: 0 } }: ColorPickerProps) => {
     return <div
         className={stylesObj.colorPipette}
         style={{ boxShadow: `0 0 0 3px hsl(${color.h}, ${color.s}%, ${color.l}%)` }}
@@ -18,9 +18,7 @@ const ColorPicker = ({ exportColor, color }: ColorPickerProps) => {
         <input
             type='color'
             value={colord(color).toHex()}
-            onChange={e => {
-                exportColor(colord(e.target.value).toHsl());
-            }}
+            onChange={e => { exportColor(colord(e.target.value).toHsl()) }}
         />
     </div>
 }

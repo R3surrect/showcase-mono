@@ -26,3 +26,11 @@ export const categoryTagOutput = tagSchema.pick({
     category: true,
     color: true,
 });
+
+export const systemTagOutput = tagSchema.pick({
+    id: true,
+    category: true,
+    type: true,
+    color: true,
+    label: true,
+})
