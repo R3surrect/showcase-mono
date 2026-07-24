@@ -14,11 +14,7 @@ import stylesObj from './ProjectCard.module.css';
 
 const ProjectCard = ({
     emoji,
-    color = {
-        h: 41,
-        s: 23,
-        l: 43,
-    },
+    color = DEFAULT_HSL_COLOR.color,
     isPinned = false,
     label,
     details,
@@ -28,6 +24,7 @@ const ProjectCard = ({
     ...props
 }: ProjectProps) => {
     // const tasksCount = sumTasks(tasks)
+    console.log(color);
 
     const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
@@ -45,7 +42,7 @@ const ProjectCard = ({
     const projectCardRender = <>
         <LucidePin
             {...pinProps}
-            fill={isPinned ? getHslString(color ? { ...color, l: 75 } : DEFAULT_HSL_COLOR) : 'transparent'}
+            fill={isPinned ? getHslString(color ? { ...color, l: 75 } : DEFAULT_HSL_COLOR.color) : 'transparent'}
             stroke='var(--monochrome-700)'
         />
         <Stack direction="column" gap="md">
@@ -53,7 +50,7 @@ const ProjectCard = ({
                 {emoji &&
                     <div
                         className={stylesObj.iconWrapper}
-                        style={{ '--project-color': getHslString(color || DEFAULT_HSL_COLOR) } as ProjectVars}
+                        style={{ '--project-color': getHslString(color || DEFAULT_HSL_COLOR.color) } as ProjectVars}
                     >
                         {
                             isValidElement(emoji)
@@ -64,12 +61,12 @@ const ProjectCard = ({
                 }
                 <Stack direction="column" gap="sm">
                     <Heading level={3} variant="secondary">{label}</Heading>
-                    <Text color='lightgray' weight='bold' size={6}>{details}</Text>
+                    <Text color='var(--neutral-300)' weight='bold' size={6}>{details}</Text>
                 </Stack>
             </Stack>
             <Stack direction='column' gap='sm'>
                 <Text
-                    color='lightgray'
+                    color='var(--neutral-850    )'
                     weight='bold'
                     size={6}
                 >
@@ -89,6 +86,8 @@ const ProjectCard = ({
         color={getHslString(color)}
         width='max'
         {...props}
+        id={props.id.toString()}
+        data-interactive
     >
         {projectCardRender}
     </Surface>

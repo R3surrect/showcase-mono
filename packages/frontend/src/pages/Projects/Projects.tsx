@@ -14,7 +14,7 @@ import Grid from '@/components/entities/Grid/Grid';
 import Text from '@/components/entities/Text/Text';
 import ProjectCreateForm from './create';
 
-export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: string };
+export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: number };
 
 export const Component = () => {
     const { data, isLoading, isError, error } = useGetProjectsQuery();
@@ -26,19 +26,12 @@ export const Component = () => {
     const [pageState, setPageState] = useState<ProjectsMode>({ type: 'idle' });
     const [selectedProject, setSelectedProject] = useState<ProjectGetOutput>();
 
-    const projectClickHandler = (id: string) => {
-        setSelectedProject(data?.find((item: ProjectGetOutput) => item.id.toString() === id))
+    const projectClickHandler = (id: number) => {
+        setSelectedProject(data?.find((item: ProjectGetOutput) => item.id === id))
         setPageState({ projectId: id, type: 'view' });
     }
 
-    const projectPinHandler = (id: string, isPinned: boolean) => {
-        if (!id) return;
-        try {
-            projectPinMutate({ id: Number(id), isPinned: !isPinned });
-        } catch (e) {
-            console.error('Error while updating project pin field', e);
-        }
-    }
+    const projectPinHandler = (id: number, isPinned: boolean) => projectPinMutate({ id: id, isPinned: !isPinned });
 
     return (
         <Stack direction='column'>
@@ -57,10 +50,10 @@ export const Component = () => {
                         ? projects.length !== 0 ? projects.map((item: ProjectGetOutput) => (
                             <ProjectCard
                                 key={item.id}
-                                onClick={() => projectClickHandler(item.id.toString())}
+                                onClick={() => projectClickHandler(item.id)}
                                 {...item}
-                                id={item.id.toString()}
-                                onPinClick={(projectId) => projectPinHandler(projectId.toString(), item.isPinned)}
+                                id={item.id}
+                                onPinClick={(projectId) => projectPinHandler(projectId, item.isPinned)}
                             />
                         ))
                             : <Text>Projects are empty</Text>
@@ -83,8 +76,8 @@ export const Component = () => {
                                 <ProjectCard
                                     {...selectedProject}
                                     hasSurface={false}
-                                    id={selectedProject.id.toString()}
-                                    onPinClick={(projectId) => projectPinHandler(projectId.toString(), selectedProject.isPinned)}
+                                    id={selectedProject.id}
+                                    onPinClick={(projectId) => projectPinHandler(projectId, selectedProject.isPinned)}
                                 />
                             </Surface>
                         }

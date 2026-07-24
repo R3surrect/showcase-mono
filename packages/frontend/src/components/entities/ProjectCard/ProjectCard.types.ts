@@ -9,15 +9,15 @@ export interface Task {
     inProgress: number;
 }
 
-export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'children'> {
-    id: string;
+export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'children' | 'id'> {
+    id: number;
     emoji?: string | React.ReactNode;
     label: string;
     color?: HslColor;
     isPinned?: boolean;
     details?: string | null;
     hasSurface?: boolean;
-    onPinClick: (projectId: string) => void;
+    onPinClick: (projectId: number) => void;
     // tasks: Task;
 }
 

@@ -19,7 +19,7 @@ const Progress = ({ color, all, value }: ProgressProps) => {
             id='value'
             style={{
                 '--progress-value-width': `${valuePercentage}%`,
-                '--progress-color': getHslString(color || DEFAULT_HSL_COLOR),
+                '--progress-color': getHslString(color || DEFAULT_HSL_COLOR.color),
             } as ProgressVars}
         ></div>
     </div>
