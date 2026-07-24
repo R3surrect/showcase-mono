@@ -10,8 +10,7 @@ export const TAG_TYPES = [
     'custom'
 ] as const;
 
-export const tagTypeSchema = z.enum(TAG_TYPES, { error: 'Type mismatch' });
-
+export const tagTypeSchema = z.enum(TAG_TYPES, { error: 'Tag type mismatch' });
 export const tagSchema = z.object({
     id: z.number().int().positive(),
 

@@ -19,19 +19,16 @@ export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
 }
 
 export type CreateProject = (data: ProjectDbCreateInput) => Promise<ProjectGetOutput[]>;
-
 export const createProject: CreateProject = async ({
     label,
     details,
     color,
     priorityTagId,
+    statusTagId,
     ownerId,
     emoji,
-    // isPinned,
-    // isArchived
 }) => {
     const colorString = JSON.stringify(color) || null;
-
     const rows = await sql<ProjectGetOutput[]>`
         INSERT INTO projects(
             label,
@@ -39,12 +36,12 @@ export const createProject: CreateProject = async ({
             emoji,
             color,
             priority_tag_id,
-            owner_id
+            owner_id,
+            status_tag_id
         )
-        VALUES (${label},${details || null},${emoji},${colorString},${priorityTagId},${ownerId})
+        VALUES (${label},${details || null},${emoji},${colorString},${priorityTagId},${ownerId},${statusTagId})
+        RETURNING *
     `;
-
-    // ${label},${details || null},${emoji},${colorString},${ownerId},${priority},${isPinned},${isArchived}
 
     return [...rows]
 }

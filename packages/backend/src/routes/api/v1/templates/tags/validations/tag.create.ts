@@ -27,7 +27,7 @@ export const categoryTagOutput = tagSchema.pick({
     color: true,
 });
 
-export const priorityTagOutput = tagSchema.pick({
+export const systemTagOutput = tagSchema.pick({
     id: true,
     category: true,
     type: true,
