@@ -11,7 +11,7 @@ export const PillPicker = ({ items }: PillPickerProps) => {
     <div className={stylesObj.container}>
       {items.map((item) => {
         const isActive = pathname.split('/').pop() === item.to;
-        const Icon = item.icon;
+        const Icon = item?.icon;
         return (
           <div
             key={item.value}
@@ -27,7 +27,7 @@ export const PillPicker = ({ items }: PillPickerProps) => {
               ></motion.div>
             )}
             <div className={stylesObj.value}>
-              <Icon width={15} height={15} />
+              {Icon && <Icon width={15} height={15} />}
               <span>
                 {item.label}
               </span>
