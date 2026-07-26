@@ -18,6 +18,9 @@ import {
     useGetTagsQuery
 } from '@/queries/tags/tags.query'
 import type { TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { DEFAULT_COLOR } from '@/components/entities/ColorList/ColorList.constants'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -31,8 +34,15 @@ import type { TagGetOutput } from '@showcase-mono/backend/routes/api/v1/template
 // ] as const;
 
 export const Component = () => {
-    const { mutate: createMutate } = useCreateTagQuery();
-    const { mutate: deleteMutate } = useDeleteTagQuery();
+
+    const { register, handleSubmit, control, formState: { isSubmitting } } = useForm({
+        resolver: zodResolver(tagCreateInputValidation),
+        mode: 'onBlur',
+        defaultValues: { color: DEFAULT_COLOR.color }
+    })
+
+    const { mutate: createMutation } = useCreateTagQuery();
+    const { mutate: deleteMutation } = useDeleteTagQuery();
 
     const { data, isError, error } = useGetTagsQuery();
     const tags = data ?? [];
@@ -47,7 +57,7 @@ export const Component = () => {
         const result = tagCreateInputValidation.safeParse({ ...rawTag });
 
         if (!result.success) return console.error(treeifyError(result.error));
-        createMutate(result.data)
+        createMutation(result.data)
     }
 
     // console.log({
@@ -92,7 +102,13 @@ export const Component = () => {
                         inputMode='text'
                     // hasEmojiPicker
                     />
-                    <ColorList name='color' />
+                    <Controller
+                        name="color"
+                        control={control}
+                        render={({ field }) => (
+                            <ColorList value={field.value} onColorChange={(color: HslColor) => field.onChange(color)} />
+                        )}
+                    />
                     <Button type='submit' width='max'>Send new tag</Button>
                 </Stack>
             </Surface>
@@ -116,7 +132,7 @@ export const Component = () => {
                                 key={item.id}
                                 id={item.id}
                                 isEditable
-                                onDeleteAction={(id: number) => deleteMutate(id)}
+                                onDeleteAction={(id: number) => deleteMutation(id)}
                                 onEditAction={(id: number) => console.log(`edit(${id})`)}
                             />
                         ))

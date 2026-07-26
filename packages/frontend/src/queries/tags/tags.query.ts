@@ -28,7 +28,7 @@ export const useGetTagsQuery = () => {
                     label: `Pulling tags failed`,
                     status: 'error',
                     type: 'popup',
-                    text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
                 });
 
                 throw error;
@@ -64,7 +64,7 @@ export const useGetCategoriesQuery = () => {
                     label: `Pulling categories failed`,
                     status: 'error',
                     type: 'popup',
-                    text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
                 });
 
                 throw error;
@@ -87,7 +87,7 @@ export const useCreateTagQuery = () => {
             label: 'Creating failed',
             status: 'error',
             type: 'popup',
-            text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+            text: `${error instanceof Error ? error.message : 'Unknown error'}`
         })
     })
 }
@@ -106,7 +106,7 @@ export const useDeleteTagQuery = () => {
             label: `Deleting failed$`,
             status: 'error',
             type: 'popup',
-            text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+            text: `${error instanceof Error ? error.message : 'Unknown error'}`
         })
     })
 }
