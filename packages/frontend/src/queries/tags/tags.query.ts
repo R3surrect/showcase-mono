@@ -103,7 +103,7 @@ export const useDeleteTagQuery = () => {
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });
         },
         onError: (error) => pushToast({
-            label: `Deleting failed$`,
+            label: `Deleting failed`,
             status: 'error',
             type: 'popup',
             text: `${error instanceof Error ? error.message : 'Unknown error'}`

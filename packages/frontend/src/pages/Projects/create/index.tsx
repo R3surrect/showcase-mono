@@ -49,7 +49,7 @@ const ProjectCreateForm = () => {
             label: 'Created',
             status: 'success'
         });
-    };
+    }
 
     const onError: SubmitErrorHandler<ProjectCreateInput> = (errors) => {
         clearToasts();
@@ -136,7 +136,10 @@ const ProjectCreateForm = () => {
                 name="color"
                 control={control}
                 render={({ field }) => (
-                    <ColorList value={field.value} onColorChange={(color: HslColor) => field.onChange(color)} />
+                    <ColorList
+                        value={field.value}
+                        onColorChange={(color: HslColor) => field.onChange(color)}
+                    />
                 )}
             />
             <Button type="submit" width="max" disabled={isProjectsPending || isSubmitting}>
@@ -150,4 +153,4 @@ const ProjectCreateForm = () => {
     </form>
 }
 
-export default ProjectCreateForm;
+export default ProjectCreateForm
