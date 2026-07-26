@@ -4,6 +4,7 @@ import v1Router from "./routes/api/v1/index.js";
 import corsMiddleware from "./middleware/cors.js";
 import postgres from "postgres";
 import { POSTRES_ERRORS } from "./shared/postgresql-errors.js";
+import { config } from "./config.js";
 
 const app = new Hono<Env>();
 
@@ -15,7 +16,6 @@ app.use('*', async (c, next) => {
 corsMiddleware(app);
 
 app.route("/api/v1", v1Router);
-
 app.onError((err, c) => {
     if (err instanceof postgres.PostgresError) {
         const pgErrorConfig = POSTRES_ERRORS[err.code];
@@ -34,9 +34,7 @@ app.onError((err, c) => {
     return c.body(null, 500);
 });
 
-const port = 8080;
-
 serve({
     fetch: app.fetch,
-    port
+    port: config.port
 })
