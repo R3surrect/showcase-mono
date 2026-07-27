@@ -21,7 +21,7 @@ app.onError((err, c) => {
         const pgErrorConfig = POSTRES_ERRORS[err.code];
         if (pgErrorConfig) {
             const pgErrorCode = pgErrorConfig.httpCode;
-            if (pgErrorCode && Math.floor(pgErrorCode / 500) === 1) {
+            if (pgErrorCode && pgErrorCode >= 500) {
                 console.error(`[CRITICAL ${pgErrorCode}]: ${c.req.method} ${c.req.path}:`, pgErrorConfig);
                 return c.body(null, 500);
             }

@@ -20,7 +20,6 @@ const TagList = () => {
     return <Stack direction='column' gap="md">
         <Stack direction="row" gap="md">
             <Input />
-            <PillPicker items={tagPillData} />
         </Stack>
         {
             !isTagsLoading && !isTagsLoadingError && tags?.map((item) => (
