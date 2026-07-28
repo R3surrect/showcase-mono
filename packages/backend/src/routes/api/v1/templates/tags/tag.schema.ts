@@ -6,7 +6,7 @@ export const TAG_TYPES = [
     'task_status',
     'priority',
     'tag_type',
-    'tag_category',
+    // 'tag_category',
     'custom'
 ] as const;
 
@@ -56,10 +56,10 @@ export const tagTypeConfigs: Record<TagType, TagTypeConfig> = {
         label: 'Tag Type',
         color: { h: 275, s: 25, l: 52 }
     },
-    tag_category: {
-        label: 'Tag Category',
-        color: { h: 142, s: 25, l: 45 }
-    },
+    // tag_category: {
+    //     label: 'Tag Category',
+    //     color: { h: 142, s: 25, l: 45 }
+    // },
     custom: {
         label: 'Custom Tag',
         color: { h: 207, s: 20, l: 50 }
