@@ -14,12 +14,13 @@ const ExpandButton = ({ defaultState = false, onExpand }: ExpandButtonProps) => 
     return <div
         className={stylesObj.expandButton}
         data-expanded={expanded}
+        data-interactive
         onClick={() => {
             setIsExpanded(!expanded);
-            return onExpand(!expanded);
+            onExpand(!expanded);
         }}
     >
-        <LucideChevronRight color="var(--neutral-500)"/>
+        <LucideChevronRight color="var(--neutral-500)" />
     </div>
 }
 

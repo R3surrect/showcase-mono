@@ -19,7 +19,6 @@
     align-items: center;
     padding: 0 .875rem;
     background-color: var(--glass-surface-light-80);
-    border: 1px solid var(--neutral-250);
     border-radius: var(--border-radius-10);
     color: var(--neutral-750);
 

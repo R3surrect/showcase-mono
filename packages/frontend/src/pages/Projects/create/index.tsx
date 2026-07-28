@@ -97,13 +97,11 @@ const ProjectCreateForm = () => {
                                 : priorities.map((item) => (
                                     <Tag
                                         key={item.id}
-                                        color={item.color}
-                                        label={item.label}
                                         data-interactive
                                         data-selected={field.value === item.id}
                                         onClick={() => field.onChange(item.id)}
-                                        variant='system'
-                                        isSystem
+                                        {...item}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
                                     />
                                 ))
                         }
@@ -121,13 +119,11 @@ const ProjectCreateForm = () => {
                                 : statuses.map((item) => (
                                     <Tag
                                         key={item.id}
-                                        color={item.color}
-                                        label={item.label}
                                         data-interactive
                                         data-selected={field.value === item.id}
                                         onClick={() => field.onChange(item.id)}
-                                        variant='system'
-                                        isSystem
+                                        {...item}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
                                     />
                                 ))
                         }

@@ -1,14 +1,13 @@
+.expandButton svg { transition: .2s ease-in-out }
 .expandButton {
-    transition: .3s ease-in-out;
     display: flex;
     justify-content: center;
     align-items: center;
 
     border-radius: 50%;
-    background-color: var(--warm-gray-100);
+    background-color: var(--neutral-0);
     padding: .3rem;
+    border: 1px solid var(--neutral-350);
 }
 
-.expandButton[data-expanded="true"] {
-    rotate: 90deg;
-}
+.expandButton[data-expanded="true"] svg { rotate: 90deg }

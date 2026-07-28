@@ -25,30 +25,18 @@
     border: 1px solid color-mix(in srgb, var(--tag-color), transparent 35%);
 }
 
-.system {
+.tag[data-system="true"] {
     color: var(--neutral-100);
     background-color: var(--tag-color);
     border-radius: var(--border-radius-4);
     padding: .4rem;
     font-size: var(--font-size-level-6);
-
 }
 
-.tag[data-width="fit"] {
-    width: fit-content
-}
-
-.tag[data-width="max"] {
-    width: 100%
-}
-
-.tag>* {
-    display: block;
-}
-
-.tag[data-selected="false"] {
-    opacity: .4;
-}
+.tag[data-width="fit"] { width: fit-content }
+.tag[data-width="max"] { width: 100% }
+.tag>* { display: block; }
+.tag[data-selected="false"] { opacity: .4; }
 
 .tag:has(.editOverlay):hover {
     transform: translateY(-2px);
@@ -64,9 +52,4 @@
     height: 100%;
     width: 100%;
     background-color: var(--glass-surface-light-45);
-}
-
-.editOverlay:hover,
-.editOverlay:focus {
-    opacity: 1;
 }

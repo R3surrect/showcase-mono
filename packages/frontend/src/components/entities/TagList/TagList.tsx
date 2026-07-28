@@ -8,11 +8,6 @@ import Surface from "@components/entities/Surface/Surface";
 import Text from "@components/entities/Text/Text";
 import ExpandButton from "../ExpandButton/ExpandButton";
 
-interface TagPillData {
-    type: TagType;
-    category: string;
-}
-
 interface TagListProps {
     selectedTags: number[];
     setSelectedList: (items: number[]) => void;
@@ -23,9 +18,6 @@ const TagList = (props: TagListProps) => {
     // #region data
     const { data: tags, isLoading: isTagsLoading, isError: isTagsLoadingError } = useGetTagsQuery();
 
-    const tagPillData: TagPillData[] | undefined = !isTagsLoading
-        ? tags?.map(item => ({ type: item.type, category: item.category }))
-        : [];
     // #endregion
     // #region ui behavior
     const { selectedTags, setSelectedList } = props;
@@ -38,7 +30,6 @@ const TagList = (props: TagListProps) => {
         else
             setSelectedList([...selectedTags, id])
     }
-    // const [isExpanded, setIsExpanded] = useState(false);
 
     const getTagWindowRender = (type: TagType) =>
         <Surface width="max" height="auto">
@@ -50,9 +41,12 @@ const TagList = (props: TagListProps) => {
                             item.type === type &&
                             <Tag
                                 {...item}
+                                key={item.id}
                                 data-selected={props.selectedTags.includes(item.id)}
                                 onClick={() => onTagClickHandler(item.id)}
                                 data-interactive
+                                isSystem={item.category.trim().toLowerCase() === 'system'}
+
                             />
                         )
                             : <Text>...loading</Text>

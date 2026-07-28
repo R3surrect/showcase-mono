@@ -8,14 +8,14 @@ export type Variants = typeof VARIANT_TYPES[number];
 export interface GeneralProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> {
     width?: AxisSizeVariations;
     variant?: Variants;
+    createdAt?: string;
+    id?: number;
+    updatedAt?: number;
+    isSystem?: boolean;
 }
 
 // 2. Ветка А: Системный тег (без баз данных, ID и дат)
 export interface SystemTag {
-    isSystem: true;
-    id?: never;
-    createdAt?: never;
-    updatedAt?: never;
     label: string;
     color: { h: number; s: number; l: number };
 }

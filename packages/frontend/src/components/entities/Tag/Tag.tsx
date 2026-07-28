@@ -10,16 +10,24 @@ import Stack from '@components/entities/Stack/Stack';
 const Tag = (props: TagProps) => {
     const genId = useId();
 
-    const { label, color, id, width = 'fit', variant = 'default', ...rest } = props;
+    const {
+        label,
+        color,
+        id,
+        width = 'fit',
+        variant = 'default',
+        isSystem = false,
+        ...rest
+    } = props;
 
     return <div
         id={id ? id.toString() : genId}
         className={clsx(stylesObj.tag, stylesObj[variant])}
         data-width={width}
+        data-system={isSystem}
         style={{ '--tag-color': getHslString(color) } as ColorVariable}
         {...rest}
     >
-
         {props.isEditable && <div className={stylesObj.editOverlay}>
             <Stack
                 direction='row'
