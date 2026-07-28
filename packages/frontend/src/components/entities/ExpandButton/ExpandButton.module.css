@@ -1,0 +1,14 @@
+.expandButton {
+    transition: .3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+    background-color: var(--warm-gray-100);
+    padding: .3rem;
+}
+
+.expandButton[data-expanded="true"] {
+    rotate: 90deg;
+}

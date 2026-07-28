@@ -21,8 +21,10 @@ const Input = ({
     placeholder,
     textAlign = 'start',
     hasEmojiPicker = false,
+    icon,
     ...props
 }: InputProps) => {
+    const Icon = icon;
 
     const [isPasswordHidden, setIsPasswordHidden] = useState(true);
     const [text, setText] = useState('');
@@ -52,6 +54,7 @@ const Input = ({
             }
 
             <div className={stylesObj.inputWrapper} data-valid={error ? 'invalid' : 'valid'}>
+                {Icon && <Icon />}
                 <input
                     {...props}
                     className={stylesObj.input}

@@ -26,6 +26,7 @@ import TagList from "@/components/entities/TagList/TagList";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
+
     const { data: priorityData, isLoading: isPrioritiesLoading } = useGetPrioritiesQuery();
     const { data: statusesData, isLoading: isStatusesLoading } = useGetStatusesQuery('project');
     const { mutate: createProject, isPending: isProjectsPending } = useCreateProjectQuery();
@@ -133,7 +134,16 @@ const ProjectCreateForm = () => {
                     </SegmentedPicker>
                 )}
             />
-            <TagList />
+            <Controller
+                name='tagIds'
+                control={control}
+                render={({ field }) => (
+                    <TagList
+                        selectedTags={field.value || []}
+                        setSelectedList={(items: number[]) => field.onChange(items)}
+                    />
+                )}
+            />
             <Controller
                 name="color"
                 control={control}
