@@ -10,11 +10,10 @@ const Stack = ({
   direction = 'column',
   wrap = false,
   justify = 'start',
-  width = 'auto',
   children,
   ref,
-  overflow = 'visible',
   height = 'fit',
+  width = 'auto',
   ...props
 }: StackProps) => {
   return <div
@@ -22,7 +21,6 @@ const Stack = ({
     className={stylesObj.stack}
     data-width={width}
     data-wrap={wrap}
-    data-overflow={overflow}
     data-height={height}
     style={{
       '--stack-gap': `var(--indent-${gap})`,

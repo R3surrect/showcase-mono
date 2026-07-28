@@ -12,7 +12,6 @@ export interface StackProps extends Omit<React.ComponentPropsWithRef<'div'>, 'st
     width?: StackWidth;
     ref?: Ref<HTMLDivElement>;
     height?: AxisSizeVariations;
-    overflow?: Overflows;
 }
 
 export interface StackVars extends React.CSSProperties {

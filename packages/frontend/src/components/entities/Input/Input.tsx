@@ -36,7 +36,7 @@ const Input = ({
         : type;
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
- 
+
     const emojiButtonRender = (
         <Button variant='transparent' size='none'>
             <LucideSmile stroke='var(--neutral-500)' />
@@ -45,9 +45,11 @@ const Input = ({
 
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
-            <Text as='label' htmlFor={controlId} size={6} color='var(--neutral-550)' weight='bolder'>
-                {labelText}
-            </Text>
+            {labelText &&
+                <Text as='label' htmlFor={controlId} size={6} color='var(--neutral-550)' weight='bolder'>
+                    {labelText}
+                </Text>
+            }
 
             <div className={stylesObj.inputWrapper} data-valid={error ? 'invalid' : 'valid'}>
                 <input

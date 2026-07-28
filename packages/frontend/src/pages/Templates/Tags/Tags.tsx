@@ -122,7 +122,6 @@ export const Component = () => {
                         wrap={true}
                         align='start'
                         height='max'
-                        overflow='auto'
                     >
                         {
                             (!isError && tags.length !== 0) ? tags.map((item: TagGetOutput) => (

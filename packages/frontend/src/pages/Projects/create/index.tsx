@@ -22,6 +22,7 @@ import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPick
 import { DEFAULT_COLOR } from "@/components/entities/ColorList/ColorList.constants";
 import type { ProjectCreateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/projects/validations/project.create";
+import TagList from "@/components/entities/TagList/TagList";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -132,6 +133,7 @@ const ProjectCreateForm = () => {
                     </SegmentedPicker>
                 )}
             />
+            <TagList />
             <Controller
                 name="color"
                 control={control}

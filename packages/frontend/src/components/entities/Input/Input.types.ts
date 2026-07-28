@@ -9,7 +9,7 @@ export interface InputProps extends Omit<ComponentPropsWithRef<'input'>, 'style'
     id?: string;
     className?: string;
     name?: string;
-    labelText: string;
+    labelText?: string;
     value?: string | number;
     disabled?: boolean;
     required?: boolean;
