@@ -23,6 +23,7 @@ import { DEFAULT_COLOR } from "@/components/entities/ColorList/ColorList.constan
 import type { ProjectCreateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/projects/validations/project.create";
 import TagList from "@/components/entities/TagList/TagList";
+import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -77,11 +78,11 @@ const ProjectCreateForm = () => {
                 <Stack direction="row" gap="sm">
                     {
                         selectedEmoji ? <>
-                            <Text size={6} color='var(--neutral-550)' weight='bolder'>Selected Icon:</Text>
+                            <Text size={6} color='var(--cold-blue-gray-400)' weight='bolder'>Selected Icon:</Text>
                             <EmojiPreview emoji={selectedEmoji} setEmoji={setSelectedEmoji} {...register('emoji')} />
-                            <Text size={6} weight='bold' color='var(--neutral-300)'>(right click to reset)</Text>
+                            <Text size={6} weight='bold' color='var(--cold-blue-gray-400)'>(right click to reset)</Text>
                         </>
-                            : <Text size={6} color='var(--neutral-550)' weight='bolder'>Icon</Text>
+                            : <Text size={6} color='var(--cold-blue-gray-400)' weight='bolder'>Icon</Text>
                     }
                 </Stack>
                 <EmojiPicker variant="keyboard" onEmojiChange={(emoji: string) => setSelectedEmoji(emoji)} />
@@ -102,9 +103,12 @@ const ProjectCreateForm = () => {
                                         onClick={() => field.onChange(item.id)}
                                         {...item}
                                         isSystem={item.category.trim().toLowerCase() === 'system'}
-                                    />
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
                                 ))
                         }
+                        <ExpandButton onExpand={() => { }} />
                     </SegmentedPicker>
                 )}
             />
@@ -124,9 +128,12 @@ const ProjectCreateForm = () => {
                                         onClick={() => field.onChange(item.id)}
                                         {...item}
                                         isSystem={item.category.trim().toLowerCase() === 'system'}
-                                    />
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
                                 ))
                         }
+                        <ExpandButton onExpand={() => { }} />
                     </SegmentedPicker>
                 )}
             />

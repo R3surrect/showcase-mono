@@ -14,7 +14,7 @@ import Surface from '@/components/entities/Surface/Surface.tsx'
 import ColorList from '@/components/entities/ColorList/ColorList'
 import { DEFAULT_COLOR } from '@/components/entities/ColorList/ColorList.constants'
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
-import { tagTypeConfigs } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
+import { TAG_TYPE_CONFIGS } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import type { TagCreateInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
 import {
@@ -80,17 +80,16 @@ export const Component = () => {
                         render={({ field }) => (
                             <SegmentedPicker label='Selected type:'>
                                 {
-                                    Object.entries(tagTypeConfigs).map(([type, config]) =>
+                                    Object.entries(TAG_TYPE_CONFIGS).map(([type, config]) =>
                                         <Tag
                                             key={type}
                                             color={config.color}
-                                            label={config.label}
                                             data-interactive
                                             data-selected={type === field.value}
                                             onClick={() => field.onChange(type)}
                                             variant='system'
                                             isSystem
-                                        />
+                                        >{TAG_TYPE_CONFIGS[type].label}</Tag>
                                     )
                                 }
                             </SegmentedPicker>
@@ -132,7 +131,7 @@ export const Component = () => {
                                     isEditable
                                     onDeleteAction={(id: number) => deleteMutation(id)}
                                     onEditAction={(id: number) => console.log(`edit(${id})`)}
-                                />
+                                >{item.label}</Tag>
                             ))
                                 : <Text weight='bold'>No tags created</Text>
                         }

@@ -1,0 +1,57 @@
+.select {
+    min-width: 12rem;
+    appearance: base-select;
+    outline: none;
+    border: 1px solid var(--neutral-550);
+    border-radius: var(--border-radius-15);
+    padding: 0 .7rem;
+}
+
+.select button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    color: var(--cold-blue-gray-400)
+}
+
+.select option {
+    transition: .3s;
+    background-color: transparent;
+    border-radius: var(--border-radius-10);
+    outline: none;
+    padding: .3rem .5rem;
+}
+
+.select option:hover {
+    background-color: var(--cold-blue-gray-400);
+    color: var(--neutral-0)
+}
+
+.select selectedcontent {
+    display: flex;
+    align-items: center;
+}
+
+.select:global(::picker(select)) {
+    transition: .3s;
+    appearance: base-select;
+    border: 1px solid var(--neutral-550);
+    border-radius: var(--border-radius-15);
+    box-shadow: var(--shadow-md);
+    padding: .5rem;
+
+    outline: none;
+}
+
+.select::picker-icon {
+    display: none;
+}
+
+.select svg { transition: .2s ease-in-out }
+
+.select:open svg {
+    rotate: 90deg;
+}

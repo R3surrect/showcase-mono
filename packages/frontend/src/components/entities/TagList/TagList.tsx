@@ -1,12 +1,16 @@
 import { LucideSearch } from "lucide-react";
+import { DynamicIcon } from "lucide-react/dynamic";
 import Stack from "@components/entities/Stack/Stack"
 import { useGetTagsQuery } from "@/queries/tags/tags.query"
-import { TAG_TYPES, tagTypeConfigs, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema"
+import { TAG_TYPES, TAG_TYPE_CONFIGS, tagTypeSchema, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema"
 import Input from "@components/entities/Input/Input";
 import Tag from "@components/entities/Tag/Tag";
 import Surface from "@components/entities/Surface/Surface";
 import Text from "@components/entities/Text/Text";
-import ExpandButton from "../ExpandButton/ExpandButton";
+import ExpandButton from "@components/entities/ExpandButton/ExpandButton";
+import { isValidLucideIcon } from "@components/entities/_shared/system.utils";
+import Select from "../Select/Select";
+import { useState } from "react";
 
 interface TagListProps {
     selectedTags: number[];
@@ -14,46 +18,19 @@ interface TagListProps {
 }
 
 const TagList = (props: TagListProps) => {
-
     // #region data
     const { data: tags, isLoading: isTagsLoading, isError: isTagsLoadingError } = useGetTagsQuery();
-
     // #endregion
     // #region ui behavior
     const { selectedTags, setSelectedList } = props;
+    const [selectedType, setSelectedType] = useState<TagType>(TAG_TYPES[0]);
 
     const onTagClickHandler = (id: number) => {
         const isIdSelected = selectedTags.includes(id);
 
-        if (isIdSelected)
-            setSelectedList(selectedTags.filter(item => item !== id));
-        else
-            setSelectedList([...selectedTags, id])
+        if (isIdSelected) setSelectedList(selectedTags.filter(item => item !== id));
+        else setSelectedList([...selectedTags, id])
     }
-
-    const getTagWindowRender = (type: TagType) =>
-        <Surface width="max" height="auto">
-            <Stack>
-                <Text size={6} color='var(--neutral-550)' weight='bolder'>{tagTypeConfigs[type].label}</Text>
-                <Stack direction="row" gap="sm" align="center" wrap>
-                    {
-                        !isTagsLoading ? !isTagsLoadingError && tags?.map((item) =>
-                            item.type === type &&
-                            <Tag
-                                {...item}
-                                key={item.id}
-                                data-selected={props.selectedTags.includes(item.id)}
-                                onClick={() => onTagClickHandler(item.id)}
-                                data-interactive
-                                isSystem={item.category.trim().toLowerCase() === 'system'}
-
-                            />
-                        )
-                            : <Text>...loading</Text>
-                    }
-                </Stack>
-            </Stack>
-        </Surface>
 
     // #endregion
 
@@ -61,14 +38,70 @@ const TagList = (props: TagListProps) => {
         <Stack direction="row" gap="md" align="center">
             <Text size={6} color='var(--neutral-550)' weight='bolder'>Tags:</Text>
             <Input placeholder="Search" icon={LucideSearch} hasEmojiPicker />
+            <Select
+                name='type'
+                value={selectedType}
+                setValue={(val: string) => {
+                    const parsed = tagTypeSchema.safeParse(val);
+                    if (parsed.success) {
+                        setSelectedType(parsed.data);
+                    }
+                }}
+            >
+                {
+                    TAG_TYPES.map(item => (
+                        <option
+                            key={item}
+                            value={item}
+                        >
+                            {TAG_TYPE_CONFIGS[item].label}
+                        </option>
+                    ))
+                }
+            </Select>
             <ExpandButton onExpand={() => { }} />
         </Stack>
         <Stack direction="column" gap="md" align="start">
-            {
-                TAG_TYPES.map((item) => (
-                    getTagWindowRender(item)
-                ))
-            }
+            <Surface width="max" height="auto">
+                <Stack>
+                    <Stack direction="row" align="center" gap="sm">
+                        {
+                            isValidLucideIcon(TAG_TYPE_CONFIGS[selectedType].icon) &&
+                            <DynamicIcon
+                                name={TAG_TYPE_CONFIGS[selectedType].icon}
+                                color='var(--cold-blue-gray-400)'
+                                size={16}
+                            />
+                        }
+                        <Text
+                            size={6}
+                            color='var(--cold-blue-gray-400)'
+                            weight='bolder'
+                        >
+                            {TAG_TYPE_CONFIGS[selectedType].label}
+                        </Text>
+                    </Stack>
+                    <Stack direction="row" gap="sm" align="center" wrap>
+                        {
+                            !isTagsLoading
+                                ? !isTagsLoadingError && tags?.map((item) =>
+                                    item.type === selectedType &&
+                                    <Tag
+                                        {...item}
+                                        key={item.id}
+                                        data-selected={props.selectedTags.includes(item.id)}
+                                        onClick={() => onTagClickHandler(item.id)}
+                                        data-interactive
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                )
+                                : <Text>...loading</Text>
+                        }
+                    </Stack>
+                </Stack>
+            </Surface>
         </Stack>
     </Stack>
 }

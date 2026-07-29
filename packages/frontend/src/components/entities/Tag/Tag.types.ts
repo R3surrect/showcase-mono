@@ -16,7 +16,6 @@ export interface GeneralProps extends Omit<Partial<DivUiComponent>, 'color' | 'i
 
 // 2. Ветка А: Системный тег (без баз данных, ID и дат)
 export interface SystemTag {
-    label: string;
     color: { h: number; s: number; l: number };
 }
 

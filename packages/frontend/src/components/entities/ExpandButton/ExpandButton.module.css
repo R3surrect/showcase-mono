@@ -7,7 +7,7 @@
     border-radius: 50%;
     background-color: var(--neutral-0);
     padding: .3rem;
-    border: 1px solid var(--neutral-350);
+    border: 1px solid color-mix(in srgb, var(--neutral-350), transparent var(--opacity-high));
 }
 
 .expandButton[data-expanded="true"] svg { rotate: 90deg }
