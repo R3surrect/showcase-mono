@@ -31,7 +31,6 @@ const TagList = (props: TagListProps) => {
         if (isIdSelected) setSelectedList(selectedTags.filter(item => item !== id));
         else setSelectedList([...selectedTags, id])
     }
-
     // #endregion
 
     return <Stack direction='column' gap="md">
@@ -82,22 +81,33 @@ const TagList = (props: TagListProps) => {
                         </Text>
                     </Stack>
                     <Stack direction="row" gap="sm" align="center" wrap>
-                        {
-                            !isTagsLoading
-                                ? !isTagsLoadingError && tags?.map((item) =>
-                                    item.type === selectedType &&
+                        {!isTagsLoading
+                            ? !isTagsLoadingError && tags?.map((item) => {
+                                const isSystem = item.category.trim().toLowerCase() === 'system';
+
+                                if (isSystem) {
+                                    return (
+                                        <Tag
+                                            key={item.id}
+                                            isSystem={true}
+                                            color={item.color}
+                                        >
+                                            <span>{item.label}</span>
+                                        </Tag>
+                                    );
+                                }
+
+                                return (
                                     <Tag
                                         {...item}
                                         key={item.id}
-                                        data-selected={props.selectedTags.includes(item.id)}
                                         onClick={() => onTagClickHandler(item.id)}
-                                        data-interactive
-                                        isSystem={item.category.trim().toLowerCase() === 'system'}
                                     >
                                         <span>{item.label}</span>
                                     </Tag>
-                                )
-                                : <Text>...loading</Text>
+                                );
+                            })
+                            : '...loading'
                         }
                     </Stack>
                 </Stack>

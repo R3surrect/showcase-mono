@@ -11,17 +11,21 @@ const Tag = (props: TagProps) => {
     const genId = useId();
     const {
         color,
-        id,
         width = 'fit',
         variant = 'default',
         isSystem = false,
         children,
-        isEditable = false,
+        id,
+        isEditable,
+        onEditAction,
+        onDeleteAction,
         ...rest
     } = props;
 
+    const tagId = isSystem ? genId : `${id}`;
+
     return <div
-        id={id ? id.toString() : genId}
+        id={tagId}
         className={clsx(stylesObj.tag, stylesObj[variant])}
         data-width={width}
         data-system={isSystem}
@@ -42,14 +46,14 @@ const Tag = (props: TagProps) => {
                         variant='transparent'
                         size='none'
                         radius='lg'
-                        onClick={() => id && props.onEditAction(id)}
+                        onClick={() => id && onEditAction(id)}
                     >
                         <LucidePencil size={16} color='var(--neutral-400)' />
                     </Button>
                     <Button
                         variant='transparent'
                         size='none'
-                        onClick={() => id && props.onDeleteAction(id)}
+                        onClick={() => id && onDeleteAction(id)}
                     >
                         <LucideCircleX size={16} color='var(--status-error)' />
                     </Button>

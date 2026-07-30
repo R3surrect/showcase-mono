@@ -96,16 +96,19 @@ export const Component = () => {
                         )}
                     />
                     <Input
-                        {...register('category')}
                         labelText='Категория'
                         placeholder='Наименование категории'
                         inputMode='text'
+                        {...register('category')}
                     />
                     <Controller
                         name="color"
                         control={control}
                         render={({ field }) => (
-                            <ColorList value={field.value} onColorChange={(color: HslColor) => field.onChange(color)} />
+                            <ColorList
+                                value={field.value}
+                                onColorChange={(color: HslColor) => field.onChange(color)}
+                            />
                         )}
                     />
                     <Button type='submit' width='max' disabled={isTagSubmitting}>Send new tag</Button>
