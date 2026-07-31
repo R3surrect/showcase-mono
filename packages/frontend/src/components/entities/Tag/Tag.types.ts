@@ -11,9 +11,9 @@ export interface GeneralProps extends Omit<Partial<DivUiComponent>, 'color' | 'i
 
 export interface SystemTagProps {
     isSystem: true;
+    isEditable?: false;
     color: { h: number; s: number; l: number };
     id?: never;
-    isEditable?: false;
     onDeleteAction?: never;
     onEditAction?: never;
 }

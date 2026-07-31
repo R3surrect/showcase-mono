@@ -7,7 +7,6 @@ import Input from "@components/entities/Input/Input";
 import Tag from "@components/entities/Tag/Tag";
 import Surface from "@components/entities/Surface/Surface";
 import Text from "@components/entities/Text/Text";
-import ExpandButton from "@components/entities/ExpandButton/ExpandButton";
 import { isValidLucideIcon } from "@components/entities/_shared/system.utils";
 import Select from "../Select/Select";
 import { useState } from "react";
@@ -58,7 +57,6 @@ const TagList = (props: TagListProps) => {
                     ))
                 }
             </Select>
-            <ExpandButton onExpand={() => { }} />
         </Stack>
         <Stack direction="column" gap="md" align="start">
             <Surface width="max" height="auto">

@@ -134,7 +134,9 @@ export const Component = () => {
                                     isEditable
                                     onDeleteAction={(id: number) => deleteMutation(id)}
                                     onEditAction={(id: number) => console.log(`edit(${id})`)}
-                                >{item.label}</Tag>
+                                >
+                                    <span>{item.label}</span>
+                                </Tag>
                             ))
                                 : <Text weight='bold'>No tags created</Text>
                         }
