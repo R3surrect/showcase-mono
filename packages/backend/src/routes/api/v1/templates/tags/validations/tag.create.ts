@@ -41,4 +41,5 @@ export const systemTagOutput = tagSchema.pick({
     type: true,
     color: true,
     label: true,
+    createdAt: true,
 });

@@ -2,14 +2,14 @@ import { colorSchema } from "#/shared/validations/customizable.validation.js";
 import { z } from "zod";
 
 export const TAG_TYPES = [
-    'custom',
+    'default',
     'project_status',
     'task_status',
     'priority',
     'tag_type',
 ] as const;
-
 export const tagTypeSchema = z.enum(TAG_TYPES, { error: 'Tag type mismatch' });
+
 export const tagSchema = z.object({
     id: z.number().int().positive(),
 
@@ -40,7 +40,7 @@ export interface TagTypeConfig {
 }
 
 export const TAG_TYPE_CONFIGS: Record<string, TagTypeConfig> = {
-    custom: {
+    default: {
         label: 'Custom Tag',
         color: { h: 207, s: 20, l: 50 },
         icon: 'user',
