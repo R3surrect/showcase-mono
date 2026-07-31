@@ -29,11 +29,11 @@
     color: var(--neutral-100);
     background-color: var(--tag-color);
     border-radius: var(--border-radius-4);
-    padding: .4rem;
     font-size: var(--font-size-level-6);
 }
 
 .task_status, .project_status {
+    padding-left: 1.75rem;
     border: 1px solid transparent;
     font-weight: 600;
     letter-spacing: 1px;
@@ -42,17 +42,26 @@
     color: var(--neutral-0)
 }
 
+.task_status::before { content: 'T' }
+.project_status::before { content: 'P' }
 .task_status:hover, .project_status:hover { border: 1px solid var(--tag-color)}
 .task_status::before, .project_status::before {
-    content: '';
     position: absolute;
-    display: block;
+    padding: 0 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
     left: 0;
     top: 0;
     height: 100%;
-    width: .4rem;
+    width: fit-content;
     background-color: var(--tag-color);
+
+    writing-mode: vertical-lr;
+    text-orientation: upright;
 }
+
 
 .priority {
     background-color: color-mix(in srgb, var(--tag-color), transparent var(--opacity-medium));
@@ -74,6 +83,10 @@
 }
 
 .editOverlay {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
     cursor: pointer;
     transition: .2s;
     backdrop-filter: blur(3px);
@@ -82,9 +95,6 @@
     height: 100%;
     width: 100%;
     background-color: var(--glass-surface-light-45);
-
-    display: block;
-    z-index: 999;
 }
 
 .editOverlay:hover { opacity: 1 }

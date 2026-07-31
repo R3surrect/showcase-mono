@@ -84,26 +84,29 @@ const TagList = (props: TagListProps) => {
                                 const isSystem = item.category.trim().toLowerCase() === 'system';
 
                                 if (isSystem) {
-                                    return (
-                                        <Tag
-                                            key={item.id}
-                                            isSystem={true}
-                                            color={item.color}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>
-                                    );
-                                }
-
-                                return (
-                                    <Tag
-                                        {...item}
+                                    return item.type === selectedType && <Tag
                                         key={item.id}
+                                        isSystem={true}
+                                        color={item.color}
+                                        type={item.type}
+                                        data-interactive
                                         onClick={() => onTagClickHandler(item.id)}
+                                        data-selected={selectedTags.includes(item.id)}
                                     >
                                         <span>{item.label}</span>
-                                    </Tag>
-                                );
+                                    </Tag>;
+                                }
+
+                                return item.type === selectedType && <Tag
+                                    {...item}
+                                    type={item.type}
+                                    key={item.id}
+                                    data-interactive
+                                    onClick={() => onTagClickHandler(item.id)}
+                                    data-selected={selectedTags.includes(item.id)}
+                                >
+                                    <span>{item.label}</span>
+                                </Tag>;
                             })
                             : '...loading'
                         }

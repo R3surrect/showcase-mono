@@ -1,9 +1,9 @@
-import z from "zod";
-import { useState } from "react";
-import type { HslColor } from "colord";
-import { LucidePlusCircle } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitErrorHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LucidePlusCircle } from "lucide-react";
+import type { HslColor } from "colord";
+import { useState } from "react";
+import z from "zod";
 
 import Tag from "@/components/entities/Tag/Tag";
 import Text from "@/components/entities/Text/Text";
@@ -11,10 +11,12 @@ import Input from "@/components/entities/Input/Input";
 import Stack from "@/components/entities/Stack/Stack";
 import Button from "@/components/entities/Button/Button";
 import Heading from "@/components/entities/Heading/Heading";
+import TagList from "@/components/entities/TagList/TagList";
 import useToast from "@/components/entities/Toast/Toast.hook";
 import ColorList from "@/components/entities/ColorList/ColorList";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
 import { useCreateProjectQuery } from "@/queries/projects/projects.query";
+import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import EmojiPicker from "@/components/entities/Emoji/EmojiPicker/EmojiPicker";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
@@ -22,8 +24,6 @@ import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPick
 import { DEFAULT_COLOR } from "@/components/entities/ColorList/ColorList.constants";
 import type { ProjectCreateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/projects/validations/project.create";
-import TagList from "@/components/entities/TagList/TagList";
-import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -137,6 +137,7 @@ const ProjectCreateForm = () => {
                                     const isSystem = item.category.trim().toLowerCase() === 'system';
                                     return isSystem ? (
                                         <Tag
+                                            type={item.type}
                                             key={item.id}
                                             isSystem={true}
                                             color={item.color}
@@ -152,6 +153,7 @@ const ProjectCreateForm = () => {
                                             category={item.category}
                                             key={item.id}
                                             type={item.type}
+                                            createdAt={item.createdAt}
                                             color={item.color}
                                             isSystem={false}
                                             data-interactive

@@ -12,7 +12,6 @@ const Tag = (props: TagProps) => {
     const {
         color,
         width = 'fit',
-        variant = 'default',
         isSystem = false,
         children,
         id,
@@ -26,7 +25,7 @@ const Tag = (props: TagProps) => {
 
     return <div
         id={tagId}
-        className={clsx(stylesObj.tag, stylesObj[variant])}
+        className={clsx(stylesObj.tag, stylesObj[props.type.toLowerCase()])}
         data-width={width}
         data-system={isSystem}
         style={{ '--tag-color': getHslString(color) } as ColorVariable}

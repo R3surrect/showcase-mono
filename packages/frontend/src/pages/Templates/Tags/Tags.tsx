@@ -14,14 +14,11 @@ import Surface from '@/components/entities/Surface/Surface.tsx'
 import ColorList from '@/components/entities/ColorList/ColorList'
 import { DEFAULT_COLOR } from '@/components/entities/ColorList/ColorList.constants'
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
-import { TAG_TYPE_CONFIGS } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
+import { TAG_TYPE_CONFIGS, TAG_TYPES } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import type { TagCreateInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
-import {
-    useCreateTagQuery,
-    useDeleteTagQuery,
-    useGetTagsQuery
-} from '@/queries/tags/tags.query'
+import { useCreateTagQuery, useDeleteTagQuery, useGetTagsQuery } from '@/queries/tags/tags.query'
+// import TagList from '@/components/entities/TagList/TagList'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
 // TODO чтобы если юзер решил создать тег под цвет фона - все равно было видно
@@ -79,19 +76,24 @@ export const Component = () => {
                         control={control}
                         render={({ field }) => (
                             <SegmentedPicker label='Selected type:'>
-                                {
-                                    Object.entries(TAG_TYPE_CONFIGS).map(([type, config]) =>
+                                {TAG_TYPES.map((tagType) => {
+                                    const config = TAG_TYPE_CONFIGS[tagType];
+
+                                    return (
                                         <Tag
-                                            key={type}
+                                            key={tagType}
                                             color={config.color}
                                             data-interactive
-                                            data-selected={type === field.value}
-                                            onClick={() => field.onChange(type)}
+                                            data-selected={tagType === field.value}
+                                            onClick={() => field.onChange(tagType)}
                                             variant='system'
                                             isSystem
-                                        >{TAG_TYPE_CONFIGS[type].label}</Tag>
-                                    )
-                                }
+                                            type={tagType}
+                                        >
+                                            {config.label}
+                                        </Tag>
+                                    );
+                                })}
                             </SegmentedPicker>
                         )}
                     />
@@ -142,6 +144,7 @@ export const Component = () => {
                                 : <Text weight='bold'>No tags created</Text>
                         }
                         {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}
+                        {/* <TagList /> */}
                     </Stack>
                 </Stack>
             </Surface>
