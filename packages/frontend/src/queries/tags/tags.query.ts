@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { TagCreateInput, TagDeleteInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
+import type { TagCreateInput, TagDeleteInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
 import { CategoriesService, TagsService } from './tags.service';
 import useToast from '@/components/entities/Toast/Toast.hook';
 
@@ -9,7 +9,7 @@ export const categoriesKeys = { all: ['categories'] as const };
 export const useGetTagsQuery = () => {
     const { pushToast } = useToast();
 
-    return useQuery({
+    return useQuery<TagGetOutput[]>({
         queryKey: tagsKeys.all,
         staleTime: 5 * 60 * 1000,
         retry: 3,
@@ -28,7 +28,7 @@ export const useGetTagsQuery = () => {
                     label: `Pulling tags failed`,
                     status: 'error',
                     type: 'popup',
-                    text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
                 });
 
                 throw error;
@@ -39,7 +39,7 @@ export const useGetTagsQuery = () => {
             id: 0,
             label: '⏳ Loading...',
             color: { h: 0, s: 0, l: 0 },
-            type: 'custom',
+            type: 'default',
             category: 'system',
             createdAt: new Date().toISOString()
         }],
@@ -64,7 +64,7 @@ export const useGetCategoriesQuery = () => {
                     label: `Pulling categories failed`,
                     status: 'error',
                     type: 'popup',
-                    text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
                 });
 
                 throw error;
@@ -87,7 +87,7 @@ export const useCreateTagQuery = () => {
             label: 'Creating failed',
             status: 'error',
             type: 'popup',
-            text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+            text: `${error instanceof Error ? error.message : 'Unknown error'}`
         })
     })
 }
@@ -103,10 +103,10 @@ export const useDeleteTagQuery = () => {
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });
         },
         onError: (error) => pushToast({
-            label: `Deleting failed$`,
+            label: `Deleting failed`,
             status: 'error',
             type: 'popup',
-            text: `Reason: ${error instanceof Error ? error.message : 'Unknown error'}`
+            text: `${error instanceof Error ? error.message : 'Unknown error'}`
         })
     })
 }

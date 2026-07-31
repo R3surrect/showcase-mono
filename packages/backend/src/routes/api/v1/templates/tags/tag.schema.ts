@@ -2,15 +2,14 @@ import { colorSchema } from "#/shared/validations/customizable.validation.js";
 import { z } from "zod";
 
 export const TAG_TYPES = [
+    'default',
     'project_status',
     'task_status',
     'priority',
     'tag_type',
-    'tag_category',
-    'custom'
 ] as const;
-
 export const tagTypeSchema = z.enum(TAG_TYPES, { error: 'Tag type mismatch' });
+
 export const tagSchema = z.object({
     id: z.number().int().positive(),
 
@@ -37,33 +36,35 @@ export const tagSchema = z.object({
 export interface TagTypeConfig {
     label: string;
     color: { h: number; s: number; l: number };
+    icon: string;
 }
 
-export const tagTypeConfigs: Record<TagType, TagTypeConfig> = {
+export const TAG_TYPE_CONFIGS: Record<string, TagTypeConfig> = {
+    default: {
+        label: 'Custom Tag',
+        color: { h: 207, s: 20, l: 50 },
+        icon: 'user',
+    },
     project_status: {
         label: 'Project Status',
-        color: { h: 35, s: 39, l: 53 }
+        color: { h: 35, s: 39, l: 53 },
+        icon: 'briefcase',
     },
     task_status: {
         label: 'Task Status',
-        color: { h: 207, s: 20, l: 50 }
+        color: { h: 207, s: 20, l: 50 },
+        icon: 'square-check',
     },
     priority: {
         label: 'Priority Level',
-        color: { h: 11, s: 35, l: 47 }
+        color: { h: 11, s: 35, l: 47 },
+        icon: 'arrow-up-circle',
     },
     tag_type: {
         label: 'Tag Type',
-        color: { h: 275, s: 25, l: 52 }
+        color: { h: 275, s: 25, l: 52 },
+        icon: 'tags',
     },
-    tag_category: {
-        label: 'Tag Category',
-        color: { h: 142, s: 25, l: 45 }
-    },
-    custom: {
-        label: 'Custom Tag',
-        color: { h: 207, s: 20, l: 50 }
-    }
 };
 
 export type TagType = z.infer<typeof tagTypeSchema>;

@@ -4,9 +4,9 @@ import type { TextProps, TextVars } from '@/components/entities/Text/Text.types'
 
 const Text = <T extends ElementType = 'p'>({
     as,
-    weight = 'regular',
-    color = 'var(--neutral-850)',
-    size = 4,
+    weight = 'bolder',
+    color = 'var(--cold-blue-gray-400)',
+    size = 6,
     children,
     align = 'start',
     ...props

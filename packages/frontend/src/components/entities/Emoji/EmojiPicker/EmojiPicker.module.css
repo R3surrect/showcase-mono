@@ -57,7 +57,7 @@
 }
 
 .emojiPickerLight {
-    --epr-bg-color: color-mix(in srgb, var(--warm-green-700), transparent var(--opacity-full)) !important;
+    --epr-bg-color: var(--warm-gray-100) !important;
     --epr-emoji-variation-picker-bg-color: color-mix(in srgb, var(--neutral-300), transparent var(--opacity-low)) !important;
     --epr-picker-border-color: var(--neutral-350) !important;
     /* --epr-text-color: var(--cold-blue-gray-400) !important; */

@@ -30,23 +30,42 @@ select {
     font: inherit;
     display: block;
 }
+
 [data-interactive] {
     transition: .3s;
     cursor: pointer;
 }
-[data-selected="true"], [data-interactive]:hover {
+
+[data-selected="true"],
+[data-interactive]:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
-/* [data-selected="true"]::after{
-    content: '•';
-    position: absolute;
-    right: 3%;
-} */
+
+::-webkit-scrollbar-thumb {
+    background-color: color-mix(in srgb, var(--cold-blue-gray-400), transparent var(--opacity-low));
+    border-radius: 12px;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 12px;
+    margin: 6px 0;
+}
+
+::-webkit-scrollbar {width: 7px }
+::-webkit-scrollbar-corner {background: transparent }
+::-webkit-scrollbar-thumb:active {background-color: var(--neutral-550) }
+::-webkit-scrollbar-thumb:hover {background-color: var(--cold-blue-gray-400) }
+
+@supports not selector(::-webkit-scrollbar) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--cold-blue-gray-400) transparent;
+    }
+}
 
 @media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto }
 }

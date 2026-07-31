@@ -1,9 +1,9 @@
-import z from "zod";
-import { useState } from "react";
-import type { HslColor } from "colord";
-import { LucidePlusCircle } from "lucide-react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm, type SubmitErrorHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LucidePlusCircle } from "lucide-react";
+import type { HslColor } from "colord";
+import { useState } from "react";
+import z from "zod";
 
 import Tag from "@/components/entities/Tag/Tag";
 import Text from "@/components/entities/Text/Text";
@@ -11,10 +11,12 @@ import Input from "@/components/entities/Input/Input";
 import Stack from "@/components/entities/Stack/Stack";
 import Button from "@/components/entities/Button/Button";
 import Heading from "@/components/entities/Heading/Heading";
+import TagList from "@/components/entities/TagList/TagList";
 import useToast from "@/components/entities/Toast/Toast.hook";
 import ColorList from "@/components/entities/ColorList/ColorList";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
 import { useCreateProjectQuery } from "@/queries/projects/projects.query";
+import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import EmojiPicker from "@/components/entities/Emoji/EmojiPicker/EmojiPicker";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
@@ -25,6 +27,7 @@ import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/
 
 const ProjectCreateForm = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
+
     const { data: priorityData, isLoading: isPrioritiesLoading } = useGetPrioritiesQuery();
     const { data: statusesData, isLoading: isStatusesLoading } = useGetStatusesQuery('project');
     const { mutate: createProject, isPending: isProjectsPending } = useCreateProjectQuery();
@@ -49,7 +52,7 @@ const ProjectCreateForm = () => {
             label: 'Created',
             status: 'success'
         });
-    };
+    }
 
     const onError: SubmitErrorHandler<ProjectCreateInput> = (errors) => {
         clearToasts();
@@ -75,11 +78,11 @@ const ProjectCreateForm = () => {
                 <Stack direction="row" gap="sm">
                     {
                         selectedEmoji ? <>
-                            <Text size={6} color='var(--neutral-550)' weight='bolder'>Selected Icon:</Text>
+                            <Text size={6} color='var(--cold-blue-gray-400)' weight='bolder'>Selected Icon:</Text>
                             <EmojiPreview emoji={selectedEmoji} setEmoji={setSelectedEmoji} {...register('emoji')} />
-                            <Text size={6} weight='bold' color='var(--neutral-300)'>(right click to reset)</Text>
+                            <Text size={6} weight='bold' color='var(--cold-blue-gray-400)'>(right click to reset)</Text>
                         </>
-                            : <Text size={6} color='var(--neutral-550)' weight='bolder'>Icon</Text>
+                            : <Text size={6} color='var(--cold-blue-gray-400)' weight='bolder'>Icon</Text>
                     }
                 </Stack>
                 <EmojiPicker variant="keyboard" onEmojiChange={(emoji: string) => setSelectedEmoji(emoji)} />
@@ -92,18 +95,32 @@ const ProjectCreateForm = () => {
                         {
                             isPrioritiesLoading
                                 ? '...loading'
-                                : priorities.map((item) => (
-                                    <Tag
-                                        key={item.id}
-                                        color={item.color}
-                                        label={item.label}
+                                : priorities.map((rawItem) => {
+                                    const { id, ...item } = rawItem;
+                                    const isSystemTag = item.category.trim().toLowerCase() === 'system';
+
+                                    return isSystemTag ? <Tag
                                         data-interactive
-                                        data-selected={field.value === item.id}
-                                        onClick={() => field.onChange(item.id)}
-                                        variant='system'
-                                        isSystem
-                                    />
-                                ))
+                                        data-selected={field.value === id}
+                                        onClick={() => field.onChange(id)}
+                                        {...item}
+                                        isSystem={true}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                        : <Tag
+                                            key={id}
+                                            id={id}
+                                            data-interactive
+                                            data-selected={field.value === id}
+                                            onClick={() => field.onChange(id)}
+                                            {...item}
+                                            isSystem={false}
+                                        >
+                                            <span>{item.label}</span>
+                                        </Tag>
+
+                                })
                         }
                     </SegmentedPicker>
                 )}
@@ -116,27 +133,59 @@ const ProjectCreateForm = () => {
                         {
                             isStatusesLoading
                                 ? '...loading'
-                                : statuses.map((item) => (
-                                    <Tag
-                                        key={item.id}
-                                        color={item.color}
-                                        label={item.label}
-                                        data-interactive
-                                        data-selected={field.value === item.id}
-                                        onClick={() => field.onChange(item.id)}
-                                        variant='system'
-                                        isSystem
-                                    />
-                                ))
+                                : statuses.map((item) => {
+                                    const isSystem = item.category.trim().toLowerCase() === 'system';
+                                    return isSystem ? (
+                                        <Tag
+                                            type={item.type}
+                                            key={item.id}
+                                            isSystem={true}
+                                            color={item.color}
+                                            data-interactive
+                                            data-selected={field.value === item.id}
+                                            onClick={() => field.onChange(item.id)}
+                                        >
+                                            <span>{item.label}</span>
+                                        </Tag>
+                                    ) :
+                                        <Tag
+                                            id={item.id}
+                                            category={item.category}
+                                            key={item.id}
+                                            type={item.type}
+                                            createdAt={item.createdAt}
+                                            color={item.color}
+                                            isSystem={false}
+                                            data-interactive
+                                            data-selected={field.value === item.id}
+                                            onClick={() => field.onChange(item.id)}
+                                        >
+                                            <span>{item.label}</span>
+                                        </Tag>
+                                })
                         }
+                        <ExpandButton onExpand={() => { }} />
                     </SegmentedPicker>
+                )}
+            />
+            <Controller
+                name='tagIds'
+                control={control}
+                render={({ field }) => (
+                    <TagList
+                        selectedTags={field.value || []}
+                        setSelectedList={(items: number[]) => field.onChange(items)}
+                    />
                 )}
             />
             <Controller
                 name="color"
                 control={control}
                 render={({ field }) => (
-                    <ColorList value={field.value} onColorChange={(color: HslColor) => field.onChange(color)} />
+                    <ColorList
+                        value={field.value}
+                        onColorChange={(color: HslColor) => field.onChange(color)}
+                    />
                 )}
             />
             <Button type="submit" width="max" disabled={isProjectsPending || isSubmitting}>
@@ -150,4 +199,4 @@ const ProjectCreateForm = () => {
     </form>
 }
 
-export default ProjectCreateForm;
+export default ProjectCreateForm

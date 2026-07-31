@@ -20,7 +20,10 @@ const ColorList = ({ value, onColorChange }: ColorListProps) => {
     return <Stack gap='md' >
         <Heading level={6} variant='secondary'>Цвет</Heading>
         <Grid columns={16} justifyItems='center' gap='md'>
-            <ColorPicker exportColor={(color) => onColorChange(color)} color={value} />
+            <ColorPicker
+                exportColor={(color) => onColorChange(color)}
+                color={value}
+            />
             {
                 [...INITIAL_COLORS, ...colorSet].map((item) => {
                     return (

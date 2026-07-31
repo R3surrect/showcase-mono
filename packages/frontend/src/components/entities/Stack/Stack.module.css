@@ -19,26 +19,4 @@
 .stack[data-wrap='false'] { flex-wrap: nowrap }
 
 .stack[data-height="fit"] { height: fit-content }
-.stack[data-height="max"] {
-    height: 100%;
-    min-height: 0; 
-    flex-grow: 1;
-}
-
-/*! TEMPORARY UI TESTING
-.stack[data-overflow="auto"] {
-    overflow: auto;
-    min-height: 0; 
-    min-width: 0;
-}
-
-.stack[data-overflow="hidden"] { overflow: hidden }
-.stack[data-overflow="visible"] {
-    overflow: visible;
-    min-height: auto; 
-}
-.stack[data-overflow="scroll"] {
-    overflow: scroll;
-    min-height: 0;
-    min-width: 0;
-} */
+.stack[data-height="max"] { height: 100% }

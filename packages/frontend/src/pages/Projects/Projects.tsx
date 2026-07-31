@@ -7,7 +7,7 @@ import { getHslString } from '@/components/entities/ColorList/ColorList.constant
 import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
 import ProjectCard from '@/components/entities/ProjectCard/ProjectCard';
 import Surface from '@/components/entities/Surface/Surface';
-import Button from '@/components/entities/Button/Button';
+import Button from '@/components/entities/Button/Button';   
 import Stack from '@/components/entities/Stack/Stack';
 import Modal from '@/components/shared/Modal/Modal';
 import Grid from '@/components/entities/Grid/Grid';
@@ -65,7 +65,7 @@ export const Component = () => {
                     isOpen={pageState.type !== 'idle'}
                     onClose={() => setPageState({ type: 'idle' })}
                 >
-                    <Surface>
+                    <Surface height='85vh'>
                         {
                             (selectedProject && pageState.type === 'view') &&
                             <Surface

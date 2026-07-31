@@ -24,8 +24,6 @@ const ProjectCard = ({
     ...props
 }: ProjectProps) => {
     // const tasksCount = sumTasks(tasks)
-    console.log(color);
-
     const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
         onPinClick(props.id)
@@ -50,7 +48,9 @@ const ProjectCard = ({
                 {emoji &&
                     <div
                         className={stylesObj.iconWrapper}
-                        style={{ '--project-color': getHslString(color || DEFAULT_HSL_COLOR.color) } as ProjectVars}
+                        style={{
+                            '--project-color': getHslString(color || DEFAULT_HSL_COLOR.color)
+                        } as ProjectVars}
                     >
                         {
                             isValidElement(emoji)
@@ -76,7 +76,6 @@ const ProjectCard = ({
                 <Progress all={24} value={12} color={color} />
                 {/* <Progress all={tasksCount} value={tasks.completed} color={color} /> */}
             </Stack>
-
         </Stack>
     </>
 
@@ -85,9 +84,9 @@ const ProjectCard = ({
         isAnimated
         color={getHslString(color)}
         width='max'
+        data-interactive
         {...props}
         id={props.id.toString()}
-        data-interactive
     >
         {projectCardRender}
     </Surface>

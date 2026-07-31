@@ -16,10 +16,10 @@ export const getDistinctCategories: GetDistinctCategories = async (ownerId) => {
 type GetPriorities = (ownerId: number) => Promise<PriorityTagOutput[]>;
 export const getPriorityTags: GetPriorities = async (ownerId: number) => {
     const rows = await sql<PriorityTagOutput[]>`
-        SELECT id, color, label, type, category
+        SELECT id, color, label, type, category, created_at
         FROM tags
         WHERE owner_id = ${ownerId} and type = 'priority'
-    `
+    `;
 
     return rows;
 }
@@ -29,9 +29,10 @@ export const getStatusTags: GetStatuses = async (ownerId, type) => {
     const fullType = `${type}_status`;
 
     const rows = sql<StatusTagOutput[]>`
-        SELECT id, color, label, type, category
+        SELECT id, color, label, type, category, created_at
         FROM tags
         WHERE owner_id = ${ownerId} and type = ${fullType}
     `;
+
     return rows;
 }
