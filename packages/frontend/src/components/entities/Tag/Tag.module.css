@@ -2,8 +2,8 @@
 @import url('@global/styles/_semantics.css');
 
 .tag {
-    transition: .2s;
     position: relative;
+    transition: .2s;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -33,10 +33,40 @@
     font-size: var(--font-size-level-6);
 }
 
+.task_status, .project_status {
+    border: 1px solid transparent;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background-color: color-mix(in srgb, var(--tag-color), transparent var(--opacity-medium));
+    border-radius: var(--border-radius-4);
+    color: var(--neutral-0)
+}
+
+.task_status:hover, .project_status:hover { border: 1px solid var(--tag-color)}
+.task_status::before, .project_status::before {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: .4rem;
+    background-color: var(--tag-color);
+}
+
+.priority {
+    background-color: color-mix(in srgb, var(--tag-color), transparent var(--opacity-medium));
+    border: 1px solid color-mix(in srgb, var(--tag-color), transparent var(--opacity-super));
+    border-radius: var(--border-radius-4);
+    color: var(--neutral-0)
+}
+
+.priority:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--tag-color) 40%, transparent);}
+
+.tag>* { display: block }
 .tag[data-width="fit"] { width: fit-content }
 .tag[data-width="max"] { width: 100% }
-.tag>* { display: block; }
-.tag[data-selected="false"] { opacity: .4; }
+.tag[data-selected="false"] { opacity: .4 }
 
 .tag:has(.editOverlay):hover {
     transform: translateY(-2px);
@@ -52,4 +82,9 @@
     height: 100%;
     width: 100%;
     background-color: var(--glass-surface-light-45);
+
+    display: block;
+    z-index: 999;
 }
+
+.editOverlay:hover { opacity: 1 }
