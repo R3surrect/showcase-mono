@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LucidePlusCircle } from "lucide-react";
 import type { HslColor } from "colord";
 import { useState } from "react";
-import z from "zod";
 
 import Tag from "@/components/entities/Tag/Tag";
 import Text from "@/components/entities/Text/Text";
@@ -42,7 +41,7 @@ const ProjectCreateForm = () => {
         defaultValues: { color: DEFAULT_COLOR.color }
     });
 
-    const onSubmit = (data: z.infer<typeof projectCreateInputValidation>) => {
+    const onSubmit = (data: ProjectCreateInput) => {
         clearToasts();
         createProject({ ...data, color: data.color });
 
@@ -99,15 +98,17 @@ const ProjectCreateForm = () => {
                                     const { id, ...item } = rawItem;
                                     const isSystemTag = item.category.trim().toLowerCase() === 'system';
 
-                                    return isSystemTag ? <Tag
-                                        data-interactive
-                                        data-selected={field.value === id}
-                                        onClick={() => field.onChange(id)}
-                                        {...item}
-                                        isSystem={true}
-                                    >
-                                        <span>{item.label}</span>
-                                    </Tag>
+                                    return isSystemTag
+                                        ? <Tag
+                                            key={item.createdAt}
+                                            data-interactive
+                                            data-selected={field.value === id}
+                                            onClick={() => field.onChange(id)}
+                                            {...item}
+                                            isSystem={true}
+                                        >
+                                            <span>{item.label}</span>
+                                        </Tag>
                                         : <Tag
                                             key={id}
                                             id={id}
@@ -137,8 +138,8 @@ const ProjectCreateForm = () => {
                                     const isSystem = item.category.trim().toLowerCase() === 'system';
                                     return isSystem ? (
                                         <Tag
-                                            type={item.type}
                                             key={item.id}
+                                            type={item.type}
                                             isSystem={true}
                                             color={item.color}
                                             data-interactive
@@ -150,12 +151,12 @@ const ProjectCreateForm = () => {
                                     ) :
                                         <Tag
                                             id={item.id}
-                                            category={item.category}
-                                            key={item.id}
                                             type={item.type}
+                                            category={item.category}
+                                            isSystem={false}
+                                            key={item.id}
                                             createdAt={item.createdAt}
                                             color={item.color}
-                                            isSystem={false}
                                             data-interactive
                                             data-selected={field.value === item.id}
                                             onClick={() => field.onChange(item.id)}

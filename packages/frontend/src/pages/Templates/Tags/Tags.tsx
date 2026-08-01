@@ -1,4 +1,3 @@
-import z from 'zod'
 import type { HslColor } from 'colord'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, type SubmitErrorHandler } from 'react-hook-form'
@@ -38,7 +37,7 @@ export const Component = () => {
     const { data, isError, error } = useGetTagsQuery();
     const tags = data ?? [];
 
-    const onSubmit = (data: z.infer<typeof tagCreateInputValidation>) => {
+    const onSubmit = (data: TagCreateInput) => {
         clearToasts();
         createMutation(data)
     }
@@ -76,24 +75,26 @@ export const Component = () => {
                         control={control}
                         render={({ field }) => (
                             <SegmentedPicker label='Selected type:'>
-                                {TAG_TYPES.map((tagType) => {
-                                    const config = TAG_TYPE_CONFIGS[tagType];
+                                {
+                                    TAG_TYPES.map((tagType) => {
+                                        const config = TAG_TYPE_CONFIGS[tagType];
 
-                                    return (
-                                        <Tag
-                                            key={tagType}
-                                            color={config.color}
-                                            data-interactive
-                                            data-selected={tagType === field.value}
-                                            onClick={() => field.onChange(tagType)}
-                                            variant='system'
-                                            isSystem
-                                            type={tagType}
-                                        >
-                                            {config.label}
-                                        </Tag>
-                                    );
-                                })}
+                                        return (
+                                            <Tag
+                                                key={tagType}
+                                                color={config.color}
+                                                data-interactive
+                                                data-selected={tagType === field.value}
+                                                onClick={() => field.onChange(tagType)}
+                                                variant='system'
+                                                isSystem
+                                                type={tagType}
+                                            >
+                                                {config.label}
+                                            </Tag>
+                                        );
+                                    })
+                                }
                             </SegmentedPicker>
                         )}
                     />
