@@ -68,7 +68,6 @@ const TagList = (props: TagListProps) => {
                 <Surface width="max" height="auto">
                     <Stack gap="md">
                         <Stack direction="row" align="center" gap="sm">
-                            {/* Отрисовка иконки: диманическая для конкретного типа или стандартные tags для All */}
                             {currentConfig?.icon && isValidLucideIcon(currentConfig.icon) ? (
                                 <DynamicIcon
                                     name={currentConfig.icon}
@@ -91,7 +90,6 @@ const TagList = (props: TagListProps) => {
                         <Stack direction="row" gap="sm" align="center" wrap>
                             {!isTagsLoading ? (
                                 !isTagsLoadingError && tags?.map((item) => {
-                                    // Условие отображения: либо 'All', либо совпадение по типу
                                     const isTypeMatched = selectedType === 'All' || item.type === selectedType;
                                     if (!isTypeMatched) return null;
 

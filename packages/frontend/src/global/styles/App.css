@@ -42,7 +42,6 @@ select {
     box-shadow: var(--shadow-md);
 }
 
-
 ::-webkit-scrollbar-thumb {
     background-color: color-mix(in srgb, var(--cold-blue-gray-400), transparent var(--opacity-low));
     border-radius: 12px;

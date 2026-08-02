@@ -15,7 +15,7 @@ import useToast from "@/components/entities/Toast/Toast.hook";
 import ColorList from "@/components/entities/ColorList/ColorList";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
 import { useCreateProjectQuery } from "@/queries/projects/projects.query";
-import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
+// import ExpandButton from "@/components/entities/ExpandButton/ExpandButton";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import EmojiPicker from "@/components/entities/Emoji/EmojiPicker/EmojiPicker";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
@@ -165,7 +165,7 @@ const ProjectCreateForm = () => {
                                         </Tag>
                                 })
                         }
-                        <ExpandButton onExpand={() => { }} />
+                        {/* <ExpandButton onExpand={() => { }} /> */}
                     </SegmentedPicker>
                 )}
             />
