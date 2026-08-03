@@ -12,7 +12,7 @@ export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
     const rows = await sql<ProjectGetOutput[]>`
         SELECT * FROM projects
         where owner_id = ${userId}
-        ORDER BY created_at DESC, id ASC
+        ORDER BY is_pinned DESC, created_at DESC, id ASC
     `
 
     return [...rows];
