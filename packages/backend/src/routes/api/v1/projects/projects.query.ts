@@ -1,10 +1,10 @@
-import sql from "#/db.js"
+import sql from "#/db.js";
 import {
     type ProjectDbCreateInput,
     type ProjectDbUpdateInput,
     type ProjectGetOutput,
     type ProjectUpdateOutput,
-} from './projects.types.js'
+} from './projects.types.js';
 
 export type FindProjectsByUserId = (userId: number) => Promise<ProjectGetOutput[]>;
 
@@ -13,7 +13,7 @@ export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
         SELECT * FROM projects
         where owner_id = ${userId}
         ORDER BY is_pinned DESC, created_at DESC, id ASC
-    `
+    `;
 
     return [...rows];
 }

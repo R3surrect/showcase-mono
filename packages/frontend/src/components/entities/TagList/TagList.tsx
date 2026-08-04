@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LucideSearch, LucideTags } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Stack from "@components/entities/Stack/Stack";
-import { useGetTagsQuery } from "@/queries/tags/tags.query";
+import { useDeleteTagQuery, useGetTagsQuery } from "@/queries/tags/tags.query";
 import {
     TAG_TYPES,
     TAG_TYPE_CONFIGS,
@@ -14,29 +14,32 @@ import Tag from "@components/entities/Tag/Tag";
 import Surface from "@components/entities/Surface/Surface";
 import Text from "@components/entities/Text/Text";
 import { isValidLucideIcon } from "@components/entities/_shared/system.utils";
-import Select from "../Select/Select";
-
-interface TagListProps {
-    selectedTags: number[];
-    setSelectedList: (items: number[]) => void;
-}
+import Select from "@components/entities/Select/Select";
+import type { TagListProps } from "./TagList.types";
 
 const TagList = (props: TagListProps) => {
-    const { data: tags, isLoading: isTagsLoading, isError: isTagsLoadingError } = useGetTagsQuery();
+    const {
+        data: tags,
+        isLoading: isTagsLoading,
+        isError: isTagsLoadingError
+    } = useGetTagsQuery();
+
+    const { mutate: deleteTag } = useDeleteTagQuery();
 
     // #region ui behavior
-    const { selectedTags, setSelectedList } = props;
+    const { selectedTags, setSelectedList, isEditable = false } = props;
     const [selectedType, setSelectedType] = useState<TagType | 'All'>('All');
 
     const onTagClickHandler = (id: number) => {
-        const isIdSelected = selectedTags.includes(id);
+        const isIdSelected = selectedTags?.includes(id);
 
-        if (isIdSelected) setSelectedList(selectedTags.filter(item => item !== id));
-        else setSelectedList([...selectedTags, id]);
+        if (isIdSelected) setSelectedList?.(selectedTags.filter(item => item !== id));
+        else setSelectedList?.([...selectedTags, id]);
     };
 
     const currentConfig = selectedType !== 'All' ? TAG_TYPE_CONFIGS[selectedType] : null;
     // #endregion
+
     return (
         <Stack direction='column' gap="md">
             <Stack direction="row" gap="md" align="center">
@@ -103,8 +106,9 @@ const TagList = (props: TagListProps) => {
                                                 color={item.color}
                                                 type={item.type}
                                                 data-interactive
-                                                onClick={() => onTagClickHandler(item.id)}
-                                                data-selected={selectedTags.includes(item.id)}
+                                                onClick={() => selectedTags && onTagClickHandler(item.id)}
+                                                data-selected={selectedTags && selectedTags.includes(item.id)}
+                                                isEditable={isEditable && false}
                                             >
                                                 <span>{item.label}</span>
                                             </Tag>
@@ -121,8 +125,11 @@ const TagList = (props: TagListProps) => {
                                             key={item.id}
                                             type={item.type}
                                             data-interactive
-                                            onClick={() => onTagClickHandler(item.id)}
-                                            data-selected={selectedTags.includes(item.id)}
+                                            onClick={() => selectedTags && onTagClickHandler(item.id)}
+                                            data-selected={selectedTags && selectedTags.includes(item.id)}
+                                            isEditable={true}
+                                            onDeleteAction={() => deleteTag(item.id)}
+                                            onEditAction={() => console.log(`edit: ${item.id}`)}
                                         >
                                             <span>{item.label}</span>
                                         </Tag>
@@ -134,8 +141,8 @@ const TagList = (props: TagListProps) => {
                         </Stack>
                     </Stack>
                 </Surface>
-            </Stack>
-        </Stack>
+            </Stack >
+        </Stack >
     );
 };
 

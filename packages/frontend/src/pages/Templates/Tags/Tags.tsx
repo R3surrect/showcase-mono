@@ -2,7 +2,6 @@ import type { HslColor } from 'colord'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, type SubmitErrorHandler } from 'react-hook-form'
 import Tag from '@components/entities/Tag/Tag'
-import Text from '@/components/entities/Text/Text'
 import Grid from '@/components/entities/Grid/Grid'
 import Input from '@components/entities/Input/Input'
 import Stack from '@components/entities/Stack/Stack'
@@ -15,8 +14,9 @@ import { DEFAULT_COLOR } from '@/components/entities/ColorList/ColorList.constan
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
 import { TAG_TYPE_CONFIGS, TAG_TYPES } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
-import type { TagCreateInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
-import { useCreateTagQuery, useDeleteTagQuery, useGetTagsQuery } from '@/queries/tags/tags.query'
+import type { TagCreateInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
+import { useCreateTagQuery } from '@/queries/tags/tags.query'
+import TagList from '@/components/entities/TagList/TagList'
 // import TagList from '@/components/entities/TagList/TagList'
 
 // TODO Отработать ситуацию с легкой тенью текста и внутренней тени,
@@ -32,10 +32,6 @@ export const Component = () => {
     })
 
     const { mutate: createMutation } = useCreateTagQuery();
-    const { mutate: deleteMutation } = useDeleteTagQuery();
-
-    const { data, isError, error } = useGetTagsQuery();
-    const tags = data ?? [];
 
     const onSubmit = (data: TagCreateInput) => {
         clearToasts();
@@ -121,31 +117,8 @@ export const Component = () => {
             <Surface height='max'>
                 <Stack gap='md' height='max'>
                     <Heading level={3} variant='secondary'>Existing tags</Heading>
-                    <Stack
-                        direction='row'
-                        gap='sm'
-                        wrap={true}
-                        align='start'
-                        height='max'
-                    >
-                        {
-                            (!isError && tags.length !== 0) ? tags.map((item: TagGetOutput) => (
-                                <Tag
-                                    {...item}
-                                    key={item.id}
-                                    id={item.id}
-                                    isEditable
-                                    onDeleteAction={(id: number) => deleteMutation(id)}
-                                    onEditAction={(id: number) => console.log(`edit(${id})`)}
-                                    variant={item.type}
-                                >
-                                    <span>{item.label}</span>
-                                </Tag>
-                            ))
-                                : <Text weight='bold'>No tags created</Text>
-                        }
-                        {isError && <Text color='orange' weight='bolder'>{error.name}: {error.message}</Text>}
-                        {/* <TagList /> */}
+                    <Stack direction='row' gap='sm' wrap={true} align='start' height='max' >
+                        <TagList isEditable />
                     </Stack>
                 </Stack>
             </Surface>
