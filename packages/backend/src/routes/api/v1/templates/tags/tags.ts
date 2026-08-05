@@ -5,8 +5,8 @@ import { config } from "#/config.js";
 import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
 import { tagCreateInputValidation } from "./validations/tag.create.js";
 import { createTag, deleteTag, findTagsByUserId } from "./tags.query.js";
-import { TAG_TYPES } from "./tag.schema.js";
 import z from "zod";
+import { TAG_TYPE_CONFIGS } from "./tag.schema.js";
 
 const tagsRouter = new Hono<AuthEnv>()
     .get('/', async (c) => {
@@ -24,15 +24,17 @@ const tagsRouter = new Hono<AuthEnv>()
         async (c) => {
             const data = await c.req.valid('json');
 
-            if (!TAG_TYPES.includes(data.type)) return c.json({ message: 'Bad request provided creating tag' }, 400);
+            if (!TAG_TYPE_CONFIGS.some(item => data.type === item.type))
+                return c.json({ message: 'Bad request provided creating tag' }, 400);
 
             const newTagRaw = await createTag({ ...data, ownerId: c.get('user').id });
             const newTag = newTagRaw[0];
 
             if (!newTag) {
-                !config.isProduction && console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: Empty response array from DB while creating tag`);
+                console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: Empty response array from DB while creating tag`);
                 return c.body(null, 500);
             }
+            
             return c.json(newTag, 201);
         }
     )

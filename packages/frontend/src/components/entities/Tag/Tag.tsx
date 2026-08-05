@@ -32,7 +32,8 @@ const Tag = (props: TagProps) => {
         {...rest}
     >
         {
-            isEditable && <div className={stylesObj.editOverlay}>
+            isEditable && (onDeleteAction || onEditAction) &&
+            <div className={stylesObj.editOverlay}>
                 <Stack
                     direction='row'
                     align='center'
@@ -41,21 +42,21 @@ const Tag = (props: TagProps) => {
                     height='max'
                     width='max'
                 >
-                    <Button
+                    {onEditAction && <Button
                         variant='transparent'
                         size='none'
                         radius='lg'
                         onClick={() => id && onEditAction(id)}
                     >
                         <LucidePencil size={16} color='var(--neutral-400)' />
-                    </Button>
-                    <Button
+                    </Button>}
+                    {onDeleteAction && <Button
                         variant='transparent'
                         size='none'
                         onClick={() => id && onDeleteAction(id)}
                     >
                         <LucideCircleX size={16} color='var(--status-error)' />
-                    </Button>
+                    </Button>}
                 </Stack>
             </div>
         }

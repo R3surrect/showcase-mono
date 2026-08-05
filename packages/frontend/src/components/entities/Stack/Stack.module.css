@@ -2,13 +2,15 @@
 @import url("@global/styles/_breakpoints");
 
 .stack {
-    /* position: relative; */
     display: flex;
     gap: var(--stack-gap, 0);
     flex-direction: var(--stack-direction, column);
     align-items: var(--stack-align, stretch);
     justify-content: var(--stack-justify, start);
     align-content: flex-start;
+    overflow: var(--stack-overflow, visible);
+    min-width: 0;
+    scrollbar-width: thin;
 }
 
 .stack[data-width='max'] { width: 100% }
