@@ -1,30 +1,28 @@
 import z from "zod";
 import { projectSchema } from "../projects.schema.js";
 
-//* The database requires an additional ownerId field
-export const projectCreateDbInputValidation = projectSchema.omit({
+const projectTypeExtension = {
+    tagIds: z.array(z.number().positive()).default([]),
+}
+
+const baseValidationFields = {
     id: true,
     createdAt: true,
     updatedAt: true,
     isArchived: true,
     pinnedAt: true,
     isPinned: true,
-});
+} as const;
+
+//* The database requires an additional ownerId field
+export const projectCreateDbInputValidation = projectSchema
+    .omit(baseValidationFields)
+    .extend(projectTypeExtension);
 
 //* Getting data field filtration
 export const projectCreateInputValidation = projectSchema
-    .omit({
-        id: true,
-        createdAt: true,
-        updatedAt: true,
-        ownerId: true,
-        isArchived: true,
-        pinnedAt: true,
-        isPinned: true,
-    })
-    .extend({
-        tagIds: z.array(z.number().positive()).default([])
-    });
+    .omit({ ...baseValidationFields, ownerId: true })
+    .extend(projectTypeExtension);
 
 //* Sending data field filtration
 export const projectCreateOutputSchema = projectSchema.omit({
