@@ -3,12 +3,7 @@ import { LucideSearch, LucideTags } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Stack from "@components/entities/Stack/Stack";
 import { useDeleteTagQuery, useGetTagsQuery } from "@/queries/tags/tags.query";
-import {
-    TAG_TYPES,
-    TAG_TYPE_CONFIGS,
-    tagTypeSchema,
-    type TagType
-} from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
+import { TAG_TYPE_CONFIGS, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
 import Input from "@components/entities/Input/Input";
 import Tag from "@components/entities/Tag/Tag";
 import Surface from "@components/entities/Surface/Surface";
@@ -37,7 +32,7 @@ const TagList = (props: TagListProps) => {
         else setSelectedList?.([...selectedTags, id]);
     };
 
-    const currentConfig = selectedType !== 'All' ? TAG_TYPE_CONFIGS[selectedType] : null;
+    const currentConfig = selectedType !== 'All' ? TAG_TYPE_CONFIGS.find(item => item.type === selectedType) : null;
     // #endregion
 
     return (
@@ -54,16 +49,17 @@ const TagList = (props: TagListProps) => {
                             setSelectedType('All');
                             return;
                         }
-                        const parsed = tagTypeSchema.safeParse(val);
-                        if (parsed.success) setSelectedType(parsed.data);
+                        setSelectedType(val);
                     }}
                 >
                     <option value="All">All</option>
-                    {TAG_TYPES.map(item => (
-                        <option key={item} value={item}>
-                            {TAG_TYPE_CONFIGS[item].label}
-                        </option>
-                    ))}
+                    {
+                        TAG_TYPE_CONFIGS.map((item) => (
+                            <option key={item.id} value={item.type}>
+                                {item.label}
+                            </option>
+                        ))
+                    }
                 </Select>
             </Stack>
 
@@ -71,15 +67,15 @@ const TagList = (props: TagListProps) => {
                 <Surface width="max" height="auto">
                     <Stack gap="md">
                         <Stack direction="row" align="center" gap="sm">
-                            {currentConfig?.icon && isValidLucideIcon(currentConfig.icon) ? (
-                                <DynamicIcon
-                                    name={currentConfig.icon}
-                                    color='var(--cold-blue-gray-400)'
-                                    size={16}
-                                />
-                            ) : (
-                                <LucideTags color='var(--cold-blue-gray-400)' size={16} />
-                            )}
+                            {
+                                currentConfig?.icon && isValidLucideIcon(currentConfig.icon)
+                                    ? <DynamicIcon
+                                        name={currentConfig.icon}
+                                        color='var(--cold-blue-gray-400)'
+                                        size={16}
+                                    />
+                                    : <LucideTags color='var(--cold-blue-gray-400)' size={16} />
+                            }
 
                             <Text
                                 size={6}
@@ -99,41 +95,37 @@ const TagList = (props: TagListProps) => {
                                     const isSystem = item.category.trim().toLowerCase() === 'system';
 
                                     if (isSystem) {
-                                        return (
-                                            <Tag
-                                                key={item.id}
-                                                isSystem={true}
-                                                color={item.color}
-                                                type={item.type}
-                                                data-interactive
-                                                onClick={() => selectedTags && onTagClickHandler(item.id)}
-                                                data-selected={selectedTags && selectedTags.includes(item.id)}
-                                                isEditable={isEditable && false}
-                                            >
-                                                <span>{item.label}</span>
-                                            </Tag>
-                                        );
-                                    }
-
-                                    return (
-                                        <Tag
-                                            id={item.id}
-                                            isSystem={false}
-                                            createdAt={item.createdAt}
-                                            category={item.category}
-                                            color={item.color}
+                                        return <Tag
                                             key={item.id}
+                                            isSystem={true}
+                                            color={item.color}
                                             type={item.type}
                                             data-interactive
                                             onClick={() => selectedTags && onTagClickHandler(item.id)}
                                             data-selected={selectedTags && selectedTags.includes(item.id)}
-                                            isEditable={true}
-                                            onDeleteAction={() => deleteTag(item.id)}
-                                            onEditAction={() => console.log(`edit: ${item.id}`)}
+                                            isEditable={isEditable}
                                         >
                                             <span>{item.label}</span>
-                                        </Tag>
-                                    );
+                                        </Tag>;
+                                    }
+
+                                    return <Tag
+                                        id={item.id}
+                                        isSystem={false}
+                                        createdAt={item.createdAt}
+                                        category={item.category}
+                                        color={item.color}
+                                        key={item.id}
+                                        type={item.type}
+                                        data-interactive
+                                        onClick={() => selectedTags && onTagClickHandler(item.id)}
+                                        data-selected={selectedTags && selectedTags.includes(item.id)}
+                                        isEditable={isEditable}
+                                        onDeleteAction={() => deleteTag(item.id)}
+                                        onEditAction={() => console.log(`edit: ${item.id}`)}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>;
                                 })
                             ) : (
                                 '...loading'

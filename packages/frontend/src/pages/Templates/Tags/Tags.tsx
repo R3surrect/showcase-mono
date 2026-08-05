@@ -12,7 +12,7 @@ import Surface from '@/components/entities/Surface/Surface.tsx'
 import ColorList from '@/components/entities/ColorList/ColorList'
 import { DEFAULT_COLOR } from '@/components/entities/ColorList/ColorList.constants'
 import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker'
-import { TAG_TYPE_CONFIGS, TAG_TYPES } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
+import { TAG_TYPE_CONFIGS } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import type { TagCreateInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
 import { useCreateTagQuery } from '@/queries/tags/tags.query'
@@ -72,21 +72,19 @@ export const Component = () => {
                         render={({ field }) => (
                             <SegmentedPicker label='Selected type:'>
                                 {
-                                    TAG_TYPES.map((tagType) => {
-                                        const config = TAG_TYPE_CONFIGS[tagType];
-
+                                    TAG_TYPE_CONFIGS.map((tagType) => {
                                         return (
                                             <Tag
-                                                key={tagType}
-                                                color={config.color}
+                                                key={tagType.id}
+                                                color={tagType.color}
                                                 data-interactive
-                                                data-selected={tagType === field.value}
-                                                onClick={() => field.onChange(tagType)}
+                                                data-selected={tagType.type === field.value}
+                                                onClick={() => field.onChange(tagType.type)}
                                                 variant='system'
                                                 isSystem
-                                                type={tagType}
+                                                type={tagType.type}
                                             >
-                                                {config.label}
+                                                {tagType.label}
                                             </Tag>
                                         );
                                     })
