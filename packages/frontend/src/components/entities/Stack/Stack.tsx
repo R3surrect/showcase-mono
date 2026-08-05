@@ -1,9 +1,5 @@
 import type { StackProps, StackVars } from '@/components/entities/Stack/Stack.types';
 import stylesObj from './Stack.module.css';
-import { motion } from 'motion/react';
-
-// TODO Мапить типы в сторибуке
-// TODO Добавить адаптив
 
 const Stack = ({
   gap = 'md',
@@ -18,16 +14,6 @@ const Stack = ({
   overflow = 'visible',
   ...props
 }: StackProps) => {
-
-  const isDraggable = overflow === 'scroll' || overflow === 'auto';
-
-  const motionProps = isDraggable ? {
-    drag: 'x' as const,
-    dragConstraints: { right: 0 },
-    dragElastic: 0.05,
-    whileTap: { cursor: 'grabbing' },
-  } : {};
-
   const componentProps = {
     ref: ref,
     className: stylesObj.stack,
@@ -44,15 +30,10 @@ const Stack = ({
     ...props
   }
 
-  if (isDraggable) return <motion.div
-    {...motionProps}
-    {...componentProps}
-  >
-    {children}
-  </motion.div >
-  else return <div {...componentProps}>
+  return <div {...componentProps}>
     {children}
   </div>
+
 }
 
 export default Stack;
