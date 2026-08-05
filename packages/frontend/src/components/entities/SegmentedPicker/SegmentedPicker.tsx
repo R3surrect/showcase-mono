@@ -8,7 +8,7 @@ const SegmentedPicker =({
     ...props
 }: SegmentedPickerProps) => {
     return <>
-        <Stack {...props} direction='row' justify='space-between' align='center'>
+        <Stack {...props} direction='row' justify='space-between' align='center' overflow='visible'>
             <Text size={6} weight='bolder' color='var(--cold-blue-gray-400)'>{label}</Text>
             <Stack gap='sm' direction='row' overflow='auto'>
                 {children}

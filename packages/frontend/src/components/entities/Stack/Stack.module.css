@@ -10,7 +10,9 @@
     align-content: flex-start;
     overflow: var(--stack-overflow, visible);
     min-width: 0;
+    min-height: 0;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
 }
 
 .stack[data-width='max'] { width: 100% }

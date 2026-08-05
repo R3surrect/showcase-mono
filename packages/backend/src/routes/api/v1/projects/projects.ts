@@ -10,26 +10,13 @@ export const projectsRouter = new Hono<AuthEnv>()
         const projects = await findProjectsByUserId(c.get('user').id);
         return c.json(projects, 200);
     })
-    .patch('/:id',
-        zValidator('json', projectUpdateValidation),
-        async (c) => {
-            const projectId = Number(c.req.param('id'));
-            const data = c.req.valid('json');
-            const userId = c.get('user').id;
-
-            if (Object.values(data).length === 0) return c.json([{ message: 'No fields provided' }], 400);
-
-            const [updatedProject] = await updateProject({ id: projectId, ownerId: userId, ...data });
-            return c.json(updatedProject, 201);
-        }
-    )
     .post('/', zValidator(
         'json',
         projectCreateInputValidation,
     ),
         async (c) => {
             const data = await c.req.valid('json');
-            const [newProject] = await createProject({
+            const newProject = await createProject({
                 ...data,
                 ownerId: c.get('user').id
             });
@@ -41,6 +28,19 @@ export const projectsRouter = new Hono<AuthEnv>()
                 return c.body(null, 500)
             }
             return c.json(newProject, 201);
+        }
+    )
+    .patch('/:id',
+        zValidator('json', projectUpdateValidation),
+        async (c) => {
+            const projectId = Number(c.req.param('id'));
+            const data = c.req.valid('json');
+            const userId = c.get('user').id;
+
+            if (Object.values(data).length === 0) return c.json([{ message: 'No fields provided' }], 400);
+
+            const updatedProject = await updateProject({ id: projectId, ownerId: userId, ...data });
+            return c.json(updatedProject, 201);
         }
     )
 
