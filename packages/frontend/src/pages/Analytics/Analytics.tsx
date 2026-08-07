@@ -43,7 +43,7 @@ export const Component = () => {
 
             <DashboardProjectLoadBlock />
             <DashboardTaskPriorityBlock />
-            \
+
             <DashboardInsightStatsBlock />
         </Stack>
     )
