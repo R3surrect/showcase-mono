@@ -7,10 +7,22 @@ import DashboardTaskPriorityBlock from '@/components/entities/dashboards/Dashboa
 import DashboardProjectLoadBlock from '@/components/entities/dashboards/DashboardProjectLoadBlock/DashboardProjectLoadBlock';
 import DashboardInsightStatsBlock from '@/components/entities/dashboards/DashboardInsightStatsBlock/DashboardInsightStatsBlock';
 import { dashboardStatMock } from './Analytics.constants';
+import Banner from '@/components/entities/Banner/Banner';
+import { useHintStore } from '@/store/useHintStore';
+import Text from '@/components/entities/Text/Text';
 
+const hintId = `analytics-page-hint`;
 export const Component = () => {
+    const dismiss = useHintStore(store => store.dismissHint);
+    const isDismissed = useHintStore(store => store.data[hintId]);
     return (
-        <Stack gap='sm'>
+        <Stack gap='md'>
+            {
+                !isDismissed &&
+                <Banner variant='hint' onClose={() => dismiss(hintId)} width='max'>
+                    <Text size={6}>Нажмите на любую карточку или график, чтобы увидеть детализацию — какие именно задачи формируют этот показатель</Text>
+                </Banner>
+            }
             <Grid
                 columns={4}
                 alignItems='stretch'
@@ -19,7 +31,7 @@ export const Component = () => {
             >
                 {
                     dashboardStatMock.map(item => (
-                        <DashboardStatBlockFull {...item} isAnimated={true} key={item.id}/>
+                        <DashboardStatBlockFull {...item} isAnimated={true} key={item.id} />
                     ))
                 }
             </Grid>
@@ -33,7 +45,6 @@ export const Component = () => {
             <DashboardTaskPriorityBlock />
 
             <DashboardInsightStatsBlock />
-
         </Stack>
     )
 }
