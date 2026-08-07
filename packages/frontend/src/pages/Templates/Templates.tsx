@@ -7,8 +7,8 @@ import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
 import { useHintStore } from '@/store/useHintStore';
 
+const hintId = 'templates-page-hint';
 export const Component = () => {
-    const hintId = 'templates-page-hint';
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId]);
 
@@ -21,8 +21,8 @@ export const Component = () => {
             {
                 !isDismissed &&
                 <Banner variant='hint' onClose={() => dismiss(hintId)} width='max'>
-                    <Text weight='bold' size={6}>Как работают шаблоны:</Text>
-                    <Text size={6}>сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
+                    <Text weight='bolder' size={6}>Как работают шаблоны:</Text>
+                    <Text size={6} weight='bold'>Сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
                 </Banner >
             }
             <PillPicker items={TEMPLATES_ROUTES} />
