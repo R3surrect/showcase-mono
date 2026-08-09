@@ -1,5 +1,6 @@
 import Banner from "@/components/entities/Banner/Banner"
 import Button from "@/components/entities/Button/Button"
+import Calendar from "@/components/entities/Calendar/Calendar"
 import { getHslString } from "@/components/entities/ColorList/ColorList.constants"
 import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader"
 import Grid from "@/components/entities/Grid/Grid"
@@ -10,6 +11,7 @@ import Text from "@/components/entities/Text/Text"
 import { useHintStore } from "@/store/useHintStore"
 
 import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlay, LucidePlusCircle } from "lucide-react"
+import { useState } from "react"
 
 const MOCK_STAT_TAGS = [
     {
@@ -59,7 +61,7 @@ const MOCK_TASK_TAGS = [
         label: "🔥 Срочно",
         color: { h: 12, s: 35, l: 10 },
     },
-];
+] as const;
 
 const hintId = 'scheduler-page-hint';
 
@@ -122,6 +124,7 @@ export const Component = () => {
 
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
+    const [selectedDate, setSelectedDate] = useState<Date>();
 
     return (
         <Stack gap="md">
@@ -159,7 +162,7 @@ export const Component = () => {
                     </Stack>
                 </Button>
             </ContentHeader>
-            <Grid templateColumns="2fr 1fr">
+            <Grid templateColumns="3fr 1fr">
                 <Stack gap="md" direction="column">
                     {TaskCard}
                     {TaskCard}
@@ -172,6 +175,11 @@ export const Component = () => {
                     {TaskCard}
                     {TaskCard}
                 </Stack>
+                <Calendar
+                    mode="single"
+                    onSelect={setSelectedDate}
+                    selected={selectedDate}
+                />
             </Grid>
         </Stack>
     )

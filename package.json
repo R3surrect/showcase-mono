@@ -2,7 +2,7 @@
   "name": "showcase-mono",
   "private": true,
   "workspaces": [
-     "apps/*"
+    "apps/*"
   ],
   "scripts": {
     "dev:frontend": "pnpm --filter @showcase-mono/frontend dev",

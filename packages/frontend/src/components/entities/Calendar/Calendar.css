@@ -1,0 +1,6 @@
+@import url('@global/styles/_variables.css');
+
+.rdp-root {
+    --rdp-accent-color: var(--accent);
+    
+}
