@@ -16,7 +16,7 @@ export const Component = () => {
         <Stack gap='md' wrap={true}>
             <ContentHeader
                 title="Шаблоны и теги"
-                subtitle="Готовые заготовки для задач, тегов и управление метками"
+                subElement="Готовые заготовки для задач, тегов и управление метками"
             />
             {
                 !isDismissed &&

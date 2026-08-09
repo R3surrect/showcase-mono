@@ -1,3 +1,4 @@
+import type { HslColor } from "colord";
 import type { AxisSizeVariations, DivUiComponent } from "../_shared/system.types";
 import type { VARIANT_TYPES } from "./Tag.constants";
 import type { TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
@@ -12,7 +13,7 @@ export interface TagProps extends GeneralProps {
     id?: number;
     isSystem?: boolean;
     isEditable?: boolean;
-    color: { h: number; s: number; l: number };
+    color: HslColor;
     type: TagType;
     category?: string;
     createdAt?: string | Date;

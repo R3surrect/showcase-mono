@@ -32,7 +32,9 @@ const TagList = (props: TagListProps) => {
         else setSelectedList?.([...selectedTags, id]);
     };
 
-    const currentConfig = selectedType !== 'All' ? TAG_TYPE_CONFIGS.find(item => item.type === selectedType) : null;
+    const currentConfig = selectedType !== 'All'
+        ? TAG_TYPE_CONFIGS.find(item => item.type === selectedType)
+        : null;
     // #endregion
 
     return (
@@ -44,7 +46,7 @@ const TagList = (props: TagListProps) => {
                 <Select
                     name='type'
                     value={selectedType}
-                    setValue={(val: string) => {
+                    setValue={(val: TagType | 'All') => {
                         if (val === 'All') {
                             setSelectedType('All');
                             return;
@@ -63,10 +65,10 @@ const TagList = (props: TagListProps) => {
                 </Select>
             </Stack>
 
-            <Stack direction="column" gap="md" align="start">
+            <Stack direction="column" gap="md" align="start" width="max">
                 <Surface width="max" height="auto">
-                    <Stack gap="md">
-                        <Stack direction="row" align="center" gap="sm">
+                    <Stack gap="md" width="max">
+                        <Stack direction="row" align="center" gap="sm" width="max">
                             {
                                 currentConfig?.icon && isValidLucideIcon(currentConfig.icon)
                                     ? <DynamicIcon
@@ -100,7 +102,7 @@ const TagList = (props: TagListProps) => {
                                             isSystem={true}
                                             color={item.color}
                                             type={item.type}
-                                            data-interactive
+                                            // data-interactive
                                             onClick={() => selectedTags && onTagClickHandler(item.id)}
                                             data-selected={selectedTags && selectedTags.includes(item.id)}
                                             isEditable={isEditable}

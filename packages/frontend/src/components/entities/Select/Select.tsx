@@ -2,17 +2,17 @@ import { LucideChevronRight } from 'lucide-react';
 import Stack from '../Stack/Stack';
 import stylesObj from './Select.module.css';
 
-interface SelectProps {
-    value: string;
-    setValue: (value: string) => void;
+interface SelectProps<T> {
+    value: T;
+    setValue: (value: T) => void;
     children: React.ReactNode;
     name: string;
 }
 
-const Select = ({ value, name, setValue, children }: SelectProps) => {
+const Select = <T extends string>({ value, name, setValue, children }: SelectProps<T>) => {
     return <select
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue(e.target.value as T)}
         className={stylesObj.select}
         name={name}
     >

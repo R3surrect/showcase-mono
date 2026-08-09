@@ -72,7 +72,7 @@ export const Component = () => {
                         render={({ field }) => (
                             <SegmentedPicker label='Selected type:'>
                                 {
-                                    TAG_TYPE_CONFIGS.map((tagType) => {
+                                    TAG_TYPE_CONFIGS.map(tagType => {
                                         return (
                                             <Tag
                                                 key={tagType.id}
@@ -81,8 +81,8 @@ export const Component = () => {
                                                 data-selected={tagType.type === field.value}
                                                 onClick={() => field.onChange(tagType.type)}
                                                 variant='system'
-                                                isSystem
                                                 type={tagType.type}
+                                                isSystem
                                             >
                                                 {tagType.label}
                                             </Tag>
