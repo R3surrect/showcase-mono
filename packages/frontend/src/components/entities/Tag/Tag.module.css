@@ -73,7 +73,7 @@
 
 .priority:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--tag-color) 40%, transparent);}
 
-.tag>* { display: block }
+/* .tag>* { display: block } */
 .tag[data-width="fit"] { width: fit-content }
 .tag[data-width="max"] { width: 100% }
 .tag[data-selected="false"] { opacity: .4 }

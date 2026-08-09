@@ -102,7 +102,6 @@ const TagList = (props: TagListProps) => {
                                             isSystem={true}
                                             color={item.color}
                                             type={item.type}
-                                            // data-interactive
                                             onClick={() => selectedTags && onTagClickHandler(item.id)}
                                             data-selected={selectedTags && selectedTags.includes(item.id)}
                                             isEditable={isEditable}
