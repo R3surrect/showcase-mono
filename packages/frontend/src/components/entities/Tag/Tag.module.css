@@ -12,12 +12,11 @@
     font-family: var(--font-main), 'Noto Color Emoji';
     flex-wrap: wrap;
     flex-shrink: 0;
-    overflow: visible;
     gap: .5rem;
-    overflow: hidden;
     padding: .5rem .75rem;
     font-size: var(--font-size-level-6);
 }
+
 
 .default {
     color: var(--tag-color);
@@ -63,7 +62,6 @@
     text-orientation: upright;
 }
 
-
 .priority {
     background-color: color-mix(in srgb, var(--tag-color), transparent var(--opacity-medium));
     border: 1px solid color-mix(in srgb, var(--tag-color), transparent var(--opacity-super));
@@ -96,6 +94,7 @@
     height: 100%;
     width: 100%;
     background-color: var(--glass-surface-light-45);
+    border-radius: inherit;
 }
 
 .editOverlay:hover { opacity: 1 }
