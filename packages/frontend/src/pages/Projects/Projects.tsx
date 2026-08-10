@@ -3,7 +3,6 @@ import { LucidePlusCircle } from 'lucide-react';
 import type { ProjectGetOutput } from '@showcase-mono/backend/routes/api/v1/projects/projects.types';
 import { useGetProjectsQuery, useUpdateProjectsQuery } from '@/queries/projects/projects.query';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
-import { getHslString } from '@/components/entities/ColorList/ColorList.constants';
 import ErrorMessage from '@/components/entities/ErrorMessage/ErrorMessage';
 import ProjectCard from '@/components/entities/ProjectCard/ProjectCard';
 import Surface from '@/components/entities/Surface/Surface';
@@ -13,6 +12,7 @@ import Modal from '@/components/shared/Modal/Modal';
 import Grid from '@/components/entities/Grid/Grid';
 import Text from '@/components/entities/Text/Text';
 import ProjectCreateForm from './create';
+import { colord } from 'colord';
 
 export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: number };
 
@@ -71,10 +71,11 @@ export const Component = () => {
                             <Surface
                                 height='fit'
                                 variant='outline'
-                                color={getHslString(selectedProject.color)}
+                                color={colord(selectedProject.color).toHslString()}
                             >
                                 <ProjectCard
                                     {...selectedProject}
+                                    color={colord(selectedProject.color).toHsl()}
                                     hasSurface={false}
                                     id={selectedProject.id}
                                     onPinClick={(projectId) => projectPinHandler(projectId, selectedProject.isPinned)}

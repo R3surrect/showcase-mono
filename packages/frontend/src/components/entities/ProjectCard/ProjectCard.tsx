@@ -1,6 +1,5 @@
 import { isValidElement } from 'react';
 import { LucidePin } from 'lucide-react';
-import { getHslString } from '@components/entities/ColorList/ColorList.constants';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import EmojiPreview from '@components/entities/Emoji/EmojiPreview/EmojiPreview';
 import Progress from '@components/entities/Progress/Progress';
@@ -10,6 +9,7 @@ import Stack from "@components/entities/Stack/Stack";
 import Text from '@components/entities/Text/Text';
 import type { ProjectProps, ProjectVars } from './ProjectCard.types';
 import stylesObj from './ProjectCard.module.css';
+import { colord } from 'colord';
 // import { sumTasks } from './ProjectCard.constants';
 
 const ProjectCard = ({
@@ -23,6 +23,9 @@ const ProjectCard = ({
     onPinClick,
     ...props
 }: ProjectProps) => {
+    console.log(typeof color);
+    console.log(color + ' isColordValid: ' + colord(color).isValid());
+    console.log(typeof color.h, typeof color.s, typeof color.l);
     // const tasksCount = sumTasks(tasks)
     const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
@@ -40,7 +43,7 @@ const ProjectCard = ({
     const projectCardRender = <>
         <LucidePin
             {...pinProps}
-            fill={isPinned ? getHslString(color ? { ...color, l: 75 } : DEFAULT_HSL_COLOR.color) : 'transparent'}
+            fill={isPinned ? colord(color ? color : DEFAULT_HSL_COLOR.color).lighten(0.75).toHslString() : 'transparent'}
             stroke='var(--monochrome-700)'
         />
         <Stack direction="column" gap="md">
@@ -49,7 +52,7 @@ const ProjectCard = ({
                     <div
                         className={stylesObj.iconWrapper}
                         style={{
-                            '--project-color': getHslString(color || DEFAULT_HSL_COLOR.color)
+                            '--project-color': colord(color || DEFAULT_HSL_COLOR.color).toHslString()
                         } as ProjectVars}
                     >
                         {
@@ -82,7 +85,7 @@ const ProjectCard = ({
     return hasSurface ? <Surface
         variant="outline"
         isAnimated
-        color={getHslString(color)}
+        color={colord(color).toHslString()}
         width='max'
         data-interactive
         {...props}

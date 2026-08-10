@@ -1,7 +1,7 @@
 import stylesObj from './Progress.module.css';
 import { DEFAULT_HSL_COLOR } from '../_shared/system.constants';
-import { getHslString } from '../ColorList/ColorList.constants';
 import type { ProgressProps, ProgressVars } from './Progress.types';
+import { colord } from 'colord';
 
 const Progress = ({ color, all, value }: ProgressProps) => {
     const valuePercentage = (value / all) * 100;
@@ -19,7 +19,7 @@ const Progress = ({ color, all, value }: ProgressProps) => {
             id='value'
             style={{
                 '--progress-value-width': `${valuePercentage}%`,
-                '--progress-color': getHslString(color || DEFAULT_HSL_COLOR.color),
+                '--progress-color': colord(color || DEFAULT_HSL_COLOR.color).toHslString(),
             } as ProgressVars}
         ></div>
     </div>

@@ -8,7 +8,7 @@ import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader
 export const Component = () => {
     return (
         <Stack>
-            <ContentHeader title='Предпочтения' subtitle='Тонкая настройка вашего рабочего пространства' />
+            <ContentHeader title='Предпочтения' subElement='Тонкая настройка вашего рабочего пространства' />
             <PillPicker items={PREFERENCES_ROUTES} />
             <Grid>
                 <Outlet />

@@ -9,15 +9,14 @@ export const findTagsByUserId: QueryTagsByUserId = async (userId) => {
         WHERE owner_id = ${userId}
     `
 
-    return [...rows]
+    return rows;
 }
 
 export type InsertTagMutation = (data: TagDbCreateInput) => Promise<TagCreateOutput[]>;
 export const createTag: InsertTagMutation = async ({ label, color, type, category, ownerId }) => {
-    const colorString = JSON.stringify(color);
     const rows = await sql<TagCreateOutput[]>`
         INSERT INTO tags(label, color, type, category, owner_id)
-        values (${label},${colorString},${type},${category},${ownerId})
+        values (${label},${sql.json(color)},${type},${category},${ownerId})
         RETURNING *
     `
 
@@ -25,7 +24,6 @@ export const createTag: InsertTagMutation = async ({ label, color, type, categor
 }
 
 export type QueryTagByOwner = (data: TagDbDeleteInput) => Promise<TagCreateOutput[]>;
-// #region QueryTagByOwner queries
 export const findTagById: QueryTagByOwner = async ({ id, ownerId }) => {
     const rows = await sql<TagGetOutput[]>`
         SELECT * from TAGS
@@ -44,7 +42,3 @@ export const deleteTag: QueryTagByOwner = async ({ id, ownerId }) => {
 
     return [...rows];
 }
-
-
-
-//#endregion

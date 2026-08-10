@@ -1,0 +1,20 @@
+@import url('@global/styles/_variables.css');
+
+.rdp-root {
+    --rdp-accent-color: var(--accent);
+    --rdp-day-width: 100%;
+    --rdp-day_button-width: 100%;
+
+    --rdp-day-height: 100%;
+    --rdp-day_button-height: 100%;
+
+    height: 100%;
+    width: 100%;
+}
+
+.rdp-root .rdp-table,
+.rdp-root .rdp-month_grid {
+    height: 100%;
+    width: 100%;
+    table-layout: fixed;
+}

@@ -4,10 +4,11 @@ import Stack from '@components/entities/Stack/Stack.tsx';
 import Button from '@components/entities/Button/Button';
 import ColorPicker from '@components/entities/ColorPicker/ColorPicker';
 import stylesObj from './ColorList.module.css';
-import { getHslString, getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
+import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/ColorList/ColorList.constants';
 import Grid from '@components/entities/Grid/Grid';
 import type { ColorListProps } from './ColorList.types';
 import type { ColorSet } from '../_shared/system.types';
+import { colord } from 'colord';
 
 const ColorList = ({ value, onColorChange }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());
@@ -35,9 +36,9 @@ const ColorList = ({ value, onColorChange }: ColorListProps) => {
                                 setSelectedColor(item);
                             }}
                             style={{
-                                backgroundColor: getHslString(item.color),
+                                backgroundColor: colord(item.color).toHslString(),
                                 boxShadow: item.id === selectedColor.id
-                                    ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${getHslString(selectedColor.color)}`
+                                    ? `0 0 0 3px var(--neutral-0), 0 0 0 6px ${colord(selectedColor.color).toHslString()}`
                                     : ''
                             }}
                         />

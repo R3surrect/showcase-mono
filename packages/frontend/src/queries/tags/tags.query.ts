@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { TagCreateInput, TagDeleteInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
 import { CategoriesService, TagsService } from './tags.service';
 import useToast from '@/components/entities/Toast/Toast.hook';
+import { DEFAULT_HSL_COLOR } from '@/components/entities/_shared/system.constants';
 
 export const tagsKeys = { all: ['tags'] as const };
 export const categoriesKeys = { all: ['categories'] as const };
@@ -38,38 +39,24 @@ export const useGetTagsQuery = () => {
         placeholderData: [{
             id: 0,
             label: '⏳ Loading...',
-            color: { h: 0, s: 0, l: 0 },
+            color: DEFAULT_HSL_COLOR.color,
             type: 'default',
             category: 'system',
             createdAt: new Date().toISOString()
         }],
-
     })
 }
 
 export const useGetCategoriesQuery = () => {
-    const { pushToast } = useToast();
-
     return useQuery({
         queryKey: categoriesKeys.all,
         staleTime: 5 * 60 * 1000,
         retry: 3,
         retryDelay: (index) => 1000 * (index * 2),
         queryFn: async () => {
-            try {
-                const res = await CategoriesService.getAll();
-                return res;
-            } catch (error) {
-                pushToast({
-                    label: `Pulling categories failed`,
-                    status: 'error',
-                    type: 'popup',
-                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
-                });
-
-                throw error;
-            }
-        }
+            const res = await CategoriesService.getAll();
+            return res;
+        },
     })
 }
 

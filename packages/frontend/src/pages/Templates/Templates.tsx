@@ -16,11 +16,11 @@ export const Component = () => {
         <Stack gap='md' wrap={true}>
             <ContentHeader
                 title="Шаблоны и теги"
-                subtitle="Готовые заготовки для задач, тегов и управление метками"
+                subElement="Готовые заготовки для задач, тегов и управление метками"
             />
             {
                 !isDismissed &&
-                <Banner variant='hint' onClose={() => dismiss(hintId)} width='max'>
+                <Banner variant='hint' onClose={() => dismiss(hintId)}>
                     <Text weight='bolder' size={6}>Как работают шаблоны:</Text>
                     <Text size={6} weight='bold'>Сохраняйте повторяющиеся настройки задач и тегов, чтобы применять их одним нажатием. Во вкладке «Теги» можно создавать и удалять метки для задач и заметок.</Text>
                 </Banner >

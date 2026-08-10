@@ -1,14 +1,6 @@
 import { colorSchema } from "#/shared/validations/customizable.validation.js";
 import { z } from "zod";
 
-// export const TAG_TYPES = [
-//     'default',
-//     'project_status',
-//     'task_status',
-//     'priority',
-//     // 'tag_type',
-// ] as const;
-
 export interface TagTypeConfig {
     type: string;
     id: string;
@@ -73,5 +65,3 @@ export const tagSchema = z.object({
     createdAt: z.date().or(z.iso.datetime()),
     updatedAt: z.date().or(z.iso.datetime()),
 })
-
-

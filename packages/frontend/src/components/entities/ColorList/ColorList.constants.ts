@@ -1,4 +1,3 @@
-import type { HslColor } from "colord";
 import type { ColorSet } from "../_shared/system.types";
 
 export const INITIAL_COLORS: ColorSet[] = [
@@ -23,13 +22,4 @@ export const DEFAULT_COLOR = INITIAL_COLORS[0];
 
 export const getLocalStorageColors = () => {
     return JSON.parse(localStorage.getItem('colorSet') || '[]');
-}
-
-export const getHslString = (hslObject: HslColor) => {
-    if (!hslObject) return 'hsl(0, 0%, 0%)';
-    let result = hslObject;
-
-    if (typeof hslObject === 'string') result = JSON.parse(hslObject);
-
-    return `hsl(${result.h}, ${result.s}%, ${result.l}%)`;
 }

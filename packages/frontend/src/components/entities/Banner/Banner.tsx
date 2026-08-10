@@ -5,7 +5,7 @@ import { VARIANT_ICONS } from './Banner.constants';
 import { LucideX } from 'lucide-react';
 import Button from '../Button/Button';
 
-const Banner = ({ variant = 'hint', onClose, children, width, isClosable = true, ...props }: BannerProps) => {
+const Banner = ({ variant = 'hint', onClose, children, width = 'max', isClosable = true, ...props }: BannerProps) => {
     const Icon = VARIANT_ICONS[variant];
     return (
         <div

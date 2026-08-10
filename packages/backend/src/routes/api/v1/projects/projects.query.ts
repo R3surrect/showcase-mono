@@ -28,7 +28,6 @@ export const createProject: CreateProject = async ({
     emoji,
     tagIds
 }) => {
-    const colorString = JSON.stringify(color) || null;
 
     const result = await sql.begin(async (tx) => {
         const [project] = await tx<ProjectGetOutput[]>`
@@ -41,7 +40,7 @@ export const createProject: CreateProject = async ({
                     owner_id,
                     status_tag_id
                 )
-            VALUES (${label},${details || null},${emoji},${colorString},${priorityTagId},${ownerId},${statusTagId})
+            VALUES (${label},${details || null},${emoji},${color ? tx.json(color) : null},${priorityTagId},${ownerId},${statusTagId})
             RETURNING *
         `;
 
