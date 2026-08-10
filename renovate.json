@@ -13,5 +13,11 @@
       "matchPackageNames": ["eslint*", "prettier*"],
       "automerge": false
     }
-  ]
+  ],
+  "npm": {
+    "fileMatch": ["package.json$", "packages/.*/package.json$"]
+  },
+  "pnpm": {
+    "enabled": true
+  }
 }
