@@ -1,10 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
+"extends": [
     "config:recommended",
     "group:monorepos",
     ":separateMajorReleases"
   ],
+  "enabledManagers": ["npm"],
   "timezone": "Europe/Moscow",
   "schedule": ["before 8am on monday"],
   "packageRules": [
@@ -14,12 +15,5 @@
       "automerge": false
     }
   ],
-  "npm": {
-    "fileMatch": ["package.json$", "packages/.*/package.json$"]
-  },
-  "npmrc": "workspaces=true",
-  "managerFilePatterns": [
-    "/package.json$/",
-    "/packages/.*/package.json$/"
-  ]
+  "npmrc": "workspaces=true"
 }
