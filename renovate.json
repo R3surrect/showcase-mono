@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":group:monorepos",
+    "group:monorepos",
     ":separateMajorReleases"
   ],
   "timezone": "Europe/Moscow",
