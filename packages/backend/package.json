@@ -16,12 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/R3surrect/showcase-backend-hono.git"
+    "url": "https://github.com/R3surrect/showcase-mono.git",
+    "directory": "packages/backend"
   },
   "bugs": {
-    "url": "https://github.com/R3surrect/showcase-backend-hono/issues"
+    "url": "https://github.com/R3surrect/showcase-mono/issues"
   },
-  "homepage": "https://github.com/R3surrect/showcase-backend-hono#readme",
+  "homepage": "https://github.com/R3surrect/showcase-mono#readme",
   "devDependencies": {
     "@types/node": "^25.9.4",
     "tsx": "^4.22.4",
