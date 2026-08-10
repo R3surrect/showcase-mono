@@ -1,17 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    ":groupMonorepos",
-    ":separateMajorReleases"
-  ],
-  "timezone": "Europe/Moscow",
-  "schedule": ["before 8am on monday"],
-  "packageRules": [
-    {
-      "groupName": "linters and formatters",
-      "matchPackageNames": ["eslint*", "prettier*"],
-      "automerge": false
-    }
+    "config:recommended"
   ]
 }
