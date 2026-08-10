@@ -10,7 +10,8 @@
   "packageRules": [
     {
       "groupName": "linters and formatters",
-      "matchPackageNames": ["eslint*", "prettier*"]
+      "matchPackageNames": ["eslint*", "prettier*"],
+      "automerge": false
     }
   ]
 }
