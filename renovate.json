@@ -15,9 +15,11 @@
     }
   ],
   "npm": {
-    "managerFilePatterns": [
-      "/package.json$/",
-      "/packages/.*/package.json$/"
-    ]
-  }
+    "fileMatch": ["package.json$", "packages/.*/package.json$"]
+  },
+  "npmrc": "workspaces=true",
+  "managerFilePatterns": [
+    "/package.json$/",
+    "/packages/.*/package.json$/"
+  ]
 }
