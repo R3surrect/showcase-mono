@@ -16,5 +16,6 @@
   ],
   "npm": {
     "fileMatch": ["package.json$", "packages/.*/package.json$"]
-  }
+  },
+  "npmrc": "workspaces=true"
 }
