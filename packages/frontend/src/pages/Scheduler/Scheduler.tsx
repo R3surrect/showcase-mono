@@ -1,16 +1,15 @@
 import Banner from "@/components/entities/Banner/Banner"
 import Button from "@/components/entities/Button/Button"
 import Calendar from "@/components/entities/Calendar/Calendar"
-import { getHslString } from "@/components/entities/ColorList/ColorList.constants"
 import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader"
 import Grid from "@/components/entities/Grid/Grid"
 import Stack from "@/components/entities/Stack/Stack"
-import Surface from "@/components/entities/Surface/Surface"
 import Tag from "@/components/entities/Tag/Tag"
+import TaskCard from "@/components/entities/TaskCard/TaskCard"
 import Text from "@/components/entities/Text/Text"
 import { useHintStore } from "@/store/useHintStore"
 
-import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlay, LucidePlusCircle } from "lucide-react"
+import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlusCircle } from "lucide-react"
 import { useState } from "react"
 
 const MOCK_STAT_TAGS = [
@@ -45,83 +44,48 @@ const MOCK_TASK_TAGS = [
         id: 21,
         label: "🖥️ Backend",
         color: { h: 210, s: 20, l: 15 },
+        type: 'default',
+        category: 'SomeCategory',
+        createdAt: new Date(2026, 5, 16, 9, 30, 0),
+
     },
     {
         id: 10,
         label: "⚡ API",
         color: { h: 38, s: 35, l: 18 },
+        type: 'default',
+        category: 'SomeCategory',
+        createdAt: new Date(2026, 5, 16, 9, 30, 0),
+
     },
     {
         id: 4,
         label: "🧪 Тесты",
         color: { h: 145, s: 25, l: 12 },
+        type: 'default',
+        category: 'SomeCategory',
+        createdAt: new Date(2026, 5, 16, 9, 30, 0),
+
     },
     {
         id: 1,
         label: "🔥 Срочно",
         color: { h: 12, s: 35, l: 10 },
+        type: 'default',
+        category: 'SomeCategory',
+        createdAt: new Date(2026, 5, 16, 9, 30, 0),
+
     },
-] as const;
+];
+
+const MOCK_TASK_PROPS = {
+    createdAt: new Date(2026, 5, 16, 9, 30, 0),
+    deadline: new Date(2026, 5, 16, 9, 30, 0),
+    statusTagId: 1,
+};
 
 const hintId = 'scheduler-page-hint';
-
 export const Component = () => {
-
-    const TaskCard = <Surface>
-        <Stack gap="sm">
-            <Stack direction="row" justify="space-between" align="center">
-                <Text weight="bolder" color="var(--neutral-850)" size={4}>
-                    Написать unit-тесты для API
-                </Text>
-                <Stack direction="row" gap="sm" align="center">
-                    <Tag
-                        id={0}
-                        color={{ h: 60, s: 8, l: 42 }}
-                        type="task_status"
-                    >
-                        <Stack
-                            direction="row"
-                            align="center"
-                            gap="sm"
-                            justify='space-between'
-                            wrap={false}
-                        >
-                            <LucidePlay
-                                color={getHslString({ h: 60, s: 8, l: 32 })}
-                                size={16}
-                            />
-                            <Text
-                                color={getHslString({ h: 60, s: 8, l: 32 })}
-                                size={6}
-                            >
-                                В работе
-                            </Text>
-                        </Stack>
-                    </Tag>
-                    <Text
-                        color={getHslString({ h: 60, s: 8, l: 42 })}
-                        size={6}
-                        weight="regular"
-                    >
-                        05 Aug 26 | 14:00
-                    </Text>
-                </Stack>
-            </Stack>
-            <Stack direction="column" gap="md">
-                <Text color="var(--neutral-750)" size={5} weight="bold">Покрыть эндпоинты /auth и /tasks</Text>
-                <Stack direction="row">
-                    {MOCK_TASK_TAGS.map((tag) => (
-                        <Tag key={tag.id} id={tag.id} color={tag.color} type="default">
-                            <Text size={6} weight="bold" color={getHslString(tag.color)}>
-                                {tag.label}
-                            </Text>
-                        </Tag>
-                    ))}
-                </Stack>
-            </Stack>
-        </Stack>
-    </Surface>
-
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
     const [selectedDate, setSelectedDate] = useState<Date>();
@@ -164,21 +128,22 @@ export const Component = () => {
             </ContentHeader>
             <Grid templateColumns="3fr 1fr">
                 <Stack gap="md" direction="column">
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
-                    {TaskCard}
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
                 </Stack>
                 <Calendar
                     mode="single"
                     onSelect={setSelectedDate}
                     selected={selectedDate}
+                    style={{ width: '100%' }}
                 />
             </Grid>
         </Stack>

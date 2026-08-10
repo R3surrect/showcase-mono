@@ -1,11 +1,11 @@
 import { useId } from 'react';
 import type { ColorVariable, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
-import { getHslString } from '@components/entities/ColorList/ColorList.constants';
 import clsx from 'clsx';
 import Button from '@components/entities/Button/Button';
 import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
+import { colord } from 'colord';
 
 const Tag = (props: TagProps) => {
     const genId = useId();
@@ -28,7 +28,7 @@ const Tag = (props: TagProps) => {
         className={clsx(stylesObj.tag, stylesObj[props.type.toLowerCase()])}
         data-width={width}
         data-system={isSystem}
-        style={{ '--tag-color': getHslString(color) } as ColorVariable}
+        style={{ '--tag-color': colord(color).toHslString() } as ColorVariable}
         {...rest}
     >
         {

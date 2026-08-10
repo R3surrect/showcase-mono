@@ -2,8 +2,8 @@ import type { SurfaceProps, SurfaceVars } from '@/components/entities/Surface/Su
 import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
-import { getHslString } from '../ColorList/ColorList.constants';
 import { AXIS_SIZE_TYPES, DEFAULT_HSL_COLOR } from '../_shared/system.constants';
+import { colord } from 'colord';
 
 const AXIS_SIZE_SET = new Set<string>(AXIS_SIZE_TYPES);
 
@@ -31,7 +31,7 @@ const Surface = ({
             data-height={height}
             data-width={width}
             style={{
-                '--surface-color': color || getHslString(DEFAULT_HSL_COLOR.color),
+                '--surface-color': color || colord(DEFAULT_HSL_COLOR.color).toHslString(),
                 '--surface-overflow': overflow,
                 ...(isHeightCustomValue && { '--surface-height': height }),
                 ...(isWidthCustomValue && { '--surface-width': width }),
