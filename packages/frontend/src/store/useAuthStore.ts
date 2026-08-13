@@ -3,7 +3,6 @@ import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
 const useAuthStore = create<AuthState>()(persist((set) => ({
-
     authData: {
         user: null,
         authStatus: 'unknown',
