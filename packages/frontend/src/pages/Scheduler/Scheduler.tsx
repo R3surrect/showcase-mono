@@ -82,6 +82,7 @@ const MOCK_TASK_PROPS = {
     createdAt: new Date(2026, 5, 16, 9, 30, 0),
     deadline: new Date(2026, 5, 16, 9, 30, 0),
     statusTagId: 1,
+    tags: MOCK_TASK_TAGS,
 };
 
 const hintId = 'scheduler-page-hint';
@@ -127,23 +128,22 @@ export const Component = () => {
                 </Button>
             </ContentHeader>
             <Grid templateColumns="3fr 1fr">
-                <Stack gap="md" direction="column">
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
-                    <TaskCard tags={MOCK_TASK_TAGS} {...MOCK_TASK_PROPS} />
+                <Stack gap="sm" direction="column">
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
+                    <TaskCard {...MOCK_TASK_PROPS} />
                 </Stack>
                 <Calendar
                     mode="single"
                     onSelect={setSelectedDate}
                     selected={selectedDate}
-                    style={{ width: '100%' }}
                 />
             </Grid>
         </Stack>
