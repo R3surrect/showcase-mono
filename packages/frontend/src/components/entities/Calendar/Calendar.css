@@ -1,20 +1,44 @@
 @import url('@global/styles/_variables.css');
 
+.rdp-root * {
+    outline: none;
+}
+
 .rdp-root {
     --rdp-accent-color: var(--accent);
     --rdp-day-width: 100%;
     --rdp-day_button-width: 100%;
 
-    --rdp-day-height: 100%;
+    --rdp-day-height: 3rem;
     --rdp-day_button-height: 100%;
 
+    --rdp-selected-border: none;
     height: 100%;
     width: 100%;
 }
 
 .rdp-root .rdp-table,
 .rdp-root .rdp-month_grid {
-    height: 100%;
+    height: fit-content;
     width: 100%;
     table-layout: fixed;
+    font-size: var(--font-size-level-4);
+}
+
+.rdp-today>.rdp-day_button {
+    background-color: var(--cold-blue-gray-400);
+}
+
+.rdp-focused>.rdp-day_button {
+    background-color: var(--neutral-400);
+}
+
+.rdp-focused>.rdp-day_button,
+.rdp-today>.rdp-day_button {
+    border-radius: var(--border-radius-4);
+    box-shadow: var(--shadow-md);
+    color: var(--neutral-0);
+    font-weight: 400;
+    font-size: var(--font-size-level-4);
+    will-change: transform;
 }
