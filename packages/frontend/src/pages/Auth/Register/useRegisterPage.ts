@@ -1,7 +1,7 @@
 import useToast from "@/components/entities/Toast/Toast.hook";
 import useAuthStore from "@/store/useAuthStore";
-import { registerSchema, type RegisterInput, type RegisterPayload } from "@/validation/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, type RegisterInput, type RegisterPayload } from "@showcase-mono/backend/routes/api/v1/auth/register/register.schema";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +20,7 @@ const useRegisterPage = () => {
         defaultValues: {
             email: '',
             password: '',
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         },
     });
 
@@ -27,7 +28,21 @@ const useRegisterPage = () => {
         const minWait = new Promise(resolve => setTimeout(resolve, 300));
         const [registerResult] = await Promise.all([registerUser(payload), minWait]);
 
-        if (registerResult?.success) navigate('/analytics', { replace: true });
+        if (registerResult?.success) {
+            navigate('/analytics', { replace: true });
+            pushToast({
+                text: `It looks like your timezone is the '${Intl.DateTimeFormat().resolvedOptions().timeZone}'. Is that right?`,
+                label: 'Timezone',
+                status: 'info',
+                type: 'dialog',
+                confirmLabel: 'Yes',
+                denyLabel: 'Change',
+                onDeny() { console.log('changed click') },
+                onConfirm() {
+
+                },
+            });
+        }
         else if (registerResult?.message) {
             setError("root", {
                 type: "server",

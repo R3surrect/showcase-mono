@@ -17,9 +17,7 @@ export const Component = () => {
             <Heading variant='accent' level={1} align='center'>Join the community</Heading>
             <Text align='center' weight='bolder' color='lightgray'>Organize your time in a few clicks</Text>
         </Stack>
-
         <Hr variant="accent" thickness='medium' opacity={0.8} shadow={true} />
-
         <form onSubmit={handleSubmit(onSubmit, onError)}>
             <Stack>
                 <Input
