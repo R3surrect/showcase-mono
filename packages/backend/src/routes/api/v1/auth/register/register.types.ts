@@ -1,4 +1,4 @@
 import type z from "zod";
-import type registerValidation from "./register.validation.js";
+import type { registerSchema } from "./register.schema.js";
 
-export type RegisterValidation = z.infer<typeof registerValidation>;
+export type RegisterValidation = z.infer<typeof registerSchema>;
