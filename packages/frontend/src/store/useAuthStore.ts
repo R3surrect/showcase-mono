@@ -2,6 +2,29 @@ import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
+const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api`
+
+type FetchApi = (endpoint: string[], options: RequestInit, version?: number) => Promise<Response>;
+
+const fetchApi: FetchApi = async (endpoint, options, version = 1) => {
+    return await fetch(`${baseUrl}/v${version}/${endpoint.join('/')}`, {
+        credentials: 'include',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-By': 'XMLHttpRequest',
+            ...options.headers
+        },
+    })
+};
+
+const storeOptionsData = {
+    name: "AuthStorage",
+    partialize: (state: AuthState) => ({
+        authData: state.authData
+    })
+};
+
 const useAuthStore = create<AuthState>()(persist((set) => ({
     authData: {
         user: null,
@@ -15,16 +38,13 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         set({ isLoading: true });
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/login`, {
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify(authFields),
-
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-By': 'XMLHttpRequest'
-                },
-            })
+            const endpoint = ['auth', 'login'];
+            const res = await fetchApi(endpoint,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(authFields),
+                }
+            )
 
             if (res.ok) {
                 set({ isLoading: false });
@@ -36,6 +56,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                         user: data.user
                     }
                 });
+
                 return { success: true };
             } else {
                 set({ status: res.status, isLoading: false });
@@ -59,12 +80,8 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
     },
 
     checkAuth: async () => {
-
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/me`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: { 'X-Requested-By': 'XMLHttpRequest' }
-        });
+        const endpoint = ['auth', 'me'];
+        const res = await fetchApi(endpoint, { method: 'GET' });
 
         if (res.ok) {
             const data = await res.json();
@@ -93,37 +110,34 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
     register: async (authFields) => {
         set({ isLoading: true });
         try {
-            const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/register`, {
+            const endpoint = ['auth', 'register'];
+
+            const res = await fetchApi(endpoint, {
                 method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-By': 'XMLHttpRequest',
-                },
-                body: JSON.stringify(authFields)
+                body: JSON.stringify(authFields),
             });
 
             if (res.ok) {
                 const data = await res.json();
-                
                 set({
                     authData: {
                         authStatus: "authenticated",
                         user: data.user,
                     }
                 })
-                console.log(data);
-                return {
-                    success: true
-                }
-            } else {
-                const errorData = await res.json().catch(() => ({}));
 
-                console.warn('register failed: ', {
-                    status: res.status,
-                    statusText: res.statusText,
+                return { success: true }
+
+            } else {
+                const errorData = await res.json().catch(() => {
+                    console.warn('register failed: ', {
+                        status: res.status,
+                        statusText: res.statusText,
+                    });
+
+                    return {};
                 });
-                
+
                 set({
                     isLoading: false,
                     status: res.status,
@@ -134,7 +148,6 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                     status: res.status,
                     message: errorData.message || res.statusText
                 };
-
             }
         } catch (e: unknown) {
             set({ isLoading: false, status: undefined });
@@ -157,21 +170,15 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
         });
 
         try {
-            await fetch(`${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api/v1/auth/logout`, {
-                method: 'POST',
-                credentials: "include",
-            });
+            const endpoint = ['auth', 'logout'];
+            await fetchApi(endpoint, { method: 'POST' });
         }
         catch (e) {
-            console.error(`logout request failed, will rely on session expiration. err: ${e}`);
+            console.error(`logout failed`, e);
         }
+
         return { message: '', status: 0, success: true }
     }
-}), {
-    name: "AuthStorage",
-    partialize: (state) => ({
-        authData: state.authData
-    })
-}));
+}), storeOptionsData));
 
 export default useAuthStore;
