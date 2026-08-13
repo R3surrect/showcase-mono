@@ -5,17 +5,18 @@
     position: fixed;
     height: fit-content;
     width: fit-content;
-    right: 2.5rem; /* !!! */
+    right: 2rem; /* !!! */
     bottom: 1rem;
     z-index: 2;
 }
 
 .toastWrapper {
+    position: relative;
     cursor: pointer;
     animation: fadeIn .3s ease-in-out forwards;
 
-    border: 1px solid color-mix(in srgb, var(--toast-status-color, var(--cold-blue-gray-400)), transparent var(--opacity-high));
-    position: relative;
+    /* border: 1px solid color-mix(in srgb, var(--toast-status-color, var(--cold-blue-gray-400)), transparent var(--opacity-high)); */
+    border: 2px solid var(--toast-status-color);
     background-color: var(--lite-white);
     height: fit-content;
     width: 20rem;

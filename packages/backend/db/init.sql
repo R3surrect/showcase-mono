@@ -1,5 +1,4 @@
-DO $$ BEGIN
--- IF NOT EXISTS (
+DO $$ BEGIN -- IF NOT EXISTS (
 --     SELECT 1
 --     FROM pg_type
 --     WHERE typname = 'task_status_enum'
@@ -30,12 +29,12 @@ IF NOT EXISTS (
 ) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
 END IF;
 END $$;
-
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(128) UNIQUE NOT NULL,
     password_hash varchar(256) NOT NULL,
     role user_role_enum DEFAULT 'user' NOT NULL,
+    timezone TEXT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );
@@ -103,8 +102,8 @@ CREATE TABLE IF NOT EXISTS notes (
     project_id INT NOT NULL,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
-    CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE SET NULL
-    --? fk_notes_task можно реализовать удаление с вопросом "удалить связанные заметки?"
+    CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE
+    SET NULL --? fk_notes_task можно реализовать удаление с вопросом "удалить связанные заметки?"
 );
 CREATE TABLE IF NOT EXISTS pivot_tasks_tags (
     task_id INT NOT NULL,
@@ -120,7 +119,6 @@ CREATE TABLE IF NOT EXISTS pivot_projects_tags (
     CONSTRAINT fk_pivot_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
     CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 );
-
 -- CREATE TABLE IF NOT EXISTS PIVOT_NOTES_TAGS (
 --     note_id INT NOT NULL,
 --     tag_id INT NOT NULL,
@@ -128,7 +126,6 @@ CREATE TABLE IF NOT EXISTS pivot_projects_tags (
 --     CONSTRAINT fk_pivot_note FOREIGN KEY (note_id) REFERENCES notes(id) ON DELETE CASCADE,
 --     CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
 -- );
-
 -- CREATE TABLE IF NOT EXISTS PIVOT_NOTES_TASKS (
 --     note_id INT NOT NULL,
 --     task_id INT NOT NULL,

@@ -1,6 +1,6 @@
-import z from "zod";
+import type { ZodIssue } from "zod"
 
-export const zodToApiErrors = (errors: z.core.$ZodIssue[]) => errors.map((error: z.core.$ZodIssue) => ({
+export const zodToApiErrors = (errors: ZodIssue[]) => errors.map((error: ZodIssue) => ({
     field: error.path.join('.'),
     message: error.message
 }))
