@@ -1,28 +1,22 @@
-import z from "zod";
 import { projectSchema } from "../projects.schema.js";
+import { archivableEntityFields, baseEntityFields, hasTagsReferenceMixin, pinnableEntityFields } from "#/shared/validations/mixins.js";
 
-const projectTypeExtension = {
-    tagIds: z.array(z.number().positive()).default([]),
-}
-
-const baseValidationFields = {
-    id: true,
-    createdAt: true,
-    updatedAt: true,
-    isArchived: true,
-    pinnedAt: true,
-    isPinned: true,
+export const projectEntityOmitFields = {
+    ...baseEntityFields,
+    ...pinnableEntityFields,
+    ...archivableEntityFields,
 } as const;
-
-//* The database requires an additional ownerId field
-export const projectCreateDbInputValidation = projectSchema
-    .omit(baseValidationFields)
-    .extend(projectTypeExtension);
 
 //* Getting data field filtration
 export const projectCreateInputValidation = projectSchema
-    .omit({ ...baseValidationFields, ownerId: true })
-    .extend(projectTypeExtension);
+    .omit(projectEntityOmitFields)
+    .omit({ ownerId: true })
+    .extend(hasTagsReferenceMixin);
+
+//* The database requires an additional ownerId field
+export const projectCreateDbInputValidation = projectSchema
+    .omit(projectEntityOmitFields)
+    .extend(hasTagsReferenceMixin);
 
 //* Sending data field filtration
 export const projectCreateOutputSchema = projectSchema.omit({
