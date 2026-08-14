@@ -27,14 +27,13 @@ const tagsRouter = new Hono<AuthEnv>()
             if (!TAG_TYPE_CONFIGS.some(item => data.type === item.type))
                 return c.json({ message: 'Bad request provided creating tag' }, 400);
 
-            const newTagRaw = await createTag({ ...data, ownerId: c.get('user').id });
-            const newTag = newTagRaw[0];
+            const [newTag] = await createTag({ ...data, ownerId: c.get('user').id });
 
             if (!newTag) {
                 console.error(`[CRITICAL 500]: ${c.req.method}] ${c.req.path}: Empty response array from DB while creating tag`);
                 return c.body(null, 500);
             }
-            
+
             return c.json(newTag, 201);
         }
     )
