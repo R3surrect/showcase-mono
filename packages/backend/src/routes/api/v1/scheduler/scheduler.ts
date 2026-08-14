@@ -18,7 +18,7 @@ export const schedulerRouter = new Hono<AuthEnv>()
         async (c) => {
             const data = c.req.valid('json');
 
-            const [newTask] = await createTask({ ...data, ownerId: c.get('user').id })
+            const newTask = await createTask({ ...data, ownerId: c.get('user').id })
             return c.json(newTask, 201);
         }
     )

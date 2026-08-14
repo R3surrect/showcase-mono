@@ -2,43 +2,53 @@ import sql from "#/db.js";
 import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TasksGetOutput } from "./scheduler.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksGetOutput[]>;
-export const findTasksByUserId: QueryTasksByUserId = async (userId) => {
-    const rows = await sql<TasksGetOutput[]>`
-        SELECT *
-        FROM tasks
-        WHERE owner_id = ${userId}
-    `
-
-    return [...rows];
-}
-
-export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput[]>;
-export const createTask: InsertTaskMutation = async (props) => {
-    const rows = await sql<TaskCreateOutput[]>`
-        INSERT INTO tasks(label, details, deadline, owner_id, project_id, priority_tag_id, status_tag_id)
-        values (${props.label},${props.details || null},${props.deadline},${props.ownerId},${props.projectId},${props.priorityTagId},${props.statusTagId},)
-        RETURNING *
-    `
-
-    return [...rows];
-}
-
+export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
 export type QueryTaskByOwner = (data: TaskDbDeleteInput) => Promise<TaskCreateOutput[]>;
-export const findTaskById: QueryTaskByOwner = async ({ id, ownerId }) => {
-    const rows = await sql<TasksGetOutput[]>`
+
+export const findTasksByUserId: QueryTasksByUserId = (userId) =>
+    sql<TasksGetOutput[]>`
+        SELECT * FROM tasks
+        WHERE owner_id = ${userId}
+    `;
+
+export const createTask: InsertTaskMutation = async (props) => {
+    const result = await sql.begin(async (tx) => {
+        const { tagIds, ...queryData } = props;
+
+        const [task] = await tx<TasksGetOutput[]>`
+            INSERT INTO tasks ${sql(queryData)}
+            RETURNING *
+        `;
+
+        if (!task || task === null) throw new Error('Task wasn\'t created');
+
+        if (tagIds && tagIds.length > 0) {
+            const pivotRows = tagIds.map(
+                tagId => ({
+                    task_id: task.id,
+                    tag_id: tagId
+                })
+            );
+
+            await tx`INSERT INTO pivot_tasks_tags ${tx(pivotRows, 'task_id', 'tag_id')}`;
+        }
+
+        return { ...task, tagIds };
+    })
+
+    if (!result || result === null) throw new Error('Task wasn\'t created')
+    return result;
+}
+
+export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
+    sql<TasksGetOutput[]>`
         SELECT * from TASKS
         WHERE id = ${id} and owner_id = ${ownerId}
     `;
 
-    return [...rows];
-}
-
-export const deleteTask: QueryTaskByOwner = async ({ id, ownerId }) => {
-    const rows = await sql<TaskCreateOutput[]>` 
+export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>
+    sql<TaskCreateOutput[]>` 
         DELETE FROM tasks
         WHERE id = ${id} and owner_id=${ownerId}
         RETURNING *;
     `;
-
-    return [...rows];
-}

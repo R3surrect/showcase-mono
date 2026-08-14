@@ -20,7 +20,3 @@ export const archivableEntityFields = {
 export const hasTagsReferenceMixin = {
     tagIds: z.array(z.number().positive()).default([]),
 };
-
-export const hasProjectsReferenceMixin = {
-    projectIds: z.array(z.number().positive()).default([]),
-};

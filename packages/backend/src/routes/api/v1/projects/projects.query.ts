@@ -7,15 +7,12 @@ import {
 } from './projects.types.js';
 
 export type FindProjectsByUserId = (userId: number) => Promise<ProjectGetOutput[]>;
-export const findProjectsByUserId: FindProjectsByUserId = async (userId) => {
-    const rows = await sql<ProjectGetOutput[]>`
+export const findProjectsByUserId: FindProjectsByUserId = (userId) =>
+    sql<ProjectGetOutput[]>`
         SELECT * FROM projects
         where owner_id = ${userId}
         ORDER BY is_pinned DESC, created_at DESC, id ASC
     `;
-
-    return rows;
-}
 
 export type CreateProject = (data: ProjectDbCreateInput) => Promise<ProjectGetOutput>;
 export const createProject: CreateProject = async ({
