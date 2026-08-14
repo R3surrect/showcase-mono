@@ -4,7 +4,7 @@ import registerUserQuery from "./register.query.js";
 import bcrypt from 'bcryptjs';
 import postgres from "postgres";
 import { PG_ERRORS } from "#/db.js";
-import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
+// import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
 import { registerValidation } from "./register.validation.js";
 import { config } from "#/config.js";
 import { setCookie } from "hono/cookie";
@@ -15,11 +15,11 @@ const registerRouter = new Hono().post(
     zValidator(
         'json',
         registerValidation,
-        (result, c) => {
-            if (!result.success) return c.json({
-                errors: zodToApiErrors(result.error.issues)
-            }, 400)
-        }
+        // (result, c) => {
+        //     if (!result.success) return c.json({
+        //         errors: zodToApiErrors(result.error.issues)
+        //     }, 400)
+        // }
     ),
     async (c) => {
         const { email, password, timezone } = c.req.valid('json');
