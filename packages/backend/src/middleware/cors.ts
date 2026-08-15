@@ -6,8 +6,7 @@ const corsMiddleware = <E extends Env>(app: Hono<E>) => {
     app.use(
         '/api/*',
         cors({
-            origin: (origin: string) => config.allowedOrigins.includes(origin) ? origin : '',
-
+            origin: config.allowedOrigins,
             allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
             allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-By'],
             credentials: true,
