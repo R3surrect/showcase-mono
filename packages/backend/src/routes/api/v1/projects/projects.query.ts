@@ -61,19 +61,17 @@ export const createProject: CreateProject = async ({
 }
 
 export type UpdateProject = (data: ProjectDbUpdateInput) => Promise<ProjectUpdateOutput | null>;
-export const updateProject: UpdateProject = async (data) => {
-    const { id, ownerId, ...fieldsToUpdate } = data;
+export const updateProject: UpdateProject = async ({ id, ownerId, ...fieldsToUpdate }) => {
     if (id === undefined || ownerId === undefined) return null;
 
-    const dbPayload: Record<string, unknown> = {};
+    const rawPayload = {
+        ...fieldsToUpdate,
+        ...(fieldsToUpdate.isPinned !== undefined && {
+            pinnedAt: fieldsToUpdate.isPinned && new Date()
+        })
+    };
 
-    if (fieldsToUpdate.label !== undefined) dbPayload.label = fieldsToUpdate.label;
-    if (fieldsToUpdate.details !== undefined) dbPayload.details = fieldsToUpdate.details;
-
-    if (fieldsToUpdate.isPinned !== undefined) {
-        dbPayload.is_pinned = fieldsToUpdate.isPinned;
-        dbPayload.pinned_at = fieldsToUpdate.isPinned ? new Date() : sql`NULL`;
-    }
+    const dbPayload = Object.fromEntries(Object.entries(rawPayload).filter((_, value) => value !== undefined));
 
     if (Object.keys(dbPayload).length === 0) return null;
 

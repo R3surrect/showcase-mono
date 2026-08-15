@@ -1,9 +1,10 @@
 import sql from "#/db.js";
-import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TasksGetOutput } from "./scheduler.types.js";
+import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TasksGetOutput, TaskUpdateOutput } from "./scheduler.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksGetOutput[]>;
 export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
 export type QueryTaskByOwner = (data: TaskDbDeleteInput) => Promise<TaskCreateOutput[]>;
+export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput | null>;
 
 export const findTasksByUserId: QueryTasksByUserId = (userId) =>
     sql<TasksGetOutput[]>`
@@ -52,3 +53,27 @@ export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>
         WHERE id = ${id} and owner_id=${ownerId}
         RETURNING *;
     `;
+
+export const updateTask: UpdateTask = async ({ id, ownerId, ...fieldsToUpdate }) => {
+    if (id === undefined || ownerId === undefined) return null;
+
+    const rawPayload = {
+        ...fieldsToUpdate,
+        ...(fieldsToUpdate.isPinned !== undefined && {
+            pinnedAt: fieldsToUpdate.isPinned && new Date()
+        })
+    };
+
+    const dbPayload = Object.fromEntries(Object.entries(rawPayload).filter((_, value) => value !== undefined));
+
+    if (Object.keys(dbPayload).length === 0) return null;
+
+    const [rows] = await sql<TaskUpdateOutput[]>`
+        UPDATE projects
+        SET ${sql(dbPayload)}
+        WHERE id = ${id} AND owner_id = ${ownerId}
+        RETURNING *
+    `;
+
+    return rows ?? null;
+}

@@ -16,10 +16,10 @@ export const taskCreateDbInputValidation = taskSchema
     .omit(taskEntityOmitFields)
     .extend(hasTagsReferenceMixin);
 
-export const taskCreateOutput = taskSchema
+export const taskCreateOutputSchema = taskSchema
     .omit({
         createdAt: true,
         updatedAt: true,
         ownerId: true,
         pinnedAt: true,
-    })
+    });
