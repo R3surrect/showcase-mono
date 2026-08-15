@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145.00 145.00" data-guides="{&quot;vertical&quot;:[],&quot;horizontal&quot;:[]}"><defs/><path fill="#f9f7f1" stroke="" fill-opacity="1" stroke-width="3" stroke-opacity="0" id="tSvg191fbd48999" title="Path 1" d="M3 37C3 18.2223 18.2223 3 37 3H108C126.7777 3 142 18.2223 142 37V108C142 126.7777 126.7777 142 108 142H37C18.2223 142 3 126.7777 3 108Z" style=""/><path fill="transparent" fill-opacity="1" stroke="#9a8f7e" stroke-opacity="1" stroke-width="8" id="tSvgf4aa4243af" d="M69 24.5207C71.1658 23.2703 73.8342 23.2703 76 24.5207L112.3013 45.4793C114.4671 46.7297 115.8013 49.0406 115.8013 51.5415V93.4585C115.8013 95.9594 114.4671 98.2703 112.3013 99.5207L76 120.4793C73.8342 121.7297 71.1658 121.7297 69 120.4793L32.6987 99.5207C30.5329 98.2703 29.1987 95.9594 29.1987 93.4585V51.5415C29.1987 49.0406 30.5329 46.7297 32.6987 45.4793Z" title="Polygon 1" style=""/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145.00 145.00"
+    data-guides="{&quot;vertical&quot;:[],&quot;horizontal&quot;:[]}">
+    <defs />
+    <path fill="#f9f7f1" stroke="" fill-opacity="1" stroke-width="3" stroke-opacity="0" id="tSvg191fbd48999"
+        title="Path 1"
+        d="M3 37C3 18.2223 18.2223 3 37 3H108C126.7777 3 142 18.2223 142 37V108C142 126.7777 126.7777 142 108 142H37C18.2223 142 3 126.7777 3 108Z"
+        style="" />
+    <path fill="transparent" fill-opacity="1" stroke="#9a8f7e" stroke-opacity="1" stroke-width="8" id="tSvgf4aa4243af"
+        d="M69 24.5207C71.1658 23.2703 73.8342 23.2703 76 24.5207L112.3013 45.4793C114.4671 46.7297 115.8013 49.0406 115.8013 51.5415V93.4585C115.8013 95.9594 114.4671 98.2703 112.3013 99.5207L76 120.4793C73.8342 121.7297 71.1658 121.7297 69 120.4793L32.6987 99.5207C30.5329 98.2703 29.1987 95.9594 29.1987 93.4585V51.5415C29.1987 49.0406 30.5329 46.7297 32.6987 45.4793Z"
+        title="Polygon 1" style="" />
+</svg>

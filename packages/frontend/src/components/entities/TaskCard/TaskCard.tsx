@@ -3,17 +3,8 @@ import Stack from "../Stack/Stack"
 import Surface from "../Surface/Surface"
 import Tag from "../Tag/Tag"
 import Text from "../Text/Text"
-import type { DivUiComponent } from "../_shared/system.types"
-import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types"
 import { colord } from "colord"
-
-interface TaskCardProps extends DivUiComponent {
-    hasSurface?: boolean;
-    tags: TagGetOutput[];
-    deadline: Date;
-    createdAt: Date;
-    statusTagId: number;
-}
+import type { TaskCardProps } from "./TaskCard.types"
 
 const TaskCard = (props: TaskCardProps) => {
     const { hasSurface = true, ...rest } = props;

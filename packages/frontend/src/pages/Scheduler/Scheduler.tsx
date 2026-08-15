@@ -7,11 +7,14 @@ import Stack from "@/components/entities/Stack/Stack"
 import Tag from "@/components/entities/Tag/Tag"
 import TaskCard from "@/components/entities/TaskCard/TaskCard"
 import Text from "@/components/entities/Text/Text"
+import Modal from "@/components/shared/Modal/Modal"
 import { useHintStore } from "@/store/useHintStore"
-
 import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlusCircle } from "lucide-react"
 import { useState } from "react"
+import TaskCreate from "./create"
+import Surface from "@/components/entities/Surface/Surface"
 
+// #region mock
 const MOCK_STAT_TAGS = [
     {
         id: "stat-today",
@@ -38,7 +41,6 @@ const MOCK_STAT_TAGS = [
         color: { h: 12, s: 35, l: 70 },
     },
 ] as const;
-
 const MOCK_TASK_TAGS = [
     {
         id: 21,
@@ -77,13 +79,13 @@ const MOCK_TASK_TAGS = [
 
     },
 ];
-
 const MOCK_TASK_PROPS = {
     createdAt: new Date(2026, 5, 16, 9, 30, 0),
     deadline: new Date(2026, 5, 16, 9, 30, 0),
     statusTagId: 1,
     tags: MOCK_TASK_TAGS,
-};
+} as const;
+// #endregion
 
 const hintId = 'scheduler-page-hint';
 export const Component = () => {
@@ -91,61 +93,61 @@ export const Component = () => {
     const isDismissed = useHintStore(store => store.data[hintId])
     const [selectedDate, setSelectedDate] = useState<Date>();
 
+    const [modalActive, setModalActive] = useState(false);
+
     return (
-        <Stack gap="md">
-            {
-                !isDismissed &&
-                <Banner variant="hint" isClosable onClose={() => dismiss(hintId)} color='var(--warm-green-500)'>
-                    <Text color='var(--warm-green-500)' weight='bolder' size={6}>Быстрый доступ к расписанию:</Text>
-                    <Text color='var(--warm-green-500)' size={6} weight='bold'>Клик по дате справа или тегам сверху сразу отфильтрует вашу ленту задач.</Text>
-                </Banner>
-            }
-            <Stack direction="row" gap="sm" align="center">
+        <>
+            <Stack gap="md">
                 {
-                    MOCK_STAT_TAGS.map((tag) => {
-                        const IconComponent = tag.icon;
-                        return (
-                            <Tag
-                                key={tag.id}
-                                color={tag.color}
-                                type={'default'}
-                            >
-                                <IconComponent size={16} strokeWidth={3} />
-                                <Text weight="bold" color="var(--neutral-750)">{tag.label}</Text>
-                            </Tag>
-                        );
-                    })}
-            </Stack>
-            <ContentHeader
-                title="Планировщик"
-                subElement={<Text color="var(--warm-green-500)">Все задачи</Text>}
-            >
-                <Button size="sm" onClick={() => console.log('create task handler')}>
-                    <Stack align="center" direction="row" gap="md">
-                        <LucidePlusCircle />
-                        Create Task
-                    </Stack>
-                </Button>
-            </ContentHeader>
-            <Grid templateColumns="3fr 1fr">
-                <Stack gap="sm" direction="column">
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
-                    <TaskCard {...MOCK_TASK_PROPS} />
+                    !isDismissed &&
+                    <Banner variant="hint" isClosable onClose={() => dismiss(hintId)} color='var(--warm-green-500)'>
+                        <Text color='var(--warm-green-500)' weight='bolder' size={6}>Quick access to the Scheduler:</Text>
+                        <Text color='var(--warm-green-500)' size={6} weight='bold'>Clicking on the date on the right or the tags at the top will immediately filter your task feed.</Text>
+                    </Banner>
+                }
+                <ContentHeader
+                    title="Планировщик"
+                    subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
+                >
+                    <Button size="sm" onClick={() => setModalActive(true)}>
+                        <Stack align="center" direction="row" gap="md">
+                            <LucidePlusCircle />
+                            Create Task
+                        </Stack>
+                    </Button>
+                </ContentHeader>
+                <Stack direction="row" gap="sm" align="center">
+                    {
+                        MOCK_STAT_TAGS.map((tag) => {
+                            const Icon = tag.icon;
+                            return (
+                                <Tag
+                                    key={tag.id}
+                                    color={tag.color}
+                                    type={'default'}
+                                >
+                                    <Icon size={16} strokeWidth={3} />
+                                    <Text weight="bold" color="var(--neutral-750)">{tag.label}</Text>
+                                </Tag>
+                            );
+                        })}
                 </Stack>
-                <Calendar
-                    mode="single"
-                    onSelect={setSelectedDate}
-                    selected={selectedDate}
-                />
-            </Grid>
-        </Stack>
+                <Grid templateColumns="3fr 1fr">
+                    <Stack gap="sm" direction="column">
+                        <TaskCard {...MOCK_TASK_PROPS} />
+                    </Stack>
+                    <Calendar
+                        mode="single"
+                        onSelect={setSelectedDate}
+                        selected={selectedDate}
+                    />
+                </Grid>
+            </Stack>
+            <Modal isOpen={modalActive} onClose={() => setModalActive(false)}>
+                <Surface height='fit' width='50vw'>
+                    <TaskCreate />
+                </Surface>
+            </Modal>
+        </>
     )
 }

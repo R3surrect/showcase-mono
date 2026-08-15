@@ -6,10 +6,10 @@ interface SelectProps<T> {
     value: T;
     setValue: (value: T) => void;
     children: React.ReactNode;
-    name: string;
+    name?: string;
 }
 
-const Select = <T extends string>({ value, name, setValue, children }: SelectProps<T>) => {
+const Select = <T extends string | number | readonly string[]>({ value, name, setValue, children }: SelectProps<T>) => {
     return <select
         value={value}
         onChange={(e) => setValue(e.target.value as T)}
