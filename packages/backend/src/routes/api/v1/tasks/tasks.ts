@@ -3,10 +3,10 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { taskCreateInputValidation } from "./validations/task.create.js";
 import z from "zod";
-import { createTask, deleteTask, findTasksByUserId, updateTask } from "./scheduler.query.js";
+import { createTask, deleteTask, findTasksByUserId, updateTask } from "./tasks.query.js";
 import { taskUpdateValidation } from "./validations/task.update.js";
 
-export const schedulerRouter = new Hono<AuthEnv>()
+export const tasksRouter = new Hono<AuthEnv>()
     .get('/', async (c) => {
         const tasks = await findTasksByUserId(c.get('user').id);
         return c.json(tasks, 200);

@@ -1,4 +1,4 @@
-import { taskSchema } from "../scheduler.schema.js";
+import { taskSchema } from "../tasks.schema.js";
 
 export const taskDeleteValidation = taskSchema.pick({
     id: true,

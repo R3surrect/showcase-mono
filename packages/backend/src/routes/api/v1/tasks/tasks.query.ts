@@ -1,5 +1,5 @@
 import sql from "#/db.js";
-import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TasksGetOutput, TaskUpdateOutput } from "./scheduler.types.js";
+import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TasksGetOutput, TaskUpdateOutput } from "./tasks.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksGetOutput[]>;
 export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
