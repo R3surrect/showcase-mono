@@ -1,11 +1,18 @@
 import type z from "zod";
 import type { projectSchema } from "./projects.schema.js";
-import type { projectDbUpdateValidation, projectUpdateValidation } from "./validations/project.update.js";
-import type { projectDbDeleteValidation, projectDeleteValidation } from "./validations/project.delete.js";
+import type {
+    projectDbUpdateValidation,
+    projectUpdateOutputSchema,
+    projectUpdateValidation
+} from "./validations/project.update.js";
+import type {
+    projectDbDeleteValidation,
+    projectDeleteValidation
+} from "./validations/project.delete.js";
 import type {
     projectCreateOutputSchema,
     projectCreateDbInputValidation,
-    projectCreateInputValidation
+    projectCreateInputValidation,
 } from "./validations/project.create.js";
 
 //* GENERAL
@@ -24,7 +31,7 @@ export type ProjectCreateOutput = z.infer<typeof projectCreateOutputSchema>;
 //* UPDATE
 export type ProjectUpdateInput = z.infer<typeof projectUpdateValidation>;
 export type ProjectDbUpdateInput = z.infer<typeof projectDbUpdateValidation>;
-export type ProjectUpdateOutput = ProjectCreateOutput;
+export type ProjectUpdateOutput = z.infer<typeof projectUpdateOutputSchema>;
 
 //* DELETE
 export type ProjectDbDeleteInput = z.infer<typeof projectDbDeleteValidation>;

@@ -12,3 +12,8 @@ export const projectDbUpdateValidation = projectSchema
         createdAt: true,
         pinnedAt: true,
     }).partial();
+
+export const projectUpdateOutputSchema = projectSchema.omit({
+    updatedAt: true,
+    ownerId: true,
+});
