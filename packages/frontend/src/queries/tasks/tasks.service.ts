@@ -1,5 +1,5 @@
 import { api } from "@/shared/api/api"
-import type { TaskCreateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
+import type { TaskCreateInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 
 export const TasksService = {
     async getAll() {
