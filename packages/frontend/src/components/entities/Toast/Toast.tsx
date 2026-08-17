@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { LucideCircleCheck, LucideCircleX } from "lucide-react";
 import { FloatingPortal } from "@floating-ui/react";
 import stylesObj from './Toast.module.css';
