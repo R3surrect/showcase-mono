@@ -19,6 +19,7 @@ export const useGetProjectsQuery = () => {
             ]);
             return res;
         },
+        select: data => data.filter(project => !project.isArchived)
     });
 };
 

@@ -13,6 +13,7 @@ import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle
 import { useState } from "react"
 import TaskCreate from "./create"
 import Surface from "@/components/entities/Surface/Surface"
+import useTaskStore from "@/store/useTaskStore"
 
 // #region mock
 const MOCK_STAT_TAGS = [
@@ -95,6 +96,8 @@ export const Component = () => {
 
     const [modalActive, setModalActive] = useState(false);
 
+    const tasks = useTaskStore((store) => store.tasks)
+
     return (
         <>
             <Stack gap="md">
@@ -117,6 +120,7 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
+                    
                     {
                         MOCK_STAT_TAGS.map((tag) => {
                             const Icon = tag.icon;

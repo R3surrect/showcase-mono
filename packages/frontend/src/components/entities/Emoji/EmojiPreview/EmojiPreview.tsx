@@ -4,6 +4,7 @@ import Stack from "@components/entities/Stack/Stack";
 import type { EmojiPreviewProps } from "./EmojiPreview.types";
 
 const EmojiPreview = ({ emoji, setEmoji, ...props }: EmojiPreviewProps) => {
+    // if (!emoji) return null;
     return <div
         className={stylesObj.emojiPreview}
         onContextMenu={(e) => {

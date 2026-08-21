@@ -1,3 +1,5 @@
+import Button from "@/components/entities/Button/Button";
+import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
 import Grid from "@/components/entities/Grid/Grid";
 import Input from "@/components/entities/Input/Input";
 import Select from "@/components/entities/Select/Select";
@@ -5,10 +7,34 @@ import Stack from "@/components/entities/Stack/Stack";
 import TagList from "@/components/entities/TagList/TagList";
 import Text from "@/components/entities/Text/Text";
 import useToast from "@/components/entities/Toast/Toast.hook";
+import { useGetProjectsQuery } from "@/queries/projects/projects.query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import type { Project } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import type { TaskCreateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import { taskCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/tasks/validations/task.create";
+import { LucideCheckCircle2, LucideXCircle } from "lucide-react";
+import { isValidElement } from "react";
 import { Controller, useForm } from "react-hook-form";
+
+type OptionType = Pick<Project, 'id' | 'emoji' | 'label'>;
+
+const Option = ({ id, emoji, label }: OptionType) => {
+    const emojiRender = isValidElement(emoji)
+        ? emoji
+        : <EmojiPreview emoji={String(emoji)} />;
+
+    return <option value={id}>
+        <Stack
+            direction="row"
+            align="center"
+            gap="sm"
+            width="max"
+        >
+            {emoji && emojiRender}
+            <div>{label}</div>
+        </Stack>
+    </option>
+};
 
 const TaskCreate = () => {
     const { pushToast, clearToasts } = useToast();
@@ -18,6 +44,8 @@ const TaskCreate = () => {
         mode: 'onBlur',
         defaultValues: {}
     })
+
+    const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
 
     const onSubmit = (data: TaskCreateInput) => {
         clearToasts();
@@ -43,14 +71,19 @@ const TaskCreate = () => {
                 name="projectId"
                 control={control}
                 render={({ field }) => (
-                    <Select
-                        value={field.value}
-                        setValue={(item: number) => field.onChange(item)}
-                    >
-                        <option value={1}>Project j</option>
-                        <option value={2}>Project k</option>
-                        <option value={3}>Project l</option>
-                        <option value={4}>Project m</option>
+                    <Select {...field} setValue={field.onChange} labelText="Project">
+                        <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
+                        {
+                            !isProjectsLoading &&
+                            projects.map(item =>
+                                <Option
+                                    emoji={item.emoji}
+                                    label={item.label}
+                                    id={item.id}
+                                    key={item.id}
+                                />
+                            )
+                        }
                     </Select>
                 )}
             />
@@ -65,10 +98,21 @@ const TaskCreate = () => {
                 />
             )}
         />
-        <Stack direction="row">
-
+        <Stack direction="row" gap="sm">
+            <Button variant="outline" width="max">
+                <Stack direction="row" align="center">
+                    <LucideXCircle />
+                    Cancel
+                </Stack>
+            </Button>
+            <Button variant="accent" width="max">
+                <Stack direction="row" align="center">
+                    <LucideCheckCircle2 />
+                    Create
+                </Stack>
+            </Button>
         </Stack>
-    </Stack>
+    </Stack >
 }
 
 export default TaskCreate;

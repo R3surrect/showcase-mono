@@ -65,7 +65,7 @@ export const Component = () => {
                     isOpen={pageState.type !== 'idle'}
                     onClose={() => setPageState({ type: 'idle' })}
                 >
-                    <Surface height='fit' width='50vw' >
+                    <Surface height='90vh' width='50vw' overflow='auto'>
                         {
                             (selectedProject && pageState.type === 'view') &&
                             <Surface

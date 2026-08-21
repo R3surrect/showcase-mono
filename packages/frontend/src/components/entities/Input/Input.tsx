@@ -1,4 +1,3 @@
-import { useId, useState } from 'react';
 import { Eye, EyeClosed, LucideSmile } from 'lucide-react';
 
 import stylesObj from "./Input.module.css";
@@ -10,6 +9,7 @@ import Button from '@components/entities/Button/Button';
 import Popover from '@components/shared/Popover/Popover';
 import EmojiPicker from '@components/entities/Emoji/EmojiPicker/EmojiPicker';
 import { unifiedToEmoji } from '@components/entities/Emoji/EmojiPicker/EmojiPicker.constants';
+import { useInputComponent } from './useInputComponent';
 
 const Input = ({
     disabled = false,
@@ -26,24 +26,29 @@ const Input = ({
 }: InputProps) => {
     const Icon = icon;
 
-    const [isPasswordHidden, setIsPasswordHidden] = useState(true);
-    const [text, setText] = useState('');
-
-    const genId = useId();
-    const controlId = id || genId;
-
-    const isPassword = (type === 'password');
-    const inputType = isPassword
-        ? (isPasswordHidden ? 'password' : 'text')
-        : type;
-
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+    const {
+        isPasswordHidden,
+        setIsPasswordHidden,
+        text,
+        setText,
+        controlId,
+        inputType,
+        isPopoverOpen,
+        setIsPopoverOpen,
+        isPassword,
+    } = useInputComponent({ id: id, type: type });
 
     const emojiButtonRender = (
         <Button variant='transparent' size='none'>
             <LucideSmile stroke='var(--neutral-500)' />
         </Button>
     )
+
+    const eyeProps = {
+        className: stylesObj.additionalElement,
+        onClick: () => setIsPasswordHidden(!isPasswordHidden),
+        stroke: 'var(--neutral-500)',
+    }
 
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
@@ -80,16 +85,8 @@ const Input = ({
                 />
                 {type === 'password' && (
                     isPasswordHidden
-                        ? <EyeClosed
-                            className={stylesObj.additionalElement}
-                            onClick={() => setIsPasswordHidden(!isPasswordHidden)}
-                            stroke='var(--neutral-500)'
-                        />
-                        : <Eye
-                            className={stylesObj.additionalElement}
-                            onClick={() => setIsPasswordHidden(!isPasswordHidden)}
-                            stroke='var(--neutral-500)'
-                        />
+                        ? <EyeClosed {...eyeProps} />
+                        : <Eye {...eyeProps} />
                 )}
                 {
                     hasEmojiPicker &&
