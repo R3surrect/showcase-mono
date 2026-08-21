@@ -66,7 +66,7 @@ const TagList = (props: TagListProps) => {
             </Stack>
 
             <Stack direction="column" gap="md" align="start" width="max">
-                <Surface width="max" height="auto">
+                <Surface width="max" height="15rem">
                     <Stack gap="md" width="max">
                         <Stack direction="row" align="center" gap="sm" width="max">
                             {

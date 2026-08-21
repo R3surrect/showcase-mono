@@ -1,1 +1,1 @@
-export const INPUT_TYPE_TYPES = ["text", "password", "email", "tel", "number"] as const;
+export const INPUT_TYPE_TYPES = ["text", "password", "email", "tel", "number", "date", 'datetime-local'] as const;

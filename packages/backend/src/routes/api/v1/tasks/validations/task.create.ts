@@ -1,4 +1,4 @@
-import { taskSchema } from "../scheduler.schema.js";
+import { taskSchema } from "../tasks.schema.js";
 import { archivableEntityFields, baseEntityFields, hasTagsReferenceMixin, pinnableEntityFields } from "#/shared/validations/mixins.js";
 
 export const taskEntityOmitFields = {

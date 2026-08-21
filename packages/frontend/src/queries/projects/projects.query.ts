@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ProjectCreateInput, ProjectUpdateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
-import { ProjectService } from "./projects.service";
+import { ProjectsService } from "./projects.service";
 import useToast from "@/components/entities/Toast/Toast.hook";
 
 export const projectsKeys = { all: ['projects'] as const };
@@ -14,11 +14,12 @@ export const useGetProjectsQuery = () => {
 
         queryFn: async () => {
             const [res] = await Promise.all([
-                ProjectService.getAll(),
+                ProjectsService.getAll(),
                 new Promise(resolve => setTimeout(resolve, 500))
             ]);
             return res;
         },
+        select: data => data.filter(project => !project.isArchived)
     });
 };
 
@@ -27,7 +28,7 @@ export const useUpdateProjectsQuery = () => {
     const { pushToast } = useToast();
 
     return useMutation({
-        mutationFn: async (data: ProjectUpdateInput) => ProjectService.updateProject(data),
+        mutationFn: async (data: ProjectUpdateInput) => ProjectsService.updateProject(data),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
         onError: (error) => pushToast({
             text: `${error}`,
@@ -43,7 +44,7 @@ export const useCreateProjectQuery = () => {
     const { pushToast } = useToast();
 
     return useMutation({
-        mutationFn: async (newProject: ProjectCreateInput) => await ProjectService.createProject(newProject),
+        mutationFn: async (newProject: ProjectCreateInput) => await ProjectsService.createProject(newProject),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: projectsKeys.all }),
         onError: (error) => pushToast({
             text: `${error}`,

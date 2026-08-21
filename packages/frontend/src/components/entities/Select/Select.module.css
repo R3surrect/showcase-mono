@@ -1,10 +1,12 @@
 .select {
-    min-width: 12rem;
+    min-width: 16ch;
     appearance: base-select;
     outline: none;
     border: 1px solid var(--neutral-550);
     border-radius: var(--border-radius-15);
     padding: 0 .7rem;
+    height: fit-content;
+
 }
 
 .select button {
@@ -13,7 +15,6 @@
     padding: 0;
     margin: 0;
     width: 100%;
-
     color: var(--cold-blue-gray-400)
 }
 
@@ -54,4 +55,8 @@
 
 .select:open svg {
     rotate: 90deg;
+}
+
+.select > option::checkmark {
+    display: none;
 }

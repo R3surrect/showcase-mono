@@ -1,5 +1,5 @@
 import type z from "zod";
-import type { taskSchema } from "./scheduler.schema.js";
+import type { taskSchema } from "./tasks.schema.js";
 import type {
     taskCreateDbInputValidation,
     taskCreateInputValidation,

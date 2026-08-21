@@ -32,7 +32,7 @@ export const ROOT_ROUTES: SubRouteConfig = {
     },
     {
       path: '/scheduler',
-      lazy: () => import('@/pages/Scheduler/Scheduler.tsx')
+      lazy: () => import('@/pages/Scheduler/Scheduler')
     },
     {
       path: '/templates',
