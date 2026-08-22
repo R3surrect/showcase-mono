@@ -11,9 +11,9 @@ import Modal from "@/components/shared/Modal/Modal"
 import { useHintStore } from "@/store/useHintStore"
 import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlusCircle } from "lucide-react"
 import { useState } from "react"
-import TaskCreate from "./create"
+import TaskCreateForm from "./create"
 import Surface from "@/components/entities/Surface/Surface"
-import useTaskStore from "@/store/useTaskStore"
+import { useGetTasksQuery } from "@/queries/tasks/task.query"
 
 // #region mock
 const MOCK_STAT_TAGS = [
@@ -93,10 +93,10 @@ export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
     const [selectedDate, setSelectedDate] = useState<Date>();
-
     const [modalActive, setModalActive] = useState(false);
 
-    const tasks = useTaskStore((store) => store.tasks)
+    const { data: tasks } = useGetTasksQuery();
+    console.log(tasks);
 
     return (
         <>
@@ -120,7 +120,6 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
-                    
                     {
                         MOCK_STAT_TAGS.map((tag) => {
                             const Icon = tag.icon;
@@ -149,7 +148,7 @@ export const Component = () => {
             </Stack>
             <Modal isOpen={modalActive} onClose={() => setModalActive(false)}>
                 <Surface height='fit' width='50vw'>
-                    <TaskCreate />
+                    <TaskCreateForm />
                 </Surface>
             </Modal>
         </>
