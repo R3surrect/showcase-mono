@@ -7,11 +7,13 @@ import { createTask, deleteTask, findTasksByUserId, updateTask } from "./tasks.q
 import { taskUpdateValidation } from "./validations/task.update.js";
 
 export const tasksRouter = new Hono<AuthEnv>()
-    .get('/', async (c) => {
-        const tasks = await findTasksByUserId(c.get('user').id);
-        return c.json(tasks, 200);
-    })
+    .get('/',
+        async (c) => {
+            const tasks = await findTasksByUserId(c.get('user').id);
+            return c.json(tasks, 200);
+        })
     .post(
+        '/',
         zValidator(
             'json',
             taskCreateInputValidation,
@@ -37,7 +39,8 @@ export const tasksRouter = new Hono<AuthEnv>()
             else return c.json({ message: 'Task not found' }, 404);
         }
     )
-    .patch('/:id',
+    .patch(
+        '/:id',
         zValidator('json', taskUpdateValidation),
         async (c) => {
             const taskId = Number(c.req.param('id'));
