@@ -5,11 +5,9 @@ import type { TagType } from "@showcase-mono/backend/routes/api/v1/templates/tag
 
 export type Variants = typeof VARIANT_TYPES[number];
 
-export interface GeneralProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> {
+export interface TagProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> {
     width?: AxisSizeVariations;
     variant?: Variants;
-}
-export interface TagProps extends GeneralProps {
     id?: number;
     isSystem?: boolean;
     isEditable?: boolean;

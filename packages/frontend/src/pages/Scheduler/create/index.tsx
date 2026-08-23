@@ -2,20 +2,17 @@ import Button from "@/components/entities/Button/Button";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
 import Grid from "@/components/entities/Grid/Grid";
 import Input from "@/components/entities/Input/Input";
+import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
 import Select from "@/components/entities/Select/Select";
 import Stack from "@/components/entities/Stack/Stack";
+import Tag from "@/components/entities/Tag/Tag";
 import TagList from "@/components/entities/TagList/TagList";
 import Text from "@/components/entities/Text/Text";
-import useToast from "@/components/entities/Toast/Toast.hook";
-import { useGetProjectsQuery } from "@/queries/projects/projects.query";
-import { useCreateTaskQuery } from "@/queries/tasks/task.query";
-import { zodResolver } from "@hookform/resolvers/zod";
 import type { Project } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
-import type { TaskCreateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
-import { taskCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/tasks/validations/task.create";
 import { LucideCheckCircle2 } from "lucide-react";
 import { isValidElement } from "react";
-import { Controller, useForm, type SubmitErrorHandler } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { useCreateTaskPage } from "./useCreateTaskPage";
 
 type OptionType = Pick<Project, 'id' | 'emoji' | 'label'>;
 
@@ -37,44 +34,26 @@ const Option = ({ id, emoji, label }: OptionType) => {
     </option>
 };
 
-const TaskCreateForm = () => {
-    const { pushToast, clearToasts } = useToast();
-    const { mutate: createTask } = useCreateTaskQuery();
+export interface TaskCreateFormProps {
+    selectedDate?: Date;
+    setSelectedDate: (selectedDate: Date) => void;
+}
 
-    const { register, handleSubmit, control, formState: { isSubmitting } } = useForm({
-        resolver: zodResolver(taskCreateInputValidation),
-        mode: 'onBlur',
-        defaultValues: {}
-    })
-
-    const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
-
-    const onSubmit = (data: TaskCreateInput) => {
-        clearToasts();
-        createTask(data);
-
-        pushToast({
-            text: `Task ${data.label} created`,
-            type: 'popup',
-            label: 'Task created',
-            status: 'success'
-        });
-    }
-
-    const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
-        clearToasts();
-
-        Object.entries(errors).forEach(([fieldName, error]) => {
-            if (error?.message) {
-                pushToast({
-                    text: `${fieldName}: ${error.message}`,
-                    type: 'popup',
-                    label: 'Validation error',
-                    status: 'error'
-                });
-            }
-        });
-    }
+const TaskCreateForm = ({ selectedDate, setSelectedDate }: TaskCreateFormProps) => {
+    const {
+        register,
+        handleSubmit,
+        control,
+        isSubmitting,
+        projects,
+        isProjectsLoading,
+        priorities,
+        isPrioritiesLoading,
+        statuses,
+        isStatusesLoading,
+        onSubmit,
+        onError,
+    } = useCreateTaskPage(selectedDate);
 
     return <form onSubmit={handleSubmit(onSubmit, onError)}>
         <Stack>
@@ -82,7 +61,7 @@ const TaskCreateForm = () => {
             <Input labelText="Title" placeholder="Task label" {...register('label')} />
             <Input labelText="Description" placeholder="Task description" {...register('details')} />
             <Grid columns={2} >
-                <Input labelText="Deadline datetime" type="date" {...register('deadline')} />
+                <Input labelText="Deadline datetime" type="date" value={selectedDate?.toISOString()} {...register('deadline')} />
                 <Input labelText="Notify datetime" type="datetime-local" {...register('notifyAt')} />
                 <Controller
                     name="projectId"
@@ -105,6 +84,54 @@ const TaskCreateForm = () => {
                     )}
                 />
             </Grid>
+            <Controller
+                name="priorityTagId"
+                control={control}
+                render={({ field }) => (
+                    <SegmentedPicker label="Priorities:">
+                        {
+                            isPrioritiesLoading
+                                ? '...loading'
+                                : priorities.map((item) =>
+                                    <Tag
+                                        key={item.id}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        {...item}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                )
+                        }
+                    </SegmentedPicker>
+                )}
+            />
+            <Controller
+                name="statusTagId"
+                control={control}
+                render={({ field }) => (
+                    <SegmentedPicker label="Status:">
+                        {
+                            isStatusesLoading
+                                ? '...loading'
+                                : statuses.map((item) =>
+                                    <Tag
+                                        key={item.id}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        {...item}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                )
+                        }
+                    </SegmentedPicker>
+                )}
+            />
             <Controller
                 name="tagIds"
                 control={control}

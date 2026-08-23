@@ -92,7 +92,7 @@ const hintId = 'scheduler-page-hint';
 export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
-    const [selectedDate, setSelectedDate] = useState<Date>();
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [modalActive, setModalActive] = useState(false);
 
     const { data: tasks } = useGetTasksQuery();
@@ -148,7 +148,7 @@ export const Component = () => {
             </Stack>
             <Modal isOpen={modalActive} onClose={() => setModalActive(false)}>
                 <Surface height='fit' width='50vw'>
-                    <TaskCreateForm />
+                    <TaskCreateForm selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
                 </Surface>
             </Modal>
         </>
