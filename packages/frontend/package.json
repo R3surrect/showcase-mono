@@ -23,6 +23,7 @@
     "autoprefixer": "^10.4.22",
     "clsx": "^2.1.1",
     "colord": "^2.9.3",
+    "dayjs": "^1.11.23",
     "emoji-picker-react": "^4.19.1",
     "lucide-react": "^1.0.0",
     "motion": "^13.0.0",

@@ -148,7 +148,7 @@ export const Component = () => {
             </Stack>
             <Modal isOpen={modalActive} onClose={() => setModalActive(false)}>
                 <Surface height='fit' width='50vw'>
-                    <TaskCreateForm selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                    <TaskCreateForm selectedDate={selectedDate} />
                 </Surface>
             </Modal>
         </>

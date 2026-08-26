@@ -36,10 +36,9 @@ const Option = ({ id, emoji, label }: OptionType) => {
 
 export interface TaskCreateFormProps {
     selectedDate?: Date;
-    setSelectedDate: (selectedDate: Date) => void;
 }
 
-const TaskCreateForm = ({ selectedDate, setSelectedDate }: TaskCreateFormProps) => {
+const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
     const {
         register,
         handleSubmit,
@@ -53,6 +52,7 @@ const TaskCreateForm = ({ selectedDate, setSelectedDate }: TaskCreateFormProps) 
         isStatusesLoading,
         onSubmit,
         onError,
+        maxNotifyDate
     } = useCreateTaskPage(selectedDate);
 
     return <form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -60,9 +60,18 @@ const TaskCreateForm = ({ selectedDate, setSelectedDate }: TaskCreateFormProps) 
             <Text size={5} color="var(--monochrome-800)">New task</Text>
             <Input labelText="Title" placeholder="Task label" {...register('label')} />
             <Input labelText="Description" placeholder="Task description" {...register('details')} />
-            <Grid columns={2} >
-                <Input labelText="Deadline datetime" type="date" value={selectedDate?.toISOString()} {...register('deadline')} />
-                <Input labelText="Notify datetime" type="datetime-local" {...register('notifyAt')} />
+            <Grid columns={2}>
+                <Input
+                    labelText="Deadline datetime"
+                    type="date"
+                    {...register('deadline')}
+                />
+                <Input
+                    labelText="Notify datetime"
+                    type="datetime-local"
+                    max={maxNotifyDate}
+                    {...register('notifyAt')}
+                />
                 <Controller
                     name="projectId"
                     control={control}
