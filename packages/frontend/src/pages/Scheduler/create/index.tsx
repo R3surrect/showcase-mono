@@ -1,6 +1,9 @@
+import { isValidElement } from "react";
+import { Controller } from "react-hook-form";
+import { LucideCheckCircle2 } from "lucide-react";
+import dayjs from "dayjs";
 import Button from "@/components/entities/Button/Button";
 import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
-import Grid from "@/components/entities/Grid/Grid";
 import Input from "@/components/entities/Input/Input";
 import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
 import Select from "@/components/entities/Select/Select";
@@ -8,13 +11,9 @@ import Stack from "@/components/entities/Stack/Stack";
 import Tag from "@/components/entities/Tag/Tag";
 import TagList from "@/components/entities/TagList/TagList";
 import Text from "@/components/entities/Text/Text";
-import type { Project } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
-import { LucideCheckCircle2 } from "lucide-react";
-import { isValidElement } from "react";
-import { Controller } from "react-hook-form";
 import { useCreateTaskPage } from "./useCreateTaskPage";
+import type { OptionType, TaskCreateFormProps } from "./types";
 
-type OptionType = Pick<Project, 'id' | 'emoji' | 'label'>;
 
 const Option = ({ id, emoji, label }: OptionType) => {
     const emojiRender = isValidElement(emoji)
@@ -34,10 +33,6 @@ const Option = ({ id, emoji, label }: OptionType) => {
     </option>
 };
 
-export interface TaskCreateFormProps {
-    selectedDate?: Date;
-}
-
 const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
     const {
         register,
@@ -52,31 +47,41 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
         isStatusesLoading,
         onSubmit,
         onError,
-        maxNotifyDate
     } = useCreateTaskPage(selectedDate);
 
     return <form onSubmit={handleSubmit(onSubmit, onError)}>
         <Stack>
             <Text size={5} color="var(--monochrome-800)">New task</Text>
-            <Input labelText="Title" placeholder="Task label" {...register('label')} />
-            <Input labelText="Description" placeholder="Task description" {...register('details')} />
-            <Grid columns={2}>
+            <Input
+                labelText="Title"
+                placeholder="Task label"
+                {...register('label')}
+            />
+            <Input
+                labelText="Description"
+                placeholder="Task description"
+                {...register('details')}
+            />
+            <Stack direction="row">
                 <Input
                     labelText="Deadline datetime"
+                    min={dayjs().format('YYYY-MM-DD')}
                     type="date"
                     {...register('deadline')}
+                    width='max'
                 />
                 <Input
                     labelText="Notify datetime"
                     type="datetime-local"
-                    max={maxNotifyDate}
                     {...register('notifyAt')}
+                    min={dayjs().add(5, 'minute').format('YYYY-MM-DDTHH:mm')}
+                    width='100%'
                 />
                 <Controller
                     name="projectId"
                     control={control}
                     render={({ field }) => (
-                        <Select {...field} setValue={field.onChange} labelText="Project">
+                        <Select {...field} setValue={(id) => { console.log(id); field.onChange(id) }} labelText="Project">
                             <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
                             {
                                 !isProjectsLoading &&
@@ -92,7 +97,7 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
                         </Select>
                     )}
                 />
-            </Grid>
+            </Stack>
             <Controller
                 name="priorityTagId"
                 control={control}
@@ -152,7 +157,12 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
                 )}
             />
             <Stack direction="row" gap="sm">
-                <Button variant="accent" width="max" type="submit" disabled={isSubmitting || isProjectsLoading}>
+                <Button
+                    variant="accent"
+                    width="max"
+                    type="submit"
+                    disabled={isSubmitting || isProjectsLoading}
+                >
                     <Stack direction="row" align="center">
                         <LucideCheckCircle2 />
                         Create

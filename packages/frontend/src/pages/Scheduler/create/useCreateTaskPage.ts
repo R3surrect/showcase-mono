@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useWatch, type SubmitErrorHandler } from "react-hook-form";
+import { useForm, type SubmitErrorHandler } from "react-hook-form";
 
 import useToast from "@/components/entities/Toast/Toast.hook";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
@@ -15,11 +15,11 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
     const { mutate: createTask } = useCreateTaskQuery();
 
     const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DD');
-    const defaultNotifyAt = dayjs(selectedDate).subtract(1, 'day').format('YYYY-MM-DD 09:00:00');
+    const defaultNotifyAt = dayjs(selectedDate).add(5, 'minute').format('YYYY-MM-DDTHH:mm');
 
     const { register, handleSubmit, control, formState: { isSubmitting } } = useForm({
         resolver: zodResolver(taskCreateInputValidation),
-        mode: 'onBlur',
+        mode: 'onChange',
 
         defaultValues: {
             deadline: defaultDeadline,
@@ -27,18 +27,17 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
         }
     })
 
-    const currentDeadline = useWatch({
-        control,
-        name: 'deadline'
-    });
-
-    const maxNotifyDate = dayjs(currentDeadline).subtract(1, 'day').format('YYYY-MM-DDTHH:mm');
-
     const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
     const { isLoading: isPrioritiesLoading, data: priorities = [] } = useGetPrioritiesQuery();
     const { isLoading: isStatusesLoading, data: statuses = [] } = useGetStatusesQuery('task');
 
-    const onSubmit = (data: TaskCreateInput) => {
+    const onSubmit = (rawData: TaskCreateInput) => {
+        const data: TaskCreateInput = {
+            ...rawData,
+            deadline: dayjs(rawData.deadline).toISOString(),
+            notifyAt: dayjs(rawData.notifyAt).toISOString(),
+        }
+
         clearToasts();
         createTask(data);
 
@@ -78,6 +77,5 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
         isStatusesLoading,
         onSubmit,
         onError,
-        maxNotifyDate
     }
 }
