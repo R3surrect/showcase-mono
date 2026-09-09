@@ -1,5 +1,11 @@
 {
     "version": "2.0.0",
+    "options": {
+        "shell": {
+            "executable": "fish",
+            "args": ["-c"] 
+        }
+    },
     "tasks": [
         {
             "label": "pnpm",
@@ -18,7 +24,7 @@
         {
             "label": "docker",
             "type": "shell",
-            "command": "sleep 1 && clear && start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\" -headless && until docker info >/dev/null 2>&1; do sleep 2; done; cd packages/backend && docker compose up -d && docker compose logs -f --tail=100 || read",
+            "command": "systemctl start docker && until docker info >/dev/null 2>&1; do sleep 2; done; cd packages/backend && docker compose up -d && docker compose logs -f --tail=100 || read",
             "problemMatcher": [],
             "presentation": {
                 "group": "dev-group",
@@ -32,7 +38,7 @@
         {
             "label": "git",
             "type": "shell",
-            "command": "sleep 2 && clear && exec bash",
+            "command": "sleep 2 && clear && fish",
             "problemMatcher": [],
             "presentation": {
                 "group": "dev-group",
@@ -43,27 +49,27 @@
                 "color": "terminal.ansiGreen"
             }
         },
-        {
-            "label": "verdaccio",
-            "type": "shell",
-            "command": "sleep 3 && clear && verdaccio",
-            "problemMatcher": [],
-            "presentation": {
-                "group": "dev-group",
-                "panel": "dedicated"
-            },
-            "icon": {
-                "id": "radio-tower",
-                "color": "terminal.ansiCyan"
-            }
-        },
+        // {
+        //     "label": "verdaccio",
+        //     "type": "shell",
+        //     "command": "sleep 3 && clear && verdaccio",
+        //     "problemMatcher": [],
+        //     "presentation": {
+        //         "group": "dev-group",
+        //         "panel": "dedicated"
+        //     },
+        //     "icon": {
+        //         "id": "radio-tower",
+        //         "color": "terminal.ansiCyan"
+        //     }
+        // },
         {
             "label": "Start All Terminals",
             "dependsOn": [
                 "pnpm",
                 "docker",
                 "git",
-                "verdaccio"
+                // "verdaccio"
             ],
             "dependsOrder": "parallel",
             "problemMatcher": [],

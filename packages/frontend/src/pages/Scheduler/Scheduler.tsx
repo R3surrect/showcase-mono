@@ -13,7 +13,7 @@ import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle
 import { useState } from "react"
 import TaskCreateForm from "./create"
 import Surface from "@/components/entities/Surface/Surface"
-import { useGetTasksQuery } from "@/queries/tasks/task.query"
+// import { useGetTasksQuery } from "@/queries/tasks/task.query"
 
 // #region mock
 const MOCK_STAT_TAGS = [
@@ -95,8 +95,8 @@ export const Component = () => {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [modalActive, setModalActive] = useState(false);
 
-    const { data: tasks } = useGetTasksQuery();
-    console.log(tasks);
+    // const { data: tasks } = useGetTasksQuery();
+    // console.log(tasks);
 
     return (
         <>
