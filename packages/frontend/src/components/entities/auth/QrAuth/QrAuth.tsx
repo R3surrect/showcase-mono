@@ -1,4 +1,4 @@
-import styledObj from "./qrAuth.module.css"
+import styledObj from "./QrAuth.module.css"
 
 const QrAuth = ({ text }: { text: string }) => {
     return <div className={styledObj.QrAuth}>
