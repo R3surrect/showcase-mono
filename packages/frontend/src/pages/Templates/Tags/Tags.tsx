@@ -25,7 +25,7 @@ import TagList from '@/components/entities/TagList/TagList'
 export const Component = () => {
     const { pushToast, clearToasts } = useToast()
 
-    const { register, handleSubmit, control, formState: { isSubmitting: isTagSubmitting } } = useForm({
+    const { register, handleSubmit, control, getValues, formState: { isSubmitting: isTagSubmitting } } = useForm({
         resolver: zodResolver(tagCreateInputValidation),
         mode: 'onBlur',
         defaultValues: { color: DEFAULT_COLOR.color }
@@ -40,6 +40,7 @@ export const Component = () => {
 
     const onError: SubmitErrorHandler<TagCreateInput> = (errors) => {
         clearToasts();
+        console.log(getValues());
 
         Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {

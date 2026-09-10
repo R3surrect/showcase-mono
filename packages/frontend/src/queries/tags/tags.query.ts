@@ -65,7 +65,10 @@ export const useCreateTagQuery = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (newTag: TagCreateInput) => await TagsService.createTag(newTag),
+        mutationFn: async (newTag: TagCreateInput) => {
+            console.log(newTag);
+            await TagsService.createTag(newTag)
+        },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: tagsKeys.all });
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });

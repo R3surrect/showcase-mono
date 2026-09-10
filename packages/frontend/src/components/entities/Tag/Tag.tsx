@@ -20,7 +20,6 @@ const Tag = (props: TagProps) => {
         onDeleteAction,
         ...rest
     } = props;
-
     const tagId = isSystem ? genId : `${id}`;
 
     return <div
