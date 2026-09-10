@@ -67,7 +67,7 @@ export const updateProject: UpdateProject = async ({ id, ownerId, ...fieldsToUpd
     const rawPayload = {
         ...fieldsToUpdate,
         ...(fieldsToUpdate.isPinned !== undefined && {
-            pinnedAt: fieldsToUpdate.isPinned && new Date()
+            pinnedAt: fieldsToUpdate.isPinned ? new Date() : null
         })
     };
 

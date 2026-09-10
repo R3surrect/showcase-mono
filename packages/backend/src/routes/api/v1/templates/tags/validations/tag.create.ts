@@ -24,7 +24,7 @@ export const tagCreateInputValidation = tagSchema
     .refine(
         (data) => data.category.trim().toLowerCase() !== 'system',
         {
-            message: 'Access denied: The "system" category cannot be created or modified',
+            message: 'The "system" category cannot be created or modified',
             path: ['category']
         }
     );
