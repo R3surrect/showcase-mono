@@ -14,10 +14,10 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
     const { pushToast, clearToasts } = useToast();
     const { mutate: createTask } = useCreateTaskQuery();
 
-    const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DD');
+    const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
     const defaultNotifyAt = dayjs(selectedDate).add(5, 'minute').format('YYYY-MM-DDTHH:mm');
 
-    const { register, handleSubmit, control, formState: { isSubmitting } } = useForm({
+    const { register, handleSubmit, getValues, control, formState: { isSubmitting, isDirty } } = useForm({
         resolver: zodResolver(taskCreateInputValidation),
         mode: 'onChange',
 
@@ -50,6 +50,7 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
     }
 
     const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
+        console.log(getValues());
         clearToasts();
 
         Object.entries(errors).forEach(([fieldName, error]) => {
@@ -77,5 +78,6 @@ export const useCreateTaskPage = (selectedDate: Date | undefined) => {
         isStatusesLoading,
         onSubmit,
         onError,
+        isDirty
     }
 }

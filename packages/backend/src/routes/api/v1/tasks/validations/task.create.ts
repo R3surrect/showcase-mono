@@ -1,6 +1,5 @@
 import { taskSchema } from "../tasks.schema.js";
 import { archivableEntityFields, baseEntityFields, hasTagsReferenceMixin, pinnableEntityFields } from "#/shared/validations/mixins.js";
-import z from "zod";
 
 export const taskEntityOmitFields = {
     ...baseEntityFields,

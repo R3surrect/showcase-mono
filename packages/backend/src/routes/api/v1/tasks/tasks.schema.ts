@@ -9,7 +9,7 @@ export const taskSchema = z.object({
         .trim(),
 
     details: z.string().nullable(),
-    deadline: z.date().or(z.iso.datetime({ local: true })).nullable(),
+    deadline: z.iso.datetime({ local: true }).nullable(),
     projectId: z.number().int().positive(),
     priorityTagId: z.number().int().positive(),
     statusTagId: z.number().int().positive(),

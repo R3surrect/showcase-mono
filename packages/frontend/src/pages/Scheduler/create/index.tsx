@@ -24,7 +24,7 @@ const Option = ({ id, emoji, label }: OptionType) => {
         <Stack
             direction="row"
             align="center"
-            gap="sm"
+            gap="md"
             width="max"
         >
             {emoji && emojiRender}
@@ -65,8 +65,8 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
             <Stack direction="row">
                 <Input
                     labelText="Deadline datetime"
-                    min={dayjs().format('YYYY-MM-DD')}
-                    type="date"
+                    min={dayjs().format('YYYY-MM-DDTHH:mm')}
+                    type="datetime-local"
                     {...register('deadline')}
                     width='max'
                 />
@@ -81,7 +81,7 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
                     name="projectId"
                     control={control}
                     render={({ field }) => (
-                        <Select {...field} setValue={(id) => { console.log(id); field.onChange(id) }} labelText="Project">
+                        <Select {...field} setValue={(id) => field.onChange(id) } labelText="Project">
                             <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
                             {
                                 !isProjectsLoading &&
