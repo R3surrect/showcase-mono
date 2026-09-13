@@ -1,16 +1,17 @@
-import { useId } from 'react';
+import React, { useId, type ComponentPropsWithRef } from 'react';
 import { LucideChevronRight } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
 import stylesObj from './Select.module.css';
 import Text from '@components/entities/Text/Text';
 
-interface SelectProps {
+interface SelectProps extends ComponentPropsWithRef<'select'> {
     id?: string;
     value: string | number;
-    setValue: (value: string) => void;
+    setValue: (value: string | number) => void;
     children: React.ReactNode;
     name?: string;
     labelText?: string;
+    ref?: React.Ref<HTMLSelectElement>;
 }
 
 const Select = ({ id, value, name, setValue, labelText, children }: SelectProps) => {
@@ -31,8 +32,12 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                 </Text>
             )}
             <select
-                value={String(value)}
-                onChange={(e) => setValue(e.target.value)}
+                value={value}
+                onChange={(e) => {
+                    if (typeof value !== 'string') return setValue(Number(e.target.value));
+
+                    return setValue(e.target.value);
+                }}
                 className={stylesObj.select}
                 id={controlId}
                 name={name}

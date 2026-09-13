@@ -14,7 +14,6 @@ import Text from "@/components/entities/Text/Text";
 import { useCreateTaskPage } from "./useCreateTaskPage";
 import type { OptionType, TaskCreateFormProps } from "./types";
 
-
 const Option = ({ id, emoji, label }: OptionType) => {
     const emojiRender = isValidElement(emoji)
         ? emoji
@@ -81,7 +80,16 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
                     name="projectId"
                     control={control}
                     render={({ field }) => (
-                        <Select {...field} setValue={(id) => field.onChange(id) } labelText="Project">
+                        <Select
+                            name={field.name}
+                            onBlur={field.onBlur}
+                            ref={field.ref}
+                            disabled={field.disabled}
+                            value={field.value ?? 0}
+                            // value={field.value}
+                            labelText="Project"
+                            setValue={(id) => field.onChange(id)}
+                        >
                             <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
                             {
                                 !isProjectsLoading &&
