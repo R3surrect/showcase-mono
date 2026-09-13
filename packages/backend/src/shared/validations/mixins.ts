@@ -18,5 +18,5 @@ export const archivableEntityFields = {
 
 // *-- Zod mixins
 export const hasTagsReferenceMixin = {
-    tagIds: z.array(z.number().positive()).default([]),
+    tagIds: z.array(z.number().positive()).nullish().transform((val) => val ?? []),
 };

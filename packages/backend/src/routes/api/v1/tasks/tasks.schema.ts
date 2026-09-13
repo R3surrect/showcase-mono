@@ -10,7 +10,14 @@ export const taskSchema = z.object({
 
     details: z.string().nullable(),
     deadline: z.iso.datetime({ local: true }).nullable(),
-    projectId: z.number().int().positive(),
+    projectId: z.union([
+        z.number().int().nonnegative(),
+        z.string(),
+        z.undefined(),
+        z.null(),
+        z.nan()
+    ]).transform(val => (val ? Number(val) : null)),
+
     priorityTagId: z.number().int().positive(),
     statusTagId: z.number().int().positive(),
     notifyAt: z.date().or(z.iso.datetime({ local: true })).nullable(),

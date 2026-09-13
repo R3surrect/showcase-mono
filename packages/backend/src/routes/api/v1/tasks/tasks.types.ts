@@ -22,6 +22,7 @@ export type TaskOwnerId = Task['ownerId'];
 export type TasksGetOutput = Omit<Task, 'ownerId' | 'updatedAt'>;
 
 export type TaskCreateInput = z.infer<typeof taskCreateInputValidation>;
+export type TaskCreateInputDirty = z.input<typeof taskCreateInputValidation>;
 export type TaskDbCreateInput = z.infer<typeof taskCreateDbInputValidation>;
 
 // export type TaskDeleteInput = Pick<Task, 'id'>;
