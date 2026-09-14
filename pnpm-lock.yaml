@@ -82,7 +82,7 @@ importers:
         version: 2.10.0
       emoji-picker-react:
         specifier: ^4.19.1
-        version: 4.20.1(react@19.2.8)
+        version: 4.22.2(react@19.2.8)
       lucide-react:
         specifier: ^1.0.0
         version: 1.41.0(react@19.2.8)
@@ -2019,11 +2019,11 @@ packages:
   electron-to-chromium@1.5.407:
     resolution: {integrity: sha512-4R8XgQOdfxexCd/u63lRm6wCHjECwI45MV9wxAs2ggtfWe2hwlo1ql97jKsju2IcJ+jFSTwBssyYoiWhh7mauQ==}
 
-  emoji-picker-react@4.20.1:
-    resolution: {integrity: sha512-vsgsdNOf0zFahv7+Pj5u3WNz9ennqUAkSZw1ZvUEAh8Kfel292AjmKbCLI7t9Hq2DN3lFGVMb1G7Iqa2Jl4HWg==}
+  emoji-picker-react@4.22.2:
+    resolution: {integrity: sha512-xd0YRbuqkdfVYLAMEiDhM/xx98OQZ4FWu3KQJjVBkQO956EpMTJY0wW4jtF1VGqYBYK4E1KDXyDa2e8M4PQFkw==}
     engines: {node: '>=10'}
     peerDependencies:
-      react: '>=16'
+      react: '>=16.8'
 
   empathic@2.0.1:
     resolution: {integrity: sha512-YGRs8knHhKHVShLkFET/rWAU8kmHbOV5LwN938RHI0pljAJ1Gf6SzXsSmRaEzcXTtOOmVqJ5+WtQPL5uigY50Q==}
@@ -2159,10 +2159,6 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
-
-  flairup@1.1.1:
-    resolution: {integrity: sha512-NRdjAYpQLEOmvLebVCfL2D88M6CZOz3LCK06arH1HKSHbrJgEDbqzgJjur2yuRtbb1YAtElacR57tf5GBAHaqg==}
-    engines: {node: ^20.19.0 || >=22.12.0}
 
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
@@ -2776,6 +2772,9 @@ packages:
   shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+
+  shipstyles@1.0.0:
+    resolution: {integrity: sha512-1AcihfXo/mSxqeOdoKqq/5TNv+vSH0dBYPFq88PUX5FBkK5pRmY5TP9SuMNio85PQ+euUI67+KpSVk1cUVDCgA==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -4596,10 +4595,10 @@ snapshots:
 
   electron-to-chromium@1.5.407: {}
 
-  emoji-picker-react@4.20.1(react@19.2.8):
+  emoji-picker-react@4.22.2(react@19.2.8):
     dependencies:
-      flairup: 1.1.1
       react: 19.2.8
+      shipstyles: 1.0.0
 
   empathic@2.0.1: {}
 
@@ -4790,8 +4789,6 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
-
-  flairup@1.1.1: {}
 
   flat-cache@4.0.1:
     dependencies:
@@ -5395,6 +5392,8 @@ snapshots:
       shebang-regex: 3.0.0
 
   shebang-regex@3.0.0: {}
+
+  shipstyles@1.0.0: {}
 
   siginfo@2.0.0: {}
 
