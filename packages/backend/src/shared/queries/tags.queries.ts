@@ -20,7 +20,7 @@ export const getPriorityTags: GetPriorities = (ownerId: number) => sql<PriorityT
         WHERE owner_id = ${ownerId} and type = 'priority'
     `;
 
-type GetStatuses = (ownerid: number, type: 'task' | 'project') => Promise<StatusTagOutput[]>;
+type GetStatuses = (ownerId: number, type: 'task' | 'project') => Promise<StatusTagOutput[]>;
 export const getStatusTags: GetStatuses = async (ownerId, type) => {
     const fullType = `${type}_status`;
 
