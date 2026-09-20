@@ -15,8 +15,9 @@
     gap: .5rem;
     padding: .5rem .75rem;
     font-size: var(--font-size-level-6);
+    width: var(--tag-width, fit-content);
+    overflow: hidden;
 }
-
 
 .default {
     color: var(--tag-color);
@@ -32,7 +33,8 @@
     font-size: var(--font-size-level-6);
 }
 
-.task_status, .project_status {
+.task_status,
+.project_status {
     padding-left: 1.75rem;
     border: 1px solid transparent;
     font-weight: 600;
@@ -44,8 +46,13 @@
 
 .task_status::before { content: 'T' }
 .project_status::before { content: 'P' }
-.task_status:hover, .project_status:hover { border: 1px solid var(--tag-color)}
-.task_status::before, .project_status::before {
+.task_status:hover,
+.project_status:hover {
+    border: 1px solid var(--tag-color)
+}
+
+.task_status::before,
+.project_status::before {
     position: absolute;
     padding: 0 4px;
     display: flex;
@@ -69,12 +76,14 @@
     color: var(--neutral-0)
 }
 
-.priority:hover { box-shadow: 0 4px 12px color-mix(in srgb, var(--tag-color) 40%, transparent);}
+.priority:hover {
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--tag-color) 40%, transparent);
+}
 
 /* .tag>* { display: block } */
-.tag[data-width="fit"] { width: fit-content }
-.tag[data-width="max"] { width: 100% }
-.tag[data-selected="false"] { opacity: .4 }
+.tag[data-selected="false"] {
+    opacity: .4
+}
 
 .tag:has(.editOverlay):hover {
     transform: translateY(-2px);
@@ -97,4 +106,6 @@
     border-radius: inherit;
 }
 
-.editOverlay:hover { opacity: 1 }
+.editOverlay:hover {
+    opacity: 1
+}

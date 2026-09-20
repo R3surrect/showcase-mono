@@ -4,8 +4,11 @@ import { CategoriesService, TagsService } from './tags.service';
 import useToast from '@/components/entities/Toast/Toast.hook';
 import { DEFAULT_HSL_COLOR } from '@/components/entities/_shared/system.constants';
 
-export const tagsKeys = { all: ['tags'] as const };
 export const categoriesKeys = { all: ['categories'] as const };
+export const tagsKeys = {
+    all: ['tags'] as const,
+    detail: (id: number) => ['tags', 'detail', id] as const,
+};
 
 export const useGetTagsQuery = () => {
     const { pushToast } = useToast();
@@ -46,6 +49,31 @@ export const useGetTagsQuery = () => {
         }],
     })
 }
+
+export const useGetTagByIdQuery = (id: number) => {
+    const { pushToast } = useToast();
+
+    return useQuery({
+        queryKey: tagsKeys.detail(id), 
+        enabled: !!id, 
+        staleTime: 5 * 60 * 1000,
+        
+        queryFn: async () => {
+            try {
+                const res = await TagsService.getTagById(id);
+                return res;
+            } catch (error) {
+                pushToast({
+                    label: `Pulling tag #${id} failed`,
+                    status: 'error',
+                    type: 'popup',
+                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
+                });
+                throw error;
+            }
+        }
+    });
+};
 
 export const useGetCategoriesQuery = () => {
     return useQuery({

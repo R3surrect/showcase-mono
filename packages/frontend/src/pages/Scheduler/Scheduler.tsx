@@ -42,50 +42,6 @@ const MOCK_STAT_TAGS = [
         color: { h: 12, s: 35, l: 70 },
     },
 ] as const;
-const MOCK_TASK_TAGS = [
-    {
-        id: 21,
-        label: "🖥️ Backend",
-        color: { h: 210, s: 20, l: 15 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 10,
-        label: "⚡ API",
-        color: { h: 38, s: 35, l: 18 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 4,
-        label: "🧪 Тесты",
-        color: { h: 145, s: 25, l: 12 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 1,
-        label: "🔥 Срочно",
-        color: { h: 12, s: 35, l: 10 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-];
-const MOCK_TASK_PROPS = {
-    createdAt: new Date(2026, 5, 16, 9, 30, 0),
-    deadline: new Date(2026, 5, 16, 9, 30, 0),
-    statusTagId: 1,
-    tags: MOCK_TASK_TAGS,
-} as const;
 // #endregion
 
 const hintId = 'scheduler-page-hint';
@@ -95,8 +51,7 @@ export const Component = () => {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [modalActive, setModalActive] = useState(false);
 
-    const { data: tasks } = useGetTasksQuery();
-    console.log(tasks);
+    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
 
     return (
         <>
@@ -137,7 +92,12 @@ export const Component = () => {
                 </Stack>
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
-                        <TaskCard {...MOCK_TASK_PROPS} />
+                        {
+                            isTasksLoading ? '...loading'
+                                : tasks.map(task => (
+                                    <TaskCard key={task.id} {...task}/>
+                                ))
+                        }
                     </Stack>
                     <Calendar
                         mode="single"

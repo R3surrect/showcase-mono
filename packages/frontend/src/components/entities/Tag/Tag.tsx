@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import type { ColorVariable, TagProps } from '@/components/entities/Tag/Tag.types';
+import { colord } from 'colord';
+import type { TagVariables, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 import clsx from 'clsx';
 import Button from '@components/entities/Button/Button';
 import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
-import { colord } from 'colord';
 
 const Tag = (props: TagProps) => {
     const genId = useId();
@@ -24,10 +24,12 @@ const Tag = (props: TagProps) => {
 
     return <div
         id={tagId}
-        className={clsx(stylesObj.tag, stylesObj[props.type.toLowerCase()])}
-        data-width={width}
+        className={clsx(stylesObj.tag, stylesObj[props.type?.toLowerCase?.()])}
         data-system={isSystem}
-        style={{ '--tag-color': colord(color).toHslString() } as ColorVariable}
+        style={{
+            '--tag-color': colord(color).toHslString(),
+            '--tag-width': width
+        } as TagVariables}
         {...rest}
     >
         {

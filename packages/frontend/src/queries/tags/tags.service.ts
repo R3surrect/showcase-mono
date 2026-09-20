@@ -8,6 +8,14 @@ export const TagsService = {
 
         return await res.json();
     },
+    async getTagById(id: number) {
+        const res = await api.statuses[':id'].$get({
+            param: { id: String(id) }
+        });
+        if (!res.ok) throw new Error(`Fetching failed: ${res.status}: ${res.statusText}`);
+
+        return await res.json();
+    },
     async createTag(tagData: TagCreateInput) {
         const res = await api.templates.tags.$post({ json: tagData });
         if (!res.ok) throw new Error(`Creating failed: ${res.status}: ${res.statusText}`);
@@ -15,7 +23,7 @@ export const TagsService = {
         return await res.json();
     },
     async deleteTag(tagId: TagDeleteInput) {
-        const res = await api.templates.tags[':id'].$delete({ param: { id: tagId.toString() } });
+        const res = await api.templates.tags[':id'].$delete({ param: { id: String(tagId) } });
         if (!res.ok) throw new Error(`Deleting failed: ${res.status}: ${res.statusText}`);
 
         return await res.json();

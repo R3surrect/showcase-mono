@@ -3,7 +3,7 @@ import type { Statuses } from "@showcase-mono/backend/routes/api/v1/tags/statuse
 
 export const StatusesService = {
     async getAll(type: Statuses) {
-        const res = await api.statuses[':type'].$get({
+        const res = await api.statuses.type[':type'].$get({
             param: { type }
         });
 

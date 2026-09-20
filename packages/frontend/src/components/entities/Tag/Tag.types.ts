@@ -19,6 +19,7 @@ export interface TagProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> 
     onEditAction?: (id: number) => void;
 }
 
-export interface ColorVariable extends React.CSSProperties {
+export interface TagVariables extends React.CSSProperties {
     '--tag-color': string;
+    '--tag-width': string;
 }
