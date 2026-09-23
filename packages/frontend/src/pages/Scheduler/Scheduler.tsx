@@ -1,3 +1,11 @@
+import { useState } from "react"
+import {
+    LucideAlertTriangle,
+    LucideBell,
+    LucideCalendarRange,
+    LucideCheckCircle,
+    LucidePlusCircle
+} from "lucide-react"
 import Banner from "@/components/entities/Banner/Banner"
 import Button from "@/components/entities/Button/Button"
 import Calendar from "@/components/entities/Calendar/Calendar"
@@ -9,8 +17,6 @@ import TaskCard from "@/components/entities/TaskCard/TaskCard"
 import Text from "@/components/entities/Text/Text"
 import Modal from "@/components/shared/Modal/Modal"
 import { useHintStore } from "@/store/useHintStore"
-import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlusCircle } from "lucide-react"
-import { useState } from "react"
 import TaskCreateForm from "./create"
 import Surface from "@/components/entities/Surface/Surface"
 import { useGetTasksQuery } from "@/queries/tasks/task.query"
@@ -95,7 +101,7 @@ export const Component = () => {
                         {
                             isTasksLoading ? '...loading'
                                 : tasks.map(task => (
-                                    <TaskCard key={task.id} {...task}/>
+                                    <TaskCard key={task.id} {...task} />
                                 ))
                         }
                     </Stack>

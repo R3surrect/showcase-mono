@@ -8,6 +8,8 @@ import type { TaskCardProps } from "./TaskCard.types"
 import { useGetTagByIdQuery } from "@/queries/tags/tags.query"
 import { DEFAULT_HSL_COLOR } from "../_shared/system.constants"
 import SegmentedPicker from "../SegmentedPicker/SegmentedPicker"
+import Button from "../Button/Button"
+import { LucideArchive, LucideXCircle } from "lucide-react"
 
 const TaskCard = (props: TaskCardProps) => {
     const { hasSurface = true } = props;
@@ -70,6 +72,12 @@ const TaskCard = (props: TaskCardProps) => {
                         {dayjs(props.deadline).locale('ru').format('DD MMM YYYY | HH:MM')}
                     </Text>
                 }
+                <Button variant="transparent" size="none">
+                    <LucideArchive color="var(--warm-orange-400)" size={18} onClick={() => console.log(`archive ${props.id}`)}/>
+                </Button>
+                <Button variant="transparent" size="none">
+                    <LucideXCircle color="var(--warm-red-400)" size={18} onClick={() => console.log(`delete ${props.id}`)}/>
+                </Button>
             </Stack>
         </Stack>
         <Stack
