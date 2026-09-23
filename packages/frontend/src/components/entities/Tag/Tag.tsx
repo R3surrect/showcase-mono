@@ -1,8 +1,8 @@
 import { useId } from 'react';
 import { colord } from 'colord';
+import clsx from 'clsx';
 import type { TagVariables, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
-import clsx from 'clsx';
 import Button from '@components/entities/Button/Button';
 import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';

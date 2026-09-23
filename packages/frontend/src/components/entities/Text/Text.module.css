@@ -6,8 +6,13 @@
     font-size: var(--text-size, 14px);
     color: var(--text-color, var(--neutral-850));
     text-align: var(--text-align, start);
-    overflow: hidden;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.text[data-truncate="true"] {
     white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 

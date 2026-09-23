@@ -9,7 +9,7 @@ export const TagsService = {
         return await res.json();
     },
     async getTagById(id: number) {
-        const res = await api.statuses[':id'].$get({
+        const res = await api.templates.tags[':id'].$get({
             param: { id: String(id) }
         });
         if (!res.ok) throw new Error(`Fetching failed: ${res.status}: ${res.statusText}`);

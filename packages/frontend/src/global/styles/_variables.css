@@ -2,8 +2,8 @@
 
 /** Main Colors */
 :root {
-  --neutral-0:   hsl(105, 12%, 95%);
-  --neutral-25:  hsl(0, 0%, 64%);
+  --neutral-0: hsl(105, 12%, 95%);
+  --neutral-25: hsl(0, 0%, 64%);
   --neutral-100: hsl(53, 22%, 92%);
   --neutral-200: hsl(48, 31%, 84%);
   --neutral-250: hsl(47, 18%, 70%);
@@ -14,7 +14,7 @@
   --neutral-550: hsl(41, 21%, 40%);
   --neutral-600: hsl(41, 24%, 34%);
   --neutral-750: hsl(26, 22%, 30%);
-  --neutral-850: hsl(40, 26%, 13%);
+  --neutral-850: hsl(37, 26%, 23%);
 
   /** Needs design-refactor */
   --lite-white: hsl(105, 0%, 98%);
@@ -28,15 +28,15 @@
   --warm-green-500: hsl(67, 26%, 35%);
   --warm-green-600: hsl(67, 27%, 26%);
   --warm-green-700: hsl(68, 30%, 21%);
-  
-  --warm-yellow-400:    hsl(64, 39%, 53%);
-  --warm-red-400:       hsl(11, 35%, 47%);
-  --warm-orange-400:    hsl(35, 39%, 53%);
+
+  --warm-yellow-400: hsl(64, 39%, 53%);
+  --warm-red-400: hsl(11, 35%, 47%);
+  --warm-orange-400: hsl(35, 39%, 53%);
   --cold-blue-gray-400: hsl(207, 10%, 42%);
 }
 
 :root {
-  --monochrome-0:   hsl(0, 0%, 100%);
+  --monochrome-0: hsl(0, 0%, 100%);
   --monochrome-100: hsl(0, 0%, 96%);
   --monochrome-200: hsl(0, 0%, 90%);
   --monochrome-300: hsl(0, 0%, 83%);
@@ -70,13 +70,13 @@
 /** Typography Roles (Fluid) */
 /*! FIX IT  */
 :root {
-  --font-size-level-1: clamp(2rem, 0.9rem + 1.5vw, 3rem);
-  --font-size-level-2: clamp(1rem, 1rem + 0.5vw, 2rem);
-  --font-size-level-3: clamp(1rem, 0.8rem + 0.5vw, 1.4rem);
-  --font-size-level-4: clamp(0.85rem, 0.7rem + 0.3vw, 1.05rem);
-  --font-size-level-5: clamp(0.8rem, 0.7rem + 0.2vw, 0.95rem);
-  --font-size-level-6: clamp(0.75rem, 0.7rem + 0.1vw, 0.85rem);
-  --font-size-level-7: clamp(0.7rem, 0.755rem + 0.1vw, 1.3rem);
+  --font-size-level-1: clamp(2.00rem, 0.900rem + 1.50vw, 3.00rem);
+  --font-size-level-2: clamp(1.30rem, 1.000rem + 0.50vw, 2.00rem);
+  --font-size-level-3: clamp(1.10rem, 0.800rem + 0.50vw, 1.40rem);
+  --font-size-level-4: clamp(0.95rem, 0.700rem + 0.30vw, 1.05rem);
+  --font-size-level-5: clamp(0.85rem, 0.700rem + 0.20vw, 0.95rem);
+  --font-size-level-6: clamp(0.75rem, 0.700rem + 0.10vw, 0.85rem);
+  --font-size-level-7: clamp(0.65rem, 0.600rem + 0.05vw, 0.75rem);
 }
 
 
