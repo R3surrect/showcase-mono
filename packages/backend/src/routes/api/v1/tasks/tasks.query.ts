@@ -8,8 +8,16 @@ export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput |
 
 export const findTasksByUserId: QueryTasksByUserId = (userId) =>
     sql<TasksGetOutput[]>`
-        SELECT * FROM tasks
-        WHERE owner_id = ${userId}
+        SELECT t.*,
+        COALESCE(
+            (
+                SELECT json_agg(tags.*)
+                FROM pivot_tasks_tags as ptt
+                JOIN tags on ptt.tag_id = tags.id
+                WHERE ptt.task_id = t.id
+            ), '[]'::json
+        ) as tags 
+        FROM tasks as t where t.owner_id = ${userId};
     `;
 
 export const createTask: InsertTaskMutation = async (props) => {
@@ -43,8 +51,16 @@ export const createTask: InsertTaskMutation = async (props) => {
 
 export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
     sql<TasksGetOutput[]>`
-        SELECT * from TASKS
-        WHERE id = ${id} and owner_id = ${ownerId}
+        SELECT t.*,
+        COALESCE(
+            (
+                SELECT json_agg(tags.*)
+                FROM pivot_tasks_tags as ptt
+                JOIN tags on ptt.tag_id = tags.id
+                WHERE ptt.task_id = t.id
+            ), '[]'::json
+        ) as tags 
+        FROM tasks as t where t.owner_id = ${ownerId} and t.id = ${id};
     `;
 
 export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>

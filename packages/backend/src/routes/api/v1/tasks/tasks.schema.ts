@@ -1,13 +1,9 @@
 import { z } from "zod";
+import { tagSchema } from "../templates/tags/tag.schema.js";
 
 export const taskSchema = z.object({
     id: z.number().int().positive(),
-    label: z
-        .string()
-        .min(1, 'Required field')
-        .max(64, 'Task label is too large')
-        .trim(),
-
+    label: z.string().min(1, 'Required field').max(64, 'Task label is too large').trim(),
     details: z.string().nullable(),
     deadline: z.iso.datetime({ local: true }).nullable(),
     projectId: z.union([
@@ -28,4 +24,5 @@ export const taskSchema = z.object({
     isPinned: z.boolean(),
     isArchived: z.boolean(),
     pinnedAt: z.date().or(z.iso.datetime()).nullable(),
+    tags: z.array(tagSchema),
 })

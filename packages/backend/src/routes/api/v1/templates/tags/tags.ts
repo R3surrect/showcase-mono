@@ -1,17 +1,25 @@
 import { Hono } from "hono";
 import type { AuthEnv } from "#/types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
-import { config } from "#/config.js";
 import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
 import { tagCreateInputValidation } from "./validations/tag.create.js";
-import { createTag, deleteTag, findTagsByUserId } from "./tags.query.js";
+import { createTag, deleteTag, findTagById, findTagsByUserId } from "./tags.query.js";
 import z from "zod";
 import { TAG_TYPE_CONFIGS } from "./tag.schema.js";
+
+const idParamSchema = z.object({
+    id: z.coerce.number().positive(),
+});
 
 const tagsRouter = new Hono<AuthEnv>()
     .get('/', async (c) => {
         const tags = await findTagsByUserId(c.get('user').id)
         return c.json(tags, 200);
+    })
+    .get('/:id', zValidator('param', idParamSchema), async (c) => {
+        const { id } = c.req.valid('param');
+        const [tag] = await findTagById({ id, ownerId: c.get('user').id });
+        return c.json(tag, 200);
     })
     .post('/', zValidator(
         'json',

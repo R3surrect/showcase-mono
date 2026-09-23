@@ -19,9 +19,3 @@ export const prioritiesRouter = new Hono<AuthEnv>()
             return c.body(null, 500)
         }
     })
-
-    .get('/:id', zValidator('param', idParamSchema), async (c) => {
-        const { id } = c.req.valid('param');
-        const [tag] = await findTagById({ id, ownerId: c.get('user').id });
-        return c.json(tag, 200);
-    });
