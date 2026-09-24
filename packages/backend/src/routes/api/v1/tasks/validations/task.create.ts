@@ -10,6 +10,7 @@ export const taskEntityOmitFields = {
 export const taskCreateInputValidation = taskSchema
     .omit(taskEntityOmitFields)
     .omit({ ownerId: true })
+    .omit({ tags: true })
     .extend(hasTagsReferenceMixin)
     .refine(
         (data) => {
