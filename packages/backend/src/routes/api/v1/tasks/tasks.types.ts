@@ -1,25 +1,16 @@
 import type z from "zod";
 import type { taskSchema } from "./tasks.schema.js";
-import type {
-    taskCreateDbInputValidation,
-    taskCreateInputValidation,
-    taskCreateOutputSchema,
-} from "./validations/task.create.js";
-import type {
-    taskDbUpdateValidation,
-    taskUpdateOutputSchema,
-    taskUpdateValidation
-} from "./validations/task.update.js";
-import type {
-    taskDbDeleteValidation,
-    taskDeleteValidation
-} from "./validations/task.delete.js";
+import type { taskCreateDbInputValidation, taskCreateInputValidation, taskCreateOutputSchema } from "./validations/task.create.js";
+import type { taskDbUpdateValidation, taskUpdateOutputSchema, taskUpdateValidation } from "./validations/task.update.js";
+import type { taskDbDeleteValidation, taskDeleteValidation } from "./validations/task.delete.js";
+import type { hasFullTagsDataMixin } from "#/shared/validations/mixins.js";
 
 export type Task = z.infer<typeof taskSchema>;
 export type TaskId = Task['id'];
 export type TaskOwnerId = Task['ownerId'];
 
-export type TasksGetOutput = Omit<Task, 'ownerId' | 'updatedAt'>;
+export type TasksGetOutput = Omit<Task, 'ownerId' | 'updatedAt'>
+    & z.infer<z.ZodObject<typeof hasFullTagsDataMixin>>;
 
 export type TaskCreateInput = z.infer<typeof taskCreateInputValidation>;
 export type TaskCreateInputDirty = z.input<typeof taskCreateInputValidation>;

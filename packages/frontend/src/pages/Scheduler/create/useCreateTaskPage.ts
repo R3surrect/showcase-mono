@@ -38,7 +38,6 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const { isLoading: isStatusesLoading, data: statuses = [] } = useGetStatusesQuery('task');
 
     const onSubmit = (rawData: TaskCreateInput) => {
-        console.log(getValues());
         const data: TaskCreateInput = {
             ...rawData,
             deadline: dayjs(rawData.deadline).toISOString(),
@@ -58,7 +57,6 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
 
     // const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
     const onError: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
-        console.log(getValues());
         clearToasts();
 
         Object.entries(errors).forEach(([fieldName, error]) => {

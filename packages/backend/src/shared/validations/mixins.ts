@@ -1,3 +1,4 @@
+import { tagSchema } from "#/routes/api/v1/templates/tags/tag.schema.js";
 import z from "zod";
 
 // *-- Pick/Omit Objects
@@ -20,3 +21,7 @@ export const archivableEntityFields = {
 export const hasTagsReferenceMixin = {
     tagIds: z.array(z.number().positive()).nullish().transform((val) => val ?? []),
 };
+
+export const hasFullTagsDataMixin = {
+    tags: z.array(tagSchema),
+}

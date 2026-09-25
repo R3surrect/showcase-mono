@@ -32,13 +32,10 @@ export const createTask: InsertTaskMutation = async (props) => {
         if (!task || task === null) throw new Error('Task wasn\'t created');
 
         if (tagIds && tagIds.length > 0) {
-            const pivotRows = tagIds.map(
-                tagId => ({
-                    task_id: task.id,
-                    tag_id: tagId
-                })
-            );
-
+            const pivotRows = tagIds.map(tagId => ({
+                task_id: task.id,
+                tag_id: tagId
+            }));
             await tx`INSERT INTO pivot_tasks_tags ${tx(pivotRows, 'task_id', 'tag_id')}`;
         }
 
