@@ -9,6 +9,7 @@ export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput |
 export const findTasksByUserId: QueryTasksByUserId = (userId) =>
     sql<TasksGetOutput[]>`
         SELECT t.*,
+        row_to_json(projects.*) as project,
         COALESCE(
             (
                 SELECT json_agg(tags.*)
@@ -16,8 +17,10 @@ export const findTasksByUserId: QueryTasksByUserId = (userId) =>
                 JOIN tags on ptt.tag_id = tags.id
                 WHERE ptt.task_id = t.id
             ), '[]'::json
-        ) as tags 
-        FROM tasks as t where t.owner_id = ${userId};
+        ) as tags
+        FROM tasks as t
+        join projects on t.project_id = projects.id
+        where t.owner_id = ${userId};
     `;
 
 export const createTask: InsertTaskMutation = async (props) => {
@@ -49,6 +52,7 @@ export const createTask: InsertTaskMutation = async (props) => {
 export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
     sql<TasksGetOutput[]>`
         SELECT t.*,
+        row_to_json(projects.*) as project,
         COALESCE(
             (
                 SELECT json_agg(tags.*)
@@ -57,7 +61,9 @@ export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
                 WHERE ptt.task_id = t.id
             ), '[]'::json
         ) as tags 
-        FROM tasks as t where t.owner_id = ${ownerId} and t.id = ${id};
+        FROM tasks as t
+        join projects on t.project_id = projects.id
+        where t.owner_id = ${ownerId} and t.id = ${id};
     `;
 
 export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>
@@ -82,7 +88,7 @@ export const updateTask: UpdateTask = async ({ id, ownerId, ...fieldsToUpdate })
     if (Object.keys(dbPayload).length === 0) return null;
 
     const [rows] = await sql<TaskUpdateOutput[]>`
-        UPDATE projects
+        UPDATE tasks
         SET ${sql(dbPayload)}
         WHERE id = ${id} AND owner_id = ${ownerId}
         RETURNING *

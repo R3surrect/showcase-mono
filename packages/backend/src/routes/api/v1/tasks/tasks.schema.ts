@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { tagSchema } from "../templates/tags/tag.schema.js";
 
 export const taskSchema = z.object({
     id: z.number().int().positive(),

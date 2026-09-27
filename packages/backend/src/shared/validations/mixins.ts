@@ -1,3 +1,4 @@
+import { projectSchema } from "#/routes/api/v1/projects/projects.schema.js";
 import { tagSchema } from "#/routes/api/v1/templates/tags/tag.schema.js";
 import z from "zod";
 
@@ -24,4 +25,8 @@ export const hasTagsReferenceMixin = {
 
 export const hasFullTagsDataMixin = {
     tags: z.array(tagSchema),
+}
+
+export const hasFullProjectDataMixin = {
+    project: z.array(projectSchema),
 }
