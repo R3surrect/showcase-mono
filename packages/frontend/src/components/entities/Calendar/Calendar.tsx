@@ -22,7 +22,6 @@ const CustomDayButton = (dayProps: DayButtonProps) => {
 };
 
 const Calendar = <T extends DayPickerProps>(props: T) => {
-
     return <div style={stickyStyles}>
         <Surface width="max" height="fit" overflow="visible">
             <DayPicker

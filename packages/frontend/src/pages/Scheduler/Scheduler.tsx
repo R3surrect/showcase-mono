@@ -59,14 +59,33 @@ export const Component = () => {
 
     const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
 
+    // const grouped = Object.groupBy(tasks, item => item.deadline);
+
+    // Object.keys(grouped).map((key) => ({
+    //     deadline: key,
+    //     count: grouped[key].length
+    // }))
+
     return (
         <>
             <Stack gap="md">
                 {
                     !isDismissed &&
                     <Banner variant="hint" isClosable onClose={() => dismiss(hintId)} color='var(--warm-green-500)'>
-                        <Text color='var(--warm-green-500)' weight='bolder' size={6}>Quick access to the Scheduler:</Text>
-                        <Text color='var(--warm-green-500)' size={6} weight='bold'>Clicking on the date on the right or the tags at the top will immediately filter your task feed.</Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            weight='bolder'
+                            size={6}
+                        >
+                            Quick access to the Scheduler:
+                        </Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            size={6}
+                            weight='bold'
+                        >
+                            Clicking on the date on the right or the tags at the top will immediately filter your task feed.
+                        </Text>
                     </Banner>
                 }
                 <ContentHeader
