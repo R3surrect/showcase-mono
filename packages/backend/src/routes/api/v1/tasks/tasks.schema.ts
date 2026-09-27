@@ -2,18 +2,20 @@ import { z } from "zod";
 
 export const taskSchema = z.object({
     id: z.number().int().positive(),
-    label: z
-        .string()
-        .min(1, 'Required field')
-        .max(64, 'Task label is too large')
-        .trim(),
-
+    label: z.string().min(1, 'Required field').max(64, 'Task label is too large').trim(),
     details: z.string().nullable(),
-    deadline: z.date().or(z.iso.datetime()),
-    projectId: z.number().int().positive(),
+    deadline: z.iso.datetime({ local: true }).nullable(),
+    projectId: z.union([
+        z.number().int().nonnegative(),
+        z.string(),
+        z.undefined(),
+        z.null(),
+        z.nan()
+    ]).transform(val => (val ? Number(val) : null)),
+
     priorityTagId: z.number().int().positive(),
     statusTagId: z.number().int().positive(),
-    notifyAt: z.date().or(z.iso.datetime()).nullable(),
+    notifyAt: z.date().or(z.iso.datetime({ local: true })).nullable(),
 
     ownerId: z.number().int().positive(),
     createdAt: z.date().or(z.iso.datetime()),

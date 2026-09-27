@@ -13,7 +13,7 @@ export const findTagsByUserId: QueryTagsByUserId = async (userId) => {
 }
 
 export type InsertTagMutation = (data: TagDbCreateInput) => Promise<TagCreateOutput[]>;
-export const createTag: InsertTagMutation = async ({ label, color, type, category, ownerId }) => {
+export const createTag: InsertTagMutation = async ({ label, color, type: type, category, ownerId }) => {
     const rows = await sql<TagCreateOutput[]>`
         INSERT INTO tags(label, color, type, category, owner_id)
         values (${label},${sql.json(color)},${type},${category},${ownerId})

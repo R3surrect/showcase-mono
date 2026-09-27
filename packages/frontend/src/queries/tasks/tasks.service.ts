@@ -1,5 +1,5 @@
 import { api } from "@/shared/api/api"
-import type { TaskCreateInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
+import type { TaskCreateInput, TaskDeleteInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 
 export const TasksService = {
     async getAll() {
@@ -29,4 +29,14 @@ export const TasksService = {
         const result = await res.json();
         return result;
     },
+
+    async deleteTask(task: TaskDeleteInput) {
+        const res = await api.tasks[':id'].$delete({
+            param: { id: String(task.id) }
+        });
+
+        if (!res.ok) throw new Error(`Deleting failed: ${res.status}: ${res.statusText}`);
+        const result = await res.json();
+        return result;
+    }
 }

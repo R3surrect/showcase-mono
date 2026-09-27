@@ -1,3 +1,11 @@
+import { useState } from "react"
+import {
+    LucideAlertTriangle,
+    LucideBell,
+    LucideCalendarRange,
+    LucideCheckCircle,
+    LucidePlusCircle
+} from "lucide-react"
 import Banner from "@/components/entities/Banner/Banner"
 import Button from "@/components/entities/Button/Button"
 import Calendar from "@/components/entities/Calendar/Calendar"
@@ -9,11 +17,9 @@ import TaskCard from "@/components/entities/TaskCard/TaskCard"
 import Text from "@/components/entities/Text/Text"
 import Modal from "@/components/shared/Modal/Modal"
 import { useHintStore } from "@/store/useHintStore"
-import { LucideAlertTriangle, LucideBell, LucideCalendarRange, LucideCheckCircle, LucidePlusCircle } from "lucide-react"
-import { useState } from "react"
-import TaskCreate from "./create"
+import TaskCreateForm from "./create"
 import Surface from "@/components/entities/Surface/Surface"
-import useTaskStore from "@/store/useTaskStore"
+import { useGetTasksQuery } from "@/queries/tasks/task.query"
 
 // #region mock
 const MOCK_STAT_TAGS = [
@@ -42,61 +48,23 @@ const MOCK_STAT_TAGS = [
         color: { h: 12, s: 35, l: 70 },
     },
 ] as const;
-const MOCK_TASK_TAGS = [
-    {
-        id: 21,
-        label: "🖥️ Backend",
-        color: { h: 210, s: 20, l: 15 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 10,
-        label: "⚡ API",
-        color: { h: 38, s: 35, l: 18 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 4,
-        label: "🧪 Тесты",
-        color: { h: 145, s: 25, l: 12 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-    {
-        id: 1,
-        label: "🔥 Срочно",
-        color: { h: 12, s: 35, l: 10 },
-        type: 'default',
-        category: 'SomeCategory',
-        createdAt: new Date(2026, 5, 16, 9, 30, 0),
-
-    },
-];
-const MOCK_TASK_PROPS = {
-    createdAt: new Date(2026, 5, 16, 9, 30, 0),
-    deadline: new Date(2026, 5, 16, 9, 30, 0),
-    statusTagId: 1,
-    tags: MOCK_TASK_TAGS,
-} as const;
 // #endregion
 
 const hintId = 'scheduler-page-hint';
 export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
-    const [selectedDate, setSelectedDate] = useState<Date>();
-
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
     const [modalActive, setModalActive] = useState(false);
 
-    const tasks = useTaskStore((store) => store.tasks)
+    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
+
+    // const grouped = Object.groupBy(tasks, item => item.deadline);
+
+    // Object.keys(grouped).map((key) => ({
+    //     deadline: key,
+    //     count: grouped[key].length
+    // }))
 
     return (
         <>
@@ -104,8 +72,20 @@ export const Component = () => {
                 {
                     !isDismissed &&
                     <Banner variant="hint" isClosable onClose={() => dismiss(hintId)} color='var(--warm-green-500)'>
-                        <Text color='var(--warm-green-500)' weight='bolder' size={6}>Quick access to the Scheduler:</Text>
-                        <Text color='var(--warm-green-500)' size={6} weight='bold'>Clicking on the date on the right or the tags at the top will immediately filter your task feed.</Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            weight='bolder'
+                            size={6}
+                        >
+                            Quick access to the Scheduler:
+                        </Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            size={6}
+                            weight='bold'
+                        >
+                            Clicking on the date on the right or the tags at the top will immediately filter your task feed.
+                        </Text>
                     </Banner>
                 }
                 <ContentHeader
@@ -120,7 +100,6 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
-                    
                     {
                         MOCK_STAT_TAGS.map((tag) => {
                             const Icon = tag.icon;
@@ -138,7 +117,12 @@ export const Component = () => {
                 </Stack>
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
-                        <TaskCard {...MOCK_TASK_PROPS} />
+                        {
+                            isTasksLoading ? '...loading'
+                                : tasks.map(task => (
+                                    <TaskCard key={task.id} {...task} />
+                                ))
+                        }
                     </Stack>
                     <Calendar
                         mode="single"
@@ -149,7 +133,7 @@ export const Component = () => {
             </Stack>
             <Modal isOpen={modalActive} onClose={() => setModalActive(false)}>
                 <Surface height='fit' width='50vw'>
-                    <TaskCreate />
+                    <TaskCreateForm selectedDate={selectedDate} />
                 </Surface>
             </Modal>
         </>

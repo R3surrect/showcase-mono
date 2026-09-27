@@ -10,7 +10,23 @@ export const taskEntityOmitFields = {
 export const taskCreateInputValidation = taskSchema
     .omit(taskEntityOmitFields)
     .omit({ ownerId: true })
-    .extend(hasTagsReferenceMixin);
+    .extend(hasTagsReferenceMixin)
+    .refine(
+        (data) => {
+            if (!data.notifyAt) return true;
+
+            const notify = new Date(data.notifyAt);
+
+            if (notify <= new Date()) return false;
+            if (data.deadline && notify >= new Date(data.deadline)) return false;
+
+            return true;
+        },
+        {
+            message: 'Notify date must be in the future and before deadline',
+            path: ['notifyAt']
+        }
+    );
 
 export const taskCreateDbInputValidation = taskSchema
     .omit(taskEntityOmitFields)

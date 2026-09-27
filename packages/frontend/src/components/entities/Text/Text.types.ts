@@ -12,6 +12,7 @@ interface TextBaseProps<T extends ElementType> {
     color?: string;
     align?: TextAlign;
     children: ReactNode;
+    truncate?: boolean;
 }
 
 export type TextProps<T extends ElementType> =

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { AuthService } from "./Auth.service";
+import { AuthService } from "./auth.service";
 
 export const authKeys = { all: ['logout'] as const }
 

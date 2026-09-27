@@ -58,34 +58,19 @@ const ProjectCreateForm = () => {
                         {
                             isPrioritiesLoading
                                 ? '...loading'
-                                : priorities.map((rawItem) => {
-                                    const { id, ...item } = rawItem;
-                                    const isSystemTag = item.category.trim().toLowerCase() === 'system';
+                                : priorities.map((item) =>
 
-                                    return isSystemTag
-                                        ? <Tag
-                                            key={item.createdAt}
-                                            data-interactive
-                                            data-selected={field.value === id}
-                                            onClick={() => field.onChange(id)}
-                                            {...item}
-                                            isSystem={true}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>
-                                        : <Tag
-                                            key={id}
-                                            id={id}
-                                            data-interactive
-                                            data-selected={field.value === id}
-                                            onClick={() => field.onChange(id)}
-                                            {...item}
-                                            isSystem={false}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>
-
-                                })
+                                    <Tag
+                                        key={item.id}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        {...item}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                )
                         }
                     </SegmentedPicker>
                 )}
@@ -98,38 +83,23 @@ const ProjectCreateForm = () => {
                         {
                             isStatusesLoading
                                 ? '...loading'
-                                : statuses.map((item) => {
-                                    const isSystem = item.category.trim().toLowerCase() === 'system';
-                                    return isSystem ? (
-                                        <Tag
-                                            key={item.id}
-                                            type={item.type}
-                                            isSystem={true}
-                                            color={item.color}
-                                            data-interactive
-                                            data-selected={field.value === item.id}
-                                            onClick={() => field.onChange(item.id)}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>
-                                    ) :
-                                        <Tag
-                                            id={item.id}
-                                            type={item.type}
-                                            category={item.category}
-                                            isSystem={false}
-                                            key={item.id}
-                                            createdAt={item.createdAt}
-                                            color={item.color}
-                                            data-interactive
-                                            data-selected={field.value === item.id}
-                                            onClick={() => field.onChange(item.id)}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>
-                                })
+                                : statuses.map((item) =>
+                                    <Tag
+                                        id={item.id}
+                                        key={item.id}
+                                        type={item.type}
+                                        isSystem={item.category.trim().toLowerCase() === 'system'}
+                                        color={item.color}
+                                        data-interactive
+                                        data-selected={field.value === item.id}
+                                        onClick={() => field.onChange(item.id)}
+                                        category={item.category}
+                                        createdAt={item.createdAt}
+                                    >
+                                        <span>{item.label}</span>
+                                    </Tag>
+                                )
                         }
-                        {/* <ExpandButton onExpand={() => { }} /> */}
                     </SegmentedPicker>
                 )}
             />

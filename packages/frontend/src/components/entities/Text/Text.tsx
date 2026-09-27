@@ -9,6 +9,7 @@ const Text = <T extends ElementType = 'p'>({
     size = 6,
     children,
     align = 'start',
+    truncate = false,
     ...props
 }: TextProps<T>) => {
     const Tag = as || 'p';
@@ -17,6 +18,7 @@ const Text = <T extends ElementType = 'p'>({
             className={stylesObj.text}
             data-size={size}
             data-weight={weight}
+            data-truncate={truncate}
             style={{
                 textAlign: align,
                 '--text-color': color,

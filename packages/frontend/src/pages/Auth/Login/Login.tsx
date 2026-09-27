@@ -6,12 +6,12 @@ import Button from '@/components/entities/Button/Button';
 import Heading from "@/components/entities/Heading/Heading";
 import Hr from "@/components/entities/Hr/Hr";
 import Input from "@/components/entities/Input/Input";
-import QrAuth from "@/components/entities/auth/QRAuth/QRAuth";
 import Stack from '@/components/entities/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
 import { useNavigate } from 'react-router-dom';
 import Text from '@/components/entities/Text/Text';
 import useToast from '@/components/entities/Toast/Toast.hook';
+import QrAuth from '@/components/entities/auth/QrAuth/QrAuth';
 
 export const Component = () => {
     const navigate = useNavigate();

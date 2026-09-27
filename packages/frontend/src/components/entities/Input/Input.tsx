@@ -74,7 +74,6 @@ const Input = ({
                     type={inputType}
                     ref={externalRef}
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
                     style={{ '--input-text-align': textAlign } as InputVars}
                     aria-invalid={!!error}
                     placeholder={
@@ -82,6 +81,10 @@ const Input = ({
                             ? (isPasswordHidden ? '*****************' : placeholder)
                             : placeholder
                     }
+                    onChange={(e) => {
+                        setText(e.target.value);
+                        if (props.onChange) props.onChange(e)
+                    }}
                 />
                 {type === 'password' && (
                     isPasswordHidden

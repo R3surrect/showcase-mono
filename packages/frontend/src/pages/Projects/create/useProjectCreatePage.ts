@@ -33,7 +33,7 @@ export const useProjectCreatePage = () => {
         pushToast({
             text: `Project ${data.label} created`,
             type: 'popup',
-            label: 'Created',
+            label: 'Project created',
             status: 'success'
         });
     }

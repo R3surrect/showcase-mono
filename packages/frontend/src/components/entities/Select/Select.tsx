@@ -1,50 +1,57 @@
+import React, { useId, type ComponentPropsWithRef } from 'react';
 import { LucideChevronRight } from 'lucide-react';
-import Stack from '../Stack/Stack';
+import Stack from '@components/entities/Stack/Stack';
 import stylesObj from './Select.module.css';
-import Text from '../Text/Text';
-import { useId } from 'react';
+import Text from '@components/entities/Text/Text';
 
-interface SelectProps<T> {
+interface SelectProps extends ComponentPropsWithRef<'select'> {
     id?: string;
-    value: T;
-    setValue: (value: T) => void;
+    value: string | number;
+    setValue: (value: string | number) => void;
     children: React.ReactNode;
     name?: string;
     labelText?: string;
+    ref?: React.Ref<HTMLSelectElement>;
 }
 
-const Select = <T extends string | number | readonly string[]>({ id, value, name, setValue, labelText, children }: SelectProps<T>) => {
+const Select = ({ id, value, name, setValue, labelText, children }: SelectProps) => {
     const genId = useId();
     const controlId = id || genId;
 
-    return <Stack gap='sm' justify='space-between'>
-        {labelText &&
-            <Text
-                as='label'
-                htmlFor={controlId}
-                size={6}
-                color='var(--cold-blue-gray-400)'
-                weight='bolder'
+    return (
+        <Stack gap='sm' justify='space-between'>
+            {labelText && (
+                <Text
+                    as='label'
+                    htmlFor={controlId}
+                    size={6}
+                    color='var(--cold-blue-gray-400)'
+                    weight='bolder'
+                >
+                    {labelText}
+                </Text>
+            )}
+            <select
+                value={value}
+                onChange={(e) => {
+                    if (typeof value !== 'string') return setValue(Number(e.target.value));
+
+                    return setValue(e.target.value);
+                }}
+                className={stylesObj.select}
+                id={controlId}
+                name={name}
             >
-                {labelText}
-            </Text>
-        }
-        <select
-            value={value}
-            onChange={(e) => setValue(e.target.value as T)}
-            className={stylesObj.select}
-            id={controlId}
-            name={name}
-        >
-            <button>
-                <Stack direction='row' align='center' justify='space-between'>
-                    <selectedcontent></selectedcontent>
-                    <LucideChevronRight strokeWidth={2} color='var(--neutral-550)' />
-                </Stack>
-            </button>
-            {children}
-        </select>
-    </Stack>
-}
+                <button className={stylesObj.selectButton}>
+                    <Stack direction='row' align='center' justify='space-between'>
+                        <selectedcontent></selectedcontent>
+                        <LucideChevronRight strokeWidth={2} color='var(--neutral-550)' />
+                    </Stack>
+                </button>
+                {children}
+            </select>
+        </Stack>
+    );
+};
 
 export default Select;
