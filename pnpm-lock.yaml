@@ -15,16 +15,16 @@ importers:
         version: link:../backend
       hono:
         specifier: ^4.0.0
-        version: 4.13.8
+        version: 4.13.12
 
   packages/backend:
     dependencies:
       '@hono/node-server':
         specifier: ^2.0.4
-        version: 2.1.1(hono@4.13.8)
+        version: 2.1.1(hono@4.13.12)
       '@hono/zod-validator':
-        specifier: ^0.9.1
-        version: 0.9.1(hono@4.13.8)(zod@4.4.3)
+        specifier: ^0.9.0
+        version: 0.9.1(hono@4.13.12)(zod@4.4.3)
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3
@@ -32,8 +32,8 @@ importers:
         specifier: ^17.4.2
         version: 17.4.2
       hono:
-        specifier: ^4.12.23
-        version: 4.13.8
+        specifier: ^4.13.12
+        version: 4.13.12
       postgres:
         specifier: ^3.4.9
         version: 3.4.9
@@ -2060,8 +2060,8 @@ packages:
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
-  hono@4.13.8:
-    resolution: {integrity: sha512-/Gng7NfoykZl2pjukW5Z6+8Yxm3BPRf86GTbQnt0SbySkvax4fyL4H3HhY1cCpBGmiW9XDRFzRV+CXK2W8QudQ==}
+  hono@4.13.12:
+    resolution: {integrity: sha512-6E2QDAc9Ick9Sq77ZrGS/dk2WUYni91aufTw6LJKpV7w8kW5/GxVUc650FOADOmlwg3K+f7Pun6XlV+pYmW6gw==}
     engines: {node: '>=16.9.0'}
 
   html-escaper@2.0.2:
@@ -3277,13 +3277,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@hono/node-server@2.1.1(hono@4.13.8)':
+  '@hono/node-server@2.1.1(hono@4.13.12)':
     dependencies:
-      hono: 4.13.8
+      hono: 4.13.12
 
-  '@hono/zod-validator@0.9.1(hono@4.13.8)(zod@4.4.3)':
+  '@hono/zod-validator@0.9.1(hono@4.13.12)(zod@4.4.3)':
     dependencies:
-      hono: 4.13.8
+      hono: 4.13.12
       zod: 4.4.3
 
   '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(react-hook-form@7.87.0(react@19.3.0))(zod@4.4.3)':
@@ -4564,7 +4564,7 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
-  hono@4.13.8: {}
+  hono@4.13.12: {}
 
   html-escaper@2.0.2: {}
 
