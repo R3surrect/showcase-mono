@@ -1,13 +1,14 @@
 import sql from "#/db.js";
-import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TasksGetOutput, TaskUpdateOutput } from "./tasks.types.js";
+import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TaskBaseOutput, TaskUpdateOutput, TasksWithDetailsOutput } from "./tasks.types.js";
 
-export type QueryTasksByUserId = (userId: number) => Promise<TasksGetOutput[]>;
+export type QueryTasksByUserId = (userId: number) => Promise<TasksWithDetailsOutput[]>;
 export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
 export type QueryTaskByOwner = (data: TaskDbDeleteInput) => Promise<TaskCreateOutput[]>;
 export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput | null>;
+export type QueryTaskByProjectId = (projectId: number, userId: number) => Promise<TaskBaseOutput[]>;
 
 export const findTasksByUserId: QueryTasksByUserId = (userId) =>
-    sql<TasksGetOutput[]>`
+    sql<TasksWithDetailsOutput[]>`
         SELECT t.*,
         row_to_json(projects.*) as project,
         COALESCE(
@@ -23,11 +24,28 @@ export const findTasksByUserId: QueryTasksByUserId = (userId) =>
         where t.owner_id = ${userId};
     `;
 
+export const findTasksByProject: QueryTaskByProjectId = (projectId, userId) => 
+    sql<TaskBaseOutput[]>`
+    SELECT t.*,
+        row_to_json(projects.*) as project,
+        COALESCE(
+            (
+                SELECT json_agg(tags.*)
+                FROM pivot_tasks_tags as ptt
+                JOIN tags on ptt.tag_id = tags.id
+                WHERE ptt.task_id = t.id
+            ), '[]'::json
+        ) as tags
+        FROM tasks as t
+        join projects on t.project_id = projects.id
+        where t.owner_id = ${userId} and t.project_id = ${projectId};
+    `;
+
 export const createTask: InsertTaskMutation = async (props) => {
     const result = await sql.begin(async (tx) => {
         const { tagIds, ...queryData } = props;
 
-        const [task] = await tx<TasksGetOutput[]>`
+        const [task] = await tx<TaskBaseOutput[]>`
             INSERT INTO tasks ${sql(queryData)}
             RETURNING *
         `;
@@ -50,7 +68,7 @@ export const createTask: InsertTaskMutation = async (props) => {
 }
 
 export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
-    sql<TasksGetOutput[]>`
+    sql<TaskBaseOutput[]>`
         SELECT t.*,
         row_to_json(projects.*) as project,
         COALESCE(

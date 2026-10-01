@@ -5,33 +5,45 @@ import Surface from "@components/entities/Surface/Surface";
 
 const defaultProps: DayPickerProps = { animate: true }
 
+export interface CalendarData {
+    deadline: Date;
+    count: number;
+}
+
+type CalendarProps = DayPickerProps & (
+    | { data: CalendarData[] }
+    | { data?: never }
+);
+
 const stickyStyles = {
     position: 'sticky',
     alignSelf: 'start',
     top: '0',
 } as const;
 
-const CustomDayButton = (dayProps: DayButtonProps) => {
-    const { day, modifiers, ...rest } = dayProps;
+
+const Calendar = (props: CalendarProps) => {
+    const { data, ...dayPickerProps } = props;
+    const CustomDayButton = (dayProps: DayButtonProps) => {
+        const { day, modifiers, ...rest } = dayProps;
+
+        return (
+            <button {...rest}>{day.date.getDate()}</button>
+        );
+    };
 
     return (
-        <button {...rest} className={`${rest.className || ''} my-custom-day-btn`}>
-            {day.date.getDate()}
-        </button>
+        <div style={stickyStyles}>
+            <Surface width="max" height="fit" overflow="visible">
+                <DayPicker
+                    style={{ width: '100%' }}
+                    components={{ DayButton: CustomDayButton }}
+                    {...defaultProps}
+                    {...dayPickerProps}
+                />
+            </Surface>
+        </div>
     );
 };
-
-const Calendar = <T extends DayPickerProps>(props: T) => {
-    return <div style={stickyStyles}>
-        <Surface width="max" height="fit" overflow="visible">
-            <DayPicker
-                style={{ width: '100%' }}
-                components={{ DayButton: CustomDayButton }}
-                {...defaultProps}
-                {...props}
-            />
-        </Surface>
-    </div>
-}
 
 export default Calendar;

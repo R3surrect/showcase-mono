@@ -59,12 +59,12 @@ export const Component = () => {
 
     const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
 
-    // const grouped = Object.groupBy(tasks, item => item.deadline);
+    const grouped = Object.groupBy(tasks, item => item.deadline || '');
 
-    // Object.keys(grouped).map((key) => ({
-    //     deadline: key,
-    //     count: grouped[key].length
-    // }))
+    const calendarData = Object.keys(grouped).map((key) => ({
+        deadline: new Date(key),
+        count: grouped[key]?.length ?? 0
+    }))
 
     return (
         <>
@@ -125,6 +125,7 @@ export const Component = () => {
                         }
                     </Stack>
                     <Calendar
+                        data={calendarData}
                         mode="single"
                         onSelect={setSelectedDate}
                         selected={selectedDate}

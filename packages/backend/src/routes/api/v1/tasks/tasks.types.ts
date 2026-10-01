@@ -9,7 +9,12 @@ export type Task = z.infer<typeof taskSchema>;
 export type TaskId = Task['id'];
 export type TaskOwnerId = Task['ownerId'];
 
-export type TasksGetOutput = Omit<Task, 'ownerId' | 'updatedAt'>
+export type TaskBaseOutput = Omit<Task, 'ownerId' | 'updatedAt'>;
+
+export type TasksWithTagsOnlyOutput = TaskBaseOutput
+    & z.infer<z.ZodObject<typeof hasFullTagsDataMixin>>;
+
+export type TasksWithDetailsOutput = TaskBaseOutput
     & z.infer<z.ZodObject<typeof hasFullTagsDataMixin>>
     & z.infer<z.ZodObject<typeof hasFullProjectDataMixin>>;
 
