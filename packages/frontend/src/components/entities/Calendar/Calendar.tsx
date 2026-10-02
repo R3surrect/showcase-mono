@@ -24,9 +24,10 @@ const stickyStyles = {
 
 const Calendar = (props: CalendarProps) => {
     const { data, ...dayPickerProps } = props;
+
     const CustomDayButton = (dayProps: DayButtonProps) => {
         const { day, modifiers, ...rest } = dayProps;
-
+        
         return (
             <button {...rest}>{day.date.getDate()}</button>
         );

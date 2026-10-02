@@ -13,12 +13,12 @@ export const taskCreateInputValidation = taskSchema
     .extend(hasTagsReferenceMixin)
     .refine(
         (data) => {
-            if (!data.notifyAt) return true;
+            if (!data.notifyAt || !data.deadline) return true;
 
-            const notify = new Date(data.notifyAt);
+            const notifyDate = new Date(data.notifyAt);
+            const deadlineDate = new Date(data.deadline);
 
-            if (notify <= new Date()) return false;
-            if (data.deadline && notify >= new Date(data.deadline)) return false;
+            if (notifyDate >= deadlineDate) return false;
 
             return true;
         },

@@ -1,25 +1,30 @@
-import { useState } from "react"
+import { useState } from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
 import {
     LucideAlertTriangle,
     LucideBell,
+    LucideCalendarClock,
     LucideCalendarRange,
+    LucideCalendarX,
     LucideCheckCircle,
+    LucideInbox,
     LucidePlusCircle
-} from "lucide-react"
-import Banner from "@/components/entities/Banner/Banner"
-import Button from "@/components/entities/Button/Button"
-import Calendar from "@/components/entities/Calendar/Calendar"
-import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader"
-import Grid from "@/components/entities/Grid/Grid"
-import Stack from "@/components/entities/Stack/Stack"
-import Tag from "@/components/entities/Tag/Tag"
-import TaskCard from "@/components/entities/TaskCard/TaskCard"
-import Text from "@/components/entities/Text/Text"
-import Modal from "@/components/shared/Modal/Modal"
-import { useHintStore } from "@/store/useHintStore"
-import TaskCreateForm from "./create"
-import Surface from "@/components/entities/Surface/Surface"
-import { useGetTasksQuery } from "@/queries/tasks/task.query"
+} from "lucide-react";
+import Banner from "@/components/entities/Banner/Banner";
+import Button from "@/components/entities/Button/Button";
+import Calendar from "@/components/entities/Calendar/Calendar";
+import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader";
+import Grid from "@/components/entities/Grid/Grid";
+import Stack from "@/components/entities/Stack/Stack";
+import Tag from "@/components/entities/Tag/Tag";
+import TaskCard from "@/components/entities/TaskCard/TaskCard";
+import Text from "@/components/entities/Text/Text";
+import Modal from "@/components/shared/Modal/Modal";
+import { useHintStore } from "@/store/useHintStore";
+import TaskCreateForm from "./create";
+import Surface from "@/components/entities/Surface/Surface";
+import { useGetTasksQuery } from "@/queries/tasks/task.query";
 
 // #region mock
 const MOCK_STAT_TAGS = [
@@ -55,9 +60,19 @@ export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
     const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+    const [isInboxView, setIsInboxView] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
     const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
+
+    const filteredTasks = tasks.filter(task => {
+        if (isInboxView) return !task.deadline;
+        if (!task.deadline) return false;
+        if (!selectedDate) return true;
+
+        return dayjs(task.deadline).isSame(selectedDate, 'day');
+    });
+
 
     const grouped = Object.groupBy(tasks, item => item.deadline || '');
 
@@ -89,13 +104,32 @@ export const Component = () => {
                     </Banner>
                 }
                 <ContentHeader
-                    title="Планировщик"
+                    title={selectedDate ? `Задачи на ${dayjs(selectedDate).locale('ru').format('DD MMMM YYYY')}` : 'Планировщик'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
                     <Button size="sm" onClick={() => setModalActive(true)}>
                         <Stack align="center" direction="row" gap="md">
                             <LucidePlusCircle />
                             Create Task
+                        </Stack>
+                    </Button>
+                    <Button size="sm" onClick={() => setSelectedDate(undefined)} variant="outline">
+                        <Stack align="center" direction="row" gap="md">
+                            <LucideCalendarX />
+                            All tasks
+                        </Stack>
+                    </Button>
+                    <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                            setSelectedDate(undefined);
+                            setIsInboxView(!isInboxView);
+                        }}
+                    >
+                        <Stack align="center" direction="row" gap="md">
+                            {isInboxView ? <LucideCalendarClock /> : <LucideInbox />}
+                            {isInboxView ? 'Scheduled' : 'Inbox'}
                         </Stack>
                     </Button>
                 </ContentHeader>
@@ -118,10 +152,13 @@ export const Component = () => {
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
                         {
-                            isTasksLoading ? '...loading'
-                                : tasks.map(task => (
-                                    <TaskCard key={task.id} {...task} />
-                                ))
+                            isTasksLoading
+                                ? '...loading'
+                                : filteredTasks.length == 0
+                                    ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
+                                    : filteredTasks.map(task => (
+                                        <TaskCard key={task.id} {...task} />
+                                    ))
                         }
                     </Stack>
                     <Calendar
