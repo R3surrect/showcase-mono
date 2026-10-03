@@ -73,7 +73,7 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
                     labelText="Notify datetime"
                     type="datetime-local"
                     {...register('notifyAt')}
-                    min={dayjs().add(5, 'minute').format('YYYY-MM-DDTHH:mm')}
+                    min={dayjs().add(1, 'hour').format('YYYY-MM-DDTHH:mm')}
                     width='100%'
                 />
                 <Controller

@@ -15,7 +15,7 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const { mutate: createTask } = useCreateTaskQuery();
 
     const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
-    const defaultNotifyAt = dayjs(selectedDate).add(5, 'minute').format('YYYY-MM-DDTHH:mm');
+    const defaultNotifyAt = dayjs(selectedDate).add(1, 'hour').format('YYYY-MM-DDTHH:mm');
 
     const {
         register,
@@ -40,9 +40,11 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const onSubmit = (rawData: TaskCreateInput) => {
         const data: TaskCreateInput = {
             ...rawData,
-            deadline: dayjs(rawData.deadline).toISOString(),
-            notifyAt: dayjs(rawData.notifyAt).toISOString(),
+            deadline: rawData.deadline ? dayjs(rawData.deadline).toISOString() : null,
+            notifyAt: rawData.notifyAt ? dayjs(rawData.notifyAt).toISOString() : null,
         }
+
+        console.log(getValues())
 
         clearToasts();
         createTask(data);
@@ -58,7 +60,7 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     // const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
     const onError: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
         clearToasts();
-
+        console.log(getValues())
         Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {
                 pushToast({
