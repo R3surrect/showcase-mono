@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 
@@ -10,7 +9,7 @@ import { useCreateTaskQuery } from "@/queries/tasks/task.query";
 import type { TaskCreateInput, TaskCreateInputDirty } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import { taskCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/tasks/validations/task.create";
 
-export const useCreateTaskPage = (selectedDate?: Date) => {
+export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     const { pushToast, clearToasts } = useToast();
     const { mutate: createTask } = useCreateTaskQuery();
 

@@ -23,7 +23,7 @@ const stickyStyles = {
 
 
 const Calendar = (props: CalendarProps) => {
-    const { data, ...dayPickerProps } = props;
+    const { /*data, */ ...dayPickerProps } = props;
 
     const CustomDayButton = (dayProps: DayButtonProps) => {
         const { day, ...rest } = dayProps;

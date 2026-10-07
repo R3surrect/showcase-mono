@@ -7,8 +7,7 @@ export const categoriesRouter = new Hono<AuthEnv>()
         try {
             const categories = await getDistinctCategories(c.get('user').id);
             return c.json(categories, 200);
-        } catch (e) {
-            console.log(e);
+        } catch {
             return c.body(null, 500)
         }
     })

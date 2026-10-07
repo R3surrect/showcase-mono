@@ -19,7 +19,7 @@ export const authMiddleware = createMiddleware<AuthEnv>(async (c, next) => {
 
         await next();
 
-    } catch (e) {
+    } catch {
         console.error('Token counterfeit');
         return c.json({ message: 'Unauthorized: Invalid session!' }, 401)
     }
