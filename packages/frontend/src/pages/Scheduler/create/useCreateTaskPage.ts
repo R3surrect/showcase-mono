@@ -14,8 +14,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const { pushToast, clearToasts } = useToast();
     const { mutate: createTask } = useCreateTaskQuery();
 
-    const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
-    const defaultNotifyAt = dayjs(selectedDate).add(1, 'hour').format('YYYY-MM-DDTHH:mm');
+    // const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
+    // const defaultNotifyAt = dayjs(selectedDate).add(1, 'hour').format('YYYY-MM-DDTHH:mm');
 
     const {
         register,
@@ -28,8 +28,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         mode: 'onChange',
 
         defaultValues: {
-            deadline: defaultDeadline,
-            notifyAt: defaultNotifyAt,
+            // deadline: defaultDeadline,
+            // notifyAt: defaultNotifyAt,
         }
     })
 
@@ -37,15 +37,7 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const { isLoading: isPrioritiesLoading, data: priorities = [] } = useGetPrioritiesQuery();
     const { isLoading: isStatusesLoading, data: statuses = [] } = useGetStatusesQuery('task');
 
-    const onSubmit = (rawData: TaskCreateInput) => {
-        const data: TaskCreateInput = {
-            ...rawData,
-            deadline: rawData.deadline ? dayjs(rawData.deadline).toISOString() : null,
-            notifyAt: rawData.notifyAt ? dayjs(rawData.notifyAt).toISOString() : null,
-        }
-
-        console.log(getValues())
-
+    const onValid = (data: TaskCreateInput) => {
         clearToasts();
         createTask(data);
 
@@ -57,8 +49,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         });
     }
 
-    // const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
-    const onError: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
+    // const onInvalid: SubmitErrorHandler<TaskCreateInput> = (errors) => {
+    const onInvalid: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
         clearToasts();
         console.log(getValues())
         Object.entries(errors).forEach(([fieldName, error]) => {
@@ -84,8 +76,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         isPrioritiesLoading,
         statuses,
         isStatusesLoading,
-        onSubmit,
-        onError,
+        onValid,
+        onInvalid,
         isDirty
     }
 }

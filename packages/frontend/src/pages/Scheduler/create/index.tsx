@@ -44,11 +44,11 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
         isPrioritiesLoading,
         statuses,
         isStatusesLoading,
-        onSubmit,
-        onError,
+        onValid,
+        onInvalid,
     } = useCreateTaskPage(selectedDate);
 
-    return <form onSubmit={handleSubmit(onSubmit, onError)}>
+    return <form onSubmit={handleSubmit(onValid, onInvalid)}>
         <Stack>
             <Text size={5} color="var(--monochrome-800)">New task</Text>
             <Input
@@ -63,18 +63,18 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
             />
             <Stack direction="row">
                 <Input
-                    labelText="Deadline datetime"
-                    min={dayjs().format('YYYY-MM-DDTHH:mm')}
-                    type="datetime-local"
-                    {...register('deadline')}
-                    width='max'
-                />
-                <Input
                     labelText="Notify datetime"
                     type="datetime-local"
                     {...register('notifyAt')}
                     min={dayjs().add(1, 'hour').format('YYYY-MM-DDTHH:mm')}
                     width='100%'
+                />
+                <Input
+                    labelText="Deadline datetime"
+                    min={dayjs().format('YYYY-MM-DDTHH:mm')}
+                    type="datetime-local"
+                    {...register('deadline')}
+                    width='max'
                 />
                 <Controller
                     name="projectId"

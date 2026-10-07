@@ -59,20 +59,23 @@ const hintId = 'scheduler-page-hint';
 export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [isInboxView, setIsInboxView] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
     const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
+    
+    console.log(tasks.filter(task => !task.deadline))
 
-    const filteredTasks = tasks.filter(task => {
-        if (isInboxView) return !task.deadline;
-        if (!task.deadline) return false;
-        if (!selectedDate) return true;
+    const filteredTasks = tasks.filter(
+        task => {
+            if (isInboxView) return !task.deadline;
+            if (!task.deadline) return false;
+            if (!selectedDate) return true;
 
-        return dayjs(task.deadline).isSame(selectedDate, 'day');
-    });
-
+            return dayjs(task.deadline).isSame(selectedDate, 'day');
+        }
+    );
 
     const grouped = Object.groupBy(tasks, item => item.deadline || '');
 
@@ -164,8 +167,11 @@ export const Component = () => {
                     <Calendar
                         data={calendarData}
                         mode="single"
-                        onSelect={setSelectedDate}
                         selected={selectedDate}
+                        onSelect={(date) => {
+                            setSelectedDate(date);
+                            setIsInboxView(false);
+                        }}
                     />
                 </Grid>
             </Stack>
