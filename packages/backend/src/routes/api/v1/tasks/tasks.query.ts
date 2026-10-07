@@ -80,7 +80,7 @@ export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
             ), '[]'::json
         ) as tags 
         FROM tasks as t
-        join projects on t.project_id = projects.id
+        left join projects on t.project_id = projects.id
         where t.owner_id = ${ownerId} and t.id = ${id};
     `;
 
