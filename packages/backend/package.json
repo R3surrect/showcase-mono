@@ -26,13 +26,13 @@
   "devDependencies": {
     "@types/node": "^25.9.4",
     "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.0"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.4",
     "@hono/zod-validator": "^0.9.0",
     "bcryptjs": "^3.0.3",
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.0",
     "hono": "^4.12.23",
     "postgres": "^3.4.9",
     "zod": "^4.4.3"
