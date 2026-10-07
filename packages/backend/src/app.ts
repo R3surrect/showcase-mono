@@ -5,13 +5,11 @@ import corsMiddleware from "./middleware/cors.js";
 import postgres from "postgres";
 import { POSTRES_ERRORS } from "./shared/postgresql-errors.js";
 import { config } from "./config.js";
+import { logger } from "hono/logger";
 
 const app = new Hono<Env>();
 
-app.use('*', async (c, next) => {
-    console.log(`[${c.req.method}] ${c.req.url}`)
-    await next();
-})
+app.use('*', logger());
 
 corsMiddleware(app);
 
