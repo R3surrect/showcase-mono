@@ -29,8 +29,8 @@ importers:
         specifier: ^3.0.3
         version: 3.0.3
       dotenv:
-        specifier: ^18.0.0
-        version: 18.0.4
+        specifier: ^18.0.7
+        version: 18.0.7
       hono:
         specifier: ^4.12.23
         version: 4.13.11
@@ -1794,8 +1794,8 @@ packages:
   dom-accessibility-api@0.6.3:
     resolution: {integrity: sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==}
 
-  dotenv@18.0.4:
-    resolution: {integrity: sha512-jGt9uI5BIxpVO15kvy+iEFqNAwxYClKWnkptLjSNPnFLC003Imd0ofr3aEVsbpHdSBdSsbcApNIlz4nbyGMwdA==}
+  dotenv@18.0.7:
+    resolution: {integrity: sha512-QEvMEF8ca3GNZJJnAbOgxpj5ULhBvnMcURp+XKrtvqFNPgjBvYoswQ0Jl2cO7JzCjxZjJhr9ZuIEhlrRxMft/Q==}
     engines: {node: '>=12'}
     hasBin: true
 
@@ -4293,7 +4293,7 @@ snapshots:
 
   dom-accessibility-api@0.6.3: {}
 
-  dotenv@18.0.4: {}
+  dotenv@18.0.7: {}
 
   electron-to-chromium@1.5.440: {}
 
