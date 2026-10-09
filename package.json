@@ -8,6 +8,12 @@
     "dev:frontend": "pnpm --filter @showcase-mono/frontend dev",
     "dev:backend": "pnpm --filter @showcase-mono/backend dev",
     "dev:all": "pnpm --parallel -r dev",
-    "build:all": "pnpm -r build"
+    "build:all": "pnpm -r build",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "husky": "^9.1.7"
   }
 }

@@ -1,17 +1,52 @@
-version: "3.8"
-
 services:
   postgres:
     image: postgres:16-alpine
     container_name: showcase_db
+    env_file: 
+      - .env
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+# ---------------------------
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./packages/backend/Dockerfile
+      args:
+        - ENV_PORT=${PORT}
+        - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+        - NODE_ENV=production
+    container_name: showcase_backend
+    restart: always
+    env_file:
+      - .env
+      - ./packages/backend/.env
+    depends_on:
+      - postgres
+
+# ---------------------------
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./packages/frontend/Dockerfile
+      args:
+        - ENV_PORT=${VITE_FRONTEND_PORT}
+    container_name: showcase_frontend
+    env_file:
+      - ./packages/frontend/.env
+    restart: always
+    depends_on:
+      - backend
+
+# ---------------------------
 
 volumes:
   pgdata:
