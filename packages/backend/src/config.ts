@@ -1,7 +1,17 @@
 import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import z from 'zod';
 
-dotenv.config({ quiet: true });
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+dotenv.config({
+    path: [
+        path.join(root, '.env.local'),
+        path.join(root, '.env'),
+        path.join(root, './packages/backend/.env'),
+        path.join(root, './packages/backend/.env.local'),
+    ]
+});
 
 export const envSchema = z.object({
     PORT: z.string().transform(Number).default(8080),
@@ -16,7 +26,7 @@ export const envSchema = z.object({
         .transform(str => str.split(',').map(item => item.trim()))
         .pipe(
             z.array(
-                z.url({ error: 'One or ore origins isn\'t valid' })
+                z.url({ error: 'One or more origins isn\'t valid' })
             )
         ),
     NODE_ENV: z
