@@ -21,13 +21,15 @@ services:
       dockerfile: ./packages/backend/Dockerfile
       args:
         - ENV_PORT=${PORT}
-        - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+        - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:${PORT}/${DB_NAME}
         - NODE_ENV=production
     container_name: showcase_backend
     restart: always
     env_file:
       - .env
       - ./packages/backend/.env
+    ports:
+    - "8080:${PORT}"
     depends_on:
       - postgres
 
@@ -43,6 +45,8 @@ services:
     env_file:
       - ./packages/frontend/.env
     restart: always
+    ports:
+      - "3000:${VITE_FRONTEND_PORT}"
     depends_on:
       - backend
 
