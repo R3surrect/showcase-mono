@@ -22,8 +22,6 @@ const loginRouter = new Hono().post(
         }
     ),
     async (c) => {
-        try {
-
         const { email, password } = c.req.valid('json');
         const [user] = await findUserByEmail(email);
 
@@ -72,9 +70,6 @@ const loginRouter = new Hono().post(
                 }
             }
         }, 200)
-        } catch (e) {
-            console.log(e)
-        }
     }
 )
 
