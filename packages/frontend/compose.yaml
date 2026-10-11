@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./packages/frontend/Dockerfile
+      args:
+        - ENV_PORT=${VITE_FRONTEND_PORT}
+    container_name: showcase_frontend
+    env_file:
+      - ./packages/frontend/.env
+    restart: always
+    ports:
+      - "80:${VITE_FRONTEND_PORT}"
+    depends_on:
+      - backend
