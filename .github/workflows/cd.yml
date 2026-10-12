@@ -13,22 +13,6 @@ jobs:
     steps:
       - name: cd
         uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          envs: |
-            ALLOWED_ORIGINS,
-            NODE_ENV,
-            PORT,
-            VITE_BACKEND_API_PORT,
-            VITE_BACKEND_API_URL,
-            VITE_FRONTEND_PORT,
-            DB_NAME,
-            DB_PASSWORD,
-            DB_USER,
-            JWT_SECRET
         env:
           ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
           NODE_ENV: ${{ vars.NODE_ENV }}
@@ -40,7 +24,14 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USER: ${{ secrets.DB_USER }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,DB_NAME,DB_PASSWORD,DB_USER,JWT_SECRET
           script: |
+            set -e
             cd /home/deploy/showcase-mono
             git fetch origin
             git checkout main
