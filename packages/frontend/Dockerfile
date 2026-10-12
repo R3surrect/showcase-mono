@@ -14,15 +14,6 @@ RUN pnpm install --filter=@showcase-mono/frontend... --frozen-lockfile
 COPY packages/frontend ./packages/frontend
 COPY packages/backend ./packages/backend
 
-WORKDIR /app/packages/frontend
-
-RUN pnpm run build
-RUN pnpm prune --prod
-
-# ---------------------------
-
-FROM caddy:2.11.7-alpine AS runner
-
 ARG VITE_BACKEND_API_URL
 ARG VITE_BACKEND_API_PORT
 ARG VITE_FRONTEND_PORT
@@ -31,7 +22,14 @@ ENV VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL
 ENV VITE_BACKEND_API_PORT=$VITE_BACKEND_API_PORT
 ENV VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT
 
-RUN echo "Building with URL: $VITE_BACKEND_API_URL"
+WORKDIR /app/packages/frontend
+
+RUN pnpm run build
+RUN pnpm prune --prod
+
+# ---------------------------
+
+FROM caddy:2.11.7-alpine AS runner
 
 ENV NODE_ENV=production
 
