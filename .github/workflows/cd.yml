@@ -24,15 +24,6 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USER: ${{ secrets.DB_USER }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-
-
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-
-
-
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -45,14 +36,6 @@ jobs:
             git fetch origin
             git checkout main
             git pull origin main
-
-
-            echo "SSH_HOST length: ${#SSH_HOST}"
-            echo "SSH_USER length: ${#SSH_USER}"
-            echo "SSH_KEY  length: ${#SSH_KEY}"
-            echo "SSH_PORT length: ${#SSH_PORT}"
-            echo "SSH_HOST value (masked): $SSH_HOST"
-
 
             # packages/frontend/.env
             echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env
