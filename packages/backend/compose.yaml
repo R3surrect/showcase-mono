@@ -1,7 +1,10 @@
 services:
   backend:
+    environment:
+      - NODE_ENV=production
+      - NODE_OPTIONS=--conditions=production
     build:
-      context: .
+      context: ../..
       dockerfile: ./packages/backend/Dockerfile
       args:
         - ENV_PORT=${PORT}
@@ -11,7 +14,7 @@ services:
     restart: always
     env_file:
       - .env
-      - ./packages/backend/.env
+      - ../../.env
     ports:
       - "8080:${PORT}"
     depends_on:

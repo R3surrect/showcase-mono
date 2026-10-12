@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import registerRouter from "./auth/register/register.js";
 import loginRouter from "./auth/login/login.js";
-import { authMiddleware } from "#/middleware/auth.js";
+import { authMiddleware } from '../../../middleware/auth.js';
 import templatesRouter from "./templates/index.js";
 import meRouter from "./auth/me/me.js";
 import logoutRouter from "./auth/logout/logout.js";

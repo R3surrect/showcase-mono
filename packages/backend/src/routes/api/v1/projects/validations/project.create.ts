@@ -1,5 +1,10 @@
 import { projectSchema } from "../projects.schema.js";
-import { archivableEntityFields, baseEntityFields, hasTagsReferenceMixin, pinnableEntityFields } from "#/shared/validations/mixins.js";
+import {
+    archivableEntityFields,
+    baseEntityFields,
+    hasTagsReferenceMixin,
+    pinnableEntityFields
+} from "../../../../../shared/validations/mixins.js";
 
 export const projectEntityOmitFields = {
     ...baseEntityFields,

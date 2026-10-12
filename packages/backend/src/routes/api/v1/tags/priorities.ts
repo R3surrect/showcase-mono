@@ -1,5 +1,5 @@
-import { getPriorityTags } from "#/shared/queries/tags.queries.js";
-import type { AuthEnv } from "#/types/auth-env.js";
+import { getPriorityTags } from "../../../../shared/queries/tags.queries.js";
+import type { AuthEnv } from "../../../../types/auth-env.js";
 // import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 // import z from "zod";

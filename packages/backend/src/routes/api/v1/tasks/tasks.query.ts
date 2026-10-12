@@ -1,4 +1,4 @@
-import sql from "#/db.js";
+import sql from "../../../../db.js";
 import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TaskBaseOutput, TaskUpdateOutput, TasksWithDetailsOutput } from "./tasks.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksWithDetailsOutput[]>;
