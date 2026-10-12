@@ -1,5 +1,5 @@
-import { getDistinctCategories } from "#/shared/queries/tags.queries.js";
-import type { AuthEnv } from "#/types/auth-env.js";
+import { getDistinctCategories } from "../../../..//shared/queries/tags.queries.js";
+import type { AuthEnv } from "../../../..//types/auth-env.js";
 import { Hono } from "hono";
 
 export const categoriesRouter = new Hono<AuthEnv>()

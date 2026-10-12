@@ -1,4 +1,4 @@
-import { config } from "#/config.js";
+import { config } from "../../../../../config.js";
 import { Hono } from "hono";
 import { deleteCookie } from "hono/cookie";
 

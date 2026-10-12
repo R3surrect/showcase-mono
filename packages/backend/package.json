@@ -43,12 +43,6 @@
     "zod": "^4.4.3"
   },
   "imports": {
-    "#/*": {
-      "default": {
-        "production": "./dist/*",
-        "development": "./src/*",
-        "default": "./dist/*"
-      }
-    }
+    "#/*": "./dist/*"
   }
 }

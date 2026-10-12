@@ -1,4 +1,4 @@
-import { colorSchema, emojiSchema } from "#/shared/validations/customizable.validation.js";
+import { colorSchema, emojiSchema } from "../../../../shared/validations/customizable.validation.js";
 import z from "zod";
 
 export const projectSchema = z.object({

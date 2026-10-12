@@ -1,5 +1,5 @@
-import { config } from "#/config.js";
-import type { AuthEnv } from "#/types/auth-env.js";
+import { config } from "..//config.js";
+import type { AuthEnv } from "../types/auth-env.js";
 import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 import { createMiddleware } from "hono/factory";

@@ -1,0 +1,21 @@
+services:
+  frontend:
+    image: showcase-frontent-image
+    build:
+      context: ../..
+      dockerfile: ./packages/frontend/Dockerfile
+      args:
+        - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL}
+        - VITE_BACKEND_API_PORT=${VITE_BACKEND_API_PORT}
+        - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
+    container_name: showcase_frontend
+    env_file:
+      - ../../.env
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
+    restart: always
+    ports:
+      - "80:${VITE_FRONTEND_PORT}"
+    depends_on:
+      - backend

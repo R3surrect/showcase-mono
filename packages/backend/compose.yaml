@@ -1,0 +1,21 @@
+services:
+  backend:
+    environment:
+      - NODE_ENV=production
+      - NODE_OPTIONS=--conditions=production
+    build:
+      context: ../..
+      dockerfile: ./packages/backend/Dockerfile
+      args:
+        - ENV_PORT=${PORT}
+        - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+        - NODE_ENV=production
+    container_name: showcase_backend
+    restart: always
+    env_file:
+      - .env
+      - ../../.env
+    ports:
+      - "8080:${PORT}"
+    depends_on:
+      - postgres

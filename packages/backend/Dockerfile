@@ -7,6 +7,11 @@ RUN npm install -g pnpm
 RUN pnpm install --filter=@showcase-mono/backend --frozen-lockfile
 COPY packages/backend ./packages/backend
 
+ARG ENV_PORT
+
+ENV PORT=$ENV_PORT
+ENV NODE_ENV=production
+
 WORKDIR /app/packages/backend
 RUN pnpm run build
 RUN pnpm prune --prod
@@ -14,10 +19,6 @@ RUN pnpm prune --prod
 # ---------------------------
 
 FROM node:22-alpine AS runner
-
-ARG ENV_PORT
-ENV PORT=$ENV_PORT
-ENV NODE_ENV=production
 
 USER node
 

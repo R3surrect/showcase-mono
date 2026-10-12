@@ -1,0 +1,27 @@
+include:
+  - path: './packages/backend/compose.yaml'
+    env-file:
+      - './packages/backend/.env'
+      - '.env'
+  - path: './packages/frontend/compose.yaml'
+    env-file: './packages/frontend/.env'
+
+# ---------------------------
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: showcase_db
+    env_file: 
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

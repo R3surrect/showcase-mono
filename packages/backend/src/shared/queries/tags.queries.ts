@@ -1,9 +1,9 @@
-import sql from "#/db.js"
+import sql from "../../db.js"
 import type {
     CategoryTagOutput,
     PriorityTagOutput,
     StatusTagOutput
-} from "#/routes/api/v1/templates/tags/tag.types.js";
+} from "../../routes/api/v1/templates/tags/tag.types.js";
 
 type GetDistinctCategories = (ownerId: number) => Promise<CategoryTagOutput[]>;
 export const getDistinctCategories: GetDistinctCategories = (ownerId) => sql<CategoryTagOutput[]>`

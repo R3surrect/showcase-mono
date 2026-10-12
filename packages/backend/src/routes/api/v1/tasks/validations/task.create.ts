@@ -5,7 +5,7 @@ import {
     baseEntityFields,
     hasTagsReferenceMixin,
     pinnableEntityFields
-} from "#/shared/validations/mixins.js";
+} from "../../../../../shared/validations/mixins.js";
 
 export const taskEntityOmitFields = {
     ...baseEntityFields,

@@ -1,4 +1,4 @@
-import { colorSchema } from "#/shared/validations/customizable.validation.js";
+import { colorSchema } from "../../../../../shared/validations/customizable.validation.js";
 import { z } from "zod";
 
 export interface TagTypeConfig {

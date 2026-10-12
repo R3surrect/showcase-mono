@@ -1,4 +1,4 @@
-import sql from "#/db.js";
+import sql from "../../../../../db.js";
 
 const findUserById = (id: number) => sql`
     SELECT id, email
