@@ -40,28 +40,28 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_USER: ${{ secrets.DB_USER }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        script: |
-          cd /home/deploy/showcase-mono
-          git fetch origin
-          git checkout main
-          git pull origin main
+          script: |
+            cd /home/deploy/showcase-mono
+            git fetch origin
+            git checkout main
+            git pull origin main
 
-          # packages/frontend/.env
-          echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env
-          echo "VITE_BACKEND_API_URL='$VITE_BACKEND_API_URL'" >> ./packages/frontend/.env
-          echo "VITE_FRONTEND_PORT='$VITE_FRONTEND_PORT'" >> ./packages/frontend/.env
+            # packages/frontend/.env
+            echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env
+            echo "VITE_BACKEND_API_URL='$VITE_BACKEND_API_URL'" >> ./packages/frontend/.env
+            echo "VITE_FRONTEND_PORT='$VITE_FRONTEND_PORT'" >> ./packages/frontend/.env
 
-          # packages/backend/.env
-          echo "DB_NAME='$DB_NAME'" > ./packages/backend/.env
-          echo "DB_PASSWORD='$DB_PASSWORD'" >> ./packages/backend/.env
-          echo "DB_USER='$DB_USER'" >> ./packages/backend/.env
-          echo "JWT_SECRET='$JWT_SECRET'" >> ./packages/backend/.env
-          echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env
-          echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env
-          echo "PORT='$PORT'" >> ./packages/backend/.env
+            # packages/backend/.env
+            echo "DB_NAME='$DB_NAME'" > ./packages/backend/.env
+            echo "DB_PASSWORD='$DB_PASSWORD'" >> ./packages/backend/.env
+            echo "DB_USER='$DB_USER'" >> ./packages/backend/.env
+            echo "JWT_SECRET='$JWT_SECRET'" >> ./packages/backend/.env
+            echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env
+            echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env
+            echo "PORT='$PORT'" >> ./packages/backend/.env
 
-          # root .env
-          echo "NODE_ENV='$NODE_ENV'" > .env
-          echo "PORT='$PORT'" >> .env
+            # root .env
+            echo "NODE_ENV='$NODE_ENV'" > .env
+            echo "PORT='$PORT'" >> .env
 
-          docker compose up --build -d
+            docker compose up --build -d
