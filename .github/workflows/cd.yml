@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: GH_SSH
     steps:
       - name: cd
         uses: appleboy/ssh-action@v1.0.3
