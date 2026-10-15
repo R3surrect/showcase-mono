@@ -55,4 +55,4 @@ jobs:
 
             docker compose up --build -d
             # echo $(pwd)
-            docker exec -i showcase_backend node ../../infra/db-init.js
+            docker exec -i showcase_backend node infra/db-init.js
