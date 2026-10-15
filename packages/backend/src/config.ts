@@ -16,10 +16,10 @@ dotenv.config({
 
 export const envSchema = z.object({
     PORT: z.string().transform(Number).default(8080),
-    DB_PORT: z.string().transform(Number).default(5173),
-    DB_NAME: z.string().default('test_db'),
-    DB_USER: z.string().default('postgres'),
-    DB_PASSWORD: z.string().default('postgres'),
+    PGPORT: z.string().transform(Number).default(5173),
+    PGDATABASE: z.string().default('test_db'),
+    PGUSER: z.string().default('postgres'),
+    PGPASSWORD: z.string().default('postgres'),
     JWT_SECRET: z.string().default('test_jwt'),
     ALLOWED_ORIGINS: z
         .string()
@@ -53,9 +53,9 @@ const env = parsedEnv.data;
 export const config = {
     port: env.PORT,
     db: {
-        DB_NAME: env.DB_NAME,
-        DB_USER: env.DB_USER,
-        DB_PASSWORD: env.DB_PASSWORD,
+        PGDATABASE: env.PGDATABASE,
+        PGUSER: env.PGUSER,
+        PGPASSWORD: env.PGPASSWORD,
     },
     jwtSecret: env.JWT_SECRET,
     allowedOrigins: env.ALLOWED_ORIGINS,
