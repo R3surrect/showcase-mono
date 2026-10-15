@@ -37,21 +37,21 @@ jobs:
             git checkout main
             git pull origin main
 
-            # packages/frontend/.env
-            echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env
-            echo "VITE_BACKEND_API_URL='$VITE_BACKEND_API_URL'" >> ./packages/frontend/.env
-            echo "VITE_FRONTEND_PORT='$VITE_FRONTEND_PORT'" >> ./packages/frontend/.env
+            # packages/frontend/.env.production
+            echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env.production
+            echo "VITE_BACKEND_API_URL='$VITE_BACKEND_API_URL'" >> ./packages/frontend/.env.production
+            echo "VITE_FRONTEND_PORT='$VITE_FRONTEND_PORT'" >> ./packages/frontend/.env.production
             
-            # packages/backend/.env
-            echo "PORT='$PORT'" > ./packages/backend/.env
-            echo "JWT_SECRET='$JWT_SECRET'" >> ./packages/backend/.env
-            echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env
-            echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env
+            # packages/backend/.env.production
+            echo "PORT='$PORT'" > ./packages/backend/.env.production
+            echo "JWT_SECRET='$JWT_SECRET'" >> ./packages/backend/.env.production
+            echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env.production
+            echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env.production
             
             # root .env
-            echo "PGDATABASE='$PGDATABASE'" > .env
-            echo "PGPASSWORD='$PGPASSWORD'" >> .env
-            echo "PGUSER='$PGUSER'" >> .env
+            echo "PGDATABASE='$PGDATABASE'" > .env.production
+            echo "PGPASSWORD='$PGPASSWORD'" >> .env.production
+            echo "PGUSER='$PGUSER'" >> .env.production
 
             docker compose up --build -d
-            node db-init.js
+            docker exec -i showcase_backend node ./infra/db-init.js
