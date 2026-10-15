@@ -7,6 +7,7 @@ import { createMiddleware } from "hono/factory";
 export const authMiddleware = createMiddleware<AuthEnv>(async (c, next) => {
     try {
         const token = getCookie(c, "token");
+
         if (!token) return c.json({ message: 'Unauthorized: Invalid session!' }, 401)
 
         const payload = await verify(token, config.jwtSecret, 'HS256');

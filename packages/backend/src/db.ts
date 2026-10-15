@@ -4,9 +4,9 @@ import { config } from './config.js';
 const sql: postgres.Sql = postgres({
     host: 'localhost',
     port: 5432,
-    database: config.db.DB_NAME,
-    username: config.db.DB_USER,
-    password: config.db.DB_PASSWORD,
+    database: config.db.PGDATABASE,
+    username: config.db.PGUSER,
+    password: config.db.PGPASSWORD,
     transform: postgres.toCamel
 })
 

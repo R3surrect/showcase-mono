@@ -56,8 +56,9 @@ const loginRouter = new Hono().post(
 
         setCookie(c, 'token', token, {
             httpOnly: true,
-            secure: config.isProduction,
-            sameSite: 'Lax',
+            // secure: config.isProduction,
+            secure: true,
+            sameSite: 'None',
             maxAge: 60 * 60 * 24 * 7,
             path: '/',
         });

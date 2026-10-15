@@ -8,7 +8,7 @@ services:
       dockerfile: ./packages/backend/Dockerfile
       args:
         - ENV_PORT=${PORT}
-        - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:5432/${DB_NAME}
+        - DATABASE_URL=postgres://${PGUSER}:${PGPASSWORD}@postgres:5432/${PGDATABASE}
         - NODE_ENV=production
     container_name: showcase_backend
     restart: always

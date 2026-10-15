@@ -1,4 +1,4 @@
-name: Continuous Deployment
+name: CD
 
 on:
   workflow_dispatch:
@@ -20,16 +20,16 @@ jobs:
           VITE_BACKEND_API_PORT: ${{ vars.VITE_BACKEND_API_PORT }}
           VITE_BACKEND_API_URL: ${{ vars.VITE_BACKEND_API_URL }}
           VITE_FRONTEND_PORT: ${{ vars.VITE_FRONTEND_PORT }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_USER: ${{ secrets.DB_USER }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGUSER: ${{ secrets.PGUSER }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,DB_NAME,DB_PASSWORD,DB_USER,JWT_SECRET
+          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,JWT_SECRET
           script: |
             set -e
             cd /home/deploy/showcase-mono
@@ -49,8 +49,9 @@ jobs:
             echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env
             
             # root .env
-            echo "DB_NAME='$DB_NAME'" > .env
-            echo "DB_PASSWORD='$DB_PASSWORD'" >> .env
-            echo "DB_USER='$DB_USER'" >> .env
+            echo "PGDATABASE='$PGDATABASE'" > .env
+            echo "PGPASSWORD='$PGPASSWORD'" >> .env
+            echo "PGUSER='$PGUSER'" >> .env
 
             docker compose up --build -d
+            pnpm run db:init
