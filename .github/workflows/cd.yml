@@ -34,8 +34,8 @@ jobs:
             set -e
             cd /home/deploy/showcase-mono
             git fetch origin
-            git checkout main
-            git pull origin main
+            git checkout chore/cd
+            git pull origin chore/cd
 
             # packages/frontend/.env.production
             echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env.production
