@@ -1,10 +1,11 @@
 include:
   - path: './packages/backend/compose.yaml'
     env-file:
-      - './packages/backend/.env'
+      - './packages/backend/.env.production'
       - '.env'
   - path: './packages/frontend/compose.yaml'
-    env-file: './packages/frontend/.env'
+    env-file:
+      - './packages/backend/.env.production'
 
 # ---------------------------
 
