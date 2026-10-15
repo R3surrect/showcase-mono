@@ -54,5 +54,7 @@ jobs:
             echo "PGUSER='$PGUSER'" >> .env.production
 
             docker compose up --build -d
-            # echo $(pwd)
+            echo '---------------------------------------------'
+            echo $(pwd)
+            echo '---------------------------------------------'
             docker exec -i showcase_backend node infra/db-init.js
