@@ -54,4 +54,4 @@ jobs:
             echo "PGUSER='$PGUSER'" >> .env
 
             docker compose up --build -d
-            pnpm run db:init
+            node db-init.js
