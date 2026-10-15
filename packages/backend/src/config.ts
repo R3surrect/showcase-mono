@@ -4,13 +4,14 @@ import { fileURLToPath } from 'node:url';
 import z from 'zod';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+
 dotenv.config({
     path: [
+        path.join(root, './packages/backend/.env.local'),
+        path.join(root, './packages/backend/.env'),
         path.join(root, '.env.local'),
         path.join(root, '.env'),
-        path.join(root, './packages/backend/.env'),
-        path.join(root, './packages/backend/.env.local'),
-    ]
+    ],
 });
 
 export const envSchema = z.object({

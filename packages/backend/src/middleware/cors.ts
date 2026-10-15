@@ -1,4 +1,4 @@
-import { config } from '..//config.js'
+import { config } from '../config.js'
 import type { Hono, Env } from 'hono'
 import { cors } from 'hono/cors'
 
