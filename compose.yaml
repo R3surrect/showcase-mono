@@ -2,10 +2,9 @@ include:
   - path: './packages/backend/compose.yaml'
     env-file:
       - './packages/backend/.env.production'
-      - '.env'
   - path: './packages/frontend/compose.yaml'
     env-file:
-      - './packages/backend/.env.production'
+      - './packages/frontend/.env.production'
 
 # ---------------------------
 
@@ -14,14 +13,13 @@ services:
     image: postgres:16-alpine
     container_name: showcase_db
     env_file:
-      - .env.local
-      - .env
+      - .env.production
     environment:
       POSTGRES_USER: ${PGUSER}
       POSTGRES_PASSWORD: ${PGPASSWORD}
       POSTGRES_DB: ${PGDATABASE}
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:5432:${PGPORT}"
     volumes:
       - ./infra/init:/docker-entrypoint-initdb.d
       - pgdata:/var/lib/postgresql/data

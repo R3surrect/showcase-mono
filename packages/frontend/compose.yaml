@@ -10,7 +10,7 @@ services:
         - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
     container_name: showcase_frontend
     env_file:
-      - ../../.env
+      - ./packages/frontend/.env.production
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
     command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

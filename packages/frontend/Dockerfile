@@ -35,5 +35,5 @@ ENV NODE_ENV=production
 
 COPY --from=builder /app/packages/frontend/dist /usr/share/caddy
 
-EXPOSE ${PORT}
-CMD caddy file-server --root /usr/share/caddy --listen :${PORT}
+EXPOSE ${VITE_FRONTEND_PORT}
+CMD caddy file-server --root /usr/share/caddy --listen :${VITE_FRONTEND_PORT}
