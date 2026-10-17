@@ -1,4 +1,4 @@
-import { config } from "#/config.js";
+import { config } from "../../../../../config.js";
 import { Hono } from "hono";
 import { deleteCookie } from "hono/cookie";
 
@@ -7,7 +7,7 @@ const logoutRouter = new Hono().post('/logout', async (c) => {
         deleteCookie(c, 'token', {
             path: '/',
             secure: config.isProduction,
-            sameSite: 'Lax'
+            sameSite: 'Strict'
         });
 
         return c.body(null, 204);

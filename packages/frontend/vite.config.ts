@@ -20,9 +20,7 @@ export default defineConfig({
     },
   },
   plugins: [react({
-    babel: {
-      plugins: [['react-compiler']]
-    }
+    compiler: true,
   })],
   resolve: {
     alias: {
@@ -40,7 +38,7 @@ export default defineConfig({
     }
   },
   build: {
-    target: 'es2020',
+    target: 'es2024',
     modulePreload: {
       polyfill: true
     }

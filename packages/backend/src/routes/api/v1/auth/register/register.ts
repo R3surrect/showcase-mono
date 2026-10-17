@@ -3,10 +3,10 @@ import { zValidator } from '@hono/zod-validator'
 import registerUserQuery from "./register.query.js";
 import bcrypt from 'bcryptjs';
 import postgres from "postgres";
-import { PG_ERRORS } from "#/db.js";
-// import { zodToApiErrors } from "#/shared/api/zod-to-api-errors.js";
+import { PG_ERRORS } from "../../../../../db.js";
+// import { zodToApiErrors } from "../../../../../shared/api/zod-to-api-errors.js";
 import { registerValidation } from "./register.validation.js";
-import { config } from "#/config.js";
+import { config } from "../../../../../config.js";
 import { setCookie } from "hono/cookie";
 import { sign } from "hono/jwt";
 
@@ -40,7 +40,7 @@ const registerRouter = new Hono().post(
                 setCookie(c, 'token', token, {
                     httpOnly: true,
                     secure: config.isProduction,
-                    sameSite: 'Lax',
+                    sameSite: 'Strict',
                     maxAge: 60 * 60 * 24 * 7,
                     path: '/',
                 });

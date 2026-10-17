@@ -1,6 +1,6 @@
-import { projectSchema } from "#/routes/api/v1/projects/projects.schema.js";
-import { tagSchema } from "#/routes/api/v1/templates/tags/tag.schema.js";
 import z from "zod";
+import { tagSchema } from "../../routes/api/v1/templates/tags/tag.schema.js";
+import { projectSchema } from "../../routes/api/v1/projects/projects.schema.js";
 
 // *-- Pick/Omit Objects
 export const baseEntityFields = {

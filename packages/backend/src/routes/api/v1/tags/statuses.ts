@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import z from "zod";
-import { getStatusTags } from "#/shared/queries/tags.queries.js";
-import type { AuthEnv } from "#/types/auth-env.js";
+import { getStatusTags } from "../../../../shared/queries/tags.queries.js";
+import type { AuthEnv } from "../../../../types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
 
 const STATUS_TYPES = ['project', 'task'] as const;

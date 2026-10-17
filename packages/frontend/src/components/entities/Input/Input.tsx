@@ -36,7 +36,7 @@ const Input = ({
         isPopoverOpen,
         setIsPopoverOpen,
         isPassword,
-    } = useInputComponent({ id: id, type: type });
+    } = useInputComponent({ id, type });
 
     const emojiButtonRender = (
         <Button variant='transparent' size='none'>

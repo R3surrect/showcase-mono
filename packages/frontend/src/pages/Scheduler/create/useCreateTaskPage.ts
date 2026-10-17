@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 
@@ -10,12 +9,12 @@ import { useCreateTaskQuery } from "@/queries/tasks/task.query";
 import type { TaskCreateInput, TaskCreateInputDirty } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import { taskCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/tasks/validations/task.create";
 
-export const useCreateTaskPage = (selectedDate?: Date) => {
+export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     const { pushToast, clearToasts } = useToast();
     const { mutate: createTask } = useCreateTaskQuery();
 
-    const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
-    const defaultNotifyAt = dayjs(selectedDate).add(5, 'minute').format('YYYY-MM-DDTHH:mm');
+    // const defaultDeadline = dayjs(selectedDate).format('YYYY-MM-DDTHH:mm');
+    // const defaultNotifyAt = dayjs(selectedDate).add(1, 'hour').format('YYYY-MM-DDTHH:mm');
 
     const {
         register,
@@ -28,8 +27,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         mode: 'onChange',
 
         defaultValues: {
-            deadline: defaultDeadline,
-            notifyAt: defaultNotifyAt,
+            // deadline: defaultDeadline,
+            // notifyAt: defaultNotifyAt,
         }
     })
 
@@ -37,13 +36,7 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
     const { isLoading: isPrioritiesLoading, data: priorities = [] } = useGetPrioritiesQuery();
     const { isLoading: isStatusesLoading, data: statuses = [] } = useGetStatusesQuery('task');
 
-    const onSubmit = (rawData: TaskCreateInput) => {
-        const data: TaskCreateInput = {
-            ...rawData,
-            deadline: dayjs(rawData.deadline).toISOString(),
-            notifyAt: dayjs(rawData.notifyAt).toISOString(),
-        }
-
+    const onValid = (data: TaskCreateInput) => {
         clearToasts();
         createTask(data);
 
@@ -55,10 +48,10 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         });
     }
 
-    // const onError: SubmitErrorHandler<TaskCreateInput> = (errors) => {
-    const onError: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
+    // const onInvalid: SubmitErrorHandler<TaskCreateInput> = (errors) => {
+    const onInvalid: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
         clearToasts();
-
+        console.log(getValues())
         Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {
                 pushToast({
@@ -82,8 +75,8 @@ export const useCreateTaskPage = (selectedDate?: Date) => {
         isPrioritiesLoading,
         statuses,
         isStatusesLoading,
-        onSubmit,
-        onError,
+        onValid,
+        onInvalid,
         isDirty
     }
 }

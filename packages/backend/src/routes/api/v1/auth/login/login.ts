@@ -4,7 +4,7 @@ import { Hono } from "hono";
 import loginValidation from "./login.validation.js";
 import findUserByEmail from "./login.query.js";
 import { sign } from "hono/jwt";
-import { config } from "#/config.js";
+import { config } from "../../../../../config.js";
 import { setCookie } from "hono/cookie";
 
 const loginRouter = new Hono().post(
@@ -57,7 +57,7 @@ const loginRouter = new Hono().post(
         setCookie(c, 'token', token, {
             httpOnly: true,
             secure: config.isProduction,
-            sameSite: 'Lax',
+            sameSite: 'Strict',
             maxAge: 60 * 60 * 24 * 7,
             path: '/',
         });

@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import type { AuthEnv } from "#/types/auth-env.js";
+import type { AuthEnv } from "../../../../types/auth-env.js";
 import { zValidator } from "@hono/zod-validator";
 import { projectCreateInputValidation } from "./validations/project.create.js";
 import { createProject, findProjectsByUserId, updateProject } from "./projects.query.js";

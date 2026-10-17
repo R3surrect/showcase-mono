@@ -1,4 +1,4 @@
-import sql from "#/db.js";
+import sql from "../../../../../db.js";
 import type { TagDbCreateInput, TagCreateOutput, TagGetOutput, TagDbDeleteInput } from "./tag.types.js";
 
 export type QueryTagsByUserId = (userId: number) => Promise<TagGetOutput[]>;

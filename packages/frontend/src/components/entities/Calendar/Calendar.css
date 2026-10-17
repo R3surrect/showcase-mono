@@ -2,6 +2,8 @@
 
 .rdp-root * {
     outline: none;
+    border: none;
+    transition: 0.15s ease-in-out;
 }
 
 .rdp-root {
@@ -26,7 +28,7 @@
 }
 
 .rdp-today>.rdp-day_button {
-    background-color: var(--cold-blue-gray-400);
+    background-color: color-mix(in srgb, var(--cold-blue-gray-400), transparent 40%);
 }
 
 .rdp-focused>.rdp-day_button {
@@ -35,7 +37,7 @@
 
 .rdp-focused>.rdp-day_button,
 .rdp-today>.rdp-day_button {
-    border-radius: var(--border-radius-4);
+    /* border-radius: var(--border-radius-4); */
     box-shadow: var(--shadow-md);
     color: var(--neutral-0);
     font-weight: 400;

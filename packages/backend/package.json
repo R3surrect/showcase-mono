@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "main": "app.ts",
+  "main": "dist/app.ts",
   "type": "module",
   "keywords": [],
   "author": "R3surrect",
@@ -11,8 +11,9 @@
   "scripts": {
     "dev": "tsx watch src/app.ts",
     "clean": "rm -rf dist",
-    "build": "npm run clean && tsc",
-    "start": "node dist/app.js"
+    "build": "pnpm clean && tsc",
+    "start": "node --env-file=./ --env-file = ../../../.env dist/app.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -24,20 +25,24 @@
   },
   "homepage": "https://github.com/R3surrect/showcase-mono#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^25.9.4",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
     "tsx": "^4.22.4",
-    "typescript": "^7.0.0"
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.71.0"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.4",
     "@hono/zod-validator": "^0.9.0",
     "bcryptjs": "^3.0.3",
-    "dotenv": "^18.0.0",
+    "dotenv": "^18.0.6",
     "hono": "^4.12.23",
     "postgres": "^3.4.9",
     "zod": "^4.4.3"
   },
   "imports": {
-    "#/*": "./src/*"
+    "#/*": "./dist/*"
   }
 }

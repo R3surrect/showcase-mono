@@ -1,9 +1,9 @@
-import { config } from "#/config.js";
+import { config } from "../../../../..//config.js";
 import { Hono } from "hono";
 import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 import findUserById from "./me.query.js";
-import type { AuthEnv } from "#/types/auth-env.js";
+import type { AuthEnv } from "../../../../../types/auth-env.js";
 
 const meRouter = new Hono<AuthEnv>().get(
     '/me',
@@ -20,7 +20,7 @@ const meRouter = new Hono<AuthEnv>().get(
 
         try {
             payload = await verify(token, config.jwtSecret, 'HS256');
-        } catch (e) {
+        } catch {
             return c.json({
                 errors: [{ message: 'Invalid or expired token' }]
             })
@@ -31,7 +31,7 @@ const meRouter = new Hono<AuthEnv>().get(
         const [user] = await findUserById(Number(userId));
 
         if (!user || isNaN(Number(userId))) {
-            console.warn(`User ${userId} not found in DB but had valid JWT`);
+            console.warn(`User ${userId} is not found in DB but has a valid JWT`);
 
             return c.json({
                 errors: [{ message: 'Unauthorized: Session is invalid' }]
