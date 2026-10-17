@@ -103,7 +103,7 @@ CREATE OR REPLACE FUNCTION initialize_new_user()
     INSERT INTO tags (label, color, type, category, owner_id)
     VALUES 
         ('Low', '{"h": 207, "s": 10, "l": 50}', 'priority', 'System', NEW.id),
-        ('Medium', '{"h": 40, "s": 60, "l": 50}', 'priority', 'System', 1NEW.id,
+        ('Medium', '{"h": 40, "s": 60, "l": 50}', 'priority', 'System', NEW.id,
         ('High', '{"h": 15, "s": 65, "l": 50}', 'priority', 'System', NEW.id),
         ('Fire', '{"h": 0, "s": 75, "l": 48}', 'priority', 'System', NEW.id)
     ON CONFLICT (label, type, owner_id) DO NOTHING;
