@@ -22,7 +22,5 @@ services:
         required: true
       - path: ../database/.env.production
         required: true
-    ports:
-      - "8080:${PORT}"
     depends_on:
       - postgres
