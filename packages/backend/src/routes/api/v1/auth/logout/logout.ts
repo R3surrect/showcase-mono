@@ -7,7 +7,7 @@ const logoutRouter = new Hono().post('/logout', async (c) => {
         deleteCookie(c, 'token', {
             path: '/',
             secure: config.isProduction,
-            sameSite: 'Lax'
+            sameSite: 'Strict'
         });
 
         return c.body(null, 204);

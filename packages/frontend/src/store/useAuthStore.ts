@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
-const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}:${import.meta.env.VITE_BACKEND_API_PORT}/api`
+const baseUrl = import.meta.env.VITE_BACKEND_API_URL;
 
 type FetchApi = (endpoint: string[], options: RequestInit, version?: number) => Promise<Response>;
 

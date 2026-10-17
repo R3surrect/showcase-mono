@@ -5,8 +5,6 @@ services:
       context: ../..
       dockerfile: ./packages/frontend/Dockerfile
       args:
-        - VITE_BACKEND_API_URL=${VITE_BACKEND_API_URL}
-        - VITE_BACKEND_API_PORT=${VITE_BACKEND_API_PORT}
         - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
     container_name: showcase_frontend
     env_file:
