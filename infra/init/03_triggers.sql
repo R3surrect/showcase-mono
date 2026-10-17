@@ -100,6 +100,88 @@ CREATE OR REPLACE FUNCTION initialize_new_user()
             ('🎨 Творчество', '{"h": 35, "s": 39, "l": 53}', 'default', 'Медиа & Контент', NEW.id)
         ON CONFLICT (label, type, owner_id) DO NOTHING;
 
+    INSERT INTO tags (label, color, type, category, owner_id)
+    VALUES 
+        ('Low', '{"h": 207, "s": 10, "l": 50}', 'priority', 'System', NEW.id),
+        ('Medium', '{"h": 40, "s": 60, "l": 50}', 'priority', 'System', 1NEW.id,
+        ('High', '{"h": 15, "s": 65, "l": 50}', 'priority', 'System', NEW.id),
+        ('Fire', '{"h": 0, "s": 75, "l": 48}', 'priority', 'System', NEW.id)
+    ON CONFLICT (label, type, owner_id) DO NOTHING;
+
+    INSERT INTO tags (label, color, type, category, owner_id)
+    VALUES (
+            'Planning',
+            '{"h": 270, "s": 40, "l": 50}',
+            'project_status',
+            'System',
+            NEW.id
+        ),
+        (
+            'In progress',
+            '{"h": 210, "s": 65, "l": 48}',
+            'project_status',
+            'System',
+            NEW.id
+        ),
+        (
+            'On hold',
+            '{"h": 45, "s": 20, "l": 50}',
+            'project_status',
+            'System',
+            NEW.id
+        ),
+        (
+            'Completed',
+            '{"h": 145, "s": 45, "l": 45}',
+            'project_status',
+            'System',
+            NEW.id
+        ),
+        (
+            'Cancelled',
+            '{"h": 10, "s": 35, "l": 50}',
+            'project_status',
+            'System',
+            NEW.id
+        ) ON CONFLICT (label, type, owner_id) DO NOTHING;
+
+        INSERT INTO tags (label, color, type, category, owner_id)
+        VALUES (
+                'Completed',
+                '{"h": 145, "s": 45, "l": 45}',
+                'task_status',
+                'System',
+                NEW.id
+            ),
+            (
+                'Pending',
+                '{"h": 40, "s": 65, "l": 48}',
+                'task_status',
+                'System',
+                NEW.id
+            ),
+            (
+                'Overdue',
+                '{"h": 0, "s": 65, "l": 50}',
+                'task_status',
+                'System',
+                NEW.id
+            ),
+            (
+                'Scheduled',
+                '{"h": 210, "s": 25, "l": 50}',
+                'task_status',
+                'System',
+                NEW.id
+            ),
+            (
+                'In progress',
+                '{"h": 200, "s": 60, "l": 48}',
+                'task_status',
+                'System',
+                NEW.id
+            ) ON CONFLICT (label, type, owner_id) DO NOTHING;
+
     RETURN NEW; 
     END;
 $$ LANGUAGE plpgsql;
