@@ -15,7 +15,8 @@ services:
     command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
     restart: always
     ports:
-      - "80:${VITE_FRONTEND_PORT}"
+      - "80:80"
+      - "8443:8443"
     depends_on:
       - backend
     volumes:
