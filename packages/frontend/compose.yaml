@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: showcase-frontent-image
+    image: showcase-frontend-image
     build:
       context: ../..
       dockerfile: ./packages/frontend/Dockerfile
@@ -10,7 +10,8 @@ services:
         - VITE_FRONTEND_PORT=${VITE_FRONTEND_PORT}
     container_name: showcase_frontend
     env_file:
-      - ./packages/frontend/.env.production
+      - path: .env.production
+        required: true
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
     command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
