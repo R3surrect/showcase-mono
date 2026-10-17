@@ -12,11 +12,17 @@ services:
     env_file:
       - path: .env.production
         required: true
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
     command: caddy run --config /etc/caddy/Caddyfile --adapter caddyfile
     restart: always
     ports:
       - "80:${VITE_FRONTEND_PORT}"
     depends_on:
       - backend
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
