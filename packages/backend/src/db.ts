@@ -2,8 +2,8 @@ import postgres from 'postgres'
 import { config } from './config.js';
 
 const sql: postgres.Sql = postgres({
-    host: 'localhost',
-    port: 5432,
+    host: config.db.PGHOST,
+    port: config.db.PGPORT,
     database: config.db.PGDATABASE,
     username: config.db.PGUSER,
     password: config.db.PGPASSWORD,

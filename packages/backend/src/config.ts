@@ -16,10 +16,15 @@ dotenv.config({
 
 export const envSchema = z.object({
     PORT: z.string().transform(Number).default(8080),
-    PGPORT: z.string().transform(Number).default(5173),
     PGDATABASE: z.string().default('test_db'),
     PGUSER: z.string().default('postgres'),
     PGPASSWORD: z.string().default('postgres'),
+    PGPORT: z.coerce
+        .number()
+        .int({ message: "Порт должен быть целым числом" })
+        .min(0, { message: "Минимальное значение порта — 0" })
+        .max(65535, { message: "Максимальное значение порта — 65535" }),
+    PGHOST: z.string().default('localhost'),
     JWT_SECRET: z.string().default('test_jwt'),
     ALLOWED_ORIGINS: z
         .string()
@@ -56,6 +61,8 @@ export const config = {
         PGDATABASE: env.PGDATABASE,
         PGUSER: env.PGUSER,
         PGPASSWORD: env.PGPASSWORD,
+        PGHOST: env.PGHOST,
+        PGPORT: env.PGPORT
     },
     jwtSecret: env.JWT_SECRET,
     allowedOrigins: env.ALLOWED_ORIGINS,
