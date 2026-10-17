@@ -35,8 +35,8 @@ jobs:
             set -e
             cd /home/deploy/showcase-mono
             git fetch origin
-            git checkout chore/cd
-            git pull origin chore/cd
+            git checkout main
+            git pull origin main
 
             # packages/frontend/.env.production
             printf '%s\n' \
