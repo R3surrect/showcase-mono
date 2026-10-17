@@ -23,13 +23,15 @@ jobs:
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           PGUSER: ${{ secrets.PGUSER }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGPORT: ${{ secrets.PGPORT }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,JWT_SECRET
+          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
           script: |
             set -e
             cd /home/deploy/showcase-mono
@@ -48,9 +50,11 @@ jobs:
             echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env.production
             echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env.production
             
-            # root .env
-            echo "PGDATABASE='$PGDATABASE'" > .env.production
-            echo "PGPASSWORD='$PGPASSWORD'" >> .env.production
-            echo "PGUSER='$PGUSER'" >> .env.production
+            # packages/database/.env.production
+            echo "PGDATABASE='$PGDATABASE'" > ./packages/database/.env.production
+            echo "PGPASSWORD='$PGPASSWORD'" >> ./packages/database/.env.production
+            echo "PGUSER='$PGUSER'" >> ./packages/database/.env.production
+            echo "PGHOST='$PGHOST'" >> ./packages/database/.env.production
+            echo "PGPORT='$PGPORT'" >> ./packages/database/.env.production
 
             docker compose up --build -d
