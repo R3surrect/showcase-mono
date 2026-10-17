@@ -7,14 +7,21 @@ services:
       context: ../..
       dockerfile: ./packages/backend/Dockerfile
       args:
-        - ENV_PORT=${PORT}
+        - PORT=${PORT}
         - DATABASE_URL=postgres://${PGUSER}:${PGPASSWORD}@postgres:5432/${PGDATABASE}
         - NODE_ENV=production
+        - PGUSER=${PGUSER}
+        - PGPASSWORD=${PGPASSWORD}
+        - PGHOST=${PGHOST}
+        - PGPORT=${PGPORT}
+        - PGDATABASE=${PGDATABASE}
     container_name: showcase_backend
     restart: always
     env_file:
-      - .env.production
-      - ../../.env.production
+      - path: ./.env.production
+        required: true
+      - path: ../database/.env.production
+        required: true
     ports:
       - "8080:${PORT}"
     depends_on:
