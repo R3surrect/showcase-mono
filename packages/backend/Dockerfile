@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 RUN npm install -g pnpm
@@ -7,9 +7,20 @@ RUN npm install -g pnpm
 RUN pnpm install --filter=@showcase-mono/backend --frozen-lockfile
 COPY packages/backend ./packages/backend
 
-ARG ENV_PORT
+ARG PORT
+ARG PGUSER
+ARG PGPASSWORD
+ARG PGHOST
+ARG PGPORT
+ARG PGDATABASE
 
-ENV PORT=$ENV_PORT
+ENV PORT=$PORT
+ENV PGUSER=$PGUSER
+ENV PGPASSWORD=$PGPASSWORD
+ENV PGHOST=$PGHOST
+ENV PGPORT=$PGPORT
+ENV PGDATABASE=$PGDATABASE
+
 ENV NODE_ENV=production
 
 WORKDIR /app/packages/backend
@@ -18,7 +29,7 @@ RUN pnpm prune --prod
 
 # ---------------------------
 
-FROM node:22-alpine AS runner
+FROM node:24-alpine AS runner
 
 USER node
 

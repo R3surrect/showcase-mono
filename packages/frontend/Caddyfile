@@ -1,9 +1,11 @@
-:3000 {
-	root * /usr/share/caddy
-	try_files {path} /index.html
-	file_server
-
-	handle_path /api/* {
+217-60-4-29.sslip.io:8443 {
+	handle /api/* {
 		reverse_proxy showcase_backend:8080
+	}
+
+	handle {
+		root * /usr/share/caddy
+		try_files {path} /index.html
+		file_server
 	}
 }

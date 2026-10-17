@@ -1,4 +1,4 @@
-FROM node:22-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 
 RUN npm install -g pnpm
@@ -15,11 +15,9 @@ COPY packages/frontend ./packages/frontend
 COPY packages/backend ./packages/backend
 
 ARG VITE_BACKEND_API_URL
-ARG VITE_BACKEND_API_PORT
 ARG VITE_FRONTEND_PORT
 
 ENV VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL
-ENV VITE_BACKEND_API_PORT=$VITE_BACKEND_API_PORT
 ENV VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT
 
 WORKDIR /app/packages/frontend
@@ -35,5 +33,5 @@ ENV NODE_ENV=production
 
 COPY --from=builder /app/packages/frontend/dist /usr/share/caddy
 
-EXPOSE ${PORT}
-CMD caddy file-server --root /usr/share/caddy --listen :${PORT}
+EXPOSE ${VITE_FRONTEND_PORT}
+CMD caddy file-server --root /usr/share/caddy --listen :${VITE_FRONTEND_PORT}

@@ -17,19 +17,20 @@ jobs:
           ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
           NODE_ENV: ${{ vars.NODE_ENV }}
           PORT: ${{ vars.PORT }}
-          VITE_BACKEND_API_PORT: ${{ vars.VITE_BACKEND_API_PORT }}
           VITE_BACKEND_API_URL: ${{ vars.VITE_BACKEND_API_URL }}
           VITE_FRONTEND_PORT: ${{ vars.VITE_FRONTEND_PORT }}
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           PGUSER: ${{ secrets.PGUSER }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGPORT: ${{ secrets.PGPORT }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,JWT_SECRET
+          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
           script: |
             set -e
             cd /home/deploy/showcase-mono
@@ -37,21 +38,27 @@ jobs:
             git checkout main
             git pull origin main
 
-            # packages/frontend/.env
-            echo "VITE_BACKEND_API_PORT='$VITE_BACKEND_API_PORT'" > ./packages/frontend/.env
-            echo "VITE_BACKEND_API_URL='$VITE_BACKEND_API_URL'" >> ./packages/frontend/.env
-            echo "VITE_FRONTEND_PORT='$VITE_FRONTEND_PORT'" >> ./packages/frontend/.env
-            
-            # packages/backend/.env
-            echo "PORT='$PORT'" > ./packages/backend/.env
-            echo "JWT_SECRET='$JWT_SECRET'" >> ./packages/backend/.env
-            echo "NODE_ENV='$NODE_ENV'" >> ./packages/backend/.env
-            echo "ALLOWED_ORIGINS='$ALLOWED_ORIGINS'" >> ./packages/backend/.env
-            
-            # root .env
-            echo "PGDATABASE='$PGDATABASE'" > .env
-            echo "PGPASSWORD='$PGPASSWORD'" >> .env
-            echo "PGUSER='$PGUSER'" >> .env
+            # packages/frontend/.env.production
+            printf '%s\n' \
+              "VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL" \
+              "VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT" \
+              > ./packages/frontend/.env.production
+
+            # packages/backend/.env.production
+            printf '%s\n' \
+              "PORT=$PORT" \
+              "JWT_SECRET='$JWT_SECRET'" \
+              "NODE_ENV=$NODE_ENV" \
+              "ALLOWED_ORIGINS=$ALLOWED_ORIGINS" \
+              > ./packages/backend/.env.production
+
+            # packages/database/.env.production
+            printf '%s\n' \
+              "PGDATABASE=$PGDATABASE" \
+              "PGPASSWORD='$PGPASSWORD'" \
+              "PGUSER=$PGUSER" \
+              "PGHOST=$PGHOST" \
+              "PGPORT=$PGPORT" \
+              > ./packages/database/.env.production
 
             docker compose up --build -d
-            pnpm run db:init

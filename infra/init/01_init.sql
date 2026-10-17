@@ -1,4 +1,5 @@
--- DO $$ BEGIN -- IF NOT EXISTS (
+DO $$ BEGIN
+-- IF NOT EXISTS (
 --     SELECT 1
 --     FROM pg_type
 --     WHERE typname = 'task_status_enum'
@@ -22,13 +23,14 @@
 --     WHERE typname = 'tag_type_enum'
 -- ) THEN CREATE TYPE tag_type_enum AS ENUM ('default', 'priority', 'status', 'time', 'people');
 -- END IF;
--- IF NOT EXISTS (
---     SELECT 1
---     FROM pg_type
---     WHERE typname = 'user_role_enum'
--- ) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
--- END IF;
--- END $$;
+IF NOT EXISTS (
+    SELECT 1
+    FROM pg_type
+    WHERE typname = 'user_role_enum'
+) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+END IF;
+END $$;
+
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     email VARCHAR(128) UNIQUE NOT NULL,
