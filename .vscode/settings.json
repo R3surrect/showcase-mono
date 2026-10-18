@@ -1,7 +1,6 @@
 {
     "editor.letterSpacing": 0.8,
-    "editor.lineHeight": 22,
-    "editor.fontWeight": "300",
+    "editor.fontWeight": "400",
     
     "sqltools.connections": [
         {

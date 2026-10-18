@@ -42,6 +42,7 @@ jobs:
             printf '%s\n' \
               "VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL" \
               "VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT" \
+              "VITE_ENV=$NODE_ENV" \
               > ./packages/frontend/.env.production
 
             # packages/backend/.env.production

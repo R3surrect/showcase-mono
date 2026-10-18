@@ -3,18 +3,21 @@
     "options": {
         "shell": {
             "executable": "fish",
-            "args": ["-c"] 
+            "args": [
+                "-c"
+            ]
         }
     },
     "tasks": [
         {
             "label": "pnpm",
             "type": "shell",
-            "command": "clear && pnpm -w run dev:all",
+            "command": "clear; pnpm -w run dev:all",
             "problemMatcher": [],
             "presentation": {
                 "group": "dev-group",
-                "panel": "dedicated"
+                "panel": "dedicated",
+                "showReuseMessage": false
             },
             "icon": {
                 "id": "play-circle",
@@ -22,13 +25,13 @@
             }
         },
         {
-            "label": "docker",
+            "label": "pg",
             "type": "shell",
-            "command": "systemctl start docker && until docker info >/dev/null 2>&1; do sleep 2; done; cd packages/backend && docker compose up -d && docker compose logs -f --tail=100 || read",
+            "command": "clear; docker start showcase_db",
             "problemMatcher": [],
             "presentation": {
-                "group": "dev-group",
-                "panel": "dedicated"
+                "showReuseMessage": false,
+                "clear": false
             },
             "icon": {
                 "id": "server-process",
@@ -38,31 +41,18 @@
         {
             "label": "git",
             "type": "shell",
-            "command": "sleep 2 && clear && fish",
+            "command": "clear; fish",
             "problemMatcher": [],
             "presentation": {
                 "group": "dev-group",
-                "panel": "dedicated"
+                "panel": "dedicated",
+                "showReuseMessage": false
             },
             "icon": {
                 "id": "github",
                 "color": "terminal.ansiGreen"
             }
         },
-        // {
-        //     "label": "verdaccio",
-        //     "type": "shell",
-        //     "command": "sleep 3 && clear && verdaccio",
-        //     "problemMatcher": [],
-        //     "presentation": {
-        //         "group": "dev-group",
-        //         "panel": "dedicated"
-        //     },
-        //     "icon": {
-        //         "id": "radio-tower",
-        //         "color": "terminal.ansiCyan"
-        //     }
-        // },
         {
             "label": "Start All Terminals",
             "dependsOn": [
@@ -75,6 +65,9 @@
             "problemMatcher": [],
             "runOptions": {
                 "runOn": "folderOpen"
+            },
+            "presentation": {
+                "showReuseMessage": false
             }
         }
     ]
