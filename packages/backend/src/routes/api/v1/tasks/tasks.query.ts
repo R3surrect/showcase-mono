@@ -1,5 +1,5 @@
 import sql from "../../../../db.js";
-import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TaskBaseOutput, TaskUpdateOutput, TasksWithDetailsOutput } from "./tasks.types.js";
+import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TaskBaseOutput, TaskUpdateOutput, TasksWithDetailsOutput, Task } from "./tasks.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksWithDetailsOutput[]>;
 export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
@@ -24,7 +24,7 @@ export const findTasksByUserId: QueryTasksByUserId = (userId) =>
         where t.owner_id = ${userId};
     `;
 
-export const findTasksByProject: QueryTaskByProjectId = (projectId, userId) => 
+export const findTasksByProject: QueryTaskByProjectId = (projectId, userId) =>
     sql<TaskBaseOutput[]>`
     SELECT t.*,
         row_to_json(projects.*) as project,
@@ -55,9 +55,10 @@ export const createTask: InsertTaskMutation = async (props) => {
         if (tagIds && tagIds.length > 0) {
             const pivotRows = tagIds.map(tagId => ({
                 task_id: task.id,
-                tag_id: tagId
+                tag_id: tagId,
+                owner_id: props.ownerId
             }));
-            await tx`INSERT INTO pivot_tasks_tags ${tx(pivotRows, 'task_id', 'tag_id')}`;
+            await tx`INSERT INTO pivot_tasks_tags ${tx(pivotRows, 'task_id', 'tag_id', 'owner_id')}`;
         }
 
         return { ...task, tagIds };
@@ -91,26 +92,72 @@ export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>
         RETURNING *;
     `;
 
-export const updateTask: UpdateTask = async ({ id, ownerId, ...fieldsToUpdate }) => {
+export const updateTask: UpdateTask = async ({ id, ownerId, ...rawUpdateObj }) => {
     if (id === undefined || ownerId === undefined) return null;
+    const { tagIds, ...fieldsToUpdate } = rawUpdateObj;
 
     const rawPayload = {
         ...fieldsToUpdate,
         ...(fieldsToUpdate.isPinned !== undefined && {
-            pinnedAt: fieldsToUpdate.isPinned && new Date()
+            pinnedAt: fieldsToUpdate.isPinned ? new Date() : null
         })
     };
 
-    const dbPayload = Object.fromEntries(Object.entries(rawPayload).filter((_, value) => value !== undefined));
+    const dbPayload = Object.fromEntries(
+        Object.entries(rawPayload).filter(([_, value]) => value !== undefined)
+    );
 
-    if (Object.keys(dbPayload).length === 0) return null;
+    const task = await sql.begin(
+        async (tx) => {
+            let finalTags: number[] = [], finalTask: Task | undefined;
 
-    const [rows] = await sql<TaskUpdateOutput[]>`
-        UPDATE tasks
-        SET ${sql(dbPayload)}
-        WHERE id = ${id} AND owner_id = ${ownerId}
-        RETURNING *
-    `;
+            if (Object.keys(dbPayload).length !== 0) {
+                [finalTask] = await tx<Task[]>`
+                    UPDATE tasks
+                    SET ${sql(dbPayload)}
+                    WHERE id = ${id} AND owner_id = ${ownerId}
+                    RETURNING *
+                `;
+            } else {
+                [finalTask] = await tx<Task[]>`
+                    SELECT * FROM tasks
+                    WHERE id = ${id} and owner_id = ${ownerId}
+                `;
+            }
 
-    return rows ?? null;
+            if (!finalTask) return null;
+
+            if (Array.isArray(tagIds)) {
+                await tx`DELETE FROM pivot_tasks_tags WHERE task_id = ${id} AND owner_id = ${ownerId}`;
+
+                if (tagIds.length > 0) {
+                    const pivotRows = tagIds.map(tagId => ({ task_id: id, tag_id: tagId, owner_id: ownerId }));
+                    const tags = await tx<{ tag_id: number }[]>`
+                        INSERT INTO pivot_tasks_tags ${tx(pivotRows, 'task_id', 'tag_id', 'owner_id')} 
+                        RETURNING tag_id
+                    `;
+
+                    finalTags = tags.map(tag => tag.tag_id);
+                } else {
+                    finalTags = [];
+                }
+            } else {
+                const currentTags = await tx<{ tag_id: number }[]>`
+                    SELECT tag_id
+                    FROM pivot_tasks_tags
+                    WHERE task_id = ${id}
+                    and owner_id = ${ownerId}
+                `;
+                finalTags = currentTags.map(tag => tag.tag_id);
+            }
+
+            return {
+                ...finalTask,
+                tags: finalTags
+            };
+        }
+    );
+
+    return task;
 }
+

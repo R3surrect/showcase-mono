@@ -43,13 +43,19 @@ export const tasksRouter = new Hono<AuthEnv>()
         '/:id',
         zValidator('json', taskUpdateValidation),
         async (c) => {
-            const taskId = Number(c.req.param('id'));
-            const data = c.req.valid('json');
-            const userId = c.get('user').id;
+            try {
 
-            if (Object.values(data).length === 0) return c.json([{ message: 'No fields provided' }], 400);
-
-            const updatedTask = await updateTask({ id: taskId, ownerId: userId, ...data });
-            return c.json(updatedTask, 201);
+                const taskId = Number(c.req.param('id'));
+                const data = c.req.valid('json');
+                const userId = c.get('user').id;
+                
+                if (Object.values(data).length === 0)
+                    return c.json([{ message: 'No fields provided' }], 400);
+                
+                const updatedTask = await updateTask({ id: taskId, ownerId: userId, ...data });
+                return c.json(updatedTask, 201);
+            } catch (e) {
+                console.log(e);
+            }
         }
     )
