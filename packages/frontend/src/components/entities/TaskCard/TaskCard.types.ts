@@ -6,7 +6,8 @@ import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/template
 export interface TaskCardProps extends Omit<DivUiComponent, 'id'>, TaskBaseOutput{
     hasSurface?: boolean;
     tags: TagGetOutput[];
-    onTagDelete: (taskId: number, tagId: number) => void;
+    onTagDelete?: (taskId: number, tagId: number) => void;
+    toolbar?: React.ReactNode;
     // createdAt: Date;
     // statusTagId?: number;
 }

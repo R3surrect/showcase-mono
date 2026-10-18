@@ -1,0 +1,1 @@
+export const hintId = 'scheduler-page-hint';

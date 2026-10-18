@@ -17,7 +17,7 @@ export const getTasksQueryOptions = () => queryOptions({
         ]);
         return res;
     },
-    select: data => data.filter(task => !task.isArchived)
+    // select: data => data.filter(task => !task.isArchived)
 })
 
 export const useGetTasksQuery = () => useQuery(getTasksQueryOptions());
@@ -28,7 +28,15 @@ export const useUpdateTaskQuery = () => {
 
     return useMutation({
         mutationFn: async (data: { id: number } & TaskUpdateInput) => TasksService.updateTask(data),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: tasksKeys.all }),
+        onSuccess: (data) => {
+            pushToast({
+                text: `Task "${data?.label}" updated`,
+                type: 'popup',
+                label: 'Task updated!',
+                status: 'success'
+            })
+            return queryClient.invalidateQueries({ queryKey: tasksKeys.all })
+        },
         onError: (error) => pushToast({
             text: `${error}`,
             type: 'popup',
@@ -60,7 +68,15 @@ export const useDeleteTaskQuery = () => {
 
     return useMutation({
         mutationFn: async (data: TaskDeleteInput) => TasksService.deleteTask(data),
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: tasksKeys.all }),
+        onSuccess: (data) => {
+            pushToast({
+                text: `Task "${data.label}" deleted!`,
+                type: 'popup',
+                label: 'Task deleted',
+                status: 'success'
+            })
+            return queryClient.invalidateQueries({ queryKey: tasksKeys.all })
+        },
         onError: (error) => pushToast({
             text: `${error}`,
             type: 'popup',
