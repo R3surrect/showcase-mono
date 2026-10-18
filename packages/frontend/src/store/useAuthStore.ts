@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
-import { useNavigate } from "react-router-dom";
 
 const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}:8080/api`;
 
