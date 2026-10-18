@@ -1,16 +1,16 @@
+import z from 'zod';
 import dotenv from 'dotenv';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import z from 'zod';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 
 dotenv.config({
     path: [
         path.join(root, './packages/backend/.env.local'),
-        path.join(root, './packages/backend/.env'),
-        path.join(root, '.env.local'),
-        path.join(root, '.env'),
+        path.join(root, './packages/backend/.env.production'),
+        path.join(root, './packages/database/.env.local'),
+        path.join(root, './packages/database/.env.production'),
     ],
 });
 
@@ -21,11 +21,11 @@ export const envSchema = z.object({
     PGPASSWORD: z.string().default('postgres'),
     PGPORT: z.coerce
         .number()
-        .int({ message: "Порт должен быть целым числом" })
-        .min(0, { message: "Минимальное значение порта — 0" })
-        .max(65535, { message: "Максимальное значение порта — 65535" }),
+        .int({ message: "Port value must me number" })
+        .min(0, { message: "Min: 0" })
+        .max(65535, { message: "Max: 65535" }),
     PGHOST: z.string().default('localhost'),
-    JWT_SECRET: z.string().default('test_jwt'),
+    JWT_SECRET: z.string().default('test_jwt_secret'),
     ALLOWED_ORIGINS: z
         .string()
         .min(1, '.env ALLOWED_ORIGINS must not be null')
