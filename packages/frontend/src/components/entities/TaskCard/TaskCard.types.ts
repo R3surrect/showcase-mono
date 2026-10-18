@@ -1,10 +1,12 @@
-import type { TasksGetOutput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
+import type { TaskBaseOutput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import type { DivUiComponent } from "../_shared/system.types"
+import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
 // import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types"
 
-export interface TaskCardProps extends Omit<DivUiComponent, 'id'>, TasksGetOutput{
+export interface TaskCardProps extends Omit<DivUiComponent, 'id'>, TaskBaseOutput{
     hasSurface?: boolean;
-    // tags: TagGetOutput[];
+    tags: TagGetOutput[];
+    onTagDelete: (taskId: number, tagId: number) => void;
     // createdAt: Date;
-    // statusTagId: number;
+    // statusTagId?: number;
 }

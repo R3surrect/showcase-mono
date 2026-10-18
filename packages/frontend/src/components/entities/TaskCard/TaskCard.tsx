@@ -98,7 +98,7 @@ const TaskCard = (props: TaskCardProps) => {
                             props.tags.map((tag) => (
                                 <Tag
                                     isEditable
-                                    onDeleteAction={() => console.log('delete')}
+                                    onDeleteAction={() => props.onTagDelete(props.id, tag.id)}
                                     onEditAction={() => console.log('delete')}
                                     key={tag.id}
                                     id={tag.id}

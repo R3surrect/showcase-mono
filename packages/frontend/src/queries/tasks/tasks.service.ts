@@ -16,15 +16,15 @@ export const TasksService = {
         return await res.json();
     },
 
-    async updateTask(taskData: TaskUpdateInput) {
-        if (!taskData.id) return;
+    async updateTask({id, ...data}: { id: number } & TaskUpdateInput) {
+        if (!id) return;
 
         const res = await api.tasks[':id'].$patch({
-            param: { id: taskData.id.toString() },
-            json: taskData
+            param: { id: id.toString() },
+            json: data
         });
 
-        if (!res.ok) throw new Error(`Update failed: ${res.status}: ${res.statusText}`);
+        if (!res.ok) throw new Error(`Updating failed: ${res.status}: ${res.statusText}`);
 
         const result = await res.json();
         return result;

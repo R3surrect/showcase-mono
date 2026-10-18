@@ -111,16 +111,20 @@ CREATE TABLE IF NOT EXISTS notes (
 CREATE TABLE IF NOT EXISTS pivot_tasks_tags (
     task_id INT NOT NULL,
     tag_id INT NOT NULL,
-    PRIMARY KEY (task_id, tag_id),
+    owner_id INT NOT NULL,
+    PRIMARY KEY (task_id, tag_id, owner_id),
     CONSTRAINT fk_pivot_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+    CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+    CONSTRAINT fk_pivot_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS pivot_projects_tags (
     project_id INT NOT NULL,
     tag_id INT NOT NULL,
-    PRIMARY KEY (project_id, tag_id),
+    owner_id INT NOT NULL,
+    PRIMARY KEY (project_id, tag_id, owner_id),
     CONSTRAINT fk_pivot_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
-    CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+    CONSTRAINT fk_pivot_tag FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+    CONSTRAINT fk_pivot_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 );
 -- CREATE TABLE IF NOT EXISTS PIVOT_NOTES_TAGS (
 --     note_id INT NOT NULL,

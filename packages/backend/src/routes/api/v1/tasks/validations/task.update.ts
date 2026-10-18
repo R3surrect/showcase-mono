@@ -1,3 +1,4 @@
+import { hasTagsReferenceMixin } from "../../../../../shared/validations/mixins.js";
 import { taskSchema } from "../tasks.schema.js";
 
 export const taskUpdateOutputSchema = taskSchema
@@ -10,13 +11,18 @@ export const taskUpdateOutputSchema = taskSchema
 
 export const taskUpdateValidation = taskSchema
     .omit({
+        id: true,
         createdAt: true,
         ownerId: true,
         pinnedAt: true,
-    }).partial();
+    })
+    .extend(hasTagsReferenceMixin)
+    .partial();
 
 export const taskDbUpdateValidation = taskSchema
     .omit({
         createdAt: true,
         pinnedAt: true,
-    }).partial();
+    })
+    .extend(hasTagsReferenceMixin)
+    .partial();

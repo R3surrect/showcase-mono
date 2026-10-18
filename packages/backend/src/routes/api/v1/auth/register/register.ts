@@ -40,7 +40,7 @@ const registerRouter = new Hono().post(
                 setCookie(c, 'token', token, {
                     httpOnly: true,
                     secure: config.isProduction,
-                    sameSite: 'Strict',
+                    sameSite: config.isProduction ? 'Strict' : 'Lax',
                     maxAge: 60 * 60 * 24 * 7,
                     path: '/',
                 });
