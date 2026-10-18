@@ -1,15 +1,16 @@
-import { useState } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import {
     LucideAlertTriangle,
+    LucideArchive,
+    LucideArchiveRestore,
     LucideBell,
-    LucideCalendarClock,
     LucideCalendarRange,
     LucideCalendarX,
     LucideCheckCircle,
     LucideInbox,
-    LucidePlusCircle
+    LucidePlusCircle,
+    LucideXCircle
 } from "lucide-react";
 import Banner from "@/components/entities/Banner/Banner";
 import Button from "@/components/entities/Button/Button";
@@ -21,10 +22,10 @@ import Tag from "@/components/entities/Tag/Tag";
 import TaskCard from "@/components/entities/TaskCard/TaskCard";
 import Text from "@/components/entities/Text/Text";
 import Modal from "@/components/shared/Modal/Modal";
-import { useHintStore } from "@/store/useHintStore";
 import TaskCreateForm from "./create";
 import Surface from "@/components/entities/Surface/Surface";
-import { useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
+import useSchedulerPage from "./useSchedulerPage";
+import { hintId } from "./Scheduler.constants";
 
 const MOCK_STAT_TAGS = [
     {
@@ -53,51 +54,41 @@ const MOCK_STAT_TAGS = [
     },
 ] as const;
 
-const hintId = 'scheduler-page-hint';
-
-
 export const Component = () => {
-    const dismiss = useHintStore(store => store.dismissHint);
-    const isDismissed = useHintStore(store => store.data[hintId])
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
-    const [modalActive, setModalActive] = useState(false);
 
-    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
-    const { mutate } = useUpdateTaskQuery();
+    const {
+        dismiss,
+        isDismissed,
+        selectedDate,
+        setSelectedDate,
+        modalActive,
+        setModalActive,
+        tasks,
+        isTasksLoading,
+        updateTask,
+        deleteTask,
+        view,
+        setView,
+        filteredTasks,
+        calendarData,
+        onTaskTagDelete
+    } = useSchedulerPage();
 
-    const hasTasksForSelectedDate = tasks.some(task => {
-        if (!task.deadline || !selectedDate) return false;
-        return true;
-        // return dayjs(task.deadline).isSame(selectedDate, 'day');
-    });
+    const renderToolbar = (taskId: number) => {
+        const task = tasks.find(task => task.id === taskId);
 
-    const [isInboxView, setIsInboxView] = useState(() => !hasTasksForSelectedDate);
-
-    const filteredTasks = tasks.filter(
-        task => {
-            if (isInboxView) return !task.deadline;
-            if (!task.deadline) return false;
-            if (!selectedDate) return true;
-
-            return dayjs(task.deadline).isSame(selectedDate, 'day');
-        }
-    );
-
-    const grouped = Object.groupBy(tasks, item => item.deadline || '');
-
-    const calendarData = Object.keys(grouped).map((key) => ({
-        deadline: new Date(key),
-        count: grouped[key]?.length ?? 0
-    }))
-
-    const onTagDelete = (taskId: number, tagId: number) => {
-        const mutatedTask = tasks.find((item) => item.id === taskId);
-        const mutatedTags = mutatedTask?.tags.filter(tag => tag.id !== tagId);
-
-        mutate({
-            id: taskId,
-            tagIds: mutatedTags?.map(tag => tag.id)
-        })
+        return <>
+            <Button variant="transparent" size="none" onClick={() => updateTask({ id: taskId, isArchived: !task?.isArchived })} >
+                {
+                    task?.isArchived
+                        ? <LucideArchiveRestore fill="white" stroke="var(--warm-orange-400)" size={18} />
+                        : <LucideArchive fill="var(--warm-orange-400)" stroke="white" size={18} />
+                }
+            </Button>
+            <Button variant="transparent" size="none" onClick={() => deleteTask({ id: taskId })}>
+                <LucideXCircle color="var(--warm-red-400)" size={18} />
+            </Button>
+        </>
     }
 
     return (
@@ -126,29 +117,57 @@ export const Component = () => {
                     title={selectedDate ? `Задачи на ${dayjs(selectedDate).locale('ru').format('DD MMMM YYYY')}` : 'Планировщик'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
+
+                    {/* CREATE TASK */}
                     <Button size="sm" onClick={() => setModalActive(true)}>
                         <Stack align="center" direction="row" gap="md">
                             <LucidePlusCircle />
                             Create Task
                         </Stack>
                     </Button>
-                    <Button size="sm" onClick={() => setSelectedDate(undefined)} variant="outline">
+
+                    {/* ALL */}
+                    <Button
+                        size="sm"
+                        variant={view === 'all' ? "accent" : "outline"}
+                        onClick={() => {
+                            setView('all');
+                            setSelectedDate(undefined)
+                        }}
+                    >
                         <Stack align="center" direction="row" gap="md">
                             <LucideCalendarX />
                             All tasks
                         </Stack>
                     </Button>
+
+                    {/* ARCHIVE */}
                     <Button
                         size="sm"
-                        variant={isInboxView ? "accent" : "outline"}
+                        variant={view === 'archived' ? "accent" : "outline"}
                         onClick={() => {
                             setSelectedDate(undefined);
-                            setIsInboxView(!isInboxView);
+                            setView((prev) => view === 'archived' ? prev : 'archived');
                         }}
                     >
                         <Stack align="center" direction="row" gap="md">
-                            {isInboxView ? <LucideCalendarClock /> : <LucideInbox />}
-                            {isInboxView ? 'Scheduled' : 'Inbox'}
+                            <LucideArchive />
+                            Archive
+                        </Stack>
+                    </Button>
+
+                    {/* INBOX */}
+                    <Button
+                        size="sm"
+                        variant={view === 'inbox' ? "accent" : "outline"}
+                        onClick={() => {
+                            setSelectedDate(undefined);
+                            setView((prev) => view === 'inbox' ? prev : 'inbox');
+                        }}
+                    >
+                        <Stack align="center" direction="row" gap="md">
+                            <LucideInbox />
+                            Inbox
                         </Stack>
                     </Button>
                 </ContentHeader>
@@ -176,7 +195,12 @@ export const Component = () => {
                                 : filteredTasks.length == 0
                                     ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
                                     : filteredTasks.map(task => (
-                                        <TaskCard onTagDelete={onTagDelete} key={task.id} {...task} />
+                                        <TaskCard
+                                            key={task.id}
+                                            onTagDelete={onTaskTagDelete}
+                                            toolbar={renderToolbar(task.id)}
+                                            {...task}
+                                        />
                                     ))
                         }
                     </Stack>
@@ -186,7 +210,7 @@ export const Component = () => {
                         selected={selectedDate}
                         onSelect={(date) => {
                             setSelectedDate(date);
-                            setIsInboxView(false);
+                            setView('date');
                         }}
                     />
                 </Grid>
