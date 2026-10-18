@@ -24,7 +24,7 @@ import Modal from "@/components/shared/Modal/Modal";
 import { useHintStore } from "@/store/useHintStore";
 import TaskCreateForm from "./create";
 import Surface from "@/components/entities/Surface/Surface";
-import { useGetTasksQuery } from "@/queries/tasks/task.query";
+import { useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
 
 const MOCK_STAT_TAGS = [
     {
@@ -54,16 +54,24 @@ const MOCK_STAT_TAGS = [
 ] as const;
 
 const hintId = 'scheduler-page-hint';
+
+
 export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
-    const [isInboxView, setIsInboxView] = useState(false);
     const [modalActive, setModalActive] = useState(false);
 
     const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
-    
-    console.log(tasks.filter(task => !task.deadline))
+    const { mutate } = useUpdateTaskQuery();
+
+    const hasTasksForSelectedDate = tasks.some(task => {
+        if (!task.deadline || !selectedDate) return false;
+        return true;
+        // return dayjs(task.deadline).isSame(selectedDate, 'day');
+    });
+
+    const [isInboxView, setIsInboxView] = useState(() => !hasTasksForSelectedDate);
 
     const filteredTasks = tasks.filter(
         task => {
@@ -81,6 +89,16 @@ export const Component = () => {
         deadline: new Date(key),
         count: grouped[key]?.length ?? 0
     }))
+
+    const onTagDelete = (taskId: number, tagId: number) => {
+        const mutatedTask = tasks.find((item) => item.id === taskId);
+        const mutatedTags = mutatedTask?.tags.filter(tag => tag.id !== tagId);
+
+        mutate({
+            id: taskId,
+            tagIds: mutatedTags?.map(tag => tag.id)
+        })
+    }
 
     return (
         <>
@@ -158,7 +176,7 @@ export const Component = () => {
                                 : filteredTasks.length == 0
                                     ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
                                     : filteredTasks.map(task => (
-                                        <TaskCard key={task.id} {...task} />
+                                        <TaskCard onTagDelete={onTagDelete} key={task.id} {...task} />
                                     ))
                         }
                     </Stack>

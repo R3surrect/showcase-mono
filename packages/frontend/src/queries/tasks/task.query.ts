@@ -27,7 +27,7 @@ export const useUpdateTaskQuery = () => {
     const { pushToast } = useToast();
 
     return useMutation({
-        mutationFn: async (data: TaskUpdateInput) => TasksService.updateTask(data),
+        mutationFn: async (data: { id: number } & TaskUpdateInput) => TasksService.updateTask(data),
         onSuccess: () => queryClient.invalidateQueries({ queryKey: tasksKeys.all }),
         onError: (error) => pushToast({
             text: `${error}`,

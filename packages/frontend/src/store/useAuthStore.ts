@@ -83,7 +83,6 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
     checkAuth: async () => {
         const endpoint = ['auth', 'me'];
         const res = await fetchApi(endpoint, { method: 'GET' });
-        const navigate = useNavigate();
 
         if (res.ok) {
             const data = await res.json();
@@ -106,7 +105,6 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                     user: null
                 }
             });
-            navigate('/auth/login');
         };
     },
 
