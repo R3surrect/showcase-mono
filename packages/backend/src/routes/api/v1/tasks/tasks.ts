@@ -43,8 +43,6 @@ export const tasksRouter = new Hono<AuthEnv>()
         '/:id',
         zValidator('json', taskUpdateValidation),
         async (c) => {
-            try {
-
                 const taskId = Number(c.req.param('id'));
                 const data = c.req.valid('json');
                 const userId = c.get('user').id;
@@ -54,8 +52,5 @@ export const tasksRouter = new Hono<AuthEnv>()
                 
                 const updatedTask = await updateTask({ id: taskId, ownerId: userId, ...data });
                 return c.json(updatedTask, 201);
-            } catch (e) {
-                console.log(e);
-            }
         }
     )

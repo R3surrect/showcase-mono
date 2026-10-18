@@ -109,7 +109,7 @@ export const updateTask: UpdateTask = async ({ id, ownerId, ...rawUpdateObj }) =
 
     const task = await sql.begin(
         async (tx) => {
-            let finalTags: number[] = [], finalTask: Task | undefined;
+            let finalTags: number[], finalTask: Task | undefined;
 
             if (Object.keys(dbPayload).length !== 0) {
                 [finalTask] = await tx<Task[]>`
