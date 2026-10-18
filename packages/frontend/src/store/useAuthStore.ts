@@ -1,8 +1,9 @@
 import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
+import { useNavigate } from "react-router-dom";
 
-const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}/api`;
+const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}:8080/api`;
 
 type FetchApi = (endpoint: string[], options: RequestInit, version?: number) => Promise<Response>;
 
@@ -82,6 +83,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
     checkAuth: async () => {
         const endpoint = ['auth', 'me'];
         const res = await fetchApi(endpoint, { method: 'GET' });
+        const navigate = useNavigate();
 
         if (res.ok) {
             const data = await res.json();
@@ -104,6 +106,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                     user: null
                 }
             });
+            navigate('/auth/login');
         };
     },
 

@@ -24,7 +24,7 @@ export const TasksService = {
             json: taskData
         });
 
-        if (!res.ok) throw new Error(`Update failed: ${res.status}: ${res.statusText}`);
+        if (!res.ok) throw new Error(`Updating failed: ${res.status}: ${res.statusText}`);
 
         const result = await res.json();
         return result;

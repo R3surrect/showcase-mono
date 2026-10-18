@@ -26,7 +26,6 @@ import TaskCreateForm from "./create";
 import Surface from "@/components/entities/Surface/Surface";
 import { useGetTasksQuery } from "@/queries/tasks/task.query";
 
-// #region mock
 const MOCK_STAT_TAGS = [
     {
         id: "stat-today",
@@ -53,7 +52,6 @@ const MOCK_STAT_TAGS = [
         color: { h: 12, s: 35, l: 70 },
     },
 ] as const;
-// #endregion
 
 const hintId = 'scheduler-page-hint';
 export const Component = () => {
@@ -124,7 +122,7 @@ export const Component = () => {
                     </Button>
                     <Button
                         size="sm"
-                        variant="outline"
+                        variant={isInboxView ? "accent" : "outline"}
                         onClick={() => {
                             setSelectedDate(undefined);
                             setIsInboxView(!isInboxView);
