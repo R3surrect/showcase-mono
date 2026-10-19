@@ -19,6 +19,7 @@ jobs:
           PORT: ${{ vars.PORT }}
           VITE_BACKEND_API_URL: ${{ vars.VITE_BACKEND_API_URL }}
           VITE_FRONTEND_PORT: ${{ vars.VITE_FRONTEND_PORT }}
+          VITE_ENV: ${{ vars.NODE_ENV }}
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           PGUSER: ${{ secrets.PGUSER }}
@@ -30,7 +31,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
+          envs: ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,VITE_ENV,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
           script: |
             set -e
             cd /home/deploy/showcase-mono
