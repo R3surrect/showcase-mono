@@ -2,19 +2,12 @@ import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
-const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}${import.meta.env.VITE_ENV !== 'production' ? ':8080' : ''}`;
+const baseUrl = '/api/v1';
 
 type FetchApi = (endpoint: string[], options: RequestInit) => Promise<Response>;
 
 const fetchApi: FetchApi = async (endpoint, options) => {
-
-    console.log('baseurl: ' + baseUrl);
-    console.log('import.meta.env.VITE_BACKEND_API_URL: ' + import.meta.env.VITE_BACKEND_API_URL);
-    console.log('import.meta.env.VITE_ENV: ' + import.meta.env.VITE_ENV);
-
-
     return await fetch(`${baseUrl}/${endpoint.join('/')}`, {
-    // return await fetch(`${baseUrl}/v${version}/${endpoint.join('/')}`, {
         credentials: 'include',
         ...options,
         headers: {

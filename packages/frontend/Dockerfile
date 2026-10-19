@@ -14,12 +14,6 @@ RUN pnpm install --filter=@showcase-mono/frontend... --frozen-lockfile
 COPY packages/frontend ./packages/frontend
 COPY packages/backend ./packages/backend
 
-ARG VITE_BACKEND_API_URL
-ARG VITE_FRONTEND_PORT
-
-ENV VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL
-ENV VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT
-
 WORKDIR /app/packages/frontend
 
 RUN pnpm run build
