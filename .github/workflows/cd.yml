@@ -18,8 +18,6 @@ jobs:
           ALLOWED_ORIGINS: ${{ vars.ALLOWED_ORIGINS }}
           NODE_ENV: ${{ vars.NODE_ENV }}
           PORT: ${{ vars.PORT }}
-          VITE_BACKEND_API_URL: ${{ vars.VITE_BACKEND_API_URL }}
-          VITE_FRONTEND_PORT: ${{ vars.VITE_FRONTEND_PORT }}
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           PGUSER: ${{ secrets.PGUSER }}
@@ -31,20 +29,13 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: BRANCH_NAME,ALLOWED_ORIGINS,NODE_ENV,PORT,VITE_BACKEND_API_URL,VITE_FRONTEND_PORT,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
+          envs: BRANCH_NAME,ALLOWED_ORIGINS,NODE_ENV,PORT,PGDATABASE,PGPASSWORD,PGUSER,PGHOST,PGPORT,JWT_SECRET
           script: |
             set -e
             cd /home/deploy/showcase-mono
             git fetch origin
             git checkout "$BRANCH_NAME"
             git pull origin "$BRANCH_NAME"
-
-            # packages/frontend/.env.production
-            printf '%s\n' \
-              "VITE_BACKEND_API_URL=$VITE_BACKEND_API_URL" \
-              "VITE_FRONTEND_PORT=$VITE_FRONTEND_PORT" \
-              "VITE_ENV=$NODE_ENV" \
-              > ./packages/frontend/.env.production
 
             # packages/backend/.env.production
             printf '%s\n' \
