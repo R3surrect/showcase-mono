@@ -4,10 +4,17 @@ import { persist } from "zustand/middleware";
 
 const baseUrl = `${import.meta.env.VITE_BACKEND_API_URL}${import.meta.env.VITE_ENV !== 'production' ? ':8080' : ''}`;
 
-type FetchApi = (endpoint: string[], options: RequestInit, version?: number) => Promise<Response>;
+type FetchApi = (endpoint: string[], options: RequestInit) => Promise<Response>;
 
-const fetchApi: FetchApi = async (endpoint, options, version = 1) => {
-    return await fetch(`${baseUrl}/v${version}/${endpoint.join('/')}`, {
+const fetchApi: FetchApi = async (endpoint, options) => {
+
+    console.log('baseurl: ' + baseUrl);
+    console.log('import.meta.env.VITE_BACKEND_API_URL: ' + import.meta.env.VITE_BACKEND_API_URL);
+    console.log('import.meta.env.VITE_ENV: ' + import.meta.env.VITE_ENV);
+
+
+    return await fetch(`${baseUrl}/${endpoint.join('/')}`, {
+    // return await fetch(`${baseUrl}/v${version}/${endpoint.join('/')}`, {
         credentials: 'include',
         ...options,
         headers: {
