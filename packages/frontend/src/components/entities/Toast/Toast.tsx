@@ -14,7 +14,7 @@ const Toast = ({ item }: { item: ToastData }) => {
     useEffect(() => {
         const timer = setTimeout(() => { deleteToast(item) }, hold);
         return () => { clearTimeout(timer) };
-    }, [deleteToast])
+    }, [deleteToast, item])
 
     const renderActions = () => {
         switch (item.type) {
