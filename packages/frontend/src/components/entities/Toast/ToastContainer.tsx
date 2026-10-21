@@ -2,8 +2,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { FloatingPortal } from "@floating-ui/react";
 import stylesObj from './Toast.module.css';
 import Stack from "@components/entities/Stack/Stack";
-import Text from "@components/entities/Text/Text";
-import Hr from "@components/entities/Hr/Hr";
 import type { DivUiComponent } from "@components/entities/_shared/system.types";
 import type { ToastVars } from "./Toast.types";
 import useToastStore from "./Toast.store";

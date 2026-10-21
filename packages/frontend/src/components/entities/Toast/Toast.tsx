@@ -4,12 +4,11 @@ import Stack from "../Stack/Stack";
 import type { ToastData } from "./Toast.types";
 import Text from "../Text/Text";
 import useToastStore from "./Toast.store";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Hr from "../Hr/Hr";
 
 const Toast = ({ item }: { item: ToastData }) => {
     const hold = 3000;
-    const timerRef = useRef<number | null>(null);
     const deleteToast = useToastStore(store => store.deleteToast);
 
     useEffect(() => {
