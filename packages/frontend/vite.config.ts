@@ -18,6 +18,9 @@ export default defineConfig({
     fs: {
       allow: [searchForWorkspaceRoot(process.cwd()), '../backend']
     },
+    proxy: {
+      '/api': 'http://localhost:8080',
+    },
   },
   plugins: [react({
     compiler: true,
