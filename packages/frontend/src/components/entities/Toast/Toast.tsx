@@ -1,24 +1,28 @@
-import { motion, AnimatePresence } from "motion/react";
 import { LucideCircleCheck, LucideCircleX } from "lucide-react";
-import { FloatingPortal } from "@floating-ui/react";
-import stylesObj from './Toast.module.css';
-import Stack from "@components/entities/Stack/Stack";
-import Text from "@components/entities/Text/Text";
-import Hr from "@components/entities/Hr/Hr";
-import type { DivUiComponent } from "@components/entities/_shared/system.types";
-import type { ToastData, ToastVars } from "./Toast.types";
+import Button from "../Button/Button";
+import Stack from "../Stack/Stack";
+import type { ToastData } from "./Toast.types";
+import Text from "../Text/Text";
 import useToastStore from "./Toast.store";
-import Button from "@components/entities/Button/Button";
+import { useEffect, useRef } from "react";
+import Hr from "../Hr/Hr";
 
-const Toast = () => {
-    const toastList = useToastStore(state => state.toastList);
-    const deleteToast = useToastStore(state => state.deleteToast);
+const Toast = ({ item }: { item: ToastData }) => {
+    const hold = 3000;
+    const timerRef = useRef<number | null>(null);
+    const deleteToast = useToastStore(store => store.deleteToast);
 
-    const getToastItems = (item: ToastData) => {
+    useEffect(() => {
+        const timer = setTimeout(() => { deleteToast(item) }, hold);
+        return () => { clearTimeout(timer) };
+    }, [deleteToast])
+
+    const renderActions = () => {
         switch (item.type) {
             case "dialog":
                 return <Stack direction="row" gap="sm">
-                    {item.onConfirm &&
+                    {
+                        item.onConfirm &&
                         <Button
                             size="sm"
                             variant="accent"
@@ -28,8 +32,10 @@ const Toast = () => {
                                 <LucideCircleCheck size={18} />
                                 <Text color="var(--neutral-0)" weight='bold' size={6}>{item.confirmLabel}</Text>
                             </Stack>
-                        </Button>}
-                    {item.onDeny &&
+                        </Button>
+                    }
+                    {
+                        item.onDeny &&
                         <Button
                             size="sm"
                             variant="outline"
@@ -39,7 +45,8 @@ const Toast = () => {
                                 <LucideCircleX size={18} />
                                 <Text color="var(--neutral-400)" weight='bold' size={6}>{item.denyLabel}</Text>
                             </Stack>
-                        </Button>}
+                        </Button>
+                    }
                 </Stack>
             case "message":
                 return <Button onClick={(e) => {
@@ -52,52 +59,17 @@ const Toast = () => {
         }
     }
 
-    return <FloatingPortal>
-        <div className={stylesObj.toastStack} data-no-dismiss>
-            <AnimatePresence>
-                <Stack height="fit" gap="lg">
-                    {
-                        toastList.length !== 0 && toastList.map(item => (
-                            <motion.div
-                                key={item.id}
-                                style={{ '--toast-status-color': `var(--status-${item.status})` } as ToastVars}
-                                className={stylesObj.toastWrapper}
-                                layout
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    item.onClick?.();
-                                    deleteToast(item)
-                                }}
-                            >
-                                {
-                                    item.text
-                                        ? <Stack gap="sm">
-                                            <Text as="h2" weight="bolder" color="var(--neutral-850)">{item.label}</Text>
-                                            <Hr variant="accent" thickness="half-medium" opacity={0.1} />
-                                            <Stack direction='column' gap="md">
-                                                <Text as="span" size={6} color="var(--neutral-850)" weight="bold">{item.text}</Text>
-                                                {
-                                                    getToastItems(item)
-                                                }
-                                            </Stack>
-                                        </Stack>
-                                        : <Text as="h2" weight="bolder" color="var(--neutral-850)">{item.label}</Text>
+    return item.text
+        ? <Stack gap="sm">
+            <Text as="h2" weight="bolder" color="var(--neutral-850)">{item.label}</Text>
+            <Hr variant="accent" thickness="half-medium" opacity={0.1} />
+            <Stack direction='column' gap="md">
+                <Text as="span" size={6} color="var(--neutral-850)" weight="bold">{item.text}</Text>
+                {renderActions()}
+            </Stack>
+        </Stack>
+        : <Text as="h2" weight="bolder" color="var(--neutral-850)">{item.label}</Text>
 
-                                }
-                            </motion.div>
-                        ))
-                    }
-                </Stack>
-            </AnimatePresence>
-        </div>
-    </FloatingPortal>
 }
 
-const ToastProvider = ({ children }: DivUiComponent) => {
-    return <>
-        {children}
-        <Toast />
-    </>
-}
-
-export default ToastProvider;
+export default Toast;

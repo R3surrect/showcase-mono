@@ -20,14 +20,14 @@ const useToastStore = create<ToastStore>((set) => ({
 
     deleteToast: (item) => {
         item.onClose?.();
-        set(state => ({
-            toastList: state.toastList.filter(toast => toast.id !== item.id)
-        }))
+        set(
+            state => ({
+                toastList: state.toastList.filter(toast => toast.id !== item.id)
+            })
+        )
     },
 
-    clearToasts: () => set({
-        toastList: []
-    })
+    clearToasts: () => set({ toastList: [] })
 
 }))
 
