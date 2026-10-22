@@ -61,7 +61,7 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.12.0(jiti@2.6.1)(supports-color@10.2.2))
       '@types/node':
-        specifier: ^25.9.4
+        specifier: ^25.9.9
         version: 25.9.9
       eslint:
         specifier: ^10.11.0
