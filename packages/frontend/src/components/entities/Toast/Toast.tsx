@@ -8,10 +8,11 @@ import { useEffect } from "react";
 import Hr from "../Hr/Hr";
 
 const Toast = ({ item }: { item: ToastData }) => {
-    const hold = 3000;
+    const hold = 5000;
     const deleteToast = useToastStore(store => store.deleteToast);
 
     useEffect(() => {
+        if (item.type !== 'popup') return;
         const timer = setTimeout(() => { deleteToast(item) }, hold);
         return () => { clearTimeout(timer) };
     }, [deleteToast, item])
@@ -68,7 +69,6 @@ const Toast = ({ item }: { item: ToastData }) => {
             </Stack>
         </Stack>
         : <Text as="h2" weight="bolder" color="var(--neutral-850)">{item.label}</Text>
-
 }
 
 export default Toast;

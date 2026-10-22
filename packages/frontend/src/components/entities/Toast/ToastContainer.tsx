@@ -7,15 +7,21 @@ import type { ToastVars } from "./Toast.types";
 import useToastStore from "./Toast.store";
 import Toast from './Toast'
 
-const ToastContainer = () => {
+const animateProps = {
+    x: "calc(100% + 50px)",
+    transition: {
+        duration: 1,
+    }
+};
 
+const ToastContainer = () => {
     const toastList = useToastStore(state => state.toastList);
     const deleteToast = useToastStore(state => state.deleteToast);
 
     return <FloatingPortal>
         <div className={stylesObj.toastStack} data-no-dismiss>
-            <AnimatePresence>
-                <Stack height="fit" gap="lg">
+            <Stack height="fit" gap="lg">
+                <AnimatePresence>
                     {
                         toastList.length !== 0 && toastList.map(item => (
                             <motion.div
@@ -23,6 +29,9 @@ const ToastContainer = () => {
                                 style={{ '--toast-status-color': `var(--status-${item.status})` } as ToastVars}
                                 className={stylesObj.toastWrapper}
                                 layout
+                                initial={animateProps}
+                                animate={{ x: "0" }}
+                                exit={animateProps}
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     item.onClick?.();
@@ -33,8 +42,8 @@ const ToastContainer = () => {
                             </motion.div>
                         ))
                     }
-                </Stack>
-            </AnimatePresence>
+                </AnimatePresence>
+            </Stack>
         </div>
     </FloatingPortal>
 }
