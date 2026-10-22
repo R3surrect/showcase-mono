@@ -1,7 +1,6 @@
 import { isValidElement } from 'react';
 import { colord } from 'colord';
 import { LucidePin } from 'lucide-react';
-import { motion } from 'motion/react';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import EmojiPreview from '@components/entities/Emoji/EmojiPreview/EmojiPreview';
 import Progress from '@components/entities/Progress/Progress';
