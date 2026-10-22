@@ -1,16 +1,17 @@
 import pnpmScopes from '@commitlint/config-pnpm-scopes';
 
 export default {
-  extends: ['@commitlint/config-conventional', '@commitlint/config-pnpm-scopes'],
-  
+  extends: ['@commitlint/config-conventional'],
+
   rules: {
     'body-max-line-length': [0, 'always'],
     'scope-enum': async (ctx) => {
       const [, , pnpmPackages] = await pnpmScopes.rules['scope-enum'](ctx);
-      
+
       const globalScopes = ['mono', 'root', 'release', 'ci', 'cd', 'deps', 'db', 'infra'];
-      
-      return [2, 'always', [...pnpmPackages, ...globalScopes]];
+      const frontendScopes = ['toast', 'ui', 'queries', 'scheduler', 'projects'];
+
+      return [2, 'always', [...pnpmPackages, ...globalScopes, ...frontendScopes]];
     },
   },
 };
