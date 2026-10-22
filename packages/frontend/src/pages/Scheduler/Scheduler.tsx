@@ -10,8 +10,10 @@ import {
     LucideCheckCircle,
     LucideInbox,
     LucidePlusCircle,
+    LucideTrash,
     LucideXCircle
 } from "lucide-react";
+import { AnimatePresence } from "motion/react";
 import Banner from "@/components/entities/Banner/Banner";
 import Button from "@/components/entities/Button/Button";
 import Calendar from "@/components/entities/Calendar/Calendar";
@@ -26,6 +28,8 @@ import TaskCreateForm from "./create";
 import Surface from "@/components/entities/Surface/Surface";
 import useSchedulerPage from "./useSchedulerPage";
 import { hintId } from "./Scheduler.constants";
+import { motion } from "motion/react"
+import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
 
 const MOCK_STAT_TAGS = [
     {
@@ -91,6 +95,33 @@ export const Component = () => {
         </>
     }
 
+    const renderTask = ({ task }: { task: TaskCardProps }) =>
+        <motion.div
+            key={task.id}
+            layout
+            initial={{
+                opacity: 0,
+                transition: {
+                    type: 'tween',
+                    duration: 0.40,
+                }
+            }}
+            animate={{ opacity: 1 }}
+            exit={{
+                opacity: 0,
+                transition: {
+                    type: 'tween',
+                    duration: 0.1,
+                }
+            }}
+        >
+            <TaskCard
+                onTagDelete={onTaskTagDelete}
+                toolbar={renderToolbar(task.id)}
+                {...task}
+            />
+        </motion.div>
+
     return (
         <>
             <Stack gap="md">
@@ -117,8 +148,8 @@ export const Component = () => {
                     title={selectedDate ? `Задачи на ${dayjs(selectedDate).locale('ru').format('DD MMMM YYYY')}` : 'Планировщик'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
-
-                    {/* CREATE TASK */}
+                    {/* //TODO: move to a reusable separate component */}
+                    {/* CREATE */}
                     <Button size="sm" onClick={() => setModalActive(true)}>
                         <Stack align="center" direction="row" gap="md">
                             <LucidePlusCircle />
@@ -170,6 +201,21 @@ export const Component = () => {
                             Inbox
                         </Stack>
                     </Button>
+
+                    {/* DELETED */}
+                    <Button
+                        size="sm"
+                        variant={view === 'deleted' ? "accent" : "outline"}
+                        onClick={() => {
+                            setSelectedDate(undefined);
+                            setView((prev) => view === 'deleted' ? prev : 'deleted');
+                        }}
+                    >
+                        <Stack align="center" direction="row" gap="md">
+                            <LucideTrash />
+                            Deleted
+                        </Stack>
+                    </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
                     {
@@ -189,20 +235,17 @@ export const Component = () => {
                 </Stack>
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
-                        {
-                            isTasksLoading
-                                ? '...loading'
-                                : filteredTasks.length == 0
-                                    ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
-                                    : filteredTasks.map(task => (
-                                        <TaskCard
-                                            key={task.id}
-                                            onTagDelete={onTaskTagDelete}
-                                            toolbar={renderToolbar(task.id)}
-                                            {...task}
-                                        />
-                                    ))
-                        }
+                        <AnimatePresence>
+                            {
+                                isTasksLoading
+                                    ? '...loading'
+                                    : filteredTasks.length == 0
+                                        ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
+                                        : filteredTasks.map(task => (
+                                            renderTask({ task })
+                                        ))
+                            }
+                        </AnimatePresence>
                     </Stack>
                     <Calendar
                         data={calendarData}
