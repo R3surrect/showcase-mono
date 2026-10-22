@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
+import type { HTMLMotionProps } from "motion/react";
 import type { HslColor } from "colord";
 import type {
     BASE_ALIGN_TYPES,
@@ -37,5 +38,7 @@ export type ResponsiveObj<T> = T | { base?: T, md?: T, lg?: T }
 
 export type DivUiComponent = Omit<ComponentPropsWithoutRef<'div'>, 'style' | 'className'>;
 export type DivUiRefComponent = Omit<ComponentPropsWithRef<'div'>, 'style' | 'className'>;
+
+export type MotionDivUiRefComponent = Omit<HTMLMotionProps<'div'>, 'style' | 'className'>;
 
 export type InputUiRefComponent = Omit<ComponentPropsWithRef<'input'>, 'style' | 'clasName'>;

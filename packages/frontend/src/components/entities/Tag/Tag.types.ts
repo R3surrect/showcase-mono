@@ -1,11 +1,11 @@
 import type { HslColor } from "colord";
-import type { AxisSizeVariations, DivUiComponent } from "../_shared/system.types";
+import type { AxisSizeVariations, MotionDivUiRefComponent } from "../_shared/system.types";
 import type { VARIANT_TYPES } from "./Tag.constants";
 import type { TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
 
 export type Variants = typeof VARIANT_TYPES[number];
 
-export interface TagProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> {
+export interface TagProps extends Omit<Partial<MotionDivUiRefComponent>, 'color' | 'id' | 'children'> {
     width?: AxisSizeVariations;
     variant?: Variants;
     id?: number;
@@ -17,6 +17,7 @@ export interface TagProps extends Omit<Partial<DivUiComponent>, 'color' | 'id'> 
     createdAt?: string | Date;
     onDeleteAction?: (id: number) => void;
     onEditAction?: (id: number) => void;
+    children?: React.ReactNode;
 }
 
 export interface TagVariables extends React.CSSProperties {
