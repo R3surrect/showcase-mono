@@ -1,4 +1,5 @@
 import { isValidElement } from 'react';
+import { colord } from 'colord';
 import { LucidePin } from 'lucide-react';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import EmojiPreview from '@components/entities/Emoji/EmojiPreview/EmojiPreview';
@@ -9,7 +10,6 @@ import Stack from "@components/entities/Stack/Stack";
 import Text from '@components/entities/Text/Text';
 import type { ProjectProps, ProjectVars } from './ProjectCard.types';
 import stylesObj from './ProjectCard.module.css';
-import { colord } from 'colord';
 // import { sumTasks } from './ProjectCard.constants';
 
 const ProjectCard = ({

@@ -11,22 +11,25 @@ const useSchedulerPage = () => {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [modalActive, setModalActive] = useState(false);
 
-    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
-    const { mutate: updateTask } = useUpdateTaskQuery();
-    const { mutate: deleteTask } = useDeleteTaskQuery();
+    const {
+        data: tasks = [],
+        isLoading: isTasksLoading
+    } = useGetTasksQuery();
+    const { mutate: updateTask, variables: updateTaskVariables, isPending: isUpdateTaskPending } = useUpdateTaskQuery();
+    const { mutate: deleteTask, variables: deleteTaskVariables, isPending: isDeleteTaskPending } = useDeleteTaskQuery();
 
     const hasTasksForSelectedDate = tasks.some(task => {
         if (!task.deadline || !selectedDate) return false;
-        // return true;
         return dayjs(task.deadline).isSame(selectedDate, 'day');
     });
-
     const [view, setView] = useState<Views>(() => !hasTasksForSelectedDate ? 'inbox' : 'all');
 
     const filteredTasks = tasks.filter(task => {
         if (view === 'inbox') return !task.deadline && !task.isArchived;
+        // if (view === 'all') return !task.isArchived && !task.isDeleted;
         if (view === 'all') return !task.isArchived;
         if (view === 'archived') return task.isArchived;
+        
 
         if (!task.deadline) return false;
         if (!selectedDate) return true;
@@ -51,6 +54,8 @@ const useSchedulerPage = () => {
         })
     }
 
+
+
     return {
         dismiss,
         isDismissed,
@@ -61,7 +66,11 @@ const useSchedulerPage = () => {
         tasks,
         isTasksLoading,
         updateTask,
+        updateTaskVariables,
+        isUpdateTaskPending,
         deleteTask,
+        deleteTaskVariables,
+        isDeleteTaskPending,
         view,
         setView,
         filteredTasks,

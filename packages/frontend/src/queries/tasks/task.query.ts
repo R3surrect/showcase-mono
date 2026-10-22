@@ -1,6 +1,6 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TasksService } from "./tasks.service";
-import type { TaskCreateInput, TaskDeleteInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
+import type { Task, TaskCreateInput, TaskDeleteInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import useToast from "@/components/entities/Toast/Toast.hook";
 
 export const tasksKeys = { all: ['tasks'] as const };
@@ -17,7 +17,6 @@ export const getTasksQueryOptions = () => queryOptions({
         ]);
         return res;
     },
-    // select: data => data.filter(task => !task.isArchived)
 })
 
 export const useGetTasksQuery = () => useQuery(getTasksQueryOptions());
@@ -27,6 +26,16 @@ export const useUpdateTaskQuery = () => {
     const { pushToast } = useToast();
 
     return useMutation({
+        onMutate: async (variables) => {
+            await queryClient.cancelQueries({ queryKey: tasksKeys.all });
+
+            queryClient.setQueryData<Task[]>(tasksKeys.all, prev =>
+                prev?.map(
+                    task => task.id === variables.id
+                        ? { ...task, ...variables }
+                        : task
+                ))
+        },
         mutationFn: async (data: { id: number } & TaskUpdateInput) => TasksService.updateTask(data),
         onSuccess: (data) => {
             pushToast({
@@ -42,7 +51,7 @@ export const useUpdateTaskQuery = () => {
             type: 'popup',
             label: 'Task updating failed',
             status: 'error'
-        })
+        }),
     })
 };
 
@@ -67,6 +76,12 @@ export const useDeleteTaskQuery = () => {
     const { pushToast } = useToast();
 
     return useMutation({
+        onMutate: async (variables) => {
+            await queryClient.cancelQueries({ queryKey: tasksKeys.all });
+
+            queryClient.setQueryData<Task[]>(tasksKeys.all, prev =>
+                prev?.filter(item => item.id !== variables.id))
+        },
         mutationFn: async (data: TaskDeleteInput) => TasksService.deleteTask(data),
         onSuccess: (data) => {
             pushToast({
