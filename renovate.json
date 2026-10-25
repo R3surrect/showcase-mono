@@ -15,12 +15,14 @@
   ],
   "packageRules": [
     {
-      "groupName": "linters and formatters",
-      "matchPackageNames": [
-        "eslint*",
-        "prettier*"
+      "matchDepTypes": [
+        "devDependencies"
       ],
-      "automerge": false
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
     }
   ]
 }
