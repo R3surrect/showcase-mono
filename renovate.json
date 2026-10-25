@@ -16,11 +16,13 @@
   "packageRules": [
     {
       "groupName": "linters and formatters",
-      "matchPackageNames": [
-        "eslint*",
-        "prettier*"
+      "matchDepTypes": [
+        "devDependencies"
       ],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "automerge": true
     }
   ]
