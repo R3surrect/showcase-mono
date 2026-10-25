@@ -15,7 +15,6 @@
   ],
   "packageRules": [
     {
-      "groupName": "linters and formatters",
       "matchDepTypes": [
         "devDependencies"
       ],
