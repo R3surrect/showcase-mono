@@ -20,7 +20,8 @@
         "eslint*",
         "prettier*"
       ],
-      "automerge": false
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
     }
   ]
 }
