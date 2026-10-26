@@ -30,7 +30,7 @@
     "react": "^19.1.1",
     "react-day-picker": "^10.0.1",
     "react-dom": "^19.1.1",
-    "react-hook-form": "^7.71.2",
+    "react-hook-form": "^7.91.0",
     "react-router-dom": "^7.9.5",
     "recharts": "^3.8.1",
     "web-haptics": "^0.0.6",
