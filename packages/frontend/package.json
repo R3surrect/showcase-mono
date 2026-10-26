@@ -22,7 +22,7 @@
     "@tanstack/react-query-devtools": "^5.100.11",
     "autoprefixer": "^10.4.22",
     "clsx": "^2.1.1",
-    "colord": "^2.9.3",
+    "colord": "^2.10.0",
     "dayjs": "^1.11.23",
     "emoji-picker-react": "^4.19.1",
     "lucide-react": "^1.0.0",
