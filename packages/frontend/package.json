@@ -35,7 +35,7 @@
     "recharts": "^3.8.1",
     "web-haptics": "^0.0.6",
     "zod": "^4.3.6",
-    "zustand": "^5.0.8"
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.0",
