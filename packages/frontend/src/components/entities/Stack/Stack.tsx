@@ -1,5 +1,9 @@
-import type { StackProps, StackVars } from '@/components/entities/Stack/Stack.types';
+import type { StackProps, StackVars, StackWidth } from '@/components/entities/Stack/Stack.types';
 import stylesObj from './Stack.module.css';
+import { STACK_WIDTH_TYPES } from './Stack.constants';
+
+const isStackWidth = (value: string): value is StackWidth =>
+  (STACK_WIDTH_TYPES as readonly string[]).includes(value)
 
 const Stack = ({
   gap = 'md',
@@ -17,7 +21,7 @@ const Stack = ({
   const componentProps = {
     ref: ref,
     className: stylesObj.stack,
-    'data-width': width,
+    ...(width && isStackWidth(width) && { 'data-width': width }),
     'data-wrap': wrap,
     'data-height': height,
     style: {
@@ -26,6 +30,7 @@ const Stack = ({
       '--stack-direction': direction,
       '--stack-justify': justify,
       '--stack-overflow': overflow,
+      ...(width && !isStackWidth(width) && { '--stack-width': width })
     } as StackVars,
     ...props
   }

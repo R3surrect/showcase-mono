@@ -18,6 +18,7 @@ export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'ch
     details?: string | null;
     hasSurface?: boolean;
     onPinClick: (projectId: number) => void;
+    isCompactView?: boolean;
     // tasks: Task;
 }
 
