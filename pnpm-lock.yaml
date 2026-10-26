@@ -112,8 +112,8 @@ importers:
         specifier: ^1.11.23
         version: 1.11.23
       emoji-picker-react:
-        specifier: ^4.19.1
-        version: 4.22.3(react@19.3.0)
+        specifier: ^5.1.4
+        version: 5.1.4(react@19.3.0)
       lucide-react:
         specifier: ^1.0.0
         version: 1.59.0(@types/react@19.3.0)(react@19.3.0)
@@ -2145,9 +2145,9 @@ packages:
   electron-to-chromium@1.5.452:
     resolution: {integrity: sha512-cVvk1YBSj6571VmV6hdJTqj94Y79xSu8cj6Y9t6ae4Y4431z8/7EJFvu3rVp90xhfuv9BpPKUmaLfTo4+FOGBg==}
 
-  emoji-picker-react@4.22.3:
-    resolution: {integrity: sha512-jrAkkoN69l5lA2Xp6P5axqoK1YdHNS1+MKMlLxwltnnnaXrojUjZaolgI/U8vdx8vFWqG42yYqpLSR83f6pwiw==}
-    engines: {node: '>=10'}
+  emoji-picker-react@5.1.4:
+    resolution: {integrity: sha512-kWBAgDCFPcRJrINeRE7/o7VAVNc0Yeg1n7gMHSvJ54qffidCV8Jdmeb9iEHkx1CtClzhnutCax8bQFDTHAbyTg==}
+    engines: {node: '>=18'}
     peerDependencies:
       react: '>=16.8'
 
@@ -5160,7 +5160,7 @@ snapshots:
 
   electron-to-chromium@1.5.452: {}
 
-  emoji-picker-react@4.22.3(react@19.3.0):
+  emoji-picker-react@5.1.4(react@19.3.0):
     dependencies:
       react: 19.3.0
       shipstyles: 1.0.0
