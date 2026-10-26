@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "@showcase-mono/backend": "workspace:*",
-    "hono": "^4.0.0"
+    "hono": "^4.13.14"
   }
 }
