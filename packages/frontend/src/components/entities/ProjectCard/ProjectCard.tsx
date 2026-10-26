@@ -21,12 +21,9 @@ const ProjectCard = ({
     // tasks,
     hasSurface = true,
     onPinClick,
+    isCompactView = false,
     ...props
 }: ProjectProps) => {
-    console.log(typeof color);
-    console.log(color + ' isColordValid: ' + colord(color).isValid());
-    console.log(typeof color.h, typeof color.s, typeof color.l);
-    // const tasksCount = sumTasks(tasks)
     const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
         onPinClick(props.id)
@@ -43,8 +40,8 @@ const ProjectCard = ({
     const projectCardRender = <>
         <LucidePin
             {...pinProps}
-            fill={isPinned ? colord(color ? color : DEFAULT_HSL_COLOR.color).lighten(0.75).toHslString() : 'transparent'}
-            stroke='var(--monochrome-700)'
+            fill={isPinned ? 'var(--monochrome-500)' : 'var(--monochrome-200)'}
+            stroke='var(--monochrome-500)'
         />
         <Stack direction="column" gap="md">
             <Stack direction="row" gap="sm" align='center'>
@@ -56,15 +53,20 @@ const ProjectCard = ({
                         } as ProjectVars}
                     >
                         {
-                            isValidElement(emoji)
-                                ? emoji
-                                : <EmojiPreview emoji={emoji.toString()} />
+                            !isValidElement(emoji)
+                                ? <EmojiPreview emoji={emoji.toString()} />
+                                : emoji
                         }
                     </div>
                 }
-                <Stack direction="column" gap="sm">
+                <Stack direction="column" gap="sm" width={isCompactView ? '25rem' : 'auto'}>
                     <Heading level={3} variant="secondary">{label}</Heading>
-                    <Text color='var(--neutral-300)' weight='bold' size={6}>{details}</Text>
+                    <Text
+                        color='var(--neutral-300)'
+                        weight='bold'
+                        size={6}
+                        {...(isCompactView ? { truncate: true } : { wrap: true })}
+                    >{details}</Text>
                 </Stack>
             </Stack>
             <Stack direction='column' gap='sm'>
@@ -86,10 +88,10 @@ const ProjectCard = ({
         variant="outline"
         isAnimated
         color={colord(color).toHslString()}
-        width='max'
         data-interactive
         {...props}
         id={props.id.toString()}
+        overflow='hidden'
     >
         {projectCardRender}
     </Surface>

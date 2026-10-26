@@ -6,14 +6,18 @@
     font-size: var(--text-size, 14px);
     color: var(--text-color, var(--neutral-850));
     text-align: var(--text-align, start);
-    overflow: visible;
-    text-overflow: clip;
+    width: var(--text-width, auto);
 }
 
 .text[data-truncate="true"] {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.text[data-wrap="true"] {
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .text[data-size="1"] {font-size: var(--title-size)}

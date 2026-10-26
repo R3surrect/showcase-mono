@@ -9,7 +9,7 @@ export interface StackProps {
     direction?: Direction;
     wrap?: boolean;
     justify?: Justify;
-    width?: StackWidth;
+    width?: StackWidth | (string & {});
     ref?: Ref<HTMLDivElement>;
     height?: AxisSizeVariations;
     overflow?: Overflows;
