@@ -85,7 +85,7 @@ importers:
         specifier: ^0.27.20
         version: 0.27.20(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@hookform/resolvers':
-        specifier: ^5.2.2
+        specifier: ^5.9.2
         version: 5.9.2(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.90.0(@types/react@19.3.0)(react@19.3.0))(zod@4.6.5)
       '@showcase-mono/api-client':
         specifier: workspace:*
