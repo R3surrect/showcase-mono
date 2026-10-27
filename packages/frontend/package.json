@@ -20,7 +20,7 @@
     "@showcase-mono/backend": "workspace:*",
     "@tanstack/react-query": "^5.105.0",
     "@tanstack/react-query-devtools": "^5.105.0",
-    "autoprefixer": "^10.4.22",
+    "autoprefixer": "^10.6.2",
     "clsx": "^2.1.1",
     "colord": "^2.9.3",
     "dayjs": "^1.11.23",
