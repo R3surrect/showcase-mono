@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@floating-ui/react": "^0.27.20",
-    "@hookform/resolvers": "^5.2.2",
+    "@hookform/resolvers": "^6.0.2",
     "@showcase-mono/api-client": "workspace:*",
     "@showcase-mono/backend": "workspace:*",
     "@tanstack/react-query": "^5.105.0",
