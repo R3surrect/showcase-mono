@@ -127,7 +127,12 @@ export const Component = () => {
             <Stack gap="md">
                 {
                     !isDismissed &&
-                    <Banner variant="hint" isClosable onClose={() => dismiss(hintId)} color='var(--warm-green-500)'>
+                    <Banner
+                        isClosable
+                        variant="hint"
+                        onClose={() => dismiss(hintId)}
+                        color='var(--warm-green-500)'
+                    >
                         <Text
                             color='var(--warm-green-500)'
                             weight='bolder'

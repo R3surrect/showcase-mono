@@ -15,6 +15,7 @@ const useSchedulerPage = () => {
         data: tasks = [],
         isLoading: isTasksLoading
     } = useGetTasksQuery();
+    
     const { mutate: updateTask, variables: updateTaskVariables, isPending: isUpdateTaskPending } = useUpdateTaskQuery();
     const { mutate: deleteTask, variables: deleteTaskVariables, isPending: isDeleteTaskPending } = useDeleteTaskQuery();
 
@@ -22,6 +23,7 @@ const useSchedulerPage = () => {
         if (!task.deadline || !selectedDate) return false;
         return dayjs(task.deadline).isSame(selectedDate, 'day');
     });
+
     const [view, setView] = useState<Views>(() => !hasTasksForSelectedDate ? 'inbox' : 'all');
 
     const filteredTasks = tasks.filter(task => {
@@ -30,20 +32,18 @@ const useSchedulerPage = () => {
         if (view === 'all') return !task.isArchived;
         if (view === 'archived') return task.isArchived;
         
-
         if (!task.deadline) return false;
         if (!selectedDate) return true;
 
         return dayjs(task.deadline).isSame(selectedDate, 'day');
     });
 
-    const grouped = Object.groupBy(tasks, item => item.deadline || '');
-
+    const grouped = Object.groupBy(tasks, item => item.deadline ? dayjs(item.deadline).format('YYYY-MM-DD') : '');
     const calendarData = Object.keys(grouped).map((key) => ({
         deadline: new Date(key),
         count: grouped[key]?.length ?? 0
     }))
-
+    
     const onTaskTagDelete: TaskTagAction = (taskId, tagId) => {
         const mutatedTask = tasks.find((item) => item.id === taskId);
         const mutatedTags = mutatedTask?.tags.filter(tag => tag.id !== tagId);
@@ -53,8 +53,6 @@ const useSchedulerPage = () => {
             tagIds: mutatedTags?.map(tag => tag.id)
         })
     }
-
-
 
     return {
         dismiss,
