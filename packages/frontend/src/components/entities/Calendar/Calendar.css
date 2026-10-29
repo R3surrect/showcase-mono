@@ -28,19 +28,29 @@
 }
 
 .rdp-today>.rdp-day_button {
-    background-color: color-mix(in srgb, var(--cold-blue-gray-400), transparent 40%);
-}
-
-.rdp-focused>.rdp-day_button {
+    position: relative;
     background-color: var(--neutral-400);
 }
 
-.rdp-focused>.rdp-day_button,
+.rdp-selected>.rdp-day_button {
+    background-color: color-mix(in srgb, var(--cold-blue-gray-400), transparent 40%);
+}
+
+.rdp-selected>.rdp-day_button,
 .rdp-today>.rdp-day_button {
-    /* border-radius: var(--border-radius-4); */
     box-shadow: var(--shadow-md);
     color: var(--neutral-0);
     font-weight: 400;
     font-size: var(--font-size-level-4);
     will-change: transform;
+}
+
+.hasTasks {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 4px;
+    z-index: 10;
+    border-radius: 50%;
 }
