@@ -25,7 +25,7 @@
     "colord": "^2.9.3",
     "dayjs": "^1.11.23",
     "emoji-picker-react": "^5.1.4",
-    "lucide-react": "^1.0.0",
+    "lucide-react": "^1.66.0",
     "motion": "^14.0.0",
     "react": "^19.1.1",
     "react-day-picker": "^10.0.2",
