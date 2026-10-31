@@ -2,7 +2,6 @@ import { useState } from "react";
 import { LucideSearch, LucideTags } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Stack from "@components/entities/Stack/Stack";
-import { useDeleteTagQuery, useGetTagsQuery } from "@/queries/tags/tags.query";
 import { TAG_TYPE_CONFIGS, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
 import Input from "@components/entities/Input/Input";
 import Tag from "@components/entities/Tag/Tag";
@@ -13,14 +12,6 @@ import Select from "@components/entities/Select/Select";
 import type { TagListProps } from "./TagList.types";
 
 const TagList = (props: TagListProps) => {
-    const {
-        data: tags,
-        isLoading: isTagsLoading,
-        isError: isTagsLoadingError
-    } = useGetTagsQuery();
-
-    const { mutate: deleteTag } = useDeleteTagQuery();
-
     // #region ui behavior
     const { selectedTags, setSelectedList, isEditable = false } = props;
     const [selectedType, setSelectedType] = useState<TagType | 'All'>('All');
@@ -46,13 +37,7 @@ const TagList = (props: TagListProps) => {
                 <Select
                     name='type'
                     value={selectedType}
-                    setValue={(val: TagType | 'All') => {
-                        if (val === 'All') {
-                            setSelectedType('All');
-                            return;
-                        }
-                        setSelectedType(val);
-                    }}
+                    setValue={(val: TagType | 'All') => setSelectedType(val)}
                 >
                     <option value="All">All</option>
                     {
@@ -89,48 +74,44 @@ const TagList = (props: TagListProps) => {
                         </Stack>
 
                         <Stack direction="row" gap="sm" align="center" wrap>
-                            {!isTagsLoading ? (
-                                !isTagsLoadingError && tags?.map((item) => {
-                                    const isTypeMatched = selectedType === 'All' || item.type === selectedType;
-                                    if (!isTypeMatched) return null;
+                            {props.tags.map((item) => {
+                                const isTypeMatched = selectedType === 'All' || item.type === selectedType;
+                                if (!isTypeMatched) return null;
 
-                                    const isSystem = item.category.trim().toLowerCase() === 'system';
+                                const isSystem = item.category.trim().toLowerCase() === 'system';
 
-                                    if (isSystem) {
-                                        return <Tag
-                                            key={item.id}
-                                            isSystem={true}
-                                            color={item.color}
-                                            type={item.type}
-                                            onClick={() => selectedTags && onTagClickHandler(item.id)}
-                                            data-selected={selectedTags && selectedTags.includes(item.id)}
-                                            isEditable={isEditable}
-                                        >
-                                            <span>{item.label}</span>
-                                        </Tag>;
-                                    }
-
+                                if (isSystem) {
                                     return <Tag
-                                        id={item.id}
-                                        isSystem={false}
-                                        createdAt={item.createdAt}
-                                        category={item.category}
-                                        color={item.color}
                                         key={item.id}
+                                        isSystem={true}
+                                        color={item.color}
                                         type={item.type}
-                                        data-interactive
                                         onClick={() => selectedTags && onTagClickHandler(item.id)}
                                         data-selected={selectedTags && selectedTags.includes(item.id)}
                                         isEditable={isEditable}
-                                        onDeleteAction={() => deleteTag(item.id)}
-                                        onEditAction={() => console.log(`edit: ${item.id}`)}
                                     >
                                         <span>{item.label}</span>
                                     </Tag>;
-                                })
-                            ) : (
-                                '...loading'
-                            )}
+                                }
+
+                                return <Tag
+                                    id={item.id}
+                                    isSystem={false}
+                                    createdAt={item.createdAt}
+                                    category={item.category}
+                                    color={item.color}
+                                    key={item.id}
+                                    type={item.type}
+                                    data-interactive
+                                    onClick={() => selectedTags && onTagClickHandler(item.id)}
+                                    data-selected={selectedTags && selectedTags.includes(item.id)}
+                                    isEditable={isEditable}
+                                    onDeleteAction={() => isEditable && props?.onDeleteAction?.(item.id)}
+                                    onEditAction={() => isEditable && props?.onEditAction?.(item.id)}
+                                >
+                                    <span>{item.label}</span>
+                                </Tag>;
+                            })}
                         </Stack>
                     </Stack>
                 </Surface>

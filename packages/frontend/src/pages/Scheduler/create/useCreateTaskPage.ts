@@ -8,6 +8,7 @@ import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
 import { useCreateTaskQuery } from "@/queries/tasks/task.query";
 import type { TaskCreateInput, TaskCreateInputDirty } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
 import { taskCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/tasks/validations/task.create";
+import { useGetTagsQuery } from "@/queries/tags/tags.query";
 
 export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     const { pushToast, clearToasts } = useToast();
@@ -31,6 +32,8 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
             // notifyAt: defaultNotifyAt,
         }
     })
+
+    const { data: tags = [], isLoading: isTagsLoading, isError: isTagsLoadingError, error: tagsLoadingError } = useGetTagsQuery();
 
     const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
     const { isLoading: isPrioritiesLoading, data: priorities = [] } = useGetPrioritiesQuery();
@@ -77,6 +80,10 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
         isStatusesLoading,
         onValid,
         onInvalid,
-        isDirty
+        isDirty,
+        tags,
+        isTagsLoading,
+        isTagsLoadingError,
+        tagsLoadingError,
     }
 }
