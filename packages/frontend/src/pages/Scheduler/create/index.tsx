@@ -46,6 +46,10 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
         isStatusesLoading,
         onValid,
         onInvalid,
+        tags,
+        isTagsLoading,
+        tagsLoadingError,
+        isTagsLoadingError,
     } = useCreateTaskPage(selectedDate);
 
     return <form onSubmit={handleSubmit(onValid, onInvalid)}>
@@ -157,12 +161,15 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
             <Controller
                 name="tagIds"
                 control={control}
-                render={({ field }) => (
-                    <TagList
+                render={({ field }) => {
+                    if (isTagsLoading) return <>...loading</>;
+                    if (isTagsLoadingError) return <>{tagsLoadingError?.cause}</>;
+                    return <TagList
+                        tags={tags}
                         selectedTags={field.value || []}
                         setSelectedList={(items: number[]) => field.onChange(items)}
                     />
-                )}
+                }}
             />
             <Stack direction="row" gap="sm">
                 <Button

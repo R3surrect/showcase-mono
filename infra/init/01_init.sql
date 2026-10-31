@@ -1,34 +1,39 @@
 DO $$ BEGIN
--- IF NOT EXISTS (
---     SELECT 1
---     FROM pg_type
---     WHERE typname = 'task_status_enum'
--- ) THEN CREATE TYPE task_status_enum AS ENUM (
---     'completed',
---     'pending',
---     'overdue',
---     'scheduled',
---     'in_progress'
--- );
--- END IF;
--- IF NOT EXISTS (
---     SELECT 1
---     FROM pg_type
---     WHERE typname = 'priority_enum'
--- ) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
--- END IF;
--- IF NOT EXISTS (
---     SELECT 1
---     FROM pg_type
---     WHERE typname = 'tag_type_enum'
--- ) THEN CREATE TYPE tag_type_enum AS ENUM ('default', 'priority', 'status', 'time', 'people');
--- END IF;
-IF NOT EXISTS (
-    SELECT 1
-    FROM pg_type
-    WHERE typname = 'user_role_enum'
-) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
-END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_type
+        WHERE typname = 'task_status_enum'
+    ) THEN CREATE TYPE task_status_enum AS ENUM (
+        'completed',
+        'pending',
+        'overdue',
+        'scheduled',
+        'in_progress'
+    );
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_type
+        WHERE typname = 'priority_enum'
+    ) THEN CREATE TYPE priority_enum AS ENUM ('low', 'medium', 'high', 'fire');
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_type
+        WHERE typname = 'tag_type_enum'
+    ) THEN CREATE TYPE tag_type_enum AS ENUM ('default', 'priority', 'project_status', 'task_status');
+    END IF;
+
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_type
+        WHERE typname = 'user_role_enum'
+    ) THEN CREATE TYPE user_role_enum AS ENUM ('user', 'worker', 'manager', 'director');
+    END IF;
+
 END $$;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -44,7 +49,7 @@ CREATE TABLE IF NOT EXISTS tags (
     id SERIAL PRIMARY KEY,
     label VARCHAR(64) NOT NULL,
     color JSONB DEFAULT '{"h": 207, "s": 10, "l": 42}',
-    type varchar(32) NOT NULL,
+    type tag_type_enum DEFAULT 'default' NOT NULL,
     category varchar(32),
     owner_id INT NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
@@ -85,11 +90,12 @@ CREATE TABLE IF NOT EXISTS tasks (
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
     pinned_at TIMESTAMPTZ,
+    is_deleted BOOLEAN DEFAULT FALSE NOT NULL,
+    deleted_at TIMESTAMPTZ,
     CONSTRAINT fk_tasks_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_tasks_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE
-    SET NULL,
-        CONSTRAINT fk_tasks_priority_tag FOREIGN KEY (priority_tag_id) REFERENCES tags(id) ON DELETE RESTRICT,
-        CONSTRAINT fk_tasks_status_tag FOREIGN KEY (status_tag_id) REFERENCES tags(id) ON DELETE RESTRICT
+    CONSTRAINT fk_tasks_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL,
+    CONSTRAINT fk_tasks_priority_tag FOREIGN KEY (priority_tag_id) REFERENCES tags(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_tasks_status_tag FOREIGN KEY (status_tag_id) REFERENCES tags(id) ON DELETE RESTRICT
 );
 CREATE TABLE IF NOT EXISTS notes (
     id SERIAL PRIMARY KEY,
@@ -105,8 +111,7 @@ CREATE TABLE IF NOT EXISTS notes (
     project_id INT,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
-    CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE
-    SET NULL --? fk_notes_task можно реализовать удаление с вопросом "удалить связанные заметки?"
+    CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS pivot_tasks_tags (
     task_id INT NOT NULL,

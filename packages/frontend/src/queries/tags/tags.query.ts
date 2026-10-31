@@ -3,6 +3,7 @@ import type { TagCreateInput, TagDeleteInput, TagGetOutput } from '@showcase-mon
 import { CategoriesService, TagsService } from './tags.service';
 import useToast from '@/components/entities/Toast/Toast.hook';
 import { DEFAULT_HSL_COLOR } from '@/components/entities/_shared/system.constants';
+import { tasksKeys } from '../tasks/task.query';
 
 export const categoriesKeys = { all: ['categories'] as const };
 export const tagsKeys = {
@@ -54,10 +55,10 @@ export const useGetTagByIdQuery = (id: number) => {
     const { pushToast } = useToast();
 
     return useQuery({
-        queryKey: tagsKeys.detail(id), 
-        enabled: !!id, 
+        queryKey: tagsKeys.detail(id),
+        enabled: !!id,
         staleTime: 5 * 60 * 1000,
-        
+
         queryFn: async () => {
             try {
                 const res = await TagsService.getTagById(id);
@@ -119,6 +120,7 @@ export const useDeleteTagQuery = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: tagsKeys.all });
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });
+            queryClient.invalidateQueries({ queryKey: tasksKeys.all })
         },
         onError: (error) => pushToast({
             label: `Deleting failed`,

@@ -15,7 +15,7 @@ import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPick
 import { TAG_TYPE_CONFIGS } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema'
 import { tagCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/templates/tags/validations/tag.create'
 import type { TagCreateInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types'
-import { useCreateTagQuery } from '@/queries/tags/tags.query'
+import { useCreateTagQuery, useDeleteTagQuery, useGetTagsQuery } from '@/queries/tags/tags.query'
 import TagList from '@/components/entities/TagList/TagList'
 // import TagList from '@/components/entities/TagList/TagList'
 
@@ -31,7 +31,9 @@ export const Component = () => {
         defaultValues: { color: DEFAULT_COLOR.color }
     })
 
+    const { mutate: deleteTag } = useDeleteTagQuery();
     const { mutate: createMutation } = useCreateTagQuery();
+    const { data: tags = [], isLoading: isTagsLoading, isError: isTagsLoadingError, error: tagsLoadingError } = useGetTagsQuery();
 
     const onSubmit = (data: TagCreateInput) => {
         clearToasts();
@@ -116,7 +118,18 @@ export const Component = () => {
                 <Stack gap='md' height='max'>
                     <Heading level={3} variant='secondary'>Existing tags</Heading>
                     <Stack direction='row' gap='sm' wrap={true} align='start' height='max' >
-                        <TagList isEditable />
+                        {isTagsLoading && '...loading'}
+                        {isTagsLoadingError && String(tagsLoadingError.cause)}
+                        {
+                            !isTagsLoading
+                            && !isTagsLoadingError
+                            && <TagList
+                                isEditable
+                                tags={tags}
+                                onDeleteAction={deleteTag}
+                                onEditAction={() => { }}
+                            />
+                        }
                     </Stack>
                 </Stack>
             </Surface>

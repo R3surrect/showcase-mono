@@ -10,7 +10,8 @@
     "dev:backend": "pnpm --filter @showcase-mono/backend dev",
     "dev:all": "pnpm --parallel -r dev",
     "build:all": "pnpm -r build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint:all": "pnpm --parallel lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
