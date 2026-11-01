@@ -21,7 +21,13 @@ const Surface = ({
 }: SurfaceProps) => {
     const isHeightCustomValue = !AXIS_SIZE_SET.has(height);
     const isWidthCustomValue = !AXIS_SIZE_SET.has(width);
-
+    const style: SurfaceVars = {
+        '--surface-color': color || colord(DEFAULT_HSL_COLOR.color).toHslString(),
+        '--surface-overflow': overflow,
+        ...(isHeightCustomValue && { '--surface-height': height }),
+        ...(isWidthCustomValue && { '--surface-width': width }),
+    };
+    
     return (
         <motion.div
             className={clsx(stylesObj.surface, stylesObj[variant])}
@@ -30,12 +36,7 @@ const Surface = ({
             data-radius={cornerRadius}
             data-height={height}
             data-width={width}
-            style={{
-                '--surface-color': color || colord(DEFAULT_HSL_COLOR.color).toHslString(),
-                '--surface-overflow': overflow,
-                ...(isHeightCustomValue && { '--surface-height': height }),
-                ...(isWidthCustomValue && { '--surface-width': width }),
-            } as SurfaceVars}
+            style={style}
             {...props}
         >
             {children}

@@ -50,6 +50,8 @@ const Input = ({
         stroke: 'var(--neutral-500)',
     }
 
+    const style: InputVars = { '--input-text-align': textAlign };
+
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
             {labelText &&
@@ -74,7 +76,7 @@ const Input = ({
                     type={inputType}
                     ref={externalRef}
                     value={text}
-                    style={{ '--input-text-align': textAlign } as InputVars}
+                    style={style}
                     aria-invalid={!!error}
                     placeholder={
                         isPassword

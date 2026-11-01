@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import styledObj from "./Hr.module.css";
-import type { HrProps, HRVars } from "@/components/entities/Hr/Hr.types";
+import type { HrProps, HrVars } from "@/components/entities/Hr/Hr.types";
 
 const Hr = ({
     variant = "subtle",
@@ -9,12 +9,13 @@ const Hr = ({
     opacity = 1,
     ...props
 }: HrProps) => {
-    return <hr
-        style={{
-            '--hr-thickness': `var(--thickness-${thickness})`,
-            '--hr-opacity': opacity,
-        } as HRVars}
+    const style: HrVars = {
+        '--hr-thickness': `var(--thickness-${thickness})`,
+        '--hr-opacity': opacity,
+    };
 
+    return <hr
+        style={style}
         className={clsx(
             styledObj.hr,
             styledObj[variant],

@@ -42,16 +42,14 @@ const Modal = ({
   const role = useRole(context, { role: "dialog" });
   const { getFloatingProps } = useInteractions([dismiss, role]);
 
+  const style: ModalVars = { "--modal-animation-duration": `${animationDuration}ms` };
+
   if (!isMounted) return null;
   return (
     <FloatingPortal>
       <FloatingOverlay
         lockScroll
-        style={
-          {
-            "--modal-animation-duration": `${animationDuration}ms`,
-          } as ModalVars
-        }
+        style={style}
         className={stylesObj.modalWrapper}
         data-has-background={hasBackground}
         data-status={status}
@@ -61,11 +59,7 @@ const Modal = ({
             className={stylesObj.focusManagerWrapper}
             ref={refs.setFloating}
             data-status={status}
-            style={
-              {
-                "--modal-animation-duration": `${animationDuration}ms`,
-              } as ModalVars
-            }
+            style={style}
             {...getFloatingProps()}
             {...props}
           >

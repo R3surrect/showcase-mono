@@ -12,7 +12,7 @@ export interface HrProps extends Omit<ComponentPropsWithoutRef<'hr'>, 'style' | 
     opacity?: OpacityLevel;
 }
 
-export interface HRVars extends React.CSSProperties {
+export interface HrVars extends React.CSSProperties {
     '--hr-thickness'?: string;
     '--hr-opacity'?: OpacityLevel;
 }

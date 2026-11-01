@@ -3,6 +3,7 @@ import useToast from "@/components/entities/Toast/Toast.hook";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import { useCreateProjectQuery } from "@/queries/projects/projects.query";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
+import { useGetTagsQuery } from "@/queries/tags/tags.query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ProjectCreateInput } from "@showcase-mono/backend/routes/api/v1/projects/projects.types";
 import { projectCreateInputValidation } from "@showcase-mono/backend/routes/api/v1/projects/validations/project.create";
@@ -15,6 +16,8 @@ export const useProjectCreatePage = () => {
     const { data: priorityData, isLoading: isPrioritiesLoading } = useGetPrioritiesQuery();
     const { data: statusesData, isLoading: isStatusesLoading } = useGetStatusesQuery('project');
     const { mutate: createProject, isPending: isProjectsPending } = useCreateProjectQuery();
+    const { data: tags = [], isLoading: isTagsLoading, isError: isTagsLoadingError, error: tagsLoadingError } = useGetTagsQuery();
+
     const { pushToast, clearToasts } = useToast();
 
     const priorities = priorityData || [];
@@ -66,6 +69,10 @@ export const useProjectCreatePage = () => {
         isStatusesLoading,
         statuses,
         isProjectsPending,
-        isSubmitting
+        isSubmitting,
+        tags,
+        isTagsLoading,
+        isTagsLoadingError,
+        tagsLoadingError,
     }
 }

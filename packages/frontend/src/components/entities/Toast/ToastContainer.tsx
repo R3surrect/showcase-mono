@@ -3,7 +3,7 @@ import { FloatingPortal } from "@floating-ui/react";
 import stylesObj from './Toast.module.css';
 import Stack from "@components/entities/Stack/Stack";
 import type { DivUiComponent } from "@components/entities/_shared/system.types";
-import type { ToastVars } from "./Toast.types";
+import type { ToastData, ToastVars } from "./Toast.types";
 import useToastStore from "./Toast.store";
 import Toast from './Toast'
 
@@ -17,6 +17,9 @@ const animateProps = {
 const ToastContainer = () => {
     const toastList = useToastStore(state => state.toastList);
     const deleteToast = useToastStore(state => state.deleteToast);
+    const getToastVars: (toast: ToastData) => ToastVars = (toast) => ({
+        '--toast-status-color': `var(--status-${toast.status})`
+    });
 
     return <FloatingPortal>
         <div className={stylesObj.toastStack} data-no-dismiss>
@@ -26,7 +29,7 @@ const ToastContainer = () => {
                         toastList.length !== 0 && toastList.map(item => (
                             <motion.div
                                 key={item.id}
-                                style={{ '--toast-status-color': `var(--status-${item.status})` } as ToastVars}
+                                style={getToastVars(item)}
                                 className={stylesObj.toastWrapper}
                                 layout
                                 initial={animateProps}

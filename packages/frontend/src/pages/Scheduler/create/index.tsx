@@ -12,7 +12,7 @@ import Tag from "@/components/entities/Tag/Tag";
 import TagList from "@/components/entities/TagList/TagList";
 import Text from "@/components/entities/Text/Text";
 import { useCreateTaskPage } from "./useCreateTaskPage";
-import type { OptionType, TaskCreateFormProps } from "./types";
+import type { OptionType, /*TaskCreateFormProps*/ } from "./types";
 
 const Option = ({ id, emoji, label }: OptionType) => {
     const emojiRender = isValidElement(emoji)
@@ -32,7 +32,7 @@ const Option = ({ id, emoji, label }: OptionType) => {
     </option>
 };
 
-const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
+const TaskCreateForm = (/*{ selectedDate }: TaskCreateFormProps*/) => {
     const {
         register,
         handleSubmit,
@@ -50,7 +50,7 @@ const TaskCreateForm = ({ selectedDate }: TaskCreateFormProps) => {
         isTagsLoading,
         tagsLoadingError,
         isTagsLoadingError,
-    } = useCreateTaskPage(selectedDate);
+    } = useCreateTaskPage(/*selectedDate*/);
 
     return <form onSubmit={handleSubmit(onValid, onInvalid)}>
         <Stack>

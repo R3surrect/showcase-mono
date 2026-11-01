@@ -5,6 +5,8 @@ import Text from "@components/entities/Text/Text";
 import Surface from "@components/entities/Surface/Surface";
 import type { DashboardStatBlockFullProps, IconColor } from "@/components/entities/dashboards/DashboardStatBlockFull/DashboardStatBlockFull.types";
 
+
+
 const DashboardStatBlockFull = ({
     iconObj,
     isAnimated = false,
@@ -19,6 +21,7 @@ const DashboardStatBlockFull = ({
     iconHasContainer = true,
     ...props
 }: DashboardStatBlockFullProps) => {
+    const style: IconColor = { '--icon-color': iconObj?.color, }
 
     const icon = <iconObj.icon
         width={16}
@@ -30,12 +33,10 @@ const DashboardStatBlockFull = ({
     const renderIcon = iconHasContainer ? <div
         className={stylesObj.iconWrapper}
         data-outline={variant === 'outline'}
-        style={{
-            '--icon-color': iconObj?.color,
-        } as IconColor}
+        style={style}
     >
         {icon}
-    </div>
+    </div >
         : icon;
 
     return <Surface
