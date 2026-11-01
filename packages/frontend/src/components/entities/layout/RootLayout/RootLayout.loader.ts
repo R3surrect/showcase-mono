@@ -1,13 +1,19 @@
 import { getTasksQueryOptions } from '@/queries/tasks/task.query';
 import { queryClient } from '@/shared/api/queryClient';
 import useAuthStore from '@/store/useAuthStore';
-import { redirect } from 'react-router-dom';
+import { redirect, type LoaderFunctionArgs } from 'react-router-dom';
 
-export const loader = async () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+    const pathname = new URL(request.url).pathname;
+
     if (useAuthStore.getState().authData.authStatus === 'unknown') await useAuthStore.getState().checkAuth();
     const authStatus = useAuthStore.getState().authData.authStatus;
     if (authStatus === 'unauthenticated') throw redirect('/auth/login');
-    if (authStatus === 'authenticated') await queryClient.query(getTasksQueryOptions());
+    if (authStatus === 'authenticated') {
+        await queryClient.query(getTasksQueryOptions());
+        
+        if (pathname === '/') throw redirect('/analytics');
+    };
 
     return null;
 }
