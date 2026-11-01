@@ -25,7 +25,6 @@ export const ROOT_ROUTES: SubRouteConfig = {
   },
 
   children: [
-    { index: true, loader: () => redirect('/analytics') },
     {
       path: '/analytics',
       lazy: () => import('@/pages/Analytics/Analytics.tsx')
