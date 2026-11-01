@@ -140,7 +140,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                     message: errorData.message || res.statusText
                 };
             }
-        } catch (e: unknown) {
+        } catch {
             set({ isLoading: false, status: undefined });
 
             return {
