@@ -1,5 +1,3 @@
-import { redirect } from 'react-router-dom';
-
 import { RouteErrorFallback } from '@/components/shared/RouteErrorFallback.tsx';
 import { FAVORITES_ROUTES } from '@/routes/favorites.routing.ts';
 import { PREFERENCES_ROUTES } from '@/routes/preferences.routing.ts';
@@ -25,7 +23,6 @@ export const ROOT_ROUTES: SubRouteConfig = {
   },
 
   children: [
-    { index: true, loader: () => redirect('/analytics') },
     {
       path: '/analytics',
       lazy: () => import('@/pages/Analytics/Analytics.tsx')

@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type AuthState from "@/types/Auth/AuthState";
 import { persist } from "zustand/middleware";
 
-const baseUrl = '/api/v1';
+const baseUrl = '/api/v1'; // TODO: move variable to dotEnv
 
 type FetchApi = (endpoint: string[], options: RequestInit) => Promise<Response>;
 
@@ -63,13 +63,10 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                 return { success: false, status: res.status, message: res.statusText };
             }
         } catch (e: unknown) {
-
             set({
                 isLoading: false,
                 status: undefined
             });
-
-            if (e instanceof Error) console.log(e.message);
 
             return {
                 success: false,
@@ -92,19 +89,13 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                     user: data.user
                 }
             });
-        } else {
-            console.warn('checkAuth failed: ', {
-                status: res.status,
-                statusText: res.statusText,
-            });
+        } else set({
+            authData: {
+                authStatus: "unauthenticated",
+                user: null
+            }
+        });
 
-            set({
-                authData: {
-                    authStatus: "unauthenticated",
-                    user: null
-                }
-            });
-        };
     },
 
     register: async (authFields) => {
@@ -119,6 +110,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
 
             if (res.ok) {
                 const data = await res.json();
+
                 set({
                     authData: {
                         authStatus: "authenticated",
@@ -127,7 +119,6 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                 })
 
                 return { success: true }
-
             } else {
                 const errorData = await res.json().catch(() => {
                     console.warn('register failed: ', {
@@ -151,8 +142,6 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
             }
         } catch (e: unknown) {
             set({ isLoading: false, status: undefined });
-
-            if (e instanceof Error) console.log(e.message);
 
             return {
                 success: false,
