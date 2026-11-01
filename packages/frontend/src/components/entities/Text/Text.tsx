@@ -9,24 +9,29 @@ const Text = <T extends ElementType = 'p'>({
     size = 6,
     children,
     align = 'start',
-    truncate = false,
+    truncate,
+    wrap,
     ...props
 }: TextProps<T>) => {
     const Tag = as || 'p';
+    const style: TextVars = {
+        textAlign: align,
+        '--text-color': color,
+        "--text-size": String(size),
+        "--text-weight": Number(weight),
+    };
     return (
         <Tag
             className={stylesObj.text}
             data-size={size}
             data-weight={weight}
             data-truncate={truncate}
-            style={{
-                textAlign: align,
-                '--text-color': color,
-            } as TextVars}
+            data-wrap={wrap}
+            style={style}
             {...props}
         >
             {children}
-        </Tag>
+        </Tag >
     )
 }
 

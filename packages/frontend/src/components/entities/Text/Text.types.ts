@@ -15,8 +15,19 @@ interface TextBaseProps<T extends ElementType> {
     truncate?: boolean;
 }
 
+interface TextBaseWrapProps {
+    truncate?: false;
+    wrap: true;
+}
+
+interface TextBaseAutoProps {
+    truncate?: true;
+    wrap?: false;
+}
+
 export type TextProps<T extends ElementType> =
     TextBaseProps<T> &
+    (TextBaseWrapProps | TextBaseAutoProps) &
     Omit<ComponentPropsWithoutRef<T>, keyof TextBaseProps<T> | 'style' | 'className'>;
 
 export interface TextVars extends React.CSSProperties {

@@ -8,23 +8,26 @@ const Grid = ({
     justifyItems = 'stretch',
     height = 'max',
     autoRows = 'min-content',
-    templateColumns,
+    templateColumns = 'inherit',
     children
 }: GridProps) => {
+
+    const style: GridVars = {
+        '--grid-gap': `var(--indent-${gap})`,
+        '--grid-columns': columns,
+        '--grid-align-items': alignItems,
+        '--grid-auto-rows': autoRows,
+        '--grid-template-columns': templateColumns,
+        '--grid-justify-items': justifyItems,
+    };
+
     return <div
         className={stylesObj.gridWrapper}
-        style={{
-            '--grid-gap': `var(--indent-${gap})`,
-            '--grid-columns': columns,
-            '--grid-align-items': alignItems,
-            '--grid-auto-rows': autoRows,
-            '--grid-template-columns': templateColumns,
-            '--grid-justify-items': justifyItems,
-        } as GridVars}
+        style={style}
         data-height={height}
     >
         {children}
-    </div>
+    </div >
 }
 
 export default Grid;

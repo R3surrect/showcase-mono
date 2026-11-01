@@ -7,11 +7,13 @@ import Button from '../Button/Button';
 
 const Banner = ({ variant = 'hint', onClose, children, width = 'max', isClosable = true, ...props }: BannerProps) => {
     const Icon = VARIANT_ICONS[variant];
+    const style: BannerVars = { '--banner-width': width === 'max' ? '100%' : 'fit-content' }
+
     return (
         <div
             className={stylesObj.banner}
             data-variant={variant}
-            style={{ '--banner-width': width === 'max' ? '100%' : 'fit-content' } as BannerVars}
+            style={style}
             {...props}
         >
             <Stack direction='row' justify='space-between' align='center'>
