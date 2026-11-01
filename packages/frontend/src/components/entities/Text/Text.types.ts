@@ -12,7 +12,7 @@ interface TextBaseProps<T extends ElementType> {
     color?: string;
     align?: TextAlign;
     children: ReactNode;
-    truncate?: boolean;
+    width?: string;
 }
 
 interface TextBaseWrapProps {
@@ -34,4 +34,6 @@ export interface TextVars extends React.CSSProperties {
     '--text-weight': number;
     '--text-size': string;
     '--text-color': string;
+    '--text-width': string;
+    '--text-align': string;
 }

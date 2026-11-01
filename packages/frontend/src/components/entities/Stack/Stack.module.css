@@ -1,6 +1,7 @@
 @import url("@global/styles/_variables");
 @import url("@global/styles/_breakpoints");
 
+
 .stack {
     display: flex;
     gap: var(--stack-gap, 0);
@@ -14,11 +15,12 @@
     scrollbar-width: thin;
     width: var(--stack-width, auto);
     -webkit-overflow-scrolling: touch;
+    width: var(--stack-width, auto);
 }
 
-.stack[data-width='max'] { width: 100% }
-.stack[data-width='fit'] { width: fit-content }
-.stack[data-width='auto'] { width: auto }
+.stack[data-width='max'] { --stack-width: 100% }
+.stack[data-width='fit'] { --stack-width: fit-content }
+.stack[data-width='auto'] { --stack-width: auto }
 
 .stack[data-wrap='true'] { flex-wrap: wrap }
 .stack[data-wrap='false'] { flex-wrap: nowrap }

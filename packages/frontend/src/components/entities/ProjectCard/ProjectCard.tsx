@@ -93,6 +93,7 @@ const ProjectCard = ({
         data-interactive
         {...props}
         id={props.id.toString()}
+        overflow='hidden'
     >
         {projectCardRender}
     </Surface>

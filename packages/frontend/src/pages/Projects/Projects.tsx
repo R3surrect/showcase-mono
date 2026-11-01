@@ -64,6 +64,7 @@ export const Component = () => {
                                         onClick={() => projectClickHandler(project.id)}
                                         {...project}
                                         id={project.id}
+                                        isCompactView
                                         onPinClick={(projectId) => projectPinHandler(projectId, project.isPinned)}
                                     />
                                 </motion.div>

@@ -30,7 +30,7 @@ const Stack = ({
   const componentProps = {
     ref: ref,
     className: stylesObj.stack,
-    'data-width': width,
+    ...(width && isStackWidth(width) && { 'data-width': width }),
     'data-wrap': wrap,
     'data-height': height,
     ...(isStackWidth(width) && { 'data-width': width }),
