@@ -57,9 +57,10 @@ export const Component = () => {
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    transition={{type: 'tween', duration: 0.3}}
+                                    transition={{ type: 'tween', duration: 0.3 }}
                                 >
                                     <ProjectCard
+                                        isCompactView
                                         onClick={() => projectClickHandler(project.id)}
                                         {...project}
                                         id={project.id}
@@ -89,6 +90,7 @@ export const Component = () => {
                                     {...selectedProject}
                                     color={colord(selectedProject.color).toHsl()}
                                     hasSurface={false}
+                                    isCompactView={false}
                                     id={selectedProject.id}
                                     onPinClick={(projectId) => projectPinHandler(projectId, selectedProject.isPinned)}
                                 />

@@ -29,7 +29,11 @@ const ProjectCreateForm = () => {
         isStatusesLoading,
         statuses,
         isProjectsPending,
-        isSubmitting
+        isSubmitting,
+        tags,
+        isTagsLoading,
+        isTagsLoadingError,
+        tagsLoadingError,
     } = useProjectCreatePage();
 
     return <form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -59,7 +63,6 @@ const ProjectCreateForm = () => {
                             isPrioritiesLoading
                                 ? '...loading'
                                 : priorities.map((item) =>
-
                                     <Tag
                                         key={item.id}
                                         data-interactive
@@ -106,12 +109,16 @@ const ProjectCreateForm = () => {
             <Controller
                 name='tagIds'
                 control={control}
-                render={({ field }) => (
-                    <TagList
+                render={({ field }) => {
+                    if (isTagsLoading) return <>...loading</>
+                    if (isTagsLoadingError) return <>{String(tagsLoadingError?.cause)}</>
+                    return <TagList
+                        tags={tags}
                         selectedTags={field.value || []}
                         setSelectedList={(items: number[]) => field.onChange(items)}
                     />
-                )}
+                }
+                }
             />
             <Controller
                 name="color"
