@@ -62,7 +62,7 @@ const useAuthStore = create<AuthState>()(persist((set) => ({
                 set({ status: res.status, isLoading: false });
                 return { success: false, status: res.status, message: res.statusText };
             }
-        } catch (e: unknown) {
+        } catch {
             set({
                 isLoading: false,
                 status: undefined
