@@ -1,5 +1,6 @@
-import type { StackProps, StackVars } from '@/components/entities/Stack/Stack.types';
+import type { StackProps, StackVars, StackWidth } from '@/components/entities/Stack/Stack.types';
 import stylesObj from './Stack.module.css';
+import { STACK_WIDTH_TYPES } from './Stack.constants';
 
 const Stack = ({
   gap = 'md',
@@ -14,19 +15,26 @@ const Stack = ({
   overflow = 'visible',
   ...props
 }: StackProps) => {
+  const isStackWidth = (value: string): value is StackWidth =>
+    STACK_WIDTH_TYPES.some(type => type === value);
+
+  const style: StackVars = {
+    '--stack-gap': `var(--indent-${gap})`,
+    '--stack-align': align,
+    '--stack-direction': direction,
+    '--stack-justify': justify,
+    '--stack-overflow': overflow,
+    ...(!isStackWidth(width) && { '--stack-width': width })
+  };
+
   const componentProps = {
     ref: ref,
     className: stylesObj.stack,
     'data-width': width,
     'data-wrap': wrap,
     'data-height': height,
-    style: {
-      '--stack-gap': `var(--indent-${gap})`,
-      '--stack-align': align,
-      '--stack-direction': direction,
-      '--stack-justify': justify,
-      '--stack-overflow': overflow,
-    } as StackVars,
+    ...(isStackWidth(width) && { 'data-width': width }),
+    style,
     ...props
   }
 
