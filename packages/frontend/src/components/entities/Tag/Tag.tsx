@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { colord } from 'colord';
 import clsx from 'clsx';
-import type { TagVariables, TagProps } from '@/components/entities/Tag/Tag.types';
+import type { TagVars, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 import Button from '@components/entities/Button/Button';
 import { LucideCircleX, LucidePencil } from 'lucide-react';
@@ -23,14 +23,16 @@ const Tag = (props: TagProps) => {
     } = props;
     const tagId = isSystem ? genId : `${id}`;
 
+    const style: TagVars = {
+        '--tag-color': colord(color).toHslString(),
+        '--tag-width': width
+    }
+
     return <motion.div
         id={tagId}
         className={clsx(stylesObj.tag, stylesObj[props.type?.toLowerCase?.()])}
         data-system={isSystem}
-        style={{
-            '--tag-color': colord(color).toHslString(),
-            '--tag-width': width
-        } as TagVariables}
+        style={style}
         {...rest}
     >
         {

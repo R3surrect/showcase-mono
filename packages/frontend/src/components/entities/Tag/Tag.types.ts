@@ -20,7 +20,7 @@ export interface TagProps extends Omit<Partial<MotionDivUiRefComponent>, 'color'
     children?: React.ReactNode;
 }
 
-export interface TagVariables extends React.CSSProperties {
+export interface TagVars extends React.CSSProperties {
     '--tag-color': string;
     '--tag-width': string;
 }
