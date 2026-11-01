@@ -42,6 +42,7 @@ const DashboardPieStatsBlock = () => {
                     iconSize={12}
                     wrapperStyle={{ fontSize: '1rem' }}
                     formatter={(value, entry) => {
+                        // TODO: Remove this cast once real status data replaces statusMock
                         const { subValue } = entry.payload as StatusPieMock;
 
                         return (
