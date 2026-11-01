@@ -18,14 +18,19 @@ const ProjectCard = ({
     isPinned = false,
     label,
     details,
+    width = 'max',
     // tasks,
     hasSurface = true,
     onPinClick,
+    isCompactView = false,
     ...props
 }: ProjectProps) => {
-    console.log(typeof color);
-    console.log(color + ' isColordValid: ' + colord(color).isValid());
-    console.log(typeof color.h, typeof color.s, typeof color.l);
+    const style: ProjectVars = { '--project-color': colord(color || DEFAULT_HSL_COLOR.color).toHslString() }
+
+    const compactConfig = isCompactView
+        ? { outerWidth: 'fit', innerWidth: '25rem' }
+        : { outerWidth: 'max', innerWidth: 'fit' };
+
     // const tasksCount = sumTasks(tasks)
     const pinClickHandler = (e: React.MouseEvent<SVGSVGElement>) => {
         e.stopPropagation();
@@ -43,33 +48,31 @@ const ProjectCard = ({
     const projectCardRender = <>
         <LucidePin
             {...pinProps}
-            fill={isPinned ? colord(color ? color : DEFAULT_HSL_COLOR.color).lighten(0.75).toHslString() : 'transparent'}
-            stroke='var(--monochrome-700)'
+            fill={isPinned ? colord(color ? color : DEFAULT_HSL_COLOR.color).toHslString() : 'transparent'}
+            stroke={colord(color).toHslString()}
         />
-        <Stack direction="column" gap="md">
+        <Stack direction="column" gap="md" width={compactConfig.outerWidth}>
             <Stack direction="row" gap="sm" align='center'>
                 {emoji &&
-                    <div
-                        className={stylesObj.iconWrapper}
-                        style={{
-                            '--project-color': colord(color || DEFAULT_HSL_COLOR.color).toHslString()
-                        } as ProjectVars}
-                    >
-                        {
-                            isValidElement(emoji)
-                                ? emoji
-                                : <EmojiPreview emoji={emoji.toString()} />
-                        }
+                    <div className={stylesObj.iconWrapper} style={style}>
+                        {isValidElement(emoji) ? emoji : <EmojiPreview emoji={emoji.toString()} />}
                     </div>
                 }
-                <Stack direction="column" gap="sm">
+                <Stack direction="column" gap="sm" width={compactConfig.innerWidth}>
                     <Heading level={3} variant="secondary">{label}</Heading>
-                    <Text color='var(--neutral-300)' weight='bold' size={6}>{details}</Text>
+                    <Text
+                        color='var(--neutral-300)'
+                        weight='bold'
+                        size={6}
+                        {...(isCompactView ? { truncate: true } : { wrap: true })}
+                    >
+                        {details}
+                    </Text>
                 </Stack>
             </Stack>
             <Stack direction='column' gap='sm'>
                 <Text
-                    color='var(--neutral-850    )'
+                    color='var(--neutral-850)'
                     weight='bold'
                     size={6}
                 >
@@ -86,7 +89,7 @@ const ProjectCard = ({
         variant="outline"
         isAnimated
         color={colord(color).toHslString()}
-        width='max'
+        width={width}
         data-interactive
         {...props}
         id={props.id.toString()}

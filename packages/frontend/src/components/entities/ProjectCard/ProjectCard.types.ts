@@ -1,5 +1,6 @@
 import type { HslColor } from "colord";
 import type { HTMLMotionProps } from "motion/react";
+import type { AxisSizeVariations } from "../_shared/system.types";
 
 export interface Task {
     completed: number;
@@ -18,6 +19,9 @@ export interface ProjectProps extends Omit<HTMLMotionProps<'div'>, 'color' | 'ch
     details?: string | null;
     hasSurface?: boolean;
     onPinClick: (projectId: number) => void;
+    // width?: Axis | (string & {});
+    width?: AxisSizeVariations;
+    isCompactView?: boolean;
     // tasks: Task;
 }
 
