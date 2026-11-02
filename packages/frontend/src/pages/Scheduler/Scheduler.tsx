@@ -30,33 +30,8 @@ import useSchedulerPage from "./useSchedulerPage";
 import { hintId } from "./Scheduler.constants";
 import { motion } from "motion/react"
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
-
-const MOCK_STAT_TAGS = [
-    {
-        id: "stat-today",
-        label: "Сегодня: 0/1",
-        icon: LucideCheckCircle,
-        color: { h: 42, s: 18, l: 60 },
-    },
-    {
-        id: "stat-active-month",
-        label: "13 активных на месяц",
-        icon: LucideCalendarRange,
-        color: { h: 42, s: 18, l: 60 },
-    },
-    {
-        id: "stat-notifications",
-        label: "4 уведомлений по задачам",
-        icon: LucideBell,
-        color: { h: 36, s: 35, l: 68 },
-    },
-    {
-        id: "stat-overdue",
-        label: "4 просроченных дедлайна",
-        icon: LucideAlertTriangle,
-        color: { h: 12, s: 35, l: 70 },
-    },
-] as const;
+import { useQueryClient } from "@tanstack/react-query";
+import { tagsKeys } from "@/queries/tags/tags.query";
 
 export const Component = () => {
 
@@ -77,6 +52,53 @@ export const Component = () => {
         calendarData,
         onTaskTagDelete
     } = useSchedulerPage();
+
+    const queryClient = useQueryClient();
+
+    const todayTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'date')).length;
+    const activeMonthTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+    // const notifiedTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+    // const overdueTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+
+    const aggregatedStatusTagTags = () => {
+        const groupedTasksById = Object.groupBy(tasks, task => task.statusTagId);
+        const data = Object.keys(groupedTasksById).map((statusTagId) => {
+            const query = queryClient.getQueryData([...tagsKeys.all, Number(statusTagId)]);
+            console.log(statusTagId);
+            console.log(`ID: ${statusTagId}`, query);
+            return query;
+        })
+        console.log(data)
+    }
+
+    aggregatedStatusTagTags();
+
+    const stats = [
+        {
+            id: "stat-today",
+            label: `Сегодня: ${todayTasksCount}`,
+            icon: LucideCheckCircle,
+            color: { h: 42, s: 18, l: 60 },
+        },
+        {
+            id: "stat-active-month",
+            label: `${activeMonthTasksCount} активных на месяц`,
+            icon: LucideCalendarRange,
+            color: { h: 42, s: 18, l: 60 },
+        },
+        // {
+        //     id: "stat-notifications",
+        //     label: `${notifiedTasksCount} уведомлений по задачам`,
+        //     icon: LucideBell,
+        //     color: { h: 36, s: 35, l: 68 },
+        // },
+        // {
+        //     id: "stat-overdue",
+        //     label: `${overdueTasksCount} просроченных дедлайна`,
+        //     icon: LucideAlertTriangle,
+        //     color: { h: 12, s: 35, l: 70 },
+        // },
+    ] as const;
 
     const renderToolbar = (taskId: number) => {
         const task = tasks.find(task => task.id === taskId);
@@ -224,7 +246,7 @@ export const Component = () => {
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
                     {
-                        MOCK_STAT_TAGS.map((tag) => {
+                        stats.map((tag) => {
                             const Icon = tag.icon;
                             return (
                                 <Tag
