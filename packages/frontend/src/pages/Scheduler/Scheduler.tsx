@@ -1,13 +1,9 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import {
-    LucideAlertTriangle,
     LucideArchive,
     LucideArchiveRestore,
-    LucideBell,
-    LucideCalendarRange,
     LucideCalendarX,
-    LucideCheckCircle,
     LucideInbox,
     LucidePlusCircle,
     LucideTrash,
@@ -30,9 +26,6 @@ import useSchedulerPage from "./useSchedulerPage";
 import { hintId } from "./Scheduler.constants";
 import { motion } from "motion/react"
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
-import { useQueryClient } from "@tanstack/react-query";
-import { tagsKeys } from "@/queries/tags/tags.query";
-import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
 
 export const Component = () => {
 
@@ -51,54 +44,10 @@ export const Component = () => {
         setView,
         filteredTasks,
         calendarData,
-        onTaskTagDelete
+        onTaskTagDelete,
+        getAggregatedStatusTagTags,
+        stats
     } = useSchedulerPage();
-
-    const queryClient = useQueryClient();
-
-    const todayTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'date')).length;
-    const activeMonthTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
-    // const notifiedTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
-    // const overdueTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
-
-    const aggregatedStatusTagTags = () => {
-        const groupedTasksById = Object.groupBy(tasks, task => task.statusTagId);
-
-        const tags = Object.keys(groupedTasksById).map((statusTagId) => {
-            const tag = queryClient.getQueryData<TagGetOutput[]>(tagsKeys.all)?.find(item => item.id === Number(statusTagId));
-            return tag;
-        })
-        console.log(tags)
-    }
-
-    aggregatedStatusTagTags();
-
-    const stats = [
-        {
-            id: "stat-today",
-            label: `Сегодня: ${todayTasksCount}`,
-            icon: LucideCheckCircle,
-            color: { h: 42, s: 18, l: 60 },
-        },
-        {
-            id: "stat-active-month",
-            label: `${activeMonthTasksCount} активных на месяц`,
-            icon: LucideCalendarRange,
-            color: { h: 42, s: 18, l: 60 },
-        },
-        // {
-        //     id: "stat-notifications",
-        //     label: `${notifiedTasksCount} уведомлений по задачам`,
-        //     icon: LucideBell,
-        //     color: { h: 36, s: 35, l: 68 },
-        // },
-        // {
-        //     id: "stat-overdue",
-        //     label: `${overdueTasksCount} просроченных дедлайна`,
-        //     icon: LucideAlertTriangle,
-        //     color: { h: 12, s: 35, l: 70 },
-        // },
-    ] as const;
 
     const renderToolbar = (taskId: number) => {
         const task = tasks.find(task => task.id === taskId);
@@ -116,6 +65,8 @@ export const Component = () => {
             </Button>
         </>
     }
+
+    getAggregatedStatusTagTags();
 
     const renderTask = ({ task }: { task: TaskCardProps }) =>
         <motion.div
