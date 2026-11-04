@@ -19,16 +19,12 @@ export const getTagsQueryOptions = () => {
         retryDelay: (index) => 1000 * (index * 2),
 
         queryFn: async () => {
-            try {
-                const [res] = await Promise.all([
-                    TagsService.getAll(),
-                    new Promise(resolve => setTimeout(resolve, 500))
-                ]);
+            const [res] = await Promise.all([
+                TagsService.getAll(),
+                new Promise(resolve => setTimeout(resolve, 500))
+            ]);
 
-                return res;
-            } catch (error) {
-                throw error;
-            }
+            return res;
         },
         placeholderData: [{
             id: 0,
