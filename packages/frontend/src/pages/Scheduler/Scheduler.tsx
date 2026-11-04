@@ -32,6 +32,7 @@ import { motion } from "motion/react"
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
 import { useQueryClient } from "@tanstack/react-query";
 import { tagsKeys } from "@/queries/tags/tags.query";
+import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
 
 export const Component = () => {
 
@@ -62,13 +63,12 @@ export const Component = () => {
 
     const aggregatedStatusTagTags = () => {
         const groupedTasksById = Object.groupBy(tasks, task => task.statusTagId);
-        const data = Object.keys(groupedTasksById).map((statusTagId) => {
-            const query = queryClient.getQueryData([...tagsKeys.all, Number(statusTagId)]);
-            console.log(statusTagId);
-            console.log(`ID: ${statusTagId}`, query);
-            return query;
+
+        const tags = Object.keys(groupedTasksById).map((statusTagId) => {
+            const tag = queryClient.getQueryData<TagGetOutput[]>(tagsKeys.all)?.find(item => item.id === Number(statusTagId));
+            return tag;
         })
-        console.log(data)
+        console.log(tags)
     }
 
     aggregatedStatusTagTags();

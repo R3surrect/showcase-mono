@@ -6,11 +6,8 @@ import Header from '@components/entities/layout/Header/Header'
 import Sidebar from '@components/entities/layout/Sidebar/Sidebar';
 import BaseContainer from '@components/entities/layout/BaseContainer/BaseContainer'
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
-// import useAuthStore from '@/store/useAuthStore';
 
 export const Component = () => {
-    // const checkAuth = useAuthStore(store => store.checkAuth);
-    // useEffect(() => { console.log('at_check'); checkAuth() }, [checkAuth])
 
     return (
         <ProtectedRoute>
