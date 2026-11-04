@@ -1,4 +1,4 @@
-import useToast from "@/components/entities/Toast/Toast.hook";
+import useToast from "@/components/entities/Toast/useToast";
 import useAuthStore from "@/store/useAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, type RegisterInput, type RegisterPayload } from "@showcase-mono/backend/routes/api/v1/auth/register/register.schema";

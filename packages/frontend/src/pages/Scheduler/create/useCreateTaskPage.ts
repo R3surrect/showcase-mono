@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
 
-import useToast from "@/components/entities/Toast/Toast.hook";
+import useToast from "@/components/entities/Toast/useToast";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import { useGetProjectsQuery } from "@/queries/projects/projects.query";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";
