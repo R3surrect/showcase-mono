@@ -4,6 +4,10 @@ import { hintId } from "./Scheduler.constants";
 import { useDeleteTaskQuery, useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
 import dayjs, { Dayjs } from "dayjs";
 import type { TaskTagAction, Views } from "./Scheduler.types";
+import { LucideCalendarRange, LucideCheckCircle, LucideListTodo } from "lucide-react";
+import { useGetTagsQuery } from "@/queries/tags/tags.query";
+import { DEFAULT_HSL_COLOR } from "@/components/entities/_shared/system.constants";
+import { colord } from "colord";
 
 const useSchedulerPage = () => {
     const dismiss = useHintStore(store => store.dismissHint);
@@ -20,6 +24,7 @@ const useSchedulerPage = () => {
 
     const { mutate: updateTask, variables: updateTaskVariables, isPending: isUpdateTaskPending } = useUpdateTaskQuery();
     const { mutate: deleteTask, variables: deleteTaskVariables, isPending: isDeleteTaskPending } = useDeleteTaskQuery();
+    const { data: tags, isLoading: isTagsLoading } = useGetTagsQuery();
 
     const hasTasksForDate = (date: Dayjs | Date) => tasks.some(task => {
         if (!task.deadline || date) return false;
@@ -63,6 +68,56 @@ const useSchedulerPage = () => {
         })
     }
 
+    const todayTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'date')).length;
+    const activeMonthTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+    // const notifiedTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+    // const overdueTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
+
+    const getAggregatedStatusTagTags = () => {
+        const groupedTasksById = Object.groupBy(tasks, task => task.statusTagId);
+
+        const foundTags = Object.keys(groupedTasksById).map((statusTagId) => tags?.find(item => item.id === Number(statusTagId)))
+
+        return foundTags.map(tag => {
+            const tasksCount = tag ? (groupedTasksById[tag.id]?.length || 0) : 0;
+
+            return ({
+                id: `tid${tag?.id}_tc${tasksCount}`,
+                icon: LucideListTodo,
+                label: `Задач со статусом "${tag?.label}": ${tasksCount}`,
+                color: colord(tag?.color ?? DEFAULT_HSL_COLOR.color).saturate(-0.01).toHsl(),
+            })
+        })
+    }
+
+    const stats = [
+        {
+            id: "stat-today",
+            label: `Сегодня: ${todayTasksCount}`,
+            icon: LucideCheckCircle,
+            color: { h: 42, s: 18, l: 60 },
+        },
+        {
+            id: "stat-active-month",
+            label: `${activeMonthTasksCount} активных на месяц`,
+            icon: LucideCalendarRange,
+            color: { h: 42, s: 18, l: 60 },
+        },
+        ...(!isTagsLoading ? getAggregatedStatusTagTags() : []),
+        // {
+        //     id: "stat-notifications",
+        //     label: `${notifiedTasksCount} уведомлений по задачам`,
+        //     icon: LucideBell,
+        //     color: { h: 36, s: 35, l: 68 },
+        // },
+        // {
+        //     id: "stat-overdue",
+        //     label: `${overdueTasksCount} просроченных дедлайна`,
+        //     icon: LucideAlertTriangle,
+        //     color: { h: 12, s: 35, l: 70 },
+        // },
+    ] as const;
+
     return {
         dismiss,
         isDismissed,
@@ -82,7 +137,9 @@ const useSchedulerPage = () => {
         setView,
         filteredTasks,
         calendarData,
-        onTaskTagDelete
+        onTaskTagDelete,
+        getAggregatedStatusTagTags,
+        stats,
     }
 }
 

@@ -1,7 +1,7 @@
 import { queryOptions, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { TasksService } from "./tasks.service";
 import type { Task, TaskCreateInput, TaskDeleteInput, TaskUpdateInput } from "@showcase-mono/backend/routes/api/v1/tasks/tasks.types";
-import useToast from "@/components/entities/Toast/Toast.hook";
+import useToast from "@/components/entities/Toast/useToast";
 
 export const tasksKeys = { all: ['tasks'] as const };
 

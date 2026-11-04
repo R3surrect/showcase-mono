@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { TagCreateInput, TagDeleteInput, TagGetOutput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
+import { queryOptions, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { TagCreateInput, TagDeleteInput } from '@showcase-mono/backend/routes/api/v1/templates/tags/tag.types';
 import { CategoriesService, TagsService } from './tags.service';
-import useToast from '@/components/entities/Toast/Toast.hook';
+// import useToast from '@/components/entities/Toast/useToast';
 import { DEFAULT_HSL_COLOR } from '@/components/entities/_shared/system.constants';
 import { tasksKeys } from '../tasks/task.query';
 
@@ -11,35 +11,21 @@ export const tagsKeys = {
     detail: (id: number) => ['tags', 'detail', id] as const,
 };
 
-export const useGetTagsQuery = () => {
-    const { pushToast } = useToast();
-
-    return useQuery<TagGetOutput[]>({
+export const getTagsQueryOptions = () => {
+    return queryOptions({
         queryKey: tagsKeys.all,
         staleTime: 5 * 60 * 1000,
         retry: 3,
         retryDelay: (index) => 1000 * (index * 2),
 
         queryFn: async () => {
-            try {
-                const [res] = await Promise.all([
-                    TagsService.getAll(),
-                    new Promise(resolve => setTimeout(resolve, 500))
-                ]);
+            const [res] = await Promise.all([
+                TagsService.getAll(),
+                new Promise(resolve => setTimeout(resolve, 500))
+            ]);
 
-                return res;
-            } catch (error) {
-                pushToast({
-                    label: `Pulling tags failed`,
-                    status: 'error',
-                    type: 'popup',
-                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
-                });
-
-                throw error;
-            }
+            return res;
         },
-
         placeholderData: [{
             id: 0,
             label: '⏳ Loading...',
@@ -51,27 +37,20 @@ export const useGetTagsQuery = () => {
     })
 }
 
-export const useGetTagByIdQuery = (id: number) => {
-    const { pushToast } = useToast();
 
+export const useGetTagsQuery = () => useQuery(getTagsQueryOptions())
+
+export const useGetTagByIdQuery = (id: number) => {
     return useQuery({
         queryKey: tagsKeys.detail(id),
         enabled: !!id,
         staleTime: 5 * 60 * 1000,
+        retry: 3,
+        retryDelay: (index) => 1000 * (index * 2),
 
         queryFn: async () => {
-            try {
-                const res = await TagsService.getTagById(id);
-                return res;
-            } catch (error) {
-                pushToast({
-                    label: `Pulling tag #${id} failed`,
-                    status: 'error',
-                    type: 'popup',
-                    text: `${error instanceof Error ? error.message : 'Unknown error'}`
-                });
-                throw error;
-            }
+            const res = await TagsService.getTagById(id);
+            return res;
         }
     });
 };
@@ -90,7 +69,7 @@ export const useGetCategoriesQuery = () => {
 }
 
 export const useCreateTagQuery = () => {
-    const { pushToast } = useToast();
+    // const { pushToast } = useToast();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -102,17 +81,18 @@ export const useCreateTagQuery = () => {
             queryClient.invalidateQueries({ queryKey: tagsKeys.all });
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });
         },
-        onError: (error) => pushToast({
-            label: 'Creating failed',
-            status: 'error',
-            type: 'popup',
-            text: `${error instanceof Error ? error.message : 'Unknown error'}`
-        })
+        onError: (error) => error,
+        // pushToast({
+        //     label: 'Creating failed',
+        //     status: 'error',
+        //     type: 'popup',
+        //     text: `${error instanceof Error ? error.message : 'Unknown error'}`
+        // })
     })
 }
 
 export const useDeleteTagQuery = () => {
-    const { pushToast } = useToast();
+    // const { pushToast } = useToast();
     const queryClient = useQueryClient();
 
     return useMutation({
@@ -122,11 +102,12 @@ export const useDeleteTagQuery = () => {
             queryClient.invalidateQueries({ queryKey: categoriesKeys.all });
             queryClient.invalidateQueries({ queryKey: tasksKeys.all })
         },
-        onError: (error) => pushToast({
-            label: `Deleting failed`,
-            status: 'error',
-            type: 'popup',
-            text: `${error instanceof Error ? error.message : 'Unknown error'}`
-        })
+        onError: (error) => error,
+        // pushToast({
+        //     label: `Deleting failed`,
+        //     status: 'error',
+        //     type: 'popup',
+        //     text: `${error instanceof Error ? error.message : 'Unknown error'}`
+        // })
     })
 }

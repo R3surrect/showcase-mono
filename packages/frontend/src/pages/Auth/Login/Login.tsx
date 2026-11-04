@@ -10,7 +10,7 @@ import Stack from '@/components/entities/Stack/Stack';
 import useAuthStore from "@/store/useAuthStore";
 import { useNavigate } from 'react-router-dom';
 import Text from '@/components/entities/Text/Text';
-import useToast from '@/components/entities/Toast/Toast.hook';
+import useToast from '@/components/entities/Toast/useToast';
 import QrAuth from '@/components/entities/auth/QrAuth/QrAuth';
 
 export const Component = () => {

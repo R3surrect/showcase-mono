@@ -1,5 +1,5 @@
 import { DEFAULT_COLOR } from "@/components/entities/ColorList/ColorList.constants";
-import useToast from "@/components/entities/Toast/Toast.hook";
+import useToast from "@/components/entities/Toast/useToast";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import { useCreateProjectQuery } from "@/queries/projects/projects.query";
 import { useGetStatusesQuery } from "@/queries/statuses/statuses.query";

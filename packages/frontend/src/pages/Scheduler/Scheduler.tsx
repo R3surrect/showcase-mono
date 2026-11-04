@@ -1,13 +1,9 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import {
-    LucideAlertTriangle,
     LucideArchive,
     LucideArchiveRestore,
-    LucideBell,
-    LucideCalendarRange,
     LucideCalendarX,
-    LucideCheckCircle,
     LucideInbox,
     LucidePlusCircle,
     LucideTrash,
@@ -31,33 +27,6 @@ import { hintId } from "./Scheduler.constants";
 import { motion } from "motion/react"
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
 
-const MOCK_STAT_TAGS = [
-    {
-        id: "stat-today",
-        label: "Сегодня: 0/1",
-        icon: LucideCheckCircle,
-        color: { h: 42, s: 18, l: 60 },
-    },
-    {
-        id: "stat-active-month",
-        label: "13 активных на месяц",
-        icon: LucideCalendarRange,
-        color: { h: 42, s: 18, l: 60 },
-    },
-    {
-        id: "stat-notifications",
-        label: "4 уведомлений по задачам",
-        icon: LucideBell,
-        color: { h: 36, s: 35, l: 68 },
-    },
-    {
-        id: "stat-overdue",
-        label: "4 просроченных дедлайна",
-        icon: LucideAlertTriangle,
-        color: { h: 12, s: 35, l: 70 },
-    },
-] as const;
-
 export const Component = () => {
 
     const {
@@ -75,7 +44,9 @@ export const Component = () => {
         setView,
         filteredTasks,
         calendarData,
-        onTaskTagDelete
+        onTaskTagDelete,
+        getAggregatedStatusTagTags,
+        stats
     } = useSchedulerPage();
 
     const renderToolbar = (taskId: number) => {
@@ -94,6 +65,8 @@ export const Component = () => {
             </Button>
         </>
     }
+
+    getAggregatedStatusTagTags();
 
     const renderTask = ({ task }: { task: TaskCardProps }) =>
         <motion.div
@@ -224,7 +197,7 @@ export const Component = () => {
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
                     {
-                        MOCK_STAT_TAGS.map((tag) => {
+                        stats.map((tag) => {
                             const Icon = tag.icon;
                             return (
                                 <Tag
