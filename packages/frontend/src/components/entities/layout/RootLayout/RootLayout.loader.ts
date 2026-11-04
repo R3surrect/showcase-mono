@@ -6,7 +6,8 @@ import { redirect, type LoaderFunctionArgs } from 'react-router-dom';
 export const loader = async ({ request }: LoaderFunctionArgs) => {
     const pathname = new URL(request.url).pathname;
 
-    if (useAuthStore.getState().authData.authStatus === 'unknown') await useAuthStore.getState().checkAuth();
+    await useAuthStore.getState().checkAuth();
+
     const authStatus = useAuthStore.getState().authData.authStatus;
     if (authStatus === 'unauthenticated') throw redirect('/auth/login');
     if (authStatus === 'authenticated') {
