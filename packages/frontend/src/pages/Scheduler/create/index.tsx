@@ -50,7 +50,7 @@ const TaskCreateForm = (/*{ selectedDate }: TaskCreateFormProps*/) => {
         isTagsLoading,
         tagsLoadingError,
         isTagsLoadingError,
-    } = useCreateTaskPage(/*selectedDate*/);
+    } = useCreateTaskPage();
 
     return <form onSubmit={handleSubmit(onValid, onInvalid)}>
         <Stack>

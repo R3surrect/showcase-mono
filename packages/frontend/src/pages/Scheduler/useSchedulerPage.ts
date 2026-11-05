@@ -1,18 +1,22 @@
-import { useHintStore } from "@/store/useHintStore";
 import { useState } from "react";
-import { hintId } from "./Scheduler.constants";
-import { useDeleteTaskQuery, useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
+import { colord } from "colord";
 import dayjs, { Dayjs } from "dayjs";
+import {
+    LucideCalendarRange,
+    LucideCheckCircle,
+    LucideListTodo
+} from "lucide-react";
+import { hintId } from "./Scheduler.constants";
+import { useHintStore } from "@/store/useHintStore";
 import type { TaskTagAction, Views } from "./Scheduler.types";
-import { LucideCalendarRange, LucideCheckCircle, LucideListTodo } from "lucide-react";
+import { useDeleteTaskQuery, useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
 import { useGetTagsQuery } from "@/queries/tags/tags.query";
 import { DEFAULT_HSL_COLOR } from "@/components/entities/_shared/system.constants";
-import { colord } from "colord";
 
 const useSchedulerPage = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const isDismissed = useHintStore(store => store.data[hintId])
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [modalActive, setModalActive] = useState(false);
 
     const {
@@ -27,11 +31,18 @@ const useSchedulerPage = () => {
     const { data: tags, isLoading: isTagsLoading } = useGetTagsQuery();
 
     const hasTasksForDate = (date: Dayjs | Date) => tasks.some(task => {
-        if (!task.deadline || date) return false;
-        return dayjs(task.deadline).isSame(selectedDate, 'day');
+        if (!task.deadline || !date) return false;
+        return dayjs(task.deadline).isSame(date, 'day');
     });
 
-    const [view, setView] = useState<Views>(() => hasTasksForDate(today) ? 'date' : 'inbox');
+    const [view, setView] = useState<Views>(() => {
+        if (hasTasksForDate(today)) {
+            setSelectedDate(today.toDate())
+            return 'date';
+        }
+
+        return 'inbox'
+    });
 
     // const [view, setView] = useState<Views>(() => !hasTasksForSelectedDate ? 'inbox' : 'all');
 
@@ -84,8 +95,8 @@ const useSchedulerPage = () => {
             return ({
                 id: `tid${tag?.id}_tc${tasksCount}`,
                 icon: LucideListTodo,
-                label: `Задач со статусом ${tag?.label}: ${tasksCount}`,
-                color: colord(tag?.color ?? DEFAULT_HSL_COLOR.color).saturate(-0.01).toHsl(),
+                label: `${tag?.label}: ${tasksCount}`,
+                color: colord(tag?.color ?? DEFAULT_HSL_COLOR.color).saturate(-0.3).toHsl(),
             })
         })
     }
@@ -103,7 +114,16 @@ const useSchedulerPage = () => {
             icon: LucideCalendarRange,
             color: { h: 42, s: 18, l: 60 },
         },
-        ...(!isTagsLoading ? getAggregatedStatusTagTags() : []),
+        ...(
+            !isTagsLoading
+                ? getAggregatedStatusTagTags().sort((statA, statB) => {
+                    const distA = statA.color.h > 180 ? 360 - statA.color.h : statA.color.h;
+                    const distB = statB.color.h > 180 ? 360 - statB.color.h : statB.color.h;
+
+                    return distA - distB;
+                })
+                : []
+        ),
         // {
         //     id: "stat-notifications",
         //     label: `${notifiedTasksCount} уведомлений по задачам`,
@@ -138,7 +158,6 @@ const useSchedulerPage = () => {
         filteredTasks,
         calendarData,
         onTaskTagDelete,
-        getAggregatedStatusTagTags,
         stats,
     }
 }

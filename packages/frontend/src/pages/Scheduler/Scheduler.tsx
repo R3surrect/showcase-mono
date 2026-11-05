@@ -26,6 +26,8 @@ import useSchedulerPage from "./useSchedulerPage";
 import { hintId } from "./Scheduler.constants";
 import { motion } from "motion/react"
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
+import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
+import { colord } from "colord";
 
 export const Component = () => {
 
@@ -45,7 +47,6 @@ export const Component = () => {
         filteredTasks,
         calendarData,
         onTaskTagDelete,
-        getAggregatedStatusTagTags,
         stats
     } = useSchedulerPage();
 
@@ -65,8 +66,6 @@ export const Component = () => {
             </Button>
         </>
     }
-
-    getAggregatedStatusTagTags();
 
     const renderTask = ({ task }: { task: TaskCardProps }) =>
         <motion.div
@@ -196,20 +195,23 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
-                    {
-                        stats.map((tag) => {
-                            const Icon = tag.icon;
-                            return (
-                                <Tag
-                                    key={tag.id}
-                                    color={tag.color}
-                                    type={'default'}
-                                >
-                                    <Icon size={16} strokeWidth={3} />
-                                    <Text weight="bold" color="var(--neutral-750)">{tag.label}</Text>
-                                </Tag>
-                            );
-                        })}
+                    <SegmentedPicker overflow="auto" wrap={true}>
+                        {
+                            stats.map((tag) => {
+                                const Icon = tag.icon;
+                                return (
+                                    <Tag
+                                        key={tag.id}
+                                        color={colord(tag.color).toHsl()}
+                                        type={'default'}
+                                        hasStroke={false}
+                                    >
+                                        <Icon size={16} strokeWidth={3} />
+                                        <Text weight="bold" color={colord(tag.color).darken(0.1).toHslString()}>{tag.label}</Text>
+                                    </Tag>
+                                );
+                            })}
+                    </SegmentedPicker>
                 </Stack>
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
