@@ -1,12 +1,12 @@
 import { useId } from 'react';
 import { colord } from 'colord';
+import { motion } from 'motion/react'
 import clsx from 'clsx';
 import type { TagVars, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 import Button from '@components/entities/Button/Button';
 import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
-import { motion } from 'motion/react'
 
 const Tag = (props: TagProps) => {
     const genId = useId();
@@ -19,6 +19,7 @@ const Tag = (props: TagProps) => {
         isEditable,
         onEditAction,
         onDeleteAction,
+        hasStroke = false,
         ...rest
     } = props;
     const tagId = isSystem ? genId : `${id}`;
@@ -32,6 +33,7 @@ const Tag = (props: TagProps) => {
         id={tagId}
         className={clsx(stylesObj.tag, stylesObj[props.type?.toLowerCase?.()])}
         data-system={isSystem}
+        data-stroke={hasStroke}
         style={style}
         {...rest}
     >

@@ -18,6 +18,7 @@ export interface TagProps extends Omit<Partial<MotionDivUiRefComponent>, 'color'
     onDeleteAction?: (id: number) => void;
     onEditAction?: (id: number) => void;
     children?: React.ReactNode;
+    hasStroke?: boolean;
 }
 
 export interface TagVars extends React.CSSProperties {

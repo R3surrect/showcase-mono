@@ -19,10 +19,14 @@
     overflow: hidden;
 }
 
+
 .default {
     color: var(--tag-color);
-    background-color: color-mix(in srgb, var(--tag-color), transparent 90%);
+    background-color: color-mix(in srgb, var(--tag-color), transparent 80%);
     border-radius: var(--border-radius-20);
+}
+
+.default[data-stroke="true"] {
     border: 1px solid color-mix(in srgb, var(--tag-color), transparent 35%);
 }
 
