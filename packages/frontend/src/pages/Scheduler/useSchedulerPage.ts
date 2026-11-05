@@ -84,7 +84,7 @@ const useSchedulerPage = () => {
             return ({
                 id: `tid${tag?.id}_tc${tasksCount}`,
                 icon: LucideListTodo,
-                label: `Задач со статусом "${tag?.label}": ${tasksCount}`,
+                label: `Задач со статусом ${tag?.label}: ${tasksCount}`,
                 color: colord(tag?.color ?? DEFAULT_HSL_COLOR.color).saturate(-0.01).toHsl(),
             })
         })
