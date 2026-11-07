@@ -89,7 +89,7 @@ const TaskCreateForm = (/*{ selectedDate }: TaskCreateFormProps*/) => {
                             onBlur={field.onBlur}
                             ref={field.ref}
                             disabled={field.disabled}
-                            value={field.value ?? 0}
+                            value={String(field.value ?? 0)}
                             // value={field.value}
                             labelText="Project"
                             setValue={(id) => field.onChange(id)}
@@ -165,6 +165,7 @@ const TaskCreateForm = (/*{ selectedDate }: TaskCreateFormProps*/) => {
                     if (isTagsLoading) return <>...loading</>;
                     if (isTagsLoadingError) return <>{tagsLoadingError?.cause}</>;
                     return <TagList
+                        initialValue="default"
                         tags={tags}
                         selectedTags={field.value || []}
                         setSelectedList={(items: number[]) => field.onChange(items)}
