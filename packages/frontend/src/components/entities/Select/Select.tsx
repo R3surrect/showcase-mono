@@ -6,8 +6,8 @@ import Text from '@components/entities/Text/Text';
 
 interface SelectProps extends ComponentPropsWithRef<'select'> {
     id?: string;
-    value: string | number;
-    setValue: (value: string | number) => void;
+    value: string;
+    setValue: (value: string) => void;
     children: React.ReactNode;
     name?: string;
     labelText?: string;
@@ -33,11 +33,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
             )}
             <select
                 value={value}
-                onChange={(e) => {
-                    if (typeof value !== 'string') return setValue(Number(e.target.value));
-
-                    return setValue(e.target.value);
-                }}
+                onChange={(e) => setValue(e.target.value)}
                 className={stylesObj.select}
                 id={controlId}
                 name={name}
@@ -50,7 +46,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                 </button>
                 {children}
             </select>
-        </Stack>
+        </Stack >
     );
 };
 
