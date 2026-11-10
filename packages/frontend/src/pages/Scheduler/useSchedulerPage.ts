@@ -9,9 +9,10 @@ import {
 import { hintId } from "./Scheduler.constants";
 import { useHintStore } from "@/store/useHintStore";
 import { useGetTagsQuery } from "@/queries/tags/tags.query";
-import type { ActiveStatTag, StatTag, TaskTagAction, Views } from "./Scheduler.types";
+import type { StatTag, StatViewTypes, TaskTagAction, Views } from "./Scheduler.types";
 import { DEFAULT_HSL_COLOR } from "@/components/entities/_shared/system.constants";
 import { useDeleteTaskQuery, useGetTasksQuery, useUpdateTaskQuery } from "@/queries/tasks/task.query";
+import { createUnionGuard } from "@showcase-mono/backend/shared/guards";
 
 const useSchedulerPage = () => {
     const dismiss = useHintStore(store => store.dismissHint);
@@ -25,6 +26,7 @@ const useSchedulerPage = () => {
     } = useGetTasksQuery();
 
     const today = dayjs();
+    const [statView, setStatView] = useState<StatViewTypes>('month');
 
     const { mutate: updateTask, variables: updateTaskVariables, isPending: isUpdateTaskPending } = useUpdateTaskQuery();
     const { mutate: deleteTask, variables: deleteTaskVariables, isPending: isDeleteTaskPending } = useDeleteTaskQuery();
@@ -55,6 +57,18 @@ const useSchedulerPage = () => {
         return dayjs(task.deadline).isSame(selectedDate, 'day');
     });
 
+    const onTaskTagDelete: TaskTagAction = (taskId, tagId) => {
+        const mutatedTask = tasks.find((item) => item.id === taskId);
+        const mutatedTags = mutatedTask?.tags.filter(tag => tag.id !== tagId);
+        
+        updateTask({
+            id: taskId,
+            tagIds: mutatedTags?.map(tag => tag.id)
+        })
+    }
+
+    const tasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), statView)).length;
+    
     const grouped = Object.groupBy(tasks, item => {
         return !item.isArchived && item.deadline
             ? dayjs(item.deadline).format('YYYY-MM-DD')
@@ -65,26 +79,6 @@ const useSchedulerPage = () => {
         deadline: new Date(key),
         count: grouped[key]?.length ?? 0
     }))
-
-    const onTaskTagDelete: TaskTagAction = (taskId, tagId) => {
-        const mutatedTask = tasks.find((item) => item.id === taskId);
-        const mutatedTags = mutatedTask?.tags.filter(tag => tag.id !== tagId);
-
-        updateTask({
-            id: taskId,
-            tagIds: mutatedTags?.map(tag => tag.id)
-        })
-    }
-
-    const todayTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'date')).length;
-    const activeMonthTasksCount = tasks.filter(task => dayjs(task.deadline).isSame(dayjs(), 'month')).length;
-
-    function changeActiveStatTags(data: ActiveStatTag) {
-        setActiveStatTags(prev => {
-            const newArr = [...prev.filter(item => item.id !== data.id), data]
-            return newArr;
-        })
-    };
 
     function getAggregatedStatusTagTags() {
         const groupedTasksById = Object.groupBy(tasks, task => task.statusTagId);
@@ -97,11 +91,6 @@ const useSchedulerPage = () => {
                 icon: LucideListTodo,
                 label: `${tag?.label}: ${tasksCount}`,
                 color: colord(tag?.color ?? DEFAULT_HSL_COLOR.color).saturate(-0.3).toHsl(),
-                // action: (isActive) => changeActiveStatTags({ tag?.id, isActive }),
-                action: (isActive) => changeActiveStatTags({
-                    id: tag ? String(tag.id) : "",
-                    isActive
-                }),
             };
 
             return statObj;
@@ -111,14 +100,8 @@ const useSchedulerPage = () => {
     const stats: StatTag[] = [
         {
             id: "stat-today",
-            label: `Сегодня: ${todayTasksCount}`,
+            label: `${statView[0].toUpperCase()}${statView.slice(1)}: ${tasksCount}`,
             icon: LucideCheckCircle,
-            color: { h: 42, s: 18, l: 60 },
-        },
-        {
-            id: "stat-active-month",
-            label: `${activeMonthTasksCount} активных на месяц`,
-            icon: LucideCalendarRange,
             color: { h: 42, s: 18, l: 60 },
         },
         ...(
@@ -133,9 +116,6 @@ const useSchedulerPage = () => {
         ),
     ] as const;
 
-    const [activeStatTags, setActiveStatTags] = useState<ActiveStatTag[]>(
-        stats.map(tag => ({ id: tag.id, isActive: false, }))
-    );
 
     return {
         dismiss,
@@ -158,8 +138,8 @@ const useSchedulerPage = () => {
         calendarData,
         onTaskTagDelete,
         stats,
-        activeStatTags,
-        changeActiveStatTags
+        statView,
+        setStatView,
     }
 }
 

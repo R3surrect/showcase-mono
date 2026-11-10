@@ -25,9 +25,10 @@ import Tag from "@/components/entities/Tag/Tag";
 import Surface from "@/components/entities/Surface/Surface";
 import TaskCreateForm from "./create";
 import useSchedulerPage from "./useSchedulerPage";
-import { hintId } from "./Scheduler.constants";
+import { hintId, statViewTypes } from "./Scheduler.constants";
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
-import { useState } from "react";
+import Select from "@/components/entities/Select/Select";
+import { createUnionGuard } from "@showcase-mono/backend/shared/guards";
 
 export const Component = () => {
 
@@ -48,8 +49,8 @@ export const Component = () => {
         calendarData,
         onTaskTagDelete,
         stats,
-        activeStatTags,
-        changeActiveStatTags
+        statView,
+        setStatView,
     } = useSchedulerPage();
 
     const renderToolbar = (taskId: number) => {
@@ -68,6 +69,8 @@ export const Component = () => {
             </Button>
         </>
     }
+
+    const isStatView = createUnionGuard(statViewTypes);
 
     const renderTask = ({ task }: { task: TaskCardProps }) =>
         <motion.div
@@ -124,10 +127,10 @@ export const Component = () => {
                     </Banner>
                 }
                 <ContentHeader
-                    title={selectedDate ? `Задачи на ${dayjs(selectedDate).locale('ru').format('DD MMMM YYYY')}` : 'Планировщик'}
+                    title={selectedDate ? `Tasks on ${dayjs(selectedDate).locale('en').format('DD MMMM YYYY')}` : 'Scheduler'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
-                    {/* //TODO: move to a reusable separate component */}
+                    {/* //TODO: separate to a reusable component */}
                     {/* CREATE */}
                     <Button size="sm" onClick={() => setModalActive(true)}>
                         <Stack align="center" direction="row" gap="md">
@@ -197,6 +200,11 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
+                    <Select name="state" value={statView} setValue={(value: string) => setStatView(isStatView(value) ? value : 'month')}>
+                        <option value='day'>Day</option>
+                        <option value='month'>Month</option>
+                        <option value='year'>Year</option>
+                    </Select>
                     <SegmentedPicker overflow="auto" wrap={true}>
                         {
                             stats.map((tag) => {
@@ -207,12 +215,7 @@ export const Component = () => {
                                         color={colord(tag.color).toHsl()}
                                         type={'default'}
                                         hasStroke={false}
-                                        onClick={() => changeActiveStatTags({
-                                            id: tag.id,
-                                            isActive: activeStatTags.find(
-                                                item => item.id === tag.id
-                                            )?.isActive ?? false
-                                        })}
+                                        onClick={() => { }}
                                     >
                                         <Icon size={16} strokeWidth={3} />
                                         <Text weight="bold" color={colord(tag.color).darken(0.1).toHslString()}>{tag.label}</Text>
