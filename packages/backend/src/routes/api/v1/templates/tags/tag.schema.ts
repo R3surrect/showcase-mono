@@ -1,3 +1,4 @@
+import { createUnionGuard } from "../../../../../shared/guards.js";
 import { colorSchema } from "../../../../../shared/validations/customizable.validation.js";
 import { z } from "zod";
 
@@ -9,7 +10,7 @@ export interface TagTypeConfig {
   icon: string;
 }
 
-export const TAG_TYPE_CONFIGS: TagTypeConfig[] = [
+export const TAG_TYPE_CONFIGS = [
   {
     type: "default",
     id: "ttc-2fcd10",
@@ -38,12 +39,18 @@ export const TAG_TYPE_CONFIGS: TagTypeConfig[] = [
     color: { h: 11, s: 35, l: 47 },
     icon: "arrow-up-circle",
   },
-] as const;
+] as const satisfies readonly TagTypeConfig[];
 
-const TagTypeLabels = TAG_TYPE_CONFIGS.map((val) => val.type);
+export const tagTypeTypes = TAG_TYPE_CONFIGS.map((val) => val.type);
+export type TagTypeLabels = typeof tagTypeTypes[number];
+const isTagType = createUnionGuard(tagTypeTypes);
+
 export const tagTypeSchema = z
   .string()
-  .refine((val) => TagTypeLabels.includes(val), { error: "Tag type mismatch" });
+  .refine((val) => {
+
+    return isTagType(val);
+  }, { error: "Tag type mismatch" });
 
 export type TagType = z.infer<typeof tagTypeSchema>;
 

@@ -6,6 +6,8 @@ import type { SegmentedPickerProps } from './SegmentedPicker.types';
 const SegmentedPicker = ({
     label,
     children,
+    overflow = 'visible',
+    wrap = false,
     ...props
 }: SegmentedPickerProps) => {
     return <>
@@ -14,7 +16,7 @@ const SegmentedPicker = ({
             direction='row'
             justify='space-between'
             align='center'
-            overflow='visible'
+            overflow={overflow}
         >
             <AnimatePresence>
                 {label && <Text
@@ -22,10 +24,11 @@ const SegmentedPicker = ({
                     size={6}
                     weight='bolder'
                     color='var(--cold-blue-gray-400)'
+                    wrap
                 >
                     {label}
                 </Text>}
-                <Stack gap='sm' direction='row' overflow='auto'>
+                <Stack gap='sm' direction='row' overflow='auto' wrap={wrap}>
                     {children}
                 </Stack>
             </AnimatePresence>

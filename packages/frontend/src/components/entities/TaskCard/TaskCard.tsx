@@ -25,16 +25,17 @@ const TaskCard = (props: TaskCardProps) => {
                         data-interactive
                         {...statusTag}
                         type="default"
+                        hasStroke={false}
                         // isSystem={statusTag.category.toLowerCase().trim() === 'system'}
                         variant='default'
                         width="130px"
                     >
                         <Text
-                            color={colord({ ...statusTag.color, l: 40 }).toHslString()}
+                            color={colord(statusTag.color).saturate(-0.3).darken(0.1).toHslString()}
                             as="span"
                             title={statusTag.label}
                             size={6}
-                            weight="bold"
+                            weight="bolder"
                         >
                             {statusTag.label}
                         </Text>
@@ -45,17 +46,16 @@ const TaskCard = (props: TaskCardProps) => {
                     <Tag
                         data-interactive
                         {...priorityTag}
-                        // type="default"
                         isSystem={priorityTag.category.toLowerCase().trim() === 'system'}
-                        // variant='default'
+                        color={colord(priorityTag.color).saturate(-0.15).toHsl()}
                         width="130px"
                     >
                         <Text
-                            color={colord({ ...priorityTag.color, l: 95 }).toHslString()}
+                            color="white"
                             as="span"
                             title={priorityTag.label}
                             size={6}
-                            weight="bold"
+                            weight="bolder"
                         >
                             {priorityTag.label}
                         </Text>
@@ -98,7 +98,7 @@ const TaskCard = (props: TaskCardProps) => {
                                     color={colord({ ...tag.color, l: 40 }).toHsl()}
                                     type="default"
                                 >
-                                    <Text size={6} weight="bold" color={colord({ ...tag.color, l: 40 }).toHslString()}>
+                                    <Text size={6} weight="bold" color={colord(tag.color).toHslString()}>
                                         {tag.label}
                                     </Text>
                                 </Tag>

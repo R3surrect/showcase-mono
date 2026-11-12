@@ -1,3 +1,5 @@
+import { AnimatePresence, motion } from "motion/react";
+import { colord } from "colord";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import {
@@ -9,23 +11,24 @@ import {
     LucideTrash,
     LucideXCircle
 } from "lucide-react";
-import { AnimatePresence } from "motion/react";
+import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
+import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader";
+import Calendar from "@/components/entities/Calendar/Calendar";
+import TaskCard from "@/components/entities/TaskCard/TaskCard";
 import Banner from "@/components/entities/Banner/Banner";
 import Button from "@/components/entities/Button/Button";
-import Calendar from "@/components/entities/Calendar/Calendar";
-import { ContentHeader } from "@/components/entities/ContentHeader/ContentHeader";
-import Grid from "@/components/entities/Grid/Grid";
 import Stack from "@/components/entities/Stack/Stack";
-import Tag from "@/components/entities/Tag/Tag";
-import TaskCard from "@/components/entities/TaskCard/TaskCard";
-import Text from "@/components/entities/Text/Text";
 import Modal from "@/components/shared/Modal/Modal";
-import TaskCreateForm from "./create";
+import Grid from "@/components/entities/Grid/Grid";
+import Text from "@/components/entities/Text/Text";
+import Tag from "@/components/entities/Tag/Tag";
 import Surface from "@/components/entities/Surface/Surface";
+import TaskCreateForm from "./create";
 import useSchedulerPage from "./useSchedulerPage";
-import { hintId } from "./Scheduler.constants";
-import { motion } from "motion/react"
+import { hintId, statViewTypes } from "./Scheduler.constants";
 import type { TaskCardProps } from "@/components/entities/TaskCard/TaskCard.types";
+import Select from "@/components/entities/Select/Select";
+import { createUnionGuard } from "@showcase-mono/backend/shared/guards";
 
 export const Component = () => {
 
@@ -45,8 +48,9 @@ export const Component = () => {
         filteredTasks,
         calendarData,
         onTaskTagDelete,
-        getAggregatedStatusTagTags,
-        stats
+        stats,
+        statView,
+        setStatView,
     } = useSchedulerPage();
 
     const renderToolbar = (taskId: number) => {
@@ -66,7 +70,7 @@ export const Component = () => {
         </>
     }
 
-    getAggregatedStatusTagTags();
+    const isStatView = createUnionGuard(statViewTypes);
 
     const renderTask = ({ task }: { task: TaskCardProps }) =>
         <motion.div
@@ -123,10 +127,10 @@ export const Component = () => {
                     </Banner>
                 }
                 <ContentHeader
-                    title={selectedDate ? `Задачи на ${dayjs(selectedDate).locale('ru').format('DD MMMM YYYY')}` : 'Планировщик'}
+                    title={selectedDate ? `Tasks on ${dayjs(selectedDate).locale('en').format('DD MMMM YYYY')}` : 'Scheduler'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
-                    {/* //TODO: move to a reusable separate component */}
+                    {/* //TODO: separate to a reusable component */}
                     {/* CREATE */}
                     <Button size="sm" onClick={() => setModalActive(true)}>
                         <Stack align="center" direction="row" gap="md">
@@ -196,20 +200,29 @@ export const Component = () => {
                     </Button>
                 </ContentHeader>
                 <Stack direction="row" gap="sm" align="center">
-                    {
-                        stats.map((tag) => {
-                            const Icon = tag.icon;
-                            return (
-                                <Tag
-                                    key={tag.id}
-                                    color={tag.color}
-                                    type={'default'}
-                                >
-                                    <Icon size={16} strokeWidth={3} />
-                                    <Text weight="bold" color="var(--neutral-750)">{tag.label}</Text>
-                                </Tag>
-                            );
-                        })}
+                    <Select name="state" value={statView} setValue={(value: string) => setStatView(isStatView(value) ? value : 'month')}>
+                        <option value='day'>Day</option>
+                        <option value='month'>Month</option>
+                        <option value='year'>Year</option>
+                    </Select>
+                    <SegmentedPicker overflow="auto" wrap={true}>
+                        {
+                            stats.map((tag) => {
+                                const Icon = tag.icon;
+                                return (
+                                    <Tag
+                                        key={tag.id}
+                                        color={colord(tag.color).toHsl()}
+                                        type={'default'}
+                                        hasStroke={false}
+                                        onClick={() => { }}
+                                    >
+                                        <Icon size={16} strokeWidth={3} />
+                                        <Text weight="bold" color={colord(tag.color).darken(0.1).toHslString()}>{tag.label}</Text>
+                                    </Tag>
+                                );
+                            })}
+                    </SegmentedPicker>
                 </Stack>
                 <Grid templateColumns="3fr 1fr">
                     <Stack gap="sm" direction="column">
@@ -218,10 +231,14 @@ export const Component = () => {
                                 isTasksLoading
                                     ? '...loading'
                                     : filteredTasks.length == 0
-                                        ? <Text size={5} color="var(--neutral-850)" weight="bold">No tasks at selected date</Text>
-                                        : filteredTasks.map(task => (
-                                            renderTask({ task })
-                                        ))
+                                        ? <Text
+                                            size={5}
+                                            color="var(--neutral-850)"
+                                            weight="bold"
+                                        >
+                                            No tasks at selected date
+                                        </Text>
+                                        : filteredTasks.map(task => (renderTask({ task })))
                             }
                         </AnimatePresence>
                     </Stack>

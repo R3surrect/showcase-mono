@@ -1,12 +1,14 @@
+@import url('@global/styles/_variables');
+
 .select {
-    min-width: 16ch;
+    min-width: 12ch;
     appearance: base-select;
     outline: none;
-    border: 1px solid var(--neutral-550);
+    border: 1px solid var(--neutral-400);
     border-radius: var(--border-radius-15);
     padding: 0 .7rem;
     height: fit-content;
-
+    background-color: var(--lite-white);
 }
 
 .select button {
@@ -15,7 +17,7 @@
     padding: 0;
     margin: 0;
     width: 100%;
-    color: var(--cold-blue-gray-400)
+    color: var(--neutral-600)
 }
 
 .select option {
@@ -27,7 +29,7 @@
 }
 
 .select option:hover {
-    background-color: var(--cold-blue-gray-400);
+    background-color: var(--neutral-400);
     color: var(--neutral-0)
 }
 
@@ -39,7 +41,7 @@
 .select:global(::picker(select)) {
     transition: .3s;
     appearance: base-select;
-    border: 1px solid var(--neutral-550);
+    border: 1px solid var(--neutral-400);
     border-radius: var(--border-radius-15);
     box-shadow: var(--shadow-md);
     padding: .5rem;
@@ -47,16 +49,7 @@
     outline: none;
 }
 
-.select::picker-icon {
-    display: none;
-}
-
+.select::picker-icon { display: none }
 .select svg { transition: .2s ease-in-out }
-
-.select:open svg {
-    rotate: 90deg;
-}
-
-.select > option::checkmark {
-    display: none;
-}
+.select:open svg { rotate: 90deg }
+.select > option::checkmark { display: none }

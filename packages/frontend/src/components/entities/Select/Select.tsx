@@ -1,18 +1,9 @@
-import React, { useId, type ComponentPropsWithRef } from 'react';
+import { useId } from 'react';
 import { LucideChevronRight } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
 import stylesObj from './Select.module.css';
 import Text from '@components/entities/Text/Text';
-
-interface SelectProps extends ComponentPropsWithRef<'select'> {
-    id?: string;
-    value: string | number;
-    setValue: (value: string | number) => void;
-    children: React.ReactNode;
-    name?: string;
-    labelText?: string;
-    ref?: React.Ref<HTMLSelectElement>;
-}
+import type { SelectProps } from './Select.types';
 
 const Select = ({ id, value, name, setValue, labelText, children }: SelectProps) => {
     const genId = useId();
@@ -33,11 +24,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
             )}
             <select
                 value={value}
-                onChange={(e) => {
-                    if (typeof value !== 'string') return setValue(Number(e.target.value));
-
-                    return setValue(e.target.value);
-                }}
+                onChange={(e) => setValue(e.target.value)}
                 className={stylesObj.select}
                 id={controlId}
                 name={name}
@@ -50,7 +37,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                 </button>
                 {children}
             </select>
-        </Stack>
+        </Stack >
     );
 };
 

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { LucideSearch, LucideTags } from "lucide-react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import Stack from "@components/entities/Stack/Stack";
-import { TAG_TYPE_CONFIGS, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
+import { TAG_TYPE_CONFIGS, tagTypeTypes, type TagType } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
 import Input from "@components/entities/Input/Input";
 import Tag from "@components/entities/Tag/Tag";
 import Surface from "@components/entities/Surface/Surface";
@@ -10,11 +10,13 @@ import Text from "@components/entities/Text/Text";
 import { isValidLucideIcon } from "@components/entities/_shared/system.utils";
 import Select from "@components/entities/Select/Select";
 import type { TagListProps } from "./TagList.types";
+import { createUnionGuard } from "@showcase-mono/backend/shared/guards";
 
 const TagList = (props: TagListProps) => {
+    const { initialValue = 'default' } = props;
     // #region ui behavior
     const { selectedTags, setSelectedList, isEditable = false } = props;
-    const [selectedType, setSelectedType] = useState<TagType | 'All'>('All');
+    const [selectedType, setSelectedType] = useState<TagType | 'All'>(initialValue);
 
     const onTagClickHandler = (id: number) => {
         const isIdSelected = selectedTags?.includes(id);
@@ -28,6 +30,8 @@ const TagList = (props: TagListProps) => {
         : null;
     // #endregion
 
+    const isSelectTagType = createUnionGuard([...tagTypeTypes, 'All']);
+
     return (
         <Stack direction='column' gap="md">
             <Stack direction="row" gap="md" align="center">
@@ -37,7 +41,9 @@ const TagList = (props: TagListProps) => {
                 <Select
                     name='type'
                     value={selectedType}
-                    setValue={(val: TagType | 'All') => setSelectedType(val)}
+                    setValue={(val: string) => {
+                        if (isSelectTagType(val)) setSelectedType(val);
+                    }}
                 >
                     <option value="All">All</option>
                     {
