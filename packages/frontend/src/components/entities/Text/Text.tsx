@@ -11,14 +11,17 @@ const Text = <T extends ElementType = 'p'>({
     align = 'start',
     truncate,
     wrap,
+    truncateAfter = 1,
     ...props
 }: TextProps<T>) => {
     const Tag = as || 'p';
     const style: TextVars = {
-        textAlign: align,
+        '--text-align': align,
+        // textAlign: align,
         '--text-color': color,
         "--text-size": String(size),
         "--text-weight": Number(weight),
+        ...(wrap && truncate && { "--text-line-clamp": truncateAfter }),
     };
     return (
         <Tag
