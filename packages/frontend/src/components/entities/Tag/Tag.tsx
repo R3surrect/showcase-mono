@@ -20,13 +20,14 @@ const Tag = (props: TagProps) => {
         onEditAction,
         onDeleteAction,
         hasStroke = false,
+        innerJustify = 'center',
         ...rest
     } = props;
     const tagId = isSystem ? genId : `${id}`;
 
     const style: TagVars = {
         '--tag-color': colord(color).toHslString(),
-        '--tag-width': width
+        '--tag-justify': innerJustify,
     }
 
     return <motion.div
@@ -34,6 +35,7 @@ const Tag = (props: TagProps) => {
         className={clsx(stylesObj.tag, stylesObj[props.type?.toLowerCase?.()])}
         data-system={isSystem}
         data-stroke={hasStroke}
+        data-width={width}
         style={style}
         {...rest}
     >
@@ -43,10 +45,10 @@ const Tag = (props: TagProps) => {
                 <Stack
                     direction='row'
                     align='center'
-                    justify='center'
+                    justify={innerJustify}
                     gap='sm'
                     height='max'
-                    width='max'
+                    width={width}
                 >
                     {
                         onEditAction && <Button
