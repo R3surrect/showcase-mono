@@ -8,13 +8,14 @@ const SegmentedPicker = ({
     children,
     overflow = 'visible',
     wrap = false,
+    justify = 'space-between',
     ...props
 }: SegmentedPickerProps) => {
     return <>
         <Stack
             {...props}
             direction='row'
-            justify='space-between'
+            justify={justify}
             align='center'
             overflow={overflow}
         >
@@ -23,7 +24,7 @@ const SegmentedPicker = ({
                     truncate={false}
                     size={6}
                     weight='bolder'
-                    color='var(--cold-blue-gray-400)'
+                    color='var(--monochrome-600)'
                     wrap
                 >
                     {label}
