@@ -1,52 +1,141 @@
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import Stack from '@/components/entities/Stack/Stack';
-import { LucidePlusCircle, LucideStickyNote } from 'lucide-react';
+import { LucidePlusCircle } from 'lucide-react';
 import Button from '@/components/entities/Button/Button';
 import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
 import { useHintStore } from '@/store/useHintStore';
 import Grid from '@/components/entities/Grid/Grid';
-import Surface from '@/components/entities/Surface/Surface';
-import Tag from '@/components/entities/Tag/Tag';
-import { colord, type HslColor } from 'colord';
-import SegmentedPicker from '@/components/entities/SegmentedPicker/SegmentedPicker';
-
-const MOCK_COLOR: HslColor = { h: 230, s: 80, l: 56 };
+import NoteCard from '@/components/entities/NoteCard/NoteCard';
 
 export const hintId = 'notes-page-hint';
 
+const MOCK_NOTE_CARDS = [
+    {
+        id: 'note-1',
+        title: "Discuss stealth approach and archer support with Legolas",
+        details: "Hold a tactical briefing with Legolas as part of the Ascend to Mordor initiative. Confirm his scouting findings along the border of Mordor, align on the safest path toward Mount Doom, and ensure our long-range defense and ranged cover are fully coordinated before the final push.",
+        color: { h: 230, s: 80, l: 56 },
+        task: { label: 'Scouting & Recon' },
+        project: {
+            label: "💍 Ascend to Mordor",
+            color: { h: 160, s: 50, l: 50 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-2',
+        title: "Audit lembas bread rations and water supplies",
+        details: "Check remaining inventory with Samwise before crossing the Dead Marshes. Ensure enough provisions are packed for the final stretch without slowing down our pace.",
+        color: { h: 40, s: 90, l: 50 },
+        task: { label: 'Provisions' },
+        project: {
+            label: "💍 Ascend to Mordor",
+            color: { h: 160, s: 50, l: 50 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-3',
+        title: "Reforge Narsil into Andúril",
+        details: "Coordinate with the Elven smiths in Rivendell. Verify the inscriptions on the blade and schedule the handover ceremony with Aragorn.",
+        color: { h: 200, s: 15, l: 45 },
+        task: { label: 'Equipment' },
+        project: {
+            label: "👑 Return of the King",
+            color: { h: 280, s: 60, l: 55 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-4',
+        title: "Beacon lighting protocol for Gondor",
+        details: "Confirm watchtower shifts along the White Mountains. Ensure dry firewood and oil reserves are stocked at Amon Dîn and Eilenach in case Minas Tirith calls for aid.",
+        color: { h: 10, s: 85, l: 55 },
+        task: { label: 'Emergency Comms' },
+        project: {
+            label: "🔥 Defense of Minas Tirith",
+            color: { h: 15, s: 80, l: 50 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-5',
+        title: "Review Minas Tirith archive scrolls",
+        details: "Research Isildur's account of the One Ring. Look for specific mentions of the markings that appear when the band is exposed to fire.",
+        color: { h: 0, s: 0, l: 0 }, // Чистый черный HSL
+        task: { label: 'Lore Research' },
+        project: {
+            label: "🧙‍♂️ White Council",
+            color: { h: 210, s: 20, l: 70 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-6',
+        title: "Negotiate eagle airlift contingency",
+        details: "Send a moth messenger to Gwaihir. Establish extraction coordinates near the Black Gate in case ground retreat becomes impossible.",
+        color: { h: 190, s: 75, l: 48 },
+        task: { label: 'Extraction Plan' },
+        project: {
+            label: "💍 Ascend to Mordor",
+            color: { h: 160, s: 50, l: 50 },
+        },
+        hasSurface: true,
+        toolbar: null
+    },
+    {
+        id: 'note-7',
+        title: "Fortify Helm's Deep outer wall",
+        details: "Inspect the drainage culvert at the base of the Deeping Wall. Reinforce the gatehouse with heavy timber beams before Saruman's vanguard arrives.",
+        color: { h: 120, s: 45, l: 40 },
+        task: { label: 'Fortifications' },
+        project: {
+            label: "🐎 Rohan Defense",
+            color: { h: 95, s: 55, l: 45 },
+        },
+        hasSurface: true,
+        toolbar: null
+    }
+];
+
 export const Component = () => {
-    const isDismissed = useHintStore(store => store.data[hintId])
+    const isDismissed = useHintStore(store => store.data[hintId]);
     const dismiss = useHintStore(store => store.dismissHint);
-    const notesCount = 10;
 
     return (
         <>
             <Stack gap="md">
-                {!isDismissed && <Banner
-                    isClosable
-                    variant="hint"
-                    onClose={() => dismiss(hintId)}
-                    color='var(--warm-green-500)'
-                >
-                    <Text
+                {!isDismissed && (
+                    <Banner
+                        isClosable
+                        variant="hint"
+                        onClose={() => dismiss(hintId)}
                         color='var(--warm-green-500)'
-                        weight='bolder'
-                        size={6}
                     >
-                        Quick access to the Notes:
-                    </Text>
-                    <Text
-                        color='var(--warm-green-500)'
-                        size={6}
-                        weight='bold'
-                    >
-                        Click on a note card to open the full view and editor. Use projects and tasks to organize your notes.
-                    </Text>
-                </Banner>}
+                        <Text
+                            color='var(--warm-green-500)'
+                            weight='bolder'
+                            size={6}
+                        >
+                            Quick access to the Notes:
+                        </Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            size={6}
+                            weight='bold'
+                        >
+                            Click on a note card to open the full view and editor. Use projects and tasks to organize your notes.
+                        </Text>
+                    </Banner>
+                )}
                 <ContentHeader
                     title='Notes'
-                // subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
                 >
                     <Button
                         size="sm"
@@ -59,38 +148,16 @@ export const Component = () => {
                         </Stack>
                     </Button>
                 </ContentHeader>
-                <Grid columns={notesCount < 5 ? notesCount : 5}>
+                <Grid columns={MOCK_NOTE_CARDS.length < 5 ? MOCK_NOTE_CARDS.length : 5}>
 
-                    <Surface data-interactive>
-                        <Stack direction='column'>
-                            <Stack direction='row' justify='space-between'>
-                                <Stack direction='row' gap='sm' align='center'>
-                                    <LucideStickyNote size="32" color="var(--warm-green-500)" />
-                                    <Text size={5} color="var(--warm-green-700)" weight='bolder'>Discuss stealth approach and archer support with Legolas</Text>
-                                </Stack>
-                                {/* //TODO Toolbar children */}
-                            </Stack>
-
-                            <Text color='var(--neutral-850)' weight='bold' truncate wrap truncateAfter={5}>
-                                Hold a tactical briefing with Legolas as part of the Ascend to Mordor initiative. Confirm his scouting findings along the border of Mordor, align on the safest path toward Mount Doom, and ensure our long-range defense and ranged cover are fully coordinated before the final push.
-                            </Text>
-                            <Stack gap='sm'>
-                                <SegmentedPicker label='Task' justify='start'>
-                                    <Tag color={MOCK_COLOR} type='priority' width='fit' innerJustify='start'>
-                                        <Text width='fit-content' weight='bold' color='white'>🧝‍♂️ Talk to Legolas</Text>
-                                    </Tag>
-                                </SegmentedPicker>
-                                <SegmentedPicker label='Project' justify='start'>
-                                    <Tag color={colord(MOCK_COLOR).desaturate(0.3).darken(0.3).toHsl()} type='priority' width='fit' innerJustify='start'>
-                                        <Text width='fit-content' weight='bold' color='white'>💍 Ascend to Mordor</Text>
-                                    </Tag>
-                                </SegmentedPicker>
-                            </Stack>
-                        </Stack>
-                    </Surface>
+                    {MOCK_NOTE_CARDS.map(({ id, ...noteProps }) => (
+                        <NoteCard
+                            key={id} {...noteProps}
+                        />
+                    ))}
 
                 </Grid>
             </Stack>
         </>
-    )
-}
+    );
+};
