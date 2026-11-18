@@ -1,11 +1,11 @@
+import { LucideFileText } from "lucide-react"
 import Stack from "../Stack/Stack"
-import { LucideStickyNote } from "lucide-react"
 import Text from "../Text/Text"
 import SegmentedPicker from "../SegmentedPicker/SegmentedPicker"
-import Tag from "../Tag/Tag"
 import Surface from "../Surface/Surface"
-import { colord } from "colord"
 import type { NoteCardProps } from "./NoteCard.types"
+import Tag from "../Tag/Tag"
+import { colord } from "colord"
 
 const NoteCard = (props: NoteCardProps) => {
     const { hasSurface = true } = props;
@@ -13,24 +13,40 @@ const NoteCard = (props: NoteCardProps) => {
     const Component = <Stack direction='column'>
         <Stack direction='row' justify='space-between'>
             <Stack direction='row' gap='sm' align='center'>
-                <LucideStickyNote size="32" color="var(--warm-green-500)" />
+                <LucideFileText size="24" color="var(--warm-green-500)" style={{ flexShrink: 0 }}/>
                 <Text size={5} color="var(--warm-green-700)" weight='bolder'>{props.title}</Text>
             </Stack>
             {props.toolbar}
         </Stack>
-
         <Text color='var(--neutral-850)' weight='bold' truncate wrap truncateAfter={5}>
             {props.details}
         </Text>
         <Stack gap='sm'>
-            <SegmentedPicker label='Task' justify='start'>
-                <Stack direction="row" gap="sm"><Text width='fit-content' weight='bold' color='white'>{props.taskLabel}</Text></Stack>
-            </SegmentedPicker>
-            <SegmentedPicker label='Project' justify='start'>
-                <Tag color={colord(props.projectColor).desaturate(0.3).darken(0.3).toHsl()} type='priority' width='fit' innerJustify='start'>
-                    <Text width='fit-content' weight='bold' color='white'>{props.projectLabel}</Text>
-                </Tag>
-            </SegmentedPicker>
+            {
+                props.task &&
+                <SegmentedPicker label='Task:' justify='space-between'>
+                    <Text width='fit-content' weight='bold' color='var(--warm-green-700)'>{props.task.label}</Text>
+                </SegmentedPicker>
+            }
+            {
+                props.project &&
+                <SegmentedPicker label='Project:' justify='space-between'>
+                    <Tag color={props.project.color} type="priority">
+                        <Text
+                            width='fit-content'
+                            weight='bold'
+                            color={
+                                colord(props.project.color)
+                                    .isDark()
+                                    ? 'var(--monochrome-100)'
+                                    : 'var(--monochrome-800)'
+                            }
+                        >
+                            {props.project.label}
+                        </Text>
+                    </Tag>
+                </SegmentedPicker>
+            }
         </Stack>
     </Stack>;
 
