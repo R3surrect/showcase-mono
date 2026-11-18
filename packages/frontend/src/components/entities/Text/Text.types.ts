@@ -37,7 +37,6 @@ export type TextProps<T extends ElementType> =
     Omit<ComponentPropsWithoutRef<T>, keyof TextBaseProps<T> | 'style' | 'className'>;
 
 export interface TextVars extends React.CSSProperties {
-    '--text-weight': number;
     '--text-size': string;
     '--text-color': string;
     '--text-align': string;

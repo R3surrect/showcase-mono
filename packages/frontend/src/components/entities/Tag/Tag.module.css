@@ -24,8 +24,8 @@
 .tag[data-width='auto'] { --tag-width: auto }
 
 .default {
-    color: var(--tag-color);
-    background-color: color-mix(in srgb, var(--tag-color), transparent 80%);
+    /* color: var(--tag-color); */
+    background-color: var(--tag-color);
     border-radius: var(--border-radius-20);
 }
 

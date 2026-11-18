@@ -20,15 +20,16 @@ const SegmentedPicker = ({
             overflow={overflow}
         >
             <AnimatePresence>
-                {label && <Text
-                    truncate={false}
-                    size={6}
-                    weight='bolder'
-                    color='var(--monochrome-600)'
-                    wrap
-                >
-                    {label}
-                </Text>}
+                {label &&
+                    <Text
+                        truncate={false}
+                        size={6}
+                        weight='bolder'
+                        color='var(--monochrome-700)'
+                        wrap
+                    >
+                        {label}
+                    </Text>}
                 <Stack gap='sm' direction='row' overflow='auto' wrap={wrap}>
                     {children}
                 </Stack>
