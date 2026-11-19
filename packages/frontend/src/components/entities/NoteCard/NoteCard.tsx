@@ -1,11 +1,11 @@
 import { LucideFileText } from "lucide-react"
+import { colord } from "@lib/colord"
 import Stack from "../Stack/Stack"
 import Text from "../Text/Text"
 import SegmentedPicker from "../SegmentedPicker/SegmentedPicker"
 import Surface from "../Surface/Surface"
 import type { NoteCardProps } from "./NoteCard.types"
 import Tag from "../Tag/Tag"
-import { colord } from "colord"
 
 const NoteCard = (props: NoteCardProps) => {
     const { hasSurface = true } = props;
@@ -13,12 +13,12 @@ const NoteCard = (props: NoteCardProps) => {
     const Component = <Stack direction='column'>
         <Stack direction='row' justify='space-between'>
             <Stack direction='row' gap='sm' align='center'>
-                <LucideFileText size="24" color="var(--warm-green-500)" style={{ flexShrink: 0 }}/>
-                <Text size={5} color="var(--warm-green-700)" weight='bolder'>{props.title}</Text>
+                <LucideFileText size="24" color="var(--warm-green-500)" style={{ flexShrink: 0 }} />
+                <Text truncate size={5} color="var(--warm-green-700)" weight='bolder'>{props.title}</Text>
             </Stack>
             {props.toolbar}
         </Stack>
-        <Text color='var(--neutral-850)' weight='bold' truncate wrap truncateAfter={5}>
+        <Text color='var(--neutral-850)' weight='bold' truncate wrap truncateAfter={5} clamped>
             {props.details}
         </Text>
         <Stack gap='sm'>
@@ -36,10 +36,10 @@ const NoteCard = (props: NoteCardProps) => {
                             width='fit-content'
                             weight='bold'
                             color={
-                                colord(props.project.color)
-                                    .isDark()
-                                    ? 'var(--monochrome-100)'
-                                    : 'var(--monochrome-800)'
+                                colord(props.project.color).contrast("#ffffff")
+                                    >= colord(props.project.color).contrast("#1a1a1a")
+                                    ? "var(--monochrome-100)"
+                                    : "var(--monochrome-800)"
                             }
                         >
                             {props.project.label}

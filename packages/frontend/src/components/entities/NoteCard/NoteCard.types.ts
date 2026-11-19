@@ -6,6 +6,7 @@ export interface NoteCardProps {
     project?: {
         label: string;
         color: HslColor;
+        emoji?: string;
     };
     task?: {
         label: string;

@@ -111,6 +111,20 @@ export const Component = () => {
     return (
         <>
             <Stack gap="md">
+                <ContentHeader
+                    title='Notes'
+                >
+                    <Button
+                        size="sm"
+                        variant={"outline"}
+                        onClick={() => { }}
+                    >
+                        <Stack align="center" direction="row" gap="md">
+                            <LucidePlusCircle />
+                            Create
+                        </Stack>
+                    </Button>
+                </ContentHeader>
                 {!isDismissed && (
                     <Banner
                         isClosable
@@ -134,21 +148,7 @@ export const Component = () => {
                         </Text>
                     </Banner>
                 )}
-                <ContentHeader
-                    title='Notes'
-                >
-                    <Button
-                        size="sm"
-                        variant={"outline"}
-                        onClick={() => { }}
-                    >
-                        <Stack align="center" direction="row" gap="md">
-                            <LucidePlusCircle />
-                            Create
-                        </Stack>
-                    </Button>
-                </ContentHeader>
-                <Grid columns={MOCK_NOTE_CARDS.length < 5 ? MOCK_NOTE_CARDS.length : 5}>
+                <Grid columns={MOCK_NOTE_CARDS.length < 5 ? MOCK_NOTE_CARDS.length : 5} autoRows='1fr'>
 
                     {MOCK_NOTE_CARDS.map(({ id, ...noteProps }) => (
                         <NoteCard
