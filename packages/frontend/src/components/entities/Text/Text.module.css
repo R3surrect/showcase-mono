@@ -27,6 +27,10 @@
     overflow: hidden;
 }
 
+.text[data-truncate="true"][data-wrap='true'][data-clamped='true'] {
+    min-height: calc(var(--text-line-clamp) * 1lh);
+}
+
 .text[data-size="1"] {font-size: var(--title-size)}
 .text[data-size="2"] {font-size: var(--header-size)}
 .text[data-size="3"] {font-size: var(--subtitle-size)}

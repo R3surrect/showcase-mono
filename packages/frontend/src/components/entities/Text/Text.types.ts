@@ -19,6 +19,7 @@ interface TextLineClampProps {
     truncate: true;
     wrap: true;
     truncateAfter: number;
+    clamped?: boolean;
 }
 
 interface TextBaseWrapProps {
