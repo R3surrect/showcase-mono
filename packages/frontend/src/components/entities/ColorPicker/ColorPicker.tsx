@@ -1,5 +1,5 @@
 import { LucidePipette } from 'lucide-react';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 import stylesObj from './ColorPicker.module.css';
 import type { ColorPickerProps } from '@/components/entities/ColorPicker/ColorPicker.types';
 

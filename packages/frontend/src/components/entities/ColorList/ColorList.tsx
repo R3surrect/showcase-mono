@@ -8,7 +8,7 @@ import { getLocalStorageColors, INITIAL_COLORS } from '@/components/entities/Col
 import Grid from '@components/entities/Grid/Grid';
 import type { ColorListProps } from './ColorList.types';
 import type { ColorSet } from '../_shared/system.types';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 
 const ColorList = ({ value, onColorChange }: ColorListProps) => {
     const [colorSet, setColorSet] = useState<ColorSet[]>(getLocalStorageColors());

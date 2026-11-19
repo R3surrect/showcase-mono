@@ -1,5 +1,5 @@
 import { isValidElement } from 'react';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 import { LucidePin } from 'lucide-react';
 import { DEFAULT_HSL_COLOR } from '@components/entities/_shared/system.constants';
 import EmojiPreview from '@components/entities/Emoji/EmojiPreview/EmojiPreview';

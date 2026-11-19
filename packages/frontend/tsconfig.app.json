@@ -37,6 +37,7 @@
       "@validation/*": ["./src/validation/*"],
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
+      "@lib/*": ["./lib/*"],
       "@showcase-mono/backend": ["../backend/src/app.ts"],
       "@showcase-mono/backend/*": ["../backend/src/*"],
     }

@@ -37,6 +37,7 @@ export default defineConfig({
       '@validation': path.resolve(__dirname, './src/validation'),
       '@assets': path.resolve(__dirname, './src/assets'),
       "@routes": path.resolve(__dirname, "./src/routes"),
+      "@lib": path.resolve(__dirname, "./lib"),
       "@showcase-mono/backend": path.resolve(__dirname, "../backend/src/")
     }
   },

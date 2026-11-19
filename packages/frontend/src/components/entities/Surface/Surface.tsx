@@ -3,7 +3,7 @@ import stylesObj from './Surface.module.css';
 import clsx from 'clsx';
 import { motion } from 'motion/react';
 import { AXIS_SIZE_TYPES, DEFAULT_HSL_COLOR } from '../_shared/system.constants';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 
 const AXIS_SIZE_SET = new Set<string>(AXIS_SIZE_TYPES);
 
