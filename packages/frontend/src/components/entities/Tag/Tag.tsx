@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 import { motion } from 'motion/react'
 import clsx from 'clsx';
+import { LucideCircleX, LucidePencil } from 'lucide-react';
 import type { TagVars, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 import Button from '@components/entities/Button/Button';
-import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
 
 const Tag = (props: TagProps) => {
@@ -48,7 +48,7 @@ const Tag = (props: TagProps) => {
                     justify={innerJustify}
                     gap='sm'
                     height='max'
-                    width={width}
+                    width='max'
                 >
                     {
                         onEditAction && <Button
