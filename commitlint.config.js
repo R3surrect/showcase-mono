@@ -9,7 +9,10 @@ export default {
       const [, , pnpmPackages] = await pnpmScopes.rules['scope-enum'](ctx);
 
       const globalScopes = ['mono', 'root', 'release', 'ci', 'cd', 'deps', 'db', 'infra'];
-      const frontendScopes = ['toast', 'ui', 'queries', 'scheduler', 'projects', 'tags'];
+      const frontendScopes = [
+        'toast', 'ui', 'queries', 'scheduler', 'projects', 'tags',
+        'notes', 'tasks', 'lib',
+      ];
 
       return [2, 'always', [...pnpmPackages, ...globalScopes, ...frontendScopes]];
     },
