@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS notes (
     pinned_at TIMESTAMPTZ,
     project_id INT,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+    CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL,
     CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS pivot_tasks_tags (
