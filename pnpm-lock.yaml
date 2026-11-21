@@ -26,12 +26,13 @@ importers:
 
   packages/api-client:
     dependencies:
-      '@showcase-mono/backend':
-        specifier: workspace:*
-        version: link:../backend
       hono:
         specifier: ^4.0.0
         version: 4.13.13
+    devDependencies:
+      '@showcase-mono/backend':
+        specifier: workspace:*
+        version: link:../backend
 
   packages/backend:
     dependencies:
