@@ -2,9 +2,12 @@ import { z } from "zod";
 
 export const noteSchema = z.object({
     id: z.number().int().positive(),
-    label: z.string().min(1, 'Required field').max(32, 'Note label is too large').trim(),
-    content: z.string(),
-    
+    label: z.string().trim().min(1, 'Required field').max(32, 'Note label is too large'),
+    content: z.object({
+        type: z.literal('doc'),
+        content: z.array(z.unknown()).optional(),
+    }),
+
     ownerId: z.number().int().positive(),
     projectId: z.number().int().positive(),
     taskId: z.number().int().positive(),

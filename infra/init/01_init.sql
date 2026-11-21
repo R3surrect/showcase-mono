@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS projects (
 );
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
-    label varchar(64) NOT NULL,
+    label varchar(32) NOT NULL,
     details TEXT,
     deadline TIMESTAMPTZ,
     notify_at TIMESTAMPTZ,
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 CREATE TABLE IF NOT EXISTS notes (
     id SERIAL PRIMARY KEY,
     label VARCHAR(32),
-    content TEXT NOT NULL,
+    content JSONB NOT NULL,
     owner_id INT NOT NULL,
     task_id INT,
     project_id INT,

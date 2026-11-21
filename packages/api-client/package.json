@@ -11,8 +11,6 @@
       "import": "./src/index.ts"
     }
   },
-  "dependencies": {
-    "@showcase-mono/backend": "workspace:*",
-    "hono": "^4.0.0"
-  }
+  "dependencies": { "hono": "^4.0.0" },
+  "devDependencies": { "@showcase-mono/backend": "workspace:*" }
 }
