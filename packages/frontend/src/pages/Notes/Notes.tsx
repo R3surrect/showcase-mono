@@ -111,9 +111,7 @@ export const Component = () => {
     return (
         <>
             <Stack gap="md">
-                <ContentHeader
-                    title='Notes'
-                >
+                <ContentHeader title='Notes'>
                     <Button
                         size="sm"
                         variant={"outline"}
@@ -125,7 +123,7 @@ export const Component = () => {
                         </Stack>
                     </Button>
                 </ContentHeader>
-                {!isDismissed && (
+                {!isDismissed &&
                     <Banner
                         isClosable
                         variant="hint"
@@ -147,17 +145,15 @@ export const Component = () => {
                             Click on a note card to open the full view and editor. Use projects and tasks to organize your notes.
                         </Text>
                     </Banner>
-                )}
+                }
                 <Grid columns={MOCK_NOTE_CARDS.length < 5 ? MOCK_NOTE_CARDS.length : 5} autoRows='1fr'>
-
-                    {MOCK_NOTE_CARDS.map(({ id, ...noteProps }) => (
-                        <NoteCard
-                            key={id} {...noteProps}
-                        />
-                    ))}
-
+                    {
+                        MOCK_NOTE_CARDS.map(
+                            ({ id, ...noteProps }) => <NoteCard key={id} {...noteProps} />
+                        )
+                    }
                 </Grid>
-            </Stack>
+            </Stack >
         </>
     );
 };

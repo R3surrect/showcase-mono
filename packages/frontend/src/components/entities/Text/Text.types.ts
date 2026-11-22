@@ -11,7 +11,7 @@ interface TextBaseProps<T extends ElementType> {
     size?: Sizes;
     color?: string;
     align?: TextAlign;
-    children: ReactNode;
+    children?: ReactNode;
     width?: string;
 }
 

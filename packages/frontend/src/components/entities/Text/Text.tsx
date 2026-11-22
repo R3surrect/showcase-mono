@@ -18,7 +18,6 @@ const Text = <T extends ElementType = 'p'>({
     const Tag = as || 'p';
     const style: TextVars = {
         '--text-align': align,
-        // textAlign: align,
         '--text-color': color,
         "--text-size": String(size),
         ...(wrap && truncate && { "--text-line-clamp": truncateAfter }),
