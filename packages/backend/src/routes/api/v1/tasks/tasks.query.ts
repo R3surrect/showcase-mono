@@ -2,10 +2,10 @@ import sql from "../../../../db.js";
 import type { TaskCreateOutput, TaskDbCreateInput, TaskDbDeleteInput, TaskDbUpdateInput, TaskBaseOutput, TaskUpdateOutput, TasksWithDetailsOutput, Task } from "./tasks.types.js";
 
 export type QueryTasksByUserId = (userId: number) => Promise<TasksWithDetailsOutput[]>;
-export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
-export type QueryTaskByOwner = (data: TaskDbDeleteInput) => Promise<TaskCreateOutput[]>;
-export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput | null>;
+export type QueryTaskByOwnerId = (data: TaskDbDeleteInput) => Promise<TaskCreateOutput[]>;
 export type QueryTaskByProjectId = (projectId: number, userId: number) => Promise<TaskBaseOutput[]>;
+export type InsertTaskMutation = (data: TaskDbCreateInput) => Promise<TaskCreateOutput>;
+export type UpdateTask = (data: TaskDbUpdateInput) => Promise<TaskUpdateOutput | null>;
 
 export const findTasksByUserId: QueryTasksByUserId = (userId) =>
     sql<TasksWithDetailsOutput[]>`
@@ -68,7 +68,7 @@ export const createTask: InsertTaskMutation = async (props) => {
     return result;
 }
 
-export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
+export const findTaskById: QueryTaskByOwnerId = ({ id, ownerId }) =>
     sql<TaskBaseOutput[]>`
         SELECT t.*,
         row_to_json(projects.*) as project,
@@ -85,7 +85,7 @@ export const findTaskById: QueryTaskByOwner = ({ id, ownerId }) =>
         where t.owner_id = ${ownerId} and t.id = ${id};
     `;
 
-export const deleteTask: QueryTaskByOwner = ({ id, ownerId }) =>
+export const deleteTask: QueryTaskByOwnerId = ({ id, ownerId }) =>
     sql<TaskCreateOutput[]>` 
         DELETE FROM tasks
         WHERE id = ${id} and owner_id=${ownerId}

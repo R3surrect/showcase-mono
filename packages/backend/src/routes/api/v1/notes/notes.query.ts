@@ -1,18 +1,37 @@
 import sql from "../../../../db.js";
+import type { NoteBaseOutput, NoteCreateOutput, NoteDbCreateInput, NoteDbUpdateInput, NoteUpdateOutput } from "./notes.types.js";
 
-export const findNotesByUserId = (userId: number) =>
+
+export type UpdateNote = (data: NoteDbUpdateInput) => Promise<NoteUpdateOutput>;
+
+export type QueryNotesByUserId = (userId: number) => Promise<NoteBaseOutput[]>;
+export const findNotesByUserId: QueryNotesByUserId = (userId) =>
+    sql<NoteBaseOutput[]>`
+        SELECT *
+        FROM notes
+        WHERE owner_id = ${userId};
+    `;
+
+export type QueryNotesByProjectId = (userId: number, projectId: number) => Promise<NoteBaseOutput[]>
+export const findNotesByProjectId: QueryNotesByProjectId = (userId, projectId) =>
+    sql<NoteBaseOutput[]>`
+        SELECT *
+        FROM notes
+        WHERE notes.owner_id = ${userId} and projectId = ${projectId}
+    `;
+
+export type QueryNotesByTaskId = (userId: number, taskId: number) => Promise<NoteBaseOutput[]>
+export const findNotesByTaskId: QueryNotesByTaskId = (userId, taskId) =>
     sql`
-        SELECT t.*,
-        row_to_json(projects.*) as project,
-        COALESCE(
-            (
-                SELECT json_agg(tags.*)
-                FROM pivot_tasks_tags as ptt
-                JOIN tags on ptt.tag_id = tags.id
-                WHERE ptt.task_id = t.id
-            ), '[]'::json
-        ) as tags
-        FROM tasks as t
-        left join projects on t.project_id = projects.id
-        where t.owner_id = ${userId};
+        SELECT *
+        FROM notes
+        WHERE owner_id = ${userId} and taskId = ${taskId}
+    `;
+
+export type InsertNoteMutation = (data: NoteDbCreateInput) => Promise<NoteCreateOutput>;
+export const createNote: InsertNoteMutation = async ({ label, content, projectId, taskId, ownerId }) =>
+    sql<NoteCreateOutput>`
+        INSERT INTO notes(label, content, project_id, task_id, owner_id)
+        values (${label}, ${content}, ${projectId}, ${taskId}, ${ownerId})
+        RETURNING *
     `;

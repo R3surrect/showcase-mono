@@ -1,8 +1,8 @@
 import type { TagTypeLabels } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.schema";
-import type { TagGetOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
+import type { TagBaseOutput } from "@showcase-mono/backend/routes/api/v1/templates/tags/tag.types";
 
 export interface BaseTagProps {
-    tags: TagGetOutput[];
+    tags: TagBaseOutput[];
     initialValue?: TagTypeLabels;
 }
 

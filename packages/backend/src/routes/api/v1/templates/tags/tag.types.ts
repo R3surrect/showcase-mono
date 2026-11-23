@@ -15,6 +15,7 @@ import type { tagDbDeleteValidation, tagDeleteValidation } from "./validations/t
 export type Tag = z.infer<typeof tagSchema>;
 export type TagId = Tag['id'];
 export type TagOwnerId = Tag['ownerId'];
+export type TagBaseOutput = Omit<Tag, 'ownerId' | 'updatedAt'>;
 
 //* INPUT
 
@@ -25,8 +26,6 @@ export type TagDbDeleteInput = z.infer<typeof tagDbDeleteValidation>;
 export type TagDeleteInput = z.infer<typeof tagDeleteValidation>;
 
 //* OUTPUT
-
-export type TagGetOutput = Omit<Tag, 'ownerId' | 'updatedAt'>
 export type TagCreateOutput = z.infer<typeof tagCreateOutputValidation>
 export type TagUpdateOutput = TagCreateOutput;
 
