@@ -7,6 +7,12 @@ import Text from '@/components/entities/Text/Text';
 import { useHintStore } from '@/store/useHintStore';
 import Grid from '@/components/entities/Grid/Grid';
 import NoteCard from '@/components/entities/NoteCard/NoteCard';
+import Modal from '@/components/shared/Modal/Modal';
+import { useState } from 'react';
+import Surface from '@/components/entities/Surface/Surface';
+import Input from '@/components/entities/Input/Input';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export const hintId = 'notes-page-hint';
 
@@ -107,6 +113,17 @@ const MOCK_NOTE_CARDS = [
 export const Component = () => {
     const isDismissed = useHintStore(store => store.data[hintId]);
     const dismiss = useHintStore(store => store.dismissHint);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // const {
+    //     register,
+    //     handleSubmit,
+    //     control,
+    //     formState: { isSubmitting, isDirty }
+    // } = useForm({
+    //     resolver: zodResolver(noteCreateInputValidation),
+    //     mode: 'onChange',
+    // })
 
     return (
         <>
@@ -115,7 +132,7 @@ export const Component = () => {
                     <Button
                         size="sm"
                         variant={"outline"}
-                        onClick={() => { }}
+                        onClick={() => setIsModalOpen(true)}
                     >
                         <Stack align="center" direction="row" gap="md">
                             <LucidePlusCircle />
@@ -154,6 +171,14 @@ export const Component = () => {
                     }
                 </Grid>
             </Stack >
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <Surface>
+                    <Stack direction='column' gap='md'>
+                        <Text size={4} color='var(--neutral-850)'>Create note</Text>
+                        <Input labelText='Label: ' /*{...register('label')}*/ />
+                    </Stack>
+                </Surface>
+            </Modal>
         </>
     );
 };
