@@ -5,7 +5,7 @@ export const noteSchema = z.object({
     label: z.string().trim().min(1, 'Required field').max(32, 'Note label is too large'),
     content: z.object({
         type: z.literal('doc'),
-        content: z.array(z.unknown()).optional(),
+        content: z.array(z.json()).optional(),
     }),
 
     ownerId: z.number().int().positive(),

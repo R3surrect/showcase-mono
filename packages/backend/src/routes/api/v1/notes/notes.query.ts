@@ -28,10 +28,10 @@ export const findNotesByTaskId: QueryNotesByTaskId = (userId, taskId) =>
         WHERE owner_id = ${userId} and taskId = ${taskId}
     `;
 
-export type InsertNoteMutation = (data: NoteDbCreateInput) => Promise<NoteCreateOutput>;
-export const createNote: InsertNoteMutation = async ({ label, content, projectId, taskId, ownerId }) =>
-    sql<NoteCreateOutput>`
+export type InsertNoteMutation = (data: NoteDbCreateInput) => Promise<NoteCreateOutput[]>;
+export const createNote: InsertNoteMutation = ({ label, content, projectId, taskId, ownerId }) =>
+    sql<NoteCreateOutput[]>`
         INSERT INTO notes(label, content, project_id, task_id, owner_id)
-        values (${label}, ${content}, ${projectId}, ${taskId}, ${ownerId})
+        values (${label}, ${sql.json(content)}, ${projectId}, ${taskId}, ${ownerId})
         RETURNING *
     `;

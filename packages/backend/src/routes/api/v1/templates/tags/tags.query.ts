@@ -1,5 +1,10 @@
 import sql from "../../../../../db.js";
-import type { TagDbCreateInput, TagCreateOutput, TagDbDeleteInput, TagBaseOutput } from "./tag.types.js";
+import type {
+    TagDbCreateInput,
+    TagCreateOutput,
+    TagDbDeleteInput,
+    TagBaseOutput
+} from "./tag.types.js";
 
 export type QueryTagsByUserId = (userId: number) => Promise<TagBaseOutput[]>;
 export const findTagsByUserId: QueryTagsByUserId = (userId) =>
@@ -18,7 +23,7 @@ export const findTagById: QueryTagByOwner = ({ id, ownerId }) =>
     `;
 
 export type InsertTagMutation = (data: TagDbCreateInput) => Promise<TagBaseOutput[]>;
-export const createTag: InsertTagMutation = ({ label, color, type: type, category, ownerId }) =>
+export const createTag: InsertTagMutation = ({ label, color, type, category, ownerId }) =>
     sql<TagCreateOutput[]>`
         INSERT INTO tags(label, color, type, category, owner_id)
         values (${label},${sql.json(color)},${type},${category},${ownerId})
