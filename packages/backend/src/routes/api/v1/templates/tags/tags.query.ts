@@ -8,7 +8,7 @@ import type {
 
 export type QueryTagsByUserId = (userId: number) => Promise<TagBaseOutput[]>;
 export const findTagsByUserId: QueryTagsByUserId = (userId) =>
-    sql<TagCreateOutput[]>`
+    sql<TagBaseOutput[]>`
         SELECT id, label, color, type, category, created_at, updated_at
         FROM tags
         WHERE owner_id = ${userId}
@@ -32,7 +32,7 @@ export const createTag: InsertTagMutation = ({ label, color, type, category, own
 
 export type DeleteTagMutation = (data: TagDbDeleteInput) => Promise<TagBaseOutput[]>;
 export const deleteTag: DeleteTagMutation = ({ id, ownerId }) =>
-    sql<TagCreateOutput[]>` 
+    sql<TagBaseOutput[]>` 
         DELETE FROM tags
         WHERE id = ${id} and owner_id=${ownerId} and category != 'System'
         RETURNING *;
