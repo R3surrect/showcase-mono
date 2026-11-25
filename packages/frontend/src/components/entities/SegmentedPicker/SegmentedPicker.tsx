@@ -8,26 +8,28 @@ const SegmentedPicker = ({
     children,
     overflow = 'visible',
     wrap = false,
+    justify = 'space-between',
     ...props
 }: SegmentedPickerProps) => {
     return <>
         <Stack
             {...props}
             direction='row'
-            justify='space-between'
+            justify={justify}
             align='center'
             overflow={overflow}
         >
             <AnimatePresence>
-                {label && <Text
-                    truncate={false}
-                    size={6}
-                    weight='bolder'
-                    color='var(--cold-blue-gray-400)'
-                    wrap
-                >
-                    {label}
-                </Text>}
+                {label &&
+                    <Text
+                        truncate={false}
+                        size={6}
+                        weight='bolder'
+                        color='var(--monochrome-700)'
+                        wrap
+                    >
+                        {label}
+                    </Text>}
                 <Stack gap='sm' direction='row' overflow='auto' wrap={wrap}>
                     {children}
                 </Stack>

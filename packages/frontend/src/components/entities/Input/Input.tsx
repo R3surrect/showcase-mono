@@ -51,7 +51,7 @@ const Input = ({
     }
 
     const style: InputVars = { '--input-text-align': textAlign };
-
+    
     return <div className={stylesObj.wrapper}>
         <Stack gap='sm' justify='space-between'>
             {labelText &&
@@ -59,7 +59,7 @@ const Input = ({
                     as='label'
                     htmlFor={controlId}
                     size={6}
-                    color='var(--cold-blue-gray-400)'
+                    color='var(--monochrome-800)'
                     weight='bolder'
                 >
                     {labelText}

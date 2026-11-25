@@ -5,20 +5,22 @@ import type { TextProps, TextVars } from '@/components/entities/Text/Text.types'
 const Text = <T extends ElementType = 'p'>({
     as,
     weight = 'bolder',
-    color = 'var(--cold-blue-gray-400)',
+    color = 'var(--monochrome-800)',
     size = 6,
     children,
     align = 'start',
     truncate,
     wrap,
+    truncateAfter = 1,
+    clamped = false,
     ...props
 }: TextProps<T>) => {
     const Tag = as || 'p';
     const style: TextVars = {
-        textAlign: align,
+        '--text-align': align,
         '--text-color': color,
         "--text-size": String(size),
-        "--text-weight": Number(weight),
+        ...(wrap && truncate && { "--text-line-clamp": truncateAfter }),
     };
     return (
         <Tag
@@ -27,6 +29,7 @@ const Text = <T extends ElementType = 'p'>({
             data-weight={weight}
             data-truncate={truncate}
             data-wrap={wrap}
+            data-clamped={clamped}
             style={style}
             {...props}
         >

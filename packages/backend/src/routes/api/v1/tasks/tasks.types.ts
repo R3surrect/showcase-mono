@@ -32,5 +32,5 @@ export type TaskDbUpdateInput = z.infer<typeof taskDbUpdateValidation>;
 export type TaskUpdateOutput = z.infer<typeof taskUpdateOutputSchema>;
 
 //* DELETE
-export type TaskDbDeleteInput = z.infer<typeof taskDbDeleteValidation>;
 export type TaskDeleteInput = z.infer<typeof taskDeleteValidation>;
+export type TaskDbDeleteInput = z.infer<typeof taskDbDeleteValidation>;

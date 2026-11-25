@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { colord } from "colord";
+import { colord } from "@lib/colord";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
 import {
@@ -102,30 +102,6 @@ export const Component = () => {
     return (
         <>
             <Stack gap="md">
-                {
-                    !isDismissed &&
-                    <Banner
-                        isClosable
-                        variant="hint"
-                        onClose={() => dismiss(hintId)}
-                        color='var(--warm-green-500)'
-                    >
-                        <Text
-                            color='var(--warm-green-500)'
-                            weight='bolder'
-                            size={6}
-                        >
-                            Quick access to the Scheduler:
-                        </Text>
-                        <Text
-                            color='var(--warm-green-500)'
-                            size={6}
-                            weight='bold'
-                        >
-                            Clicking on the date on the right or the tags at the top will immediately filter your task feed.
-                        </Text>
-                    </Banner>
-                }
                 <ContentHeader
                     title={selectedDate ? `Tasks on ${dayjs(selectedDate).locale('en').format('DD MMMM YYYY')}` : 'Scheduler'}
                     subElement={<Text color="var(--warm-green-500)">All tasks</Text>}
@@ -199,6 +175,30 @@ export const Component = () => {
                         </Stack>
                     </Button>
                 </ContentHeader>
+                {
+                    !isDismissed &&
+                    <Banner
+                        isClosable
+                        variant="hint"
+                        onClose={() => dismiss(hintId)}
+                        color='var(--warm-green-500)'
+                    >
+                        <Text
+                            color='var(--warm-green-500)'
+                            weight='bolder'
+                            size={6}
+                        >
+                            Quick access to the Scheduler:
+                        </Text>
+                        <Text
+                            color='var(--warm-green-500)'
+                            size={6}
+                            weight='bold'
+                        >
+                            Clicking on the date on the right or the tags at the top will immediately filter your task feed.
+                        </Text>
+                    </Banner>
+                }
                 <Stack direction="row" gap="sm" align="center">
                     <Select name="state" value={statView} setValue={(value: string) => setStatView(isStatView(value) ? value : 'month')}>
                         <option value='day'>Day</option>

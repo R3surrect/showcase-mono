@@ -6,7 +6,7 @@
     transition: .2s;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: var(--tag-justify, center);
     flex-wrap: nowrap;
     align-items: center;
     font-family: var(--font-main), 'Noto Color Emoji';
@@ -19,10 +19,13 @@
     overflow: hidden;
 }
 
+.tag[data-width='max'] { --tag-width: 100% }
+.tag[data-width='fit'] { --tag-width: fit-content }
+.tag[data-width='auto'] { --tag-width: auto }
 
 .default {
-    color: var(--tag-color);
-    background-color: color-mix(in srgb, var(--tag-color), transparent 80%);
+    /* color: var(--tag-color); */
+    background-color: var(--tag-color);
     border-radius: var(--border-radius-20);
 }
 

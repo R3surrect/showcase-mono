@@ -1,7 +1,7 @@
 import stylesObj from './Progress.module.css';
 import { DEFAULT_HSL_COLOR } from '../_shared/system.constants';
 import type { ProgressProps, ProgressVars } from './Progress.types';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 
 const Progress = ({ color, all, value }: ProgressProps) => {
     const valuePercentage = (value / all) * 100;

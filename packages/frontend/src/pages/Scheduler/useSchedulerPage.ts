@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { colord } from "colord";
+import { colord } from "@lib/colord";
 import dayjs, { Dayjs } from "dayjs";
 import {
     LucideCheckCircle,

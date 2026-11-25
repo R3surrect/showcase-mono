@@ -1,11 +1,11 @@
 import { useId } from 'react';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 import { motion } from 'motion/react'
 import clsx from 'clsx';
+import { LucideCircleX, LucidePencil } from 'lucide-react';
 import type { TagVars, TagProps } from '@/components/entities/Tag/Tag.types';
 import stylesObj from './Tag.module.css';
 import Button from '@components/entities/Button/Button';
-import { LucideCircleX, LucidePencil } from 'lucide-react';
 import Stack from '@components/entities/Stack/Stack';
 
 const Tag = (props: TagProps) => {
@@ -20,13 +20,14 @@ const Tag = (props: TagProps) => {
         onEditAction,
         onDeleteAction,
         hasStroke = false,
+        innerJustify = 'center',
         ...rest
     } = props;
     const tagId = isSystem ? genId : `${id}`;
 
     const style: TagVars = {
         '--tag-color': colord(color).toHslString(),
-        '--tag-width': width
+        '--tag-justify': innerJustify,
     }
 
     return <motion.div
@@ -34,6 +35,7 @@ const Tag = (props: TagProps) => {
         className={clsx(stylesObj.tag, stylesObj[props.type?.toLowerCase?.()])}
         data-system={isSystem}
         data-stroke={hasStroke}
+        data-width={width}
         style={style}
         {...rest}
     >
@@ -43,7 +45,7 @@ const Tag = (props: TagProps) => {
                 <Stack
                     direction='row'
                     align='center'
-                    justify='center'
+                    justify={innerJustify}
                     gap='sm'
                     height='max'
                     width='max'

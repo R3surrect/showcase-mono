@@ -11,6 +11,7 @@ import { isValidLucideIcon } from "@components/entities/_shared/system.utils";
 import Select from "@components/entities/Select/Select";
 import type { TagListProps } from "./TagList.types";
 import { createUnionGuard } from "@showcase-mono/backend/shared/guards";
+import { colord } from "@lib/colord";
 
 const TagList = (props: TagListProps) => {
     const { initialValue = 'default' } = props;
@@ -96,7 +97,16 @@ const TagList = (props: TagListProps) => {
                                         data-selected={selectedTags && selectedTags.includes(item.id)}
                                         isEditable={isEditable}
                                     >
-                                        <span>{item.label}</span>
+                                        <Text
+                                            color={
+                                                colord(item.color).contrast("#ffffff")
+                                                    >= colord(item.color).contrast("#1a1a1a")
+                                                    ? colord(item.color).toHslString()
+                                                    : colord(item.color).toHslString()
+                                            }
+                                        >
+                                            {item.label}
+                                        </Text>
                                     </Tag>;
                                 }
 
@@ -115,7 +125,17 @@ const TagList = (props: TagListProps) => {
                                     onDeleteAction={() => isEditable && props?.onDeleteAction?.(item.id)}
                                     onEditAction={() => isEditable && props?.onEditAction?.(item.id)}
                                 >
-                                    <span>{item.label}</span>
+                                    <Text
+                                        weight="bold"
+                                        color={
+                                            colord(item.color).contrast("#ffffff")
+                                                >= colord(item.color).contrast("#1a1a1a")
+                                                ? colord(item.color).lighten(.5).toHslString()
+                                                : colord(item.color).darken(.4).toHslString()
+                                        }
+                                    >
+                                        {item.label}
+                                    </Text>
                                 </Tag>;
                             })}
                         </Stack>

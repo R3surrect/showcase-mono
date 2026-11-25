@@ -1,4 +1,4 @@
-import { colord } from "colord"
+import { colord } from "@lib/colord"
 import dayjs from "dayjs"
 import Stack from "../Stack/Stack"
 import Surface from "../Surface/Surface"

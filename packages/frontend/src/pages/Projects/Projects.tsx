@@ -13,7 +13,7 @@ import Modal from '@/components/shared/Modal/Modal';
 import Grid from '@/components/entities/Grid/Grid';
 import Text from '@/components/entities/Text/Text';
 import ProjectCreateForm from './create';
-import { colord } from 'colord';
+import { colord } from "@lib/colord"
 import { AnimatePresence } from 'motion/react';
 
 export type ProjectsMode = { type: 'idle' } | { type: 'create' } | { type: 'view', projectId: number };

@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS projects (
 );
 CREATE TABLE IF NOT EXISTS tasks (
     id SERIAL PRIMARY KEY,
-    label varchar(64) NOT NULL,
+    label varchar(32) NOT NULL,
     details TEXT,
     deadline TIMESTAMPTZ,
     notify_at TIMESTAMPTZ,
@@ -100,17 +100,17 @@ CREATE TABLE IF NOT EXISTS tasks (
 CREATE TABLE IF NOT EXISTS notes (
     id SERIAL PRIMARY KEY,
     label VARCHAR(32),
-    content TEXT NOT NULL,
+    content JSONB NOT NULL,
     owner_id INT NOT NULL,
+    task_id INT,
+    project_id INT,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     is_archived BOOLEAN DEFAULT FALSE NOT NULL,
     is_pinned BOOLEAN DEFAULT FALSE NOT NULL,
-    task_id INT,
     pinned_at TIMESTAMPTZ,
-    project_id INT,
     CONSTRAINT fk_notes_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+    CONSTRAINT fk_notes_projects FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL,
     CONSTRAINT fk_notes_task FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE SET NULL
 );
 CREATE TABLE IF NOT EXISTS pivot_tasks_tags (

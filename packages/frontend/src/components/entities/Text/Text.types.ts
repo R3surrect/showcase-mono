@@ -11,8 +11,15 @@ interface TextBaseProps<T extends ElementType> {
     size?: Sizes;
     color?: string;
     align?: TextAlign;
-    children: ReactNode;
+    children?: ReactNode;
     width?: string;
+}
+
+interface TextLineClampProps {
+    truncate: true;
+    wrap: true;
+    truncateAfter: number;
+    clamped?: boolean;
 }
 
 interface TextBaseWrapProps {
@@ -27,13 +34,12 @@ interface TextBaseAutoProps {
 
 export type TextProps<T extends ElementType> =
     TextBaseProps<T> &
-    (TextBaseWrapProps | TextBaseAutoProps) &
+    (TextBaseWrapProps | TextBaseAutoProps | TextLineClampProps) &
     Omit<ComponentPropsWithoutRef<T>, keyof TextBaseProps<T> | 'style' | 'className'>;
 
 export interface TextVars extends React.CSSProperties {
-    '--text-weight': number;
     '--text-size': string;
     '--text-color': string;
-    '--text-width': string;
     '--text-align': string;
+    "--text-line-clamp"?: number,
 }
