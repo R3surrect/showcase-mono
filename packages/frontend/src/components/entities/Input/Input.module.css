@@ -3,7 +3,7 @@
 
 .wrapper {
     --inner-offset-top: 0.7rem;
-    --inner-offset-left: 1rem;
+    --inner-offset-left: 0;
 
     transition: .1s ease-in;
     position: relative;
