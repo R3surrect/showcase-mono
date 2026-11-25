@@ -11,8 +11,8 @@ import Modal from '@/components/shared/Modal/Modal';
 import { useState } from 'react';
 import Surface from '@/components/entities/Surface/Surface';
 import Input from '@/components/entities/Input/Input';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+// import { useForm } from 'react-hook-form';
+// import { zodResolver } from '@hookform/resolvers/zod';
 
 export const hintId = 'notes-page-hint';
 
