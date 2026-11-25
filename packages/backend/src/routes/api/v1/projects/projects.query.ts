@@ -61,13 +61,11 @@ export const createProject: CreateProject = async ({
 }
 
 export type UpdateProject = (data: ProjectDbUpdateInput) => Promise<ProjectUpdateOutput | null>;
-export const updateProject: UpdateProject = async ({ id, ownerId, ...fieldsToUpdate }) => {
-    if (id === undefined || ownerId === undefined) return null;
-
+export const updateProject: UpdateProject = async ({ id, ownerId, ...data }) => {
     const rawPayload = {
-        ...fieldsToUpdate,
-        ...(fieldsToUpdate.isPinned !== undefined && {
-            pinnedAt: fieldsToUpdate.isPinned ? new Date() : null
+        ...data,
+        ...(data.isPinned !== undefined && {
+            pinnedAt: data.isPinned ? new Date() : null
         })
     };
 
