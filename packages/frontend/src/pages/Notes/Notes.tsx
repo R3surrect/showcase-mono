@@ -175,7 +175,12 @@ export const Component = () => {
                 <Surface>
                     <Stack direction='column' gap='md'>
                         <Text size={4} color='var(--neutral-850)'>Create note</Text>
-                        <Input labelText='Label: ' /*{...register('label')}*/ />
+                        <Stack direction='column'>
+                            <Input labelText='Label: ' /*{...register('label')}*/ />
+
+                            
+
+                        </Stack>
                     </Stack>
                 </Surface>
             </Modal>
