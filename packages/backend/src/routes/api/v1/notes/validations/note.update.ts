@@ -22,4 +22,8 @@ export const noteDbUpdateValidation = noteSchema
         createdAt: true,
         pinnedAt: true
     })
-    .partial();
+    .partial()
+    .required({
+        id: true,
+        ownerId: true,
+    });
