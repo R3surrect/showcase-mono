@@ -1,18 +1,35 @@
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import Stack from '@/components/entities/Stack/Stack';
 import { LucidePlusCircle } from 'lucide-react';
 import Button from '@/components/entities/Button/Button';
 import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
-import { useHintStore } from '@/store/useHintStore';
 import Grid from '@/components/entities/Grid/Grid';
 import NoteCard from '@/components/entities/NoteCard/NoteCard';
 import Modal from '@/components/shared/Modal/Modal';
-import { useState } from 'react';
 import Surface from '@/components/entities/Surface/Surface';
 import Input from '@/components/entities/Input/Input';
-// import { useForm } from 'react-hook-form';
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { useHintStore } from '@/store/useHintStore';
+
+import type { Editor } from '@tiptap/react';
+import {
+    Bold,
+    Italic,
+    Strikethrough,
+    Code,
+    List,
+    ListOrdered,
+    Quote,
+    Undo,
+    Redo,
+} from 'lucide-react';
+import { noteCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/notes/validations/note.create';
+import { useGetProjectsQuery } from '@/queries/projects/projects.query';
+import Select from '@/components/entities/Select/Select';
+import Option from '@/components/entities/Select/components/Option/Option';
 
 export const hintId = 'notes-page-hint';
 
@@ -115,15 +132,17 @@ export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     control,
-    //     formState: { isSubmitting, isDirty }
-    // } = useForm({
-    //     resolver: zodResolver(noteCreateInputValidation),
-    //     mode: 'onChange',
-    // })
+    const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
+
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { isSubmitting, isDirty }
+    } = useForm({
+        resolver: zodResolver(noteCreateInputValidation),
+        mode: 'onChange',
+    })
 
     return (
         <>
@@ -173,15 +192,46 @@ export const Component = () => {
             </Stack >
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <Surface>
-                    <Stack direction='column' gap='md'>
-                        <Text size={4} color='var(--neutral-850)'>Create note</Text>
-                        <Stack direction='column'>
-                            <Input labelText='Label: ' /*{...register('label')}*/ />
+                    <form>
+                        <Stack direction='column' gap='md'>
+                            <Text size={4} color='var(--neutral-850)'>Create note</Text>
+                            <Stack direction='column'>
 
-                            
+                                <Input labelText='Label: ' {...register('label')} />
 
+                                <Controller
+                                    name="projectId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            name={field.name}
+                                            onBlur={field.onBlur}
+                                            ref={field.ref}
+                                            disabled={field.disabled}
+                                            value={String(field.value ?? 0)}
+                                            // value={field.value}
+                                            labelText="Project"
+                                            setValue={(id) => field.onChange(id)}
+                                        >
+                                            <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
+                                            {
+                                                !isProjectsLoading &&
+                                                projects.map(item =>
+                                                    <Option
+                                                        emoji={item.emoji}
+                                                        label={item.label}
+                                                        id={item.id}
+                                                        key={item.id}
+                                                    />
+                                                )
+                                            }
+                                        </Select>
+                                    )}
+                                />
+
+                            </Stack>
                         </Stack>
-                    </Stack>
+                    </form>
                 </Surface>
             </Modal>
         </>
