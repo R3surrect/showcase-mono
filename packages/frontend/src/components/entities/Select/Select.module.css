@@ -1,14 +1,16 @@
-@import url('@global/styles/_variables');
+@import url('@global/styles/_variables.css');
 
 .select {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     min-width: 12ch;
     appearance: base-select;
     outline: none;
-    border: 1px solid var(--neutral-400);
-    border-radius: var(--border-radius-15);
+    composes: input from "@global/styles/_shared.css";
+    border-radius: var(--border-radius-10);
     padding: 0 .7rem;
-    height: fit-content;
-    background-color: var(--lite-white);
+    height: 32px;
 }
 
 .select button {
