@@ -18,13 +18,10 @@
     flex-direction: row;
     align-items: center;
     padding: 0 .875rem;
-    background-color: var(--glass-surface-light-80);
     border-radius: var(--border-radius-10);
-    color: var(--neutral-750);
+    composes: input from "@global/styles/_shared.css";
 
     will-change: transform;
-    background-color: var(--glass-surface-light-30);
-    border: 1px solid var(--neutral-350);
     color: var(--neutral-850);
     box-shadow: var(--shadow-sm);
     animation: none;
