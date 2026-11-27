@@ -14,7 +14,14 @@ import Surface from '@/components/entities/Surface/Surface';
 import Input from '@/components/entities/Input/Input';
 import { useHintStore } from '@/store/useHintStore';
 
-import type { Editor } from '@tiptap/react';
+import { noteCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/notes/validations/note.create';
+import { useGetProjectsQuery } from '@/queries/projects/projects.query';
+import Select from '@/components/entities/Select/Select';
+import Option from '@/components/entities/Select/components/Option/Option';
+
+import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
+import StarterKit from "@tiptap/starter-kit";
+
 import {
     Bold,
     Italic,
@@ -26,10 +33,6 @@ import {
     Undo,
     Redo,
 } from 'lucide-react';
-import { noteCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/notes/validations/note.create';
-import { useGetProjectsQuery } from '@/queries/projects/projects.query';
-import Select from '@/components/entities/Select/Select';
-import Option from '@/components/entities/Select/components/Option/Option';
 
 export const hintId = 'notes-page-hint';
 
@@ -144,6 +147,34 @@ export const Component = () => {
         mode: 'onChange',
     })
 
+    const editor = useEditor({
+        immediatelyRender: true,
+        content: "",
+        extensions: [
+            StarterKit,
+        ],
+        editorProps: {
+            attributes: {
+                style: 'outline: none;',
+            },
+        },
+    });
+
+    const editorState = useEditorState({
+        editor,
+        selector: (ctx) => ({
+            isBold: editor.isActive('bold'),
+            isItalic: editor.isActive('italic'),
+            isStrike: editor.isActive('strike'),
+            isCode: editor.isActive('code'),
+            isBulletList: editor.isActive('bulletList'),
+            isOrderedList: editor.isActive('orderedList'),
+            isBlockquote: editor.isActive('blockquote'),
+            canUndo: editor.can().undo(),
+            canRedo: editor.can().redo(),
+        }),
+    })
+
     return (
         <>
             <Stack gap="md">
@@ -191,7 +222,7 @@ export const Component = () => {
                 </Grid>
             </Stack >
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <Surface>
+                <Surface width='50vw'>
                     <form>
                         <Stack direction='column' gap='md'>
                             <Text size={4} color='var(--neutral-850)'>Create note</Text>
@@ -228,6 +259,89 @@ export const Component = () => {
                                         </Select>
                                     )}
                                 />
+
+                                <Stack direction='row' gap='sm' justify='start'>
+
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isBold ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleBold().run()}
+                                    >
+                                        <Bold size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isItalic ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleItalic().run()}
+                                    >
+                                        <Italic size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isStrike ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleStrike().run()}
+                                    >
+                                        <Strikethrough size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isCode ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleCode().run()}
+                                    >
+                                        <Code size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isBulletList ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleBulletList().run()}
+                                    >
+                                        <List size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isOrderedList ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                                    >
+                                        <ListOrdered size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant={editorState.isBlockquote ? 'accent' : 'outline'}
+                                        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                                    >
+                                        <Quote size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant="outline"
+                                        disabled={!editorState.canUndo}
+                                        onClick={() => editor.chain().focus().undo().run()}
+                                    >
+                                        <Undo size="14" />
+                                    </Button>
+                                    <Button
+                                        type="button"
+                                        size='sm'
+                                        variant="outline"
+                                        disabled={!editorState.canRedo}
+                                        onClick={() => editor.chain().focus().redo().run()}
+                                    >
+                                        <Redo size="14" />
+                                    </Button>
+
+                                </Stack>
+
+                                <Surface>
+                                    <EditorContent style={{ outline: 'none' }} editor={editor} />
+                                </Surface>
 
                             </Stack>
                         </Stack>
