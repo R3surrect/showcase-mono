@@ -1,0 +1,52 @@
+@import url('@global/styles/_variables.css');
+
+.editorView {
+    max-height: 30dvh;
+}
+
+.editorView ul,
+.editorView ol {
+    padding-inline-start: 1.5rem;
+}
+
+.editorView li {
+    padding-inline-start: 0.25rem;
+}
+
+.editorView blockquote {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--cold-blue-gray-400);
+    /* background-color: var(--cold-blue-gray-400); */
+    border-radius: 0 0.375rem 0.375rem 0;
+    color: var(--cold-blue-gray-400);
+    font-weight: 600;
+}
+
+.editorView blockquote p {
+    margin: 0;
+}
+
+.editorView code {
+    padding: 0.15em 0.35em;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    background: var(--cold-blue-gray-400);
+    color: var(--lite-white);
+    font-family: monospace;
+    font-size: 0.875em;
+}
+
+.editorView pre {
+    margin: 1rem 0;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 0.5rem;
+}
+
+.editorView pre code {
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    font-size: 0.875rem;
+}

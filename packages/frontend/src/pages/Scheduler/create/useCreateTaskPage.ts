@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type SubmitErrorHandler } from "react-hook-form";
-
 import useToast from "@/components/entities/Toast/useToast";
 import { useGetPrioritiesQuery } from "@/queries/priorities/priority.query";
 import { useGetProjectsQuery } from "@/queries/projects/projects.query";
@@ -20,7 +19,6 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     const {
         register,
         handleSubmit,
-        getValues,
         control,
         formState: { isSubmitting, isDirty }
     } = useForm({
@@ -54,7 +52,6 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     // const onInvalid: SubmitErrorHandler<TaskCreateInput> = (errors) => {
     const onInvalid: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
         clearToasts();
-        console.log(getValues())
         Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {
                 pushToast({

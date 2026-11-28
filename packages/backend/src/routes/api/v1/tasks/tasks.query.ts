@@ -93,7 +93,6 @@ export const deleteTask: QueryTaskByOwnerId = ({ id, ownerId }) =>
     `;
 
 export const updateTask: UpdateTask = async ({ id, ownerId, ...rawUpdateObj }) => {
-    if (id === undefined || ownerId === undefined) return null;
     const { tagIds, ...fieldsToUpdate } = rawUpdateObj;
 
     const rawPayload = {

@@ -16,7 +16,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                     as='label'
                     htmlFor={controlId}
                     size={6}
-                    color='var(--cold-blue-gray-400)'
+                    color='var(--monochrome-800)'
                     weight='bolder'
                 >
                     {labelText}
@@ -29,7 +29,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                 id={controlId}
                 name={name}
             >
-                <button className={stylesObj.selectButton}>
+                <button>
                     <Stack direction='row' align='center' justify='space-between'>
                         <selectedcontent></selectedcontent>
                         <LucideChevronRight strokeWidth={2} color='var(--neutral-550)' />

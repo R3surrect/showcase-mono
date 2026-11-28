@@ -1,0 +1,5 @@
+.input {
+    background-color: var(--glass-surface-light-30);
+    color: var(--neutral-750);
+    border: 1px solid var(--neutral-350);
+}

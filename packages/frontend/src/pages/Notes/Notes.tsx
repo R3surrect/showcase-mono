@@ -1,18 +1,33 @@
+import { useState } from 'react';
+import { Controller, useController, useForm, type SubmitErrorHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import Stack from '@/components/entities/Stack/Stack';
-import { LucidePlusCircle } from 'lucide-react';
+import { LucideCheckCircle2, LucidePlusCircle } from 'lucide-react';
 import Button from '@/components/entities/Button/Button';
 import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
-import { useHintStore } from '@/store/useHintStore';
 import Grid from '@/components/entities/Grid/Grid';
 import NoteCard from '@/components/entities/NoteCard/NoteCard';
 import Modal from '@/components/shared/Modal/Modal';
-import { useState } from 'react';
 import Surface from '@/components/entities/Surface/Surface';
 import Input from '@/components/entities/Input/Input';
-// import { useForm } from 'react-hook-form';
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { useHintStore } from '@/store/useHintStore';
+
+import { noteCreateInputValidation } from '@showcase-mono/backend/routes/api/v1/notes/validations/note.create';
+import { useGetProjectsQuery } from '@/queries/projects/projects.query';
+import Select from '@/components/entities/Select/Select';
+import Option from '@/components/entities/Select/components/Option/Option';
+
+import { useEditor } from '@tiptap/react';
+import StarterKit from "@tiptap/starter-kit";
+
+import EditorToolbar from '@/components/entities/Editor/components/EditorToolbar/EditorToolbar';
+import EditorView from '@/components/entities/Editor/components/EditorView/EditorView';
+import { useGetTasksQuery } from '@/queries/tasks/task.query';
+import useToast from '@/components/entities/Toast/useToast';
+import type { NoteCreateInput, NoteCreateInputDirty } from '@showcase-mono/backend/routes/api/v1/notes/notes.types';
+import { useCreateNoteQuery } from '@/queries/notes/note.query';
 
 export const hintId = 'notes-page-hint';
 
@@ -115,15 +130,63 @@ export const Component = () => {
     const dismiss = useHintStore(store => store.dismissHint);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     control,
-    //     formState: { isSubmitting, isDirty }
-    // } = useForm({
-    //     resolver: zodResolver(noteCreateInputValidation),
-    //     mode: 'onChange',
-    // })
+    const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
+    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
+
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { isSubmitting, isDirty }
+    } = useForm({
+        resolver: zodResolver(noteCreateInputValidation),
+        mode: 'onChange',
+    })
+
+    const { mutate: createNote } = useCreateNoteQuery();
+    const { field } = useController({ name: 'content', control });
+
+    const editor = useEditor({
+        immediatelyRender: true,
+        content: "",
+        extensions: [
+            StarterKit,
+        ],
+        editorProps: {
+            attributes: {
+                style: 'outline: none;',
+            },
+        },
+        onUpdate: ({ editor }) => field.onChange(editor.getJSON())
+    });
+
+    const { pushToast, clearToasts } = useToast();
+
+    const onValid = (data: NoteCreateInput) => {
+        clearToasts();
+        createNote(data);
+
+        pushToast({
+            text: `Note ${data.label} created`,
+            type: 'popup',
+            label: 'Task created',
+            status: 'success'
+        });
+    }
+
+    const onInvalid: SubmitErrorHandler<NoteCreateInputDirty> = (errors) => {
+        clearToasts();
+        Object.entries(errors).forEach(([fieldName, error]) => {
+            if (error?.message) {
+                pushToast({
+                    text: `${fieldName}: ${error.message}`,
+                    type: 'popup',
+                    label: 'Validation error',
+                    status: 'error'
+                });
+            }
+        });
+    }
 
     return (
         <>
@@ -172,11 +235,93 @@ export const Component = () => {
                 </Grid>
             </Stack >
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-                <Surface>
-                    <Stack direction='column' gap='md'>
-                        <Text size={4} color='var(--neutral-850)'>Create note</Text>
-                        <Input labelText='Label: ' /*{...register('label')}*/ />
-                    </Stack>
+                <Surface width='50vw'>
+                    <form onSubmit={handleSubmit(onValid, onInvalid)}>
+                        <Stack direction='column' gap='md'>
+                            <Text size={4} color='var(--neutral-850)'>Create note</Text>
+                            <Stack direction='column'>
+
+                                <Input labelText='Label' {...register('label')} />
+
+                                <Controller
+                                    name="projectId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            name={field.name}
+                                            onBlur={field.onBlur}
+                                            ref={field.ref}
+                                            disabled={field.disabled}
+                                            value={String(field.value ?? 0)}
+                                            // value={field.value}
+                                            labelText="Project"
+                                            setValue={(id) => field.onChange(id)}
+                                        >
+                                            <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
+                                            {
+                                                !isProjectsLoading &&
+                                                projects.map(item =>
+                                                    <Option
+                                                        emoji={item.emoji}
+                                                        label={item.label}
+                                                        id={item.id}
+                                                        key={item.id}
+                                                    />
+                                                )
+                                            }
+                                        </Select>
+                                    )}
+                                />
+                                <Controller
+                                    name="taskId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            name={field.name}
+                                            onBlur={field.onBlur}
+                                            ref={field.ref}
+                                            disabled={field.disabled}
+                                            value={String(field.value ?? 0)}
+                                            // value={field.value}
+                                            labelText="Task"
+                                            setValue={(id) => field.onChange(id)}
+                                        >
+                                            <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
+                                            {
+                                                !isTasksLoading &&
+                                                tasks.map(item =>
+                                                    <Option
+                                                        emoji='👾'
+                                                        label={item.label}
+                                                        id={item.id}
+                                                        key={item.id}
+                                                    />
+                                                )
+                                            }
+                                        </Select>
+                                    )}
+                                />
+
+                                <EditorToolbar editor={editor} />
+
+                                <Surface>
+                                    <EditorView editor={editor} />
+                                </Surface>
+
+                                <Button
+                                    variant="accent"
+                                    width="max"
+                                    type="submit"
+                                    disabled={isSubmitting || !isDirty}
+                                >
+                                    <Stack direction="row" align="center">
+                                        <LucideCheckCircle2 />
+                                        Create
+                                    </Stack>
+                                </Button>
+                            </Stack>
+                        </Stack>
+                    </form>
                 </Surface>
             </Modal>
         </>

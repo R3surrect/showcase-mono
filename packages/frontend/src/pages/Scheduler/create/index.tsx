@@ -1,9 +1,7 @@
-import { isValidElement } from "react";
 import { Controller } from "react-hook-form";
 import { LucideCheckCircle2 } from "lucide-react";
 import dayjs from "dayjs";
 import Button from "@/components/entities/Button/Button";
-import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
 import Input from "@/components/entities/Input/Input";
 import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
 import Select from "@/components/entities/Select/Select";
@@ -12,25 +10,7 @@ import Tag from "@/components/entities/Tag/Tag";
 import TagList from "@/components/entities/TagList/TagList";
 import Text from "@/components/entities/Text/Text";
 import { useCreateTaskPage } from "./useCreateTaskPage";
-import type { OptionType, /*TaskCreateFormProps*/ } from "./types";
-
-const Option = ({ id, emoji, label }: OptionType) => {
-    const emojiRender = isValidElement(emoji)
-        ? emoji
-        : <EmojiPreview emoji={String(emoji)} />;
-
-    return <option value={id}>
-        <Stack
-            direction="row"
-            align="center"
-            gap="md"
-            width="max"
-        >
-            {emoji && emojiRender}
-            <div>{label}</div>
-        </Stack>
-    </option>
-};
+import Option from "@/components/entities/Select/components/Option/Option";
 
 const TaskCreateForm = (/*{ selectedDate }: TaskCreateFormProps*/) => {
     const {

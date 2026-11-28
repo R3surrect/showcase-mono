@@ -25,4 +25,8 @@ export const taskDbUpdateValidation = taskSchema
         pinnedAt: true,
     })
     .extend(hasTagsReferenceMixin)
-    .partial();
+    .partial()
+    .required({
+        id: true,
+        ownerId: true
+    });

@@ -37,7 +37,6 @@ export const getTagsQueryOptions = () => {
     })
 }
 
-
 export const useGetTagsQuery = () => useQuery(getTagsQueryOptions())
 
 export const useGetTagByIdQuery = (id: number) => {

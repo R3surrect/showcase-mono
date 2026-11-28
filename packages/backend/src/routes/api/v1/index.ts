@@ -11,6 +11,7 @@ import { categoriesRouter } from "./tags/categories.js";
 import { prioritiesRouter } from "./tags/priorities.js";
 import { statusesRouter } from "./tags/statuses.js";
 import { tasksRouter } from "./tasks/tasks.js";
+import { notesRouter } from "./notes/notes.js";
 
 const v1Router = new Hono();
 
@@ -20,6 +21,7 @@ v1Router.use('/tags/*', authMiddleware);
 v1Router.use('/priorities/*', authMiddleware);
 v1Router.use('/statuses/*', authMiddleware);
 v1Router.use('/tasks/*', authMiddleware);
+v1Router.use('/notes/*', authMiddleware);
 
 export const appRouterV1 = v1Router
     .route("/auth", registerRouter)
@@ -33,6 +35,7 @@ export const appRouterV1 = v1Router
     .route('/statuses', statusesRouter)
     .route('/priorities', prioritiesRouter)
     .route('/tasks', tasksRouter)
+    .route('/notes', notesRouter)
 
 export type AppRouterV1 = typeof appRouterV1;
 export default v1Router;
