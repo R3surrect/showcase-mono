@@ -16,7 +16,7 @@ const Select = ({ id, value, name, setValue, labelText, children }: SelectProps)
                     as='label'
                     htmlFor={controlId}
                     size={6}
-                    color='var(--cold-blue-gray-400)'
+                    color='var(--monochrome-800)'
                     weight='bolder'
                 >
                     {labelText}
