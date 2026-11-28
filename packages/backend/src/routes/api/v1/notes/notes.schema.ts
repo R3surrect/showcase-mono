@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isValidEditorDoc } from "../../../../shared/validations/isValidEditorDoc.js";
 
 export const noteSchema = z.object({
     id: z.number().int().positive(),
@@ -7,10 +8,8 @@ export const noteSchema = z.object({
         .trim()
         .min(1, 'Required field')
         .max(32, 'Note label is too large'),
-    content: z.object({
-        type: z.literal('doc'),
-        content: z.array(z.json()).optional(),
-    }),
+        
+    content: z.record(z.string(), z.unknown()).refine(isValidEditorDoc, 'Invalid document'),
 
     ownerId: z.number().int().positive(),
     projectId: z.number().int().positive(),

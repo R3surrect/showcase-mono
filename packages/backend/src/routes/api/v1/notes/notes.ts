@@ -6,7 +6,7 @@ import { noteCreateInputValidation } from "./validations/note.create.js";
 import z from "zod";
 import { noteUpdateValidation } from "./validations/note.update.js";
 
-export const notesRoutes = new Hono<AuthEnv>()
+export const notesRouter = new Hono<AuthEnv>()
     .get('/',
         async (c) => {
             const notes = await findNotesByUserId(c.get('user').id);
