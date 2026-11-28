@@ -19,7 +19,6 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     const {
         register,
         handleSubmit,
-        getValues,
         control,
         formState: { isSubmitting, isDirty }
     } = useForm({
@@ -53,7 +52,6 @@ export const useCreateTaskPage = (/*selectedDate?: Date*/) => {
     // const onInvalid: SubmitErrorHandler<TaskCreateInput> = (errors) => {
     const onInvalid: SubmitErrorHandler<TaskCreateInputDirty> = (errors) => {
         clearToasts();
-        console.log(getValues())
         Object.entries(errors).forEach(([fieldName, error]) => {
             if (error?.message) {
                 pushToast({

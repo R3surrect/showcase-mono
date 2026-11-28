@@ -1,9 +1,7 @@
-import { isValidElement } from "react";
 import { Controller } from "react-hook-form";
 import { LucideCheckCircle2 } from "lucide-react";
 import dayjs from "dayjs";
 import Button from "@/components/entities/Button/Button";
-import EmojiPreview from "@/components/entities/Emoji/EmojiPreview/EmojiPreview";
 import Input from "@/components/entities/Input/Input";
 import SegmentedPicker from "@/components/entities/SegmentedPicker/SegmentedPicker";
 import Select from "@/components/entities/Select/Select";
