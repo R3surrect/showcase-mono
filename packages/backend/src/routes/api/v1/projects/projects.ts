@@ -39,7 +39,7 @@ export const projectsRouter = new Hono<AuthEnv>()
 
             if (Object.values(data).length === 0) return c.json([{ message: 'No fields provided' }], 400);
 
-            const updatedProject = await updateProject({ id: projectId, ownerId: userId, ...data });
+            const updatedProject = await updateProject({ ...data, id: projectId, ownerId: userId });
             return c.json(updatedProject, 201);
         }
     )

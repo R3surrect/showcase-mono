@@ -2,8 +2,9 @@ import { projectSchema } from "../projects.schema.js";
 
 export const projectUpdateValidation = projectSchema
     .omit({
-        createdAt: true,
+        id: true,
         ownerId: true,
+        createdAt: true,
         pinnedAt: true,
     }).partial();
 
