@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useController, useForm, type SubmitErrorHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ContentHeader } from '@/components/entities/ContentHeader/ContentHeader';
 import Stack from '@/components/entities/Stack/Stack';
-import { LucidePlusCircle } from 'lucide-react';
+import { LucideCheckCircle2, LucidePlusCircle } from 'lucide-react';
 import Button from '@/components/entities/Button/Button';
 import Banner from '@/components/entities/Banner/Banner';
 import Text from '@/components/entities/Text/Text';
@@ -19,20 +19,15 @@ import { useGetProjectsQuery } from '@/queries/projects/projects.query';
 import Select from '@/components/entities/Select/Select';
 import Option from '@/components/entities/Select/components/Option/Option';
 
-import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
+import { useEditor } from '@tiptap/react';
 import StarterKit from "@tiptap/starter-kit";
 
-import {
-    Bold,
-    Italic,
-    Strikethrough,
-    Code,
-    List,
-    ListOrdered,
-    Quote,
-    Undo,
-    Redo,
-} from 'lucide-react';
+import EditorToolbar from '@/components/entities/Editor/components/EditorToolbar/EditorToolbar';
+import EditorView from '@/components/entities/Editor/components/EditorView/EditorView';
+import { useGetTasksQuery } from '@/queries/tasks/task.query';
+import useToast from '@/components/entities/Toast/useToast';
+import type { NoteCreateInput, NoteCreateInputDirty } from '@showcase-mono/backend/routes/api/v1/notes/notes.types';
+import { useCreateNoteQuery } from '@/queries/notes/note.query';
 
 export const hintId = 'notes-page-hint';
 
@@ -136,6 +131,7 @@ export const Component = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const { data: projects = [], isLoading: isProjectsLoading } = useGetProjectsQuery();
+    const { data: tasks = [], isLoading: isTasksLoading } = useGetTasksQuery();
 
     const {
         register,
@@ -146,6 +142,9 @@ export const Component = () => {
         resolver: zodResolver(noteCreateInputValidation),
         mode: 'onChange',
     })
+
+    const { mutate: createNote } = useCreateNoteQuery();
+    const { field } = useController({ name: 'content', control });
 
     const editor = useEditor({
         immediatelyRender: true,
@@ -158,22 +157,36 @@ export const Component = () => {
                 style: 'outline: none;',
             },
         },
+        onUpdate: ({ editor }) => field.onChange(editor.getJSON())
     });
 
-    const editorState = useEditorState({
-        editor,
-        selector: (ctx) => ({
-            isBold: editor.isActive('bold'),
-            isItalic: editor.isActive('italic'),
-            isStrike: editor.isActive('strike'),
-            isCode: editor.isActive('code'),
-            isBulletList: editor.isActive('bulletList'),
-            isOrderedList: editor.isActive('orderedList'),
-            isBlockquote: editor.isActive('blockquote'),
-            canUndo: editor.can().undo(),
-            canRedo: editor.can().redo(),
-        }),
-    })
+    const { pushToast, clearToasts } = useToast();
+
+    const onValid = (data: NoteCreateInput) => {
+        clearToasts();
+        createNote(data);
+
+        pushToast({
+            text: `Note ${data.label} created`,
+            type: 'popup',
+            label: 'Task created',
+            status: 'success'
+        });
+    }
+
+    const onInvalid: SubmitErrorHandler<NoteCreateInputDirty> = (errors) => {
+        clearToasts();
+        Object.entries(errors).forEach(([fieldName, error]) => {
+            if (error?.message) {
+                pushToast({
+                    text: `${fieldName}: ${error.message}`,
+                    type: 'popup',
+                    label: 'Validation error',
+                    status: 'error'
+                });
+            }
+        });
+    }
 
     return (
         <>
@@ -223,12 +236,12 @@ export const Component = () => {
             </Stack >
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
                 <Surface width='50vw'>
-                    <form>
+                    <form onSubmit={handleSubmit(onValid, onInvalid)}>
                         <Stack direction='column' gap='md'>
                             <Text size={4} color='var(--neutral-850)'>Create note</Text>
                             <Stack direction='column'>
 
-                                <Input labelText='Label: ' {...register('label')} />
+                                <Input labelText='Label' {...register('label')} />
 
                                 <Controller
                                     name="projectId"
@@ -259,90 +272,53 @@ export const Component = () => {
                                         </Select>
                                     )}
                                 />
+                                <Controller
+                                    name="taskId"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <Select
+                                            name={field.name}
+                                            onBlur={field.onBlur}
+                                            ref={field.ref}
+                                            disabled={field.disabled}
+                                            value={String(field.value ?? 0)}
+                                            // value={field.value}
+                                            labelText="Task"
+                                            setValue={(id) => field.onChange(id)}
+                                        >
+                                            <Option emoji={String.fromCodePoint(0x1F4E5)} id={0} label="None" key={0} />
+                                            {
+                                                !isTasksLoading &&
+                                                tasks.map(item =>
+                                                    <Option
+                                                        emoji='👾'
+                                                        label={item.label}
+                                                        id={item.id}
+                                                        key={item.id}
+                                                    />
+                                                )
+                                            }
+                                        </Select>
+                                    )}
+                                />
 
-                                <Stack direction='row' gap='sm' justify='start'>
-
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isBold ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleBold().run()}
-                                    >
-                                        <Bold size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isItalic ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleItalic().run()}
-                                    >
-                                        <Italic size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isStrike ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleStrike().run()}
-                                    >
-                                        <Strikethrough size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isCode ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleCode().run()}
-                                    >
-                                        <Code size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isBulletList ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleBulletList().run()}
-                                    >
-                                        <List size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isOrderedList ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                                    >
-                                        <ListOrdered size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant={editorState.isBlockquote ? 'accent' : 'outline'}
-                                        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                                    >
-                                        <Quote size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant="outline"
-                                        disabled={!editorState.canUndo}
-                                        onClick={() => editor.chain().focus().undo().run()}
-                                    >
-                                        <Undo size="14" />
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        size='sm'
-                                        variant="outline"
-                                        disabled={!editorState.canRedo}
-                                        onClick={() => editor.chain().focus().redo().run()}
-                                    >
-                                        <Redo size="14" />
-                                    </Button>
-
-                                </Stack>
+                                <EditorToolbar editor={editor} />
 
                                 <Surface>
-                                    <EditorContent style={{ outline: 'none' }} editor={editor} />
+                                    <EditorView editor={editor} />
                                 </Surface>
 
+                                <Button
+                                    variant="accent"
+                                    width="max"
+                                    type="submit"
+                                    disabled={isSubmitting || !isDirty}
+                                >
+                                    <Stack direction="row" align="center">
+                                        <LucideCheckCircle2 />
+                                        Create
+                                    </Stack>
+                                </Button>
                             </Stack>
                         </Stack>
                     </form>
